@@ -72,7 +72,77 @@ button{cursor:pointer}
 <div id="anim-overlay"></div>
 
 <script>
-// ── SAFE STORAGE (GitHub Pages compatible) ──────────────
+// ── STARTER PACK ────────────────────────────────────────
+let STARTER_PACK=null;
+try{const s=safeStorage.get("tcg_starter_pack_v1");if(s)STARTER_PACK=s;}catch(e){}
+const saveStarterPack=id=>{STARTER_PACK=id;try{safeStorage.set("tcg_starter_pack_v1",id);}catch(e){}};
+
+// Mapping pack → decks débloqués par défaut
+const PACK_TO_DECKS={
+  amazones:["amazones","primitifs"],
+  amerindiens:["amerindiens","primitifs"],
+  grecs:["grecs","empire"],
+  egyptiens:["egyptiens","empire"],
+  pirates:["pirates","navigateurs"],
+  vikings:["vikings","navigateurs"],
+};
+// Factions requises par deck pour calcul 85%
+const DECK_REQ_FACTIONS={
+  vikings:["Vikings"],pirates:["Pirates"],navigateurs:["Vikings","Pirates"],
+  amazones:["Amazones"],amerindiens:["Amerindiens"],primitifs:["Amazones","Amerindiens"],
+  egyptiens:["Egyptiens"],grecs:["Grecs"],empire:["Egyptiens","Grecs"],
+  ninjas:["Ninjas"],empoisonneurs:["Empoisonneurs"],corrompus:["Ninjas","Empoisonneurs"],
+};
+
+const isDeckStarterUnlocked=(deckId)=>{
+  if(!STARTER_PACK)return false;
+  return(PACK_TO_DECKS[STARTER_PACK]||[]).includes(deckId);
+};
+
+const getDeckCollectionPct=(deckId)=>{
+  const factions=DECK_REQ_FACTIONS[deckId]||[];
+  if(!factions.length)return 0;
+  const allCards=CARDS.filter(c=>factions.includes(c.faction)&&!c.isFusion);
+  if(!allCards.length)return 0;
+  const owned=allCards.filter(c=>(COLLECTION[c.id]||0)>0).length;
+  return owned/allCards.length;
+};
+
+// Un deck est jouable si: starter OU 85%+ collection
+const isDeckPlayable=(deckId)=>{
+  const dk=DECKS[deckId];
+  if(!dk||dk.bossOnly||dk.locked)return false;
+  if(isDeckStarterUnlocked(deckId))return true;
+  return getDeckCollectionPct(deckId)>=0.85;
+};
+
+// Starter choice: 6 individual faction decks
+const STARTER_CHOICES=[
+  {id:"amazones",name:"Amazones",icon:"🌿",color:"#44bb66",
+   factions:["Amazones"],
+   desc:"Guerrières de la jungle. Maîtresses du cri de guerre et de l'affaiblissement ennemi.",
+   flavor:"'La forêt nous appartient.'"},
+  {id:"amerindiens",name:"Amérindiens",icon:"🪶",color:"#c87820",
+   factions:["Amerindiens"],
+   desc:"Chamans des plaines. Attaques surprises et synergies avec les esprits.",
+   flavor:"'La terre parle à ceux qui écoutent.'"},
+  {id:"grecs",name:"Grecs",icon:"🏛️",color:"#c8a020",
+   factions:["Grecs"],
+   desc:"Héros de l'Olympe. Gloire, prestige et fusions légendaires.",
+   flavor:"'Que les dieux guident ma lame.'"},
+  {id:"egyptiens",name:"Égyptiens",icon:"🏺",color:"#d4a800",
+   factions:["Egyptiens"],
+   desc:"Pharaons et dieux. Malédictions, affaiblissements et cartes redoutables.",
+   flavor:"'Le Nil nourrit, Anubis juge.'"},
+  {id:"pirates",name:"Pirates",icon:"⚓",color:"#f0a500",
+   factions:["Pirates"],
+   desc:"Flibustiers des mers. Pillage de cartes et attaques dévastatrices.",
+   flavor:"'Tout ce qui brille nous appartient.'"},
+  {id:"vikings",name:"Vikings",icon:"⚡",color:"#4ab8ff",
+   factions:["Vikings"],
+   desc:"Seigneurs du Nord. Honneur de clan, force brute et berserkers.",
+   flavor:"'Valhalla nous attend !'"},
+];
 const safeStorage={
   get(k){try{return localStorage.getItem(k);}catch(e){return null;}},
   set(k,v){try{localStorage.setItem(k,v);}catch(e){}},
@@ -443,66 +513,66 @@ const CARDS = [
 ];
 
 const DECKS = {
-  vikings:{id:"vikings",name:"Clan du Nord",icon:"🪓",color:"#4ab8ff",
+  vikings:{id:"vikings",name:"Clan du Nord",icon:"🪓",color:"#4ab8ff",image:"adversaires/vikings.png",
     desc:"Draft aléatoire à chaque partie. Pool : cartes Vikings + Neutres.",
     keys:["ragnar","borgh","fenrir","erikhache","brokk"],
     factions:["Vikings","Neutre"],
     slots:{personnage:20,lieu:2,action:10,equipement:8}},
-  pirates:{id:"pirates",name:"Flotte Ecarlate",icon:"☠️",color:"#f0a500",
+  pirates:{id:"pirates",name:"Flotte Ecarlate",icon:"☠️",color:"#f0a500",image:"adversaires/pirates.png",
     desc:"Draft aléatoire à chaque partie. Pool : cartes Pirates + Neutres.",
     keys:["kraken","ironhook","barbe","corliss","iskra"],
     factions:["Pirates","Neutre"],
     slots:{personnage:20,lieu:2,action:10,equipement:8}},
-  navigateurs:{id:"navigateurs",name:"Navigateurs Libres",icon:"⚓",color:"#cc66ff",
+  navigateurs:{id:"navigateurs",name:"Navigateurs Libres",icon:"⚓",color:"#cc66ff",image:"adversaires/navigateurs.png",
     desc:"Draft aléatoire à chaque partie. Pool : cartes Pirates + Vikings + Neutres.",
     keys:["thorgal","corliss","borgh","fenrir","freyja"],
     factions:["Pirates","Vikings","Neutre"],
     slots:{personnage:20,lieu:2,action:10,equipement:8}},
-  amazones:{id:"amazones",name:"Clan des Primitifs",icon:"🌿",color:"#44bb66",
+  amazones:{id:"amazones",name:"Clan des Primitifs",icon:"🌿",color:"#44bb66",image:"adversaires/amazones.png",
     desc:"Draft aléatoire à chaque partie. Pool : cartes Amazones + Neutres.",
     keys:["vaelya","kaela","arya","maira","sayuri"],
     factions:["Amazones","Neutre"],
     slots:{personnage:20,lieu:2,action:10,equipement:8}},
-  egyptiens:{id:"egyptiens",name:"Sable et Divinite",icon:"𓂀",color:"#d4a800",
+  egyptiens:{id:"egyptiens",name:"Sable et Divinite",icon:"𓂀",color:"#d4a800",image:"adversaires/egyptiens.png",
     desc:"Draft aléatoire à chaque partie. Pool : cartes Égyptiens + Neutres.",
     keys:["pharaon","ra","anubis","isis","horus"],
     factions:["Egyptiens","Neutre"],
     slots:{personnage:20,lieu:2,action:10,equipement:8}},
-  amerindiens:{id:"amerindiens",name:"Terres Sauvages",icon:"🪶",color:"#c87820",
+  amerindiens:{id:"amerindiens",name:"Terres Sauvages",icon:"🪶",color:"#c87820",image:"adversaires/amerindiens.png",
     desc:"Draft aléatoire à chaque partie. Pool : cartes Amérindiens + Neutres.",
     keys:["grandcheftotem","protecteurcites","pretresselune","ailedaigle","chasseurprofond"],
     factions:["Amerindiens","Neutre"],
     slots:{personnage:20,lieu:2,action:10,equipement:8}},
-  grecs:{id:"grecs",name:"Pantheon de Gloire",icon:"🏛️",color:"#c8a020",
+  grecs:{id:"grecs",name:"Pantheon de Gloire",icon:"🏛️",color:"#c8a020",image:"adversaires/grecs.png",
     desc:"Draft aléatoire à chaque partie. Pool : cartes Grecs Antiques + Neutres.",
     keys:["eluzeus","gorgotaure","heroslionide","minotaure","elueathena"],
     factions:["Grecs","Neutre"],
     slots:{personnage:20,lieu:2,action:10,equipement:8}},
-  primitifs:{id:"primitifs",name:"Les Primitifs",icon:"🌿",color:"#66bb44",
+  primitifs:{id:"primitifs",name:"Les Primitifs",icon:"🌿",color:"#66bb44",image:"adversaires/primitifs.png",
     desc:"Draft aléatoire à chaque partie. Pool : cartes Amazones + Amérindiens + Neutres.",
     keys:["vaelya","grandcheftotem","vaenyra","pretresselune","kaela"],
     factions:["Amazones","Amerindiens","Neutre"],
     slots:{personnage:20,lieu:2,action:10,equipement:8}},
-  empire:{id:"empire",name:"L'Empire Eternel",icon:"👑",color:"#e8c040",
+  empire:{id:"empire",name:"L'Empire Eternel",icon:"👑",color:"#e8c040",image:"adversaires/empire.png",
     desc:"Draft aléatoire à chaque partie. Pool : cartes Égyptiens + Grecs Antiques + Neutres.",
     keys:["ra","gorgotaure","pharaon","eluzeus","anubis"],
     factions:["Egyptiens","Grecs","Neutre"],
     slots:{personnage:20,lieu:2,action:10,equipement:8}},
-  ninjas:{id:"ninjas",name:"Clan des Ombres",icon:"🥷",color:"#9933cc",
+  ninjas:{id:"ninjas",name:"Clan des Ombres",icon:"🥷",color:"#9933cc",image:"adversaires/ninjas.png",
     desc:"Deck Ninjas — débloqué à 85% des cartes Ninjas possédées. Joue uniquement avec tes cartes.",
     keys:["kuroganeclan","zaruko","hana","shiromort","yumi"],
     factions:["Ninjas"],
     collectionBased:true,
     lockFaction:"Ninjas",
     slots:{personnage:20,lieu:2,action:10,equipement:8}},
-  empoisonneurs:{id:"empoisonneurs",name:"Les Corrompus",icon:"☠️",color:"#55bb22",
+  empoisonneurs:{id:"empoisonneurs",name:"Les Corrompus",icon:"☠️",color:"#55bb22",image:"adversaires/empoisonneurs.png",
     desc:"Deck Empoisonneurs — débloqué à 85% des cartes Empoisonneurs possédées. Joue uniquement avec tes cartes.",
     keys:["reinepoisonnoir","dragonvenin","selyracobra","sylvaramut","rosalysroses"],
     factions:["Empoisonneurs"],
     collectionBased:true,
     lockFaction:"Empoisonneurs",
     slots:{personnage:20,lieu:2,action:10,equipement:8}},
-  roitemps:{id:"roitemps",name:"Le Roi du Temps",icon:"⌛",color:"#cc8800",
+  roitemps:{id:"roitemps",name:"Le Roi du Temps",icon:"⌛",color:"#cc8800",image:"adversaires/roi_du_temps.png",
     desc:"Boss légendaire. Quasi imbattable. Récompense : 🪙+350 ⭐+350 XP. Défaite : 🪙-100.",
     keys:["reinepoisonnoir","dragonvenin","rosalysroses","sylvaramut","selyracobra"],
     factions:["Empoisonneurs"],
@@ -756,8 +826,61 @@ const checkTrioSynergy=(who)=>{
   });
 };
 
-// Image storage
-const IMGS={};
+// ── AI ACTION ANNOUNCER ─────────────────────────────────
+// Queue: [{text, subtext, icon, type, duration}]
+// types: "play" | "attack" | "power" | "destroy" | "damage" | "effect"
+let AI_ANNOUNCE_QUEUE=[];
+let AI_ANNOUNCE_RUNNING=false;
+
+const ANNOUNCE_COLORS={
+  play:"#4a9eff",attack:"#ff6644",power:"#cc88ff",destroy:"#ff3333",
+  damage:"#ff8800",effect:"#55bb22",info:"#8899aa"
+};
+const ANNOUNCE_ICONS={
+  play:"🃏",attack:"⚔️",power:"✨",destroy:"💀",damage:"💥",effect:"⚡",info:"ℹ️"
+};
+
+const queueAiAnnounce=(text,type="info",subtext="",duration=1600)=>{
+  AI_ANNOUNCE_QUEUE.push({text,subtext,type,duration});
+};
+
+const showAnnounce=({text,subtext,type,duration},cb)=>{
+  const el=document.getElementById("ai-announce");
+  if(!el){setTimeout(cb,0);return;}// ← setTimeout breaks synchronous recursion
+  const color=ANNOUNCE_COLORS[type]||"#8899aa";
+  const icon=ANNOUNCE_ICONS[type]||"ℹ️";
+  el.style.cssText=`position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+    background:rgba(2,8,20,0.97);border:2px solid ${color};border-radius:18px;
+    padding:18px 28px;text-align:center;z-index:500;
+    min-width:240px;max-width:340px;
+    box-shadow:0 0 40px ${color}55;
+    animation:aiAnnounceIn 0.25s ease forwards;`;
+  el.innerHTML=`
+    <div style="font-size:28px;margin-bottom:6px">${icon}</div>
+    <div style="font-size:13px;font-weight:bold;color:${color};line-height:1.5">${text}</div>
+    ${subtext?`<div style="font-size:11px;color:#667799;margin-top:5px">${subtext}</div>`:""}`;
+  if(type==="attack"||type==="destroy")try{SFX.attack&&SFX.attack();}catch(e){}
+  setTimeout(()=>{
+    el.style.animation="aiAnnounceOut 0.2s ease forwards";
+    setTimeout(cb,220);
+  },duration);
+};
+
+const flushAiAnnounce=(onDone)=>{
+  if(!AI_ANNOUNCE_QUEUE.length){
+    AI_ANNOUNCE_RUNNING=false;
+    const el=document.getElementById("ai-announce");
+    if(el)el.style.cssText="display:none";
+    setTimeout(onDone,0);// setTimeout prevents deep call stacks
+    return;
+  }
+  AI_ANNOUNCE_RUNNING=true;
+  const item=AI_ANNOUNCE_QUEUE.shift();
+  renderGame();
+  setTimeout(()=>{
+    showAnnounce(item,()=>{flushAiAnnounce(onDone);});
+  },80);
+};
 
 // ── DOT EFFECTS ENGINE (Empoisonneurs) ─────────────────
 // dotEffects: [{uid, side, dmgHp, atkPen, turnsLeft}]
@@ -820,23 +943,75 @@ const poisonChar=(side,uid,dmgHp,turnsLeft=-1,atkPen=0)=>{
 
 // Remove all dots when a card dies
 const removeDotsByUid=(uid)=>{if(G&&G.dotEffects)G.dotEffects=G.dotEffects.filter(d=>d.uid!==uid);};
+
+// Image storage
+const IMGS={};
 try{const s=safeStorage.get("tcg_imgs_v2");if(s)Object.assign(IMGS,JSON.parse(s));}catch(e){}
 const saveImgs=()=>{try{safeStorage.set("tcg_imgs_v2",JSON.stringify(IMGS));}catch(e){}};
 
-// ── TODAY KEY (must be defined first) ─────────────────
-const todayKey=()=>new Date().toISOString().slice(0,10);
+// ── LORE ──────────────────────────────────────────────
+let LORE_SEEN=false;
+try{LORE_SEEN=safeStorage.get("tcg_lore_seen_v1")==="1";}catch(e){}
 
-// ── DAILY DECK LOCK ────────────────────────────────────
-let DAILY_DECK=null;
-try{
-  const s=safeStorage.get("tcg_daily_deck_v1");
-  if(s){const d=JSON.parse(s);if(d.date===todayKey())DAILY_DECK=d.deckId;}
-}catch(e){}
+const LORE_LINES=[
+  "Autrefois, le monde suivait le cours naturel du temps.",
+  "Les civilisations naissaient, prospéraient… puis disparaissaient, laissant leur place aux suivantes.",
+  "Mais tout bascula le jour où une entité inconnue brisa la ligne du temps.",
+  "Nul ne sait qui elle est.",
+  "Nul ne connaît ses intentions.",
+  "Certains pensent qu'il s'agit d'un dieu oublié.",
+  "D'autres parlent d'une créature venue d'au-delà des étoiles.",
+  "Ce qui est certain, c'est que sa puissance bouleversa l'existence entière du monde.",
+  "Lorsque le temps se brisa, les époques fusionnèrent.",
+  "Les royaumes antiques, les tribus primitives, les empires maritimes, les peuples mystiques et les civilisations avancées furent brutalement réunis dans une seule réalité : Achronia."
+];
 
-const saveDailyDeck=(deckId)=>{
-  DAILY_DECK=deckId;
-  safeStorage.set("tcg_daily_deck_v1",JSON.stringify({date:todayKey(),deckId}));
+const renderLore=()=>{
+  $("app").innerHTML=`
+  <style>
+    @keyframes loreIn{0%{opacity:0;transform:translateY(18px)}100%{opacity:1;transform:translateY(0)}}
+    @keyframes loreFade{0%{opacity:0}100%{opacity:1}}
+    .lore-line{opacity:0;animation:loreIn 0.7s ease forwards;}
+  </style>
+  <div id="lore-screen" style="position:fixed;inset:0;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;padding:32px 24px;cursor:pointer" onclick="skipLore()">
+    <div id="lore-lines" style="max-width:560px;width:100%;text-align:center;display:flex;flex-direction:column;gap:18px"></div>
+    <div id="lore-continue" style="opacity:0;margin-top:40px;font-size:11px;color:#334;letter-spacing:3px;text-transform:uppercase;transition:opacity 1s">Appuyer pour continuer</div>
+  </div>`;
+  let i=0;
+  const next=()=>{
+    if(i>=LORE_LINES.length){
+      setTimeout(()=>{
+        const btn=$("lore-continue");
+        if(btn)btn.style.opacity="1";
+        document.getElementById("lore-screen").onclick=skipLore;
+      },600);
+      return;
+    }
+    const div=$("lore-lines");
+    if(!div)return;
+    const el=document.createElement("div");
+    const isLast=i===LORE_LINES.length-1;
+    el.className="lore-line";
+    el.style.animationDelay="0s";
+    el.style.fontSize=isLast?"16px":"13px";
+    el.style.fontWeight=isLast?"bold":"normal";
+    el.style.color=isLast?"#c8a020":"#8899aa";
+    el.style.lineHeight="1.7";
+    el.style.fontStyle=i<3||i===9?"italic":"normal";
+    el.textContent=LORE_LINES[i];
+    div.appendChild(el);
+    i++;
+    setTimeout(next,isLast?1600:1100);
+  };
+  setTimeout(next,800);
 };
+
+window.skipLore=()=>{
+  try{safeStorage.set("tcg_lore_seen_v1","1");}catch(e){}
+  LORE_SEEN=true;
+  SCREEN="starterChoice";render();
+};
+const todayKey=()=>new Date().toISOString().slice(0,10);
 
 // ── SPLASH SCREEN ──────────────────────────────────────
 const renderSplash=()=>{
@@ -874,7 +1049,11 @@ const renderSplash=()=>{
   setTimeout(()=>{
     const el=$("splash");
     if(el){el.style.animation="splashOut 0.5s ease forwards";}
-    setTimeout(()=>{initCollectionIfEmpty();SCREEN="deckselect";render();},500);
+    setTimeout(()=>{
+      if(!LORE_SEEN){SCREEN="lore";render();}
+      else if(!STARTER_PACK){SCREEN="starterChoice";render();}
+      else{initCollectionIfEmpty();goToPlay();}
+    },500);
   },3200);
 };
 let PLAYER_STATS={coins:0,xp:0,level:1};
@@ -1030,24 +1209,30 @@ const renderShop=()=>{
       const rc=RARITY_COLOR[c.rarity||"common"];
       const rl=RARITY_LABEL[c.rarity||"common"];
       const count=COLLECTION[c.id]||0;
-      return`<div style="display:flex;align-items:center;gap:12px;background:rgba(0,0,0,0.4);border:2px solid ${rc}55;border-radius:12px;padding:10px 14px;animation:trioSlide 0.5s ease">
-        <div style="width:48px;height:68px;border-radius:6px;overflow:hidden;background:#0a1628;flex-shrink:0">
+      const isNew=!!c.isNew;
+      return`<div style="display:flex;align-items:center;gap:12px;background:rgba(0,0,0,0.4);border:2px solid ${isNew?'#f0c060':rc+'55'};border-radius:12px;padding:10px 14px;animation:trioSlide 0.5s ease;position:relative;overflow:hidden">
+        ${isNew?`<div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#f0c060,#ffaa00,#f0c060);animation:glowPulse 1s ease infinite"></div>`:""}
+        <div style="width:48px;height:68px;border-radius:6px;overflow:hidden;background:#0a1628;flex-shrink:0;position:relative">
           <img src="cards/${c.id}.png" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='<div style=font-size:22px;padding:18px 10px>${c.type==="personnage"?"⚔️":c.type==="equipement"?"🛡️":c.type==="action"?"✨":"🏛️"}</div>'">
         </div>
         <div style="flex:1">
-          <div style="font-size:13px;font-weight:bold;color:#dde">${c.name}</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px">
+            <div style="font-size:13px;font-weight:bold;color:#dde">${c.name}</div>
+            ${isNew?`<div style="background:linear-gradient(90deg,#f0c060,#ffaa00);color:#000;font-size:9px;font-weight:900;padding:2px 7px;border-radius:8px;letter-spacing:1px;animation:glowPulse 1s ease infinite">✨ NOUVEAU !</div>`:""}
+          </div>
           <div style="font-size:10px;color:${FACTION_COLOR[c.faction]||'#888'}">${c.faction} · ${c.type}${c.cost?` · ★${c.cost}`:""}</div>
           <div style="font-size:9px;color:#556;margin-top:2px">Collection: ×${count}</div>
         </div>
         <div style="font-size:10px;font-weight:bold;color:${rc};text-align:right">${rl}</div>
       </div>`;
     }).join("");
+    const newCount=cards.filter(c=>c.isNew).length;
     $("app").innerHTML=`<div style="min-height:100vh;background:linear-gradient(160deg,#050e1a,#0a1628);padding:20px;display:flex;flex-direction:column;align-items:center">
       <div style="width:100%;max-width:480px">
         <div style="text-align:center;margin:16px 0 20px">
           <div style="font-size:30px">🎴</div>
           <div style="font-size:18px;font-weight:bold;color:#f0c060">Pack ouvert !</div>
-          <div style="font-size:11px;color:#556;margin-top:4px">${cards.length} cartes obtenues</div>
+          <div style="font-size:11px;color:#556;margin-top:4px">${cards.length} cartes obtenues${newCount>0?` · <span style="color:#f0c060;font-weight:bold">✨ ${newCount} nouvelle${newCount>1?"s":""} !</span>`:""}</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">${rows}</div>
         <div style="display:flex;gap:10px;justify-content:center">
@@ -1066,8 +1251,8 @@ const renderShop=()=>{
       ${!p.locked?`onmouseover="this.style.transform='translateY(-4px)';this.style.borderColor='${p.color}'" onmouseout="this.style.transform='';this.style.borderColor='${p.color}66'"`:""}>
       ${p.locked?`<div style="position:absolute;top:7px;right:8px;z-index:2">🔒</div>`:""}
       <div id="pack-img-${p.id}" style="width:100%;height:100px;overflow:hidden;position:relative;background:${p.color}22">
-        <img src="packs/${p.id}.jpg" style="width:100%;height:100%;object-fit:cover;display:block"
-          onerror="this.style.display='none';document.getElementById('pack-fallback-${p.id}').style.display='flex'">
+        <img src="packs/${p.id}.png" style="width:100%;height:100%;object-fit:cover;display:block"
+          onerror="this.onerror=null;this.src='packs/${p.id}.jpg';this.onerror=function(){this.style.display='none';var fb=document.getElementById('pack-fallback-${p.id}');if(fb)fb.style.display='flex';}">
         <div id="pack-fallback-${p.id}" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;font-size:40px">${p.icon}</div>
       </div>
       <div style="padding:10px 12px 12px">
@@ -1085,7 +1270,7 @@ const renderShop=()=>{
   $("app").innerHTML=`<div style="min-height:100vh;background:linear-gradient(160deg,#050e1a,#0a1628);padding:20px;display:flex;flex-direction:column;align-items:center;gap:14px">
     <div style="width:100%;max-width:780px">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-        <button onclick="goTo('deckselect')" style="background:#1a2a3a;border:1px solid #445;border-radius:10px;color:#aac;padding:8px 16px;cursor:pointer;font-size:13px">← Retour</button>
+        <button onclick="goToPlay()" style="background:#1a2a3a;border:1px solid #445;border-radius:10px;color:#aac;padding:8px 16px;cursor:pointer;font-size:13px">← Retour</button>
         <div style="font-size:20px;font-weight:bold;color:#f0c060">🏪 Boutique</div>
         <button onclick="SCREEN='collection';render()" style="background:rgba(240,192,60,0.15);border:1px solid #f0c06055;border-radius:10px;color:#f0c060;padding:8px 14px;font-size:12px;cursor:pointer">📚 Collection</button>
       </div>
@@ -1121,13 +1306,23 @@ const renderCollection=()=>{
     const col=FACTION_COLOR[faction]||"#aaa";
     const cardGrid=fCards.map(c=>{
       const owned=COLLECTION[c.id]||0;
+      if(owned===0){
+        // Carte non possédée : complètement cachée, silhouette mystère
+        return`<div style="width:54px;text-align:center;cursor:default" title="???">
+          <div style="width:54px;height:75px;border-radius:5px;border:2px solid #1a2a3a;overflow:hidden;background:#050a10;position:relative">
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px">
+              <div style="font-size:20px;opacity:0.25">🂠</div>
+              <div style="font-size:7px;color:#223;letter-spacing:1px">???</div>
+            </div>
+          </div>
+        </div>`;
+      }
       return`<div style="width:54px;text-align:center;cursor:pointer" onclick="showCollectionCard('${c.id}')" title="${c.name}">
-        <div style="width:54px;height:75px;border-radius:5px;border:2px solid ${owned>0?col:'#1a2a3a'};overflow:hidden;background:${owned>0?'#0a1628':'#030608'};opacity:${owned>0?1:0.35};transition:all 0.2s;position:relative"
+        <div style="width:54px;height:75px;border-radius:5px;border:2px solid ${col};overflow:hidden;background:#0a1628;transition:all 0.2s;position:relative"
           onmouseover="this.style.transform='scale(1.12)';this.style.zIndex='10'"
           onmouseout="this.style.transform='';this.style.zIndex='1'">
-          <img src="cards/${c.id}.png" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='<div style=font-size:16px;padding:24px 5px;text-align:center>${owned>0?c.type==="personnage"?"⚔️":c.type==="equipement"?"🛡️":c.type==="action"?"✨":"🏛️":"❓"}</div>'">
+          <img src="cards/${c.id}.png" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='<div style=font-size:16px;padding:24px 5px;text-align:center>${c.type==="personnage"?"⚔️":c.type==="equipement"?"🛡️":c.type==="action"?"✨":"🏛️"}</div>'">
           ${owned>1?`<div style="position:absolute;bottom:1px;right:2px;background:rgba(0,0,0,0.85);font-size:8px;color:#f0c060;font-weight:bold;padding:1px 3px;border-radius:3px">×${owned}</div>`:""}
-          ${owned===0?`<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:18px;color:#334">?</div>`:""}
         </div>
       </div>`;
     }).join("");
@@ -1144,7 +1339,7 @@ const renderCollection=()=>{
 
   $("app").innerHTML=`<div style="min-height:100vh;background:linear-gradient(160deg,#050e1a,#0a1628);padding:20px;max-width:700px;margin:0 auto">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-      <button onclick="goTo('deckselect')" style="background:#1a2a3a;border:1px solid #445;border-radius:10px;color:#aac;padding:8px 16px;cursor:pointer;font-size:13px">← Retour</button>
+      <button onclick="goToPlay()" style="background:#1a2a3a;border:1px solid #445;border-radius:10px;color:#aac;padding:8px 16px;cursor:pointer;font-size:13px">← Retour</button>
       <div style="text-align:center">
         <div style="font-size:17px;font-weight:bold;color:#f0c060">📚 Ma Collection</div>
         <div style="font-size:9px;color:#445">${totalOwned}/${totalAll} cartes · ${Math.round(totalOwned/totalAll*100)}%</div>
@@ -1177,6 +1372,83 @@ window.showCollectionCard=(id)=>{
   detail.style.display="flex";
 };
 
+// ── SMART NAVIGATION ────────────────────────────────────
+// Aller au deck select ou direct opponent select si 1 seul deck
+const goToPlay=()=>{
+  const playable=Object.keys(DECKS).filter(id=>isDeckPlayable(id)&&!DECKS[id].bossOnly);
+  if(playable.length===1){
+    DECK_IDS.player=playable[0];
+    SCREEN="opponentselect";renderOpponentSelect();
+  } else if(playable.length>1){
+    SCREEN="deckselect";render();// ← was calling goToPlay() recursively — fixed
+  } else {
+    SCREEN="opponentselect";renderOpponentSelect();
+  }
+};
+window.goToPlay=goToPlay;
+
+window.renderStarterChoice=(pendingId=null)=>{
+  const COLORS=STARTER_CHOICES.reduce((o,p)=>(o[p.id]=p.color,o),{});
+  const pending=STARTER_CHOICES.find(x=>x.id===pendingId);
+  const cards=STARTER_CHOICES.map(p=>{
+    const isPending=pendingId===p.id;
+    return`<div onclick="renderStarterChoice('${p.id}')"
+      style="cursor:pointer;background:linear-gradient(160deg,${isPending?p.color+'33':'#0d1f3c'},#050e1a);border:2px solid ${isPending?p.color:p.color+'44'};border-radius:16px;padding:18px 14px;text-align:center;transition:all 0.2s;width:140px;flex-shrink:0;${isPending?`box-shadow:0 0 24px ${p.color}55`:''}"
+      onmouseover="this.style.borderColor='${p.color}'"
+      onmouseout="this.style.borderColor='${isPending?p.color:p.color+'44'}'">
+      <div style="font-size:40px;margin-bottom:8px">${p.icon}</div>
+      <div style="font-size:14px;font-weight:bold;color:${p.color};margin-bottom:5px">${p.name}</div>
+      <div style="font-size:9px;color:#6677aa;line-height:1.5;margin-bottom:6px">${p.desc}</div>
+      <div style="font-size:8px;color:${p.color}99;font-style:italic">${p.flavor}</div>
+    </div>`}).join("");
+
+  const confirmPanel=pending?`
+    <div style="background:linear-gradient(135deg,rgba(10,20,40,0.98),rgba(5,14,26,0.98));border:2px solid ${pending.color};border-radius:16px;padding:20px 24px;max-width:400px;width:100%;text-align:center;margin-top:8px">
+      <div style="font-size:28px;margin-bottom:6px">${pending.icon}</div>
+      <div style="font-size:16px;font-weight:bold;color:${pending.color};margin-bottom:8px">${pending.name}</div>
+      <div style="font-size:11px;color:#8899aa;line-height:1.7;margin-bottom:14px">
+        ⚠️ Ce choix est <strong style="color:#ff8855">définitif et permanent</strong>.<br>
+        Vous recevrez 100% des cartes <strong>${pending.factions.join(' + ')}</strong> + Neutres.<br>
+        <span style="color:#6677aa">Toutes les autres factions commencent à 0%.<br>Achetez des packs pour les débloquer.</span>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center">
+        <button onclick="renderStarterChoice(null)" style="background:#1a2a3a;border:1px solid #445;border-radius:10px;color:#889;padding:10px 20px;font-size:12px;cursor:pointer">← Annuler</button>
+        <button onclick="confirmStarterPack('${pending.id}')" style="background:linear-gradient(90deg,${pending.color}44,${pending.color}22);border:2px solid ${pending.color};border-radius:10px;color:#fff;padding:10px 24px;font-size:13px;font-weight:bold;cursor:pointer">✅ Jouer les ${pending.name} !</button>
+      </div>
+    </div>`:"";
+
+  $("app").innerHTML=`<div style="min-height:100vh;background:linear-gradient(160deg,#050e1a,#0a1628);display:flex;flex-direction:column;align-items:center;padding:24px 16px;gap:20px">
+    <div style="text-align:center;max-width:520px">
+      <img src="cards/logo_achronia.png" style="height:40px;border-radius:8px;margin-bottom:12px" onerror="this.style.display='none'">
+      <div style="font-size:22px;font-weight:bold;color:#f0c060;margin-bottom:8px">⚔️ Choisissez votre faction</div>
+      <div style="font-size:11px;color:#6677aa;line-height:1.7">
+        Choix <span style="color:#ff8855;font-weight:bold">définitif</span> — vous recevrez 100% des cartes de cette faction.<br>
+        <span style="color:#f0c06077">Les autres factions : 0% — à débloquer via la boutique (85% requis).</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:720px">${cards}</div>
+    ${confirmPanel}
+  </div>`;
+};
+window.confirmStarterPack=(id)=>{
+  const p=STARTER_CHOICES.find(x=>x.id===id);
+  if(!p)return;
+  saveStarterPack(id);
+  // ── Full reset: wipe collection and purchased list ──
+  COLLECTION={};
+  try{safeStorage.set("tcg_purchased_v1","{}");}catch(e){}
+  // Give ONLY starter faction + neutral
+  CARDS.forEach(c=>{
+    if((p.factions.includes(c.faction)||c.faction==="Neutre")&&!c.isFusion){
+      COLLECTION[c.id]=1;
+    }
+  });
+  PLAYER_STATS.coins=700;
+  saveStats();saveCollection();
+  DECK_IDS.player=id;
+  SCREEN="opponentselect";renderOpponentSelect();
+};
+
 const renderDaily=()=>{
   const msLeft=new Date(new Date().toISOString().slice(0,10)+"T23:59:59").getTime()-Date.now();
   const hLeft=Math.floor(msLeft/3600000);const mLeft=Math.floor((msLeft%3600000)/60000);
@@ -1206,7 +1478,7 @@ const renderDaily=()=>{
 
   $("app").innerHTML=`<div style="min-height:100vh;background:linear-gradient(160deg,#050e1a,#0a1628);padding:20px;max-width:600px;margin:0 auto">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-      <button onclick="goTo('deckselect')" style="background:#1a2a3a;border:1px solid #445;border-radius:10px;color:#aac;padding:8px 16px;cursor:pointer;font-size:13px">← Retour</button>
+      <button onclick="goToPlay()" style="background:#1a2a3a;border:1px solid #445;border-radius:10px;color:#aac;padding:8px 16px;cursor:pointer;font-size:13px">← Retour</button>
       <div style="text-align:center">
         <div style="font-size:18px;font-weight:bold;color:#f0c060">📋 Défis du jour</div>
         <div style="font-size:10px;color:#556">Reset dans ${hLeft}h ${mLeft}m</div>
@@ -1419,15 +1691,53 @@ const BASE_FACTIONS=["Pirates","Vikings","Amazones","Egyptiens","Amerindiens","G
 let COLLECTION={};
 try{const s=safeStorage.get("tcg_collection_v1");if(s)COLLECTION=JSON.parse(s);}catch(e){}
 
+// ── COLLECTION MIGRATION ────────────────────────────────
+// If STARTER_PACK is set, purge any cards that don't belong
+// to the starter faction, neutral, or were explicitly purchased (tracked separately)
+const migrateCollectionToStarter=()=>{
+  if(!STARTER_PACK)return;
+  const starterChoice=STARTER_CHOICES.find(x=>x.id===STARTER_PACK);
+  if(!starterChoice)return;
+  // Load purchased cards list (cards obtained via pack opening)
+  let purchased={};
+  try{const s=safeStorage.get("tcg_purchased_v1");if(s)purchased=JSON.parse(s);}catch(e){}
+  // Build allowed set: starter faction + neutral + purchased
+  const allowedFactions=new Set([...starterChoice.factions,"Neutre"]);
+  let dirty=false;
+  Object.keys(COLLECTION).forEach(id=>{
+    if(COLLECTION[id]<=0){delete COLLECTION[id];dirty=true;return;}
+    const card=CARDS.find(c=>c.id===id);
+    if(!card)return;
+    // Keep if starter faction, neutral, or explicitly purchased via pack
+    if(!allowedFactions.has(card.faction)&&!purchased[id]){
+      delete COLLECTION[id];
+      dirty=true;
+    }
+  });
+  if(dirty){
+    try{safeStorage.set("tcg_collection_v1",JSON.stringify(COLLECTION));}catch(e){}
+  }
+};
+// Run migration immediately after loading
+(()=>{try{migrateCollectionToStarter();}catch(e){}})();
+
 // Si la collection est vide (1ère connexion), on donne toutes les cartes de base
 const initCollectionIfEmpty=()=>{
   if(Object.keys(COLLECTION).length>0)return;
-  CARDS.forEach(c=>{
-    if(BASE_FACTIONS.includes(c.faction)&&!c.isFusion){
-      COLLECTION[c.id]=(COLLECTION[c.id]||0)+1;
+  // If a starter was chosen, only give that faction + neutrals
+  if(STARTER_PACK){
+    const starterChoice=STARTER_CHOICES.find(x=>x.id===STARTER_PACK);
+    if(starterChoice){
+      CARDS.forEach(c=>{
+        if((starterChoice.factions.includes(c.faction)||c.faction==="Neutre")&&!c.isFusion){
+          COLLECTION[c.id]=(COLLECTION[c.id]||0)+1;
+        }
+      });
+      PLAYER_STATS.coins=PLAYER_STATS.coins||700;
+      saveStats();saveCollection();return;
     }
-  });
-  saveCollection();
+  }
+  // Legacy / no starter: do nothing — go to starter choice
 };
 
 const saveCollection=()=>{
@@ -1472,8 +1782,15 @@ const openPack=(packId)=>{
   const p=pick(pools.prestige);if(p)cards.push({...p,rarity:"prestige"});
   // 5% ultra gold
   if(Math.random()<0.05&&pools.ultragold.length){const u=pick(pools.ultragold);if(u)cards.push({...u,rarity:"ultragold"});}
-  // Ajouter à la collection
-  cards.forEach(c=>{COLLECTION[c.id]=(COLLECTION[c.id]||0)+1;});
+  // Ajouter à la collection + marquer les nouvelles + enregistrer comme achetées
+  let purchased={};
+  try{const s=safeStorage.get("tcg_purchased_v1");if(s)purchased=JSON.parse(s);}catch(e){}
+  cards.forEach(c=>{
+    c.isNew=(COLLECTION[c.id]||0)===0;
+    COLLECTION[c.id]=(COLLECTION[c.id]||0)+1;
+    purchased[c.id]=true;// Mark as explicitly purchased
+  });
+  try{safeStorage.set("tcg_purchased_v1",JSON.stringify(purchased));}catch(e){}
   PLAYER_STATS.coins-=pack.price;
   saveStats();saveCollection();
   return{cards};
@@ -1521,8 +1838,9 @@ const LOCKED_FROM_POOL=new Set(["nalyaecume","bichecerynie","theonsacdor"]);
 const buildDraftDeck=deckId=>{
   const dk=DECKS[deckId];
   const factions=dk.factions;
-  // Collection-based deck (Ninjas/Empoisonneurs): only cards the player owns
-  if(dk.collectionBased){
+  // Collection-based: non-starter decks play only with owned cards
+  const isCollBased=dk.collectionBased||!isDeckStarterUnlocked(deckId);
+  if(isCollBased){
     const deck=[];
     for(const[type,count] of Object.entries(dk.slots)){
       const pool=CARDS.filter(c=>c.type===type&&factions.includes(c.faction)&&!c.isFusion&&(COLLECTION[c.id]||0)>0);
@@ -1530,6 +1848,7 @@ const buildDraftDeck=deckId=>{
     }
     return shuffle(deck);
   }
+  // Starter deck: full random draft
   const deck=[];
   for(const[type,count] of Object.entries(dk.slots)){
     const pool=CARDS.filter(c=>c.type===type&&factions.includes(c.faction)&&!c.isFusion&&!LOCKED_FROM_POOL.has(c.id));
@@ -1811,6 +2130,13 @@ const cardHTML=(card,size,opts={})=>{
   if(hasAttacked)badges+=`<div class="badge" style="background:#555">Z</div>`;
   if(justPlayed)badges+=`<div class="badge" style="background:#aa8800">N</div>`;
   if(lastStand)inner+=`<div class="last-stand">⚡Last Stand</div>`;
+  // ── POISON indicator ──
+  if(card._poisoned){
+    inner+=`<div style="position:absolute;top:2px;right:2px;background:rgba(0,80,0,0.85);border:1px solid #55bb22;border-radius:4px;padding:1px 4px;font-size:9px;font-weight:bold;color:#88ff44;pointer-events:none;z-index:5">☠</div>`;
+    // Green glow border override
+    const poisonBorder="1px solid #55bb22";
+    inner=`<div style="position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 8px #55bb2244;pointer-events:none;z-index:4"></div>`+inner;
+  }
 
   const w=size==="hand"?82:size==="field"?95:size==="mini"?60:260;
   const h=size==="hand"?118:size==="field"?138:size==="mini"?87:376;
@@ -1847,6 +2173,8 @@ const showNotif=(text,color="#f0c060",icon="⚔️")=>{
 // ═══════════════════════════════════════════════════════
 const render=()=>{
   if(SCREEN==="splash")renderSplash();
+  else if(SCREEN==="lore")renderLore();
+  else if(SCREEN==="starterChoice")renderStarterChoice();
   else if(SCREEN==="import")renderImport();
   else if(SCREEN==="deckselect")renderDeckSelect();
   else if(SCREEN==="deckpreview")renderDeckPreview();
@@ -1890,11 +2218,11 @@ const renderImport=()=>{
           <label for="importJson" style="background:linear-gradient(90deg,#113355,#2266aa);border:none;border-radius:14px;color:#fff;padding:8px 20px;font-size:13px;cursor:pointer;display:inline-block">📂 Importer mes images (.json)<input type="file" id="importJson" accept=".json" style="position:absolute;opacity:0;width:0;height:0" onchange="importImages(this)"></label>
         </div>
         <div style="font-size:10px;color:#556677;margin-bottom:14px">💡 Exportez vos images en .json, puis importez ce fichier sur n'importe quel appareil pour retrouver vos images.</div>
-        <button onclick="goTo('deckselect')" style="background:linear-gradient(90deg,#1144aa,#2266dd);border:none;border-radius:20px;color:#fff;padding:10px 30px;font-weight:bold;font-size:15px;cursor:pointer">Choisir un deck →</button>
+        <button onclick="goToPlay()" style="background:linear-gradient(90deg,#1144aa,#2266dd);border:none;border-radius:20px;color:#fff;padding:10px 30px;font-weight:bold;font-size:15px;cursor:pointer">Choisir un deck →</button>
       </div>
       ${rows}
       <div style="text-align:center;margin-top:16px">
-        <button onclick="goTo('deckselect')" style="background:linear-gradient(90deg,#1144aa,#2266dd);border:none;border-radius:20px;color:#fff;padding:10px 30px;font-weight:bold;font-size:15px;cursor:pointer">Choisir un deck →</button>
+        <button onclick="goToPlay()" style="background:linear-gradient(90deg,#1144aa,#2266dd);border:none;border-radius:20px;color:#fff;padding:10px 30px;font-weight:bold;font-size:15px;cursor:pointer">Choisir un deck →</button>
       </div>
     </div>
   </div>`;
@@ -1945,61 +2273,52 @@ const getDeckUnlocked=(dk)=>{
 const renderDeckSelect=()=>{
   let cards="";
   for(const dk of Object.values(DECKS)){
-    if(dk.bossOnly)continue;// Boss decks are only selectable as opponents
+    if(dk.bossOnly)continue;
+    const isPlayable=isDeckPlayable(dk.id);
+    const isStarter=isDeckStarterUnlocked(dk.id);
+    const pct=getDeckCollectionPct(dk.id);
+    const pctDisplay=Math.round(pct*100);
     const isHardLocked=!!dk.locked;
-    const isCollectionLocked=dk.collectionBased&&!getDeckUnlocked(dk);
-    const isLocked=isHardLocked||isCollectionLocked;
+    const isCollectionLocked=!isHardLocked&&!isPlayable;
     const total=Object.values(dk.slots).reduce((a,n)=>a+n,0);
     const chars=dk.slots.personnage;
     const keySpans=dk.keys.map(id=>{const c=CARDS.find(x=>x.id===id);return c?`<span style="font-size:8px;color:${dk.color};background:${dk.color}11;border:1px solid ${dk.color}44;border-radius:8px;padding:2px 6px">${c.name}</span>`:""}).join("");
-    const isDailyDeck=DAILY_DECK===dk.id;
-    const isDailyLocked=DAILY_DECK&&DAILY_DECK!==dk.id&&!isLocked;
-    // Collection progress for locked collection decks
+    const isDailyDeck=false;
+    const isDailyLocked=false;
     let progressBar="";
-    if(isCollectionLocked&&dk.lockFaction){
-      const allBase=CARDS.filter(c=>c.faction===dk.lockFaction&&!c.isFusion);
-      const owned=allBase.filter(c=>(COLLECTION[c.id]||0)>0).length;
-      const pct=allBase.length>0?Math.round(owned/allBase.length*100):0;
-      progressBar=`<div style="margin:8px 0 4px;font-size:9px;color:#778">📚 Collection: ${owned}/${allBase.length} (${pct}% — besoin 85%)</div>
-        <div style="height:6px;background:#111;border-radius:4px;overflow:hidden;margin-bottom:6px"><div style="width:${pct}%;height:100%;background:${pct>=85?dk.color:'#445'};border-radius:4px;transition:width 0.4s"></div></div>`;
+    if(isCollectionLocked&&!isHardLocked){
+      progressBar=`<div style="margin:8px 0 4px">
+        <div style="font-size:9px;color:#556;margin-bottom:3px">📚 ${pctDisplay}% — besoin 85%</div>
+        <div style="height:5px;background:#0a1020;border-radius:3px;overflow:hidden"><div style="width:${pctDisplay}%;height:100%;background:#334;border-radius:3px"></div></div>
+      </div>`;
     }
-    cards+=`<div class="deck-card" style="border-color:${isDailyDeck?dk.color:dk.color+'66'};opacity:${isLocked||isDailyLocked?0.5:1};position:relative" ${!isLocked&&!isDailyLocked?`onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 0 40px ${dk.color}44'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'"`:""}>
-      ${isDailyDeck?`<div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:${dk.color};color:#000;font-size:9px;font-weight:bold;padding:2px 12px;border-radius:10px;white-space:nowrap">⭐ MON DECK DU JOUR</div>`:""}
-      ${isDailyLocked?`<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);border-radius:16px;z-index:2;font-size:28px">🔒</div>`:""}
+    const starterBadge=isStarter?`<div style="font-size:8px;background:${dk.color}22;border:1px solid ${dk.color}66;color:${dk.color};border-radius:6px;padding:2px 8px;margin-bottom:6px;display:inline-block">⭐ Votre faction</div><br>`:"";
+    cards+=`<div class="deck-card" style="border-color:${isPlayable?dk.color+'66':'#111a24'};opacity:${isHardLocked?0.35:isCollectionLocked?0.55:1};position:relative" ${isPlayable?`onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 0 40px ${dk.color}44'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'"`:""}>
       <div style="text-align:center">
-        <div style="font-size:52px;margin-bottom:8px">${dk.icon}</div>
-        <div style="font-size:18px;font-weight:bold;color:${dk.color};margin-bottom:6px">${dk.name}</div>
-        <div style="font-size:10px;color:#8899aa;line-height:1.6;margin-bottom:8px">${dk.desc}</div>
+        <div style="font-size:52px;margin-bottom:6px">${dk.icon}</div>
+        ${starterBadge}
+        <div style="font-size:18px;font-weight:bold;color:${isPlayable?dk.color:'#2a3540'};margin-bottom:6px">${dk.name}</div>
+        <div style="font-size:10px;color:${isPlayable?'#8899aa':'#2a3540'};line-height:1.6;margin-bottom:8px">${dk.desc}</div>
         ${progressBar}
-        ${!isHardLocked?`<div style="display:flex;justify-content:center;gap:8px;font-size:10px;color:#556677;margin-bottom:6px;flex-wrap:wrap"><span>📋 ${total} cartes</span><span>⚔ ${chars} persos</span></div><div style="font-size:9px;color:#556;margin-bottom:8px">Pool: ${dk.factions.join(" + ")}</div>`:""}
-        <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center">${keySpans}</div>
+        ${isPlayable?`<div style="display:flex;justify-content:center;gap:8px;font-size:10px;color:#556677;margin-bottom:6px;flex-wrap:wrap"><span>📋 ${total}</span><span>⚔ ${chars}</span></div>`:""}
+        ${isPlayable?`<div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center">${keySpans}</div>`:""}
       </div>
       <div style="display:flex;gap:8px;margin-top:auto">
         ${isHardLocked
-          ?`<button disabled style="flex:1;background:#1a1a1a;border:1px solid #333;border-radius:10px;color:#444;padding:9px 0;font-size:11px;cursor:not-allowed">🔒 Bientôt disponible</button>`
+          ?`<button disabled style="flex:1;background:#0a0f14;border:1px solid #111;border-radius:10px;color:#222;padding:9px 0;font-size:11px;cursor:not-allowed">🔒 Bientôt</button>`
           :isCollectionLocked
-          ?`<button disabled style="flex:1;background:#1a1a1a;border:1px solid ${dk.color}44;border-radius:10px;color:#667;padding:9px 0;font-size:11px;cursor:not-allowed">🔒 Collection insuffisante</button>`
+          ?`<button disabled style="flex:1;background:#0a0f14;border:1px solid #1a2535;border-radius:10px;color:#2a3a4a;padding:9px 0;font-size:10px;cursor:not-allowed">🔒 ${pctDisplay}% / 85% requis</button>`
           :`<button onclick="goPreview('${dk.id}')" style="flex:1;background:rgba(255,255,255,0.05);border:1px solid ${dk.color}55;border-radius:10px;color:#aac;padding:9px 0;font-size:11px;cursor:pointer">👁 Voir</button>
-           <button onclick="chooseDeck('${dk.id}')" style="flex:1;background:${isDailyDeck?dk.color+'44':'rgba(255,255,255,0.05)'};border:1px solid ${dk.color};border-radius:10px;color:${isDailyDeck?'#fff':dk.color};padding:9px 0;font-size:12px;font-weight:bold;cursor:pointer">${isDailyDeck?'▶ Jouer':'Choisir'}</button>`
+           <button onclick="chooseDeck('${dk.id}')" style="flex:1;background:rgba(255,255,255,0.05);border:1px solid ${dk.color};border-radius:10px;color:${dk.color};padding:9px 0;font-size:12px;font-weight:bold;cursor:pointer">Jouer</button>`
         }
       </div>
     </div>`;
   }
-  const msLeft=new Date(new Date().toISOString().slice(0,10)+"T23:59:59").getTime()-Date.now();
-  const hLeft=Math.floor(msLeft/3600000);const mLeft=Math.floor((msLeft%3600000)/60000);
-  const lockMsg=DAILY_DECK
-    ?`<div style="background:rgba(74,155,255,0.1);border:1px solid #4a9eff44;border-radius:10px;padding:8px 16px;font-size:11px;color:#4a9eff;text-align:center;margin-bottom:12px">
-        🔒 Ton deck du jour : <strong style="color:#f0c060">${DECKS[DAILY_DECK]?.icon} ${DECKS[DAILY_DECK]?.name}</strong> — Nouveau choix dans ${hLeft}h ${mLeft}m
-      </div>`
-    :`<div style="background:rgba(240,192,60,0.08);border:1px solid #f0c06033;border-radius:10px;padding:8px 16px;font-size:11px;color:#f0c060;text-align:center;margin-bottom:12px">
-        ✨ Choisis ton deck du jour — ce choix sera verrouillé jusqu'à demain !
-      </div>`;
   $("app").innerHTML=`<div style="min-height:100vh;background:linear-gradient(160deg,#050e1a,#0a1628);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px">
     <div style="text-align:center;margin-bottom:20px">
       <img src="cards/logo_achronia.png" style="height:50px;border-radius:8px;margin-bottom:8px" onerror="this.src='cards/logo_achronia.jpg';this.onerror=function(){this.style.display='none';}">
-      <div style="font-size:14px;color:#8899bb;margin-bottom:14px">Choisissez votre deck du jour</div>
+      <div style="font-size:14px;color:#8899bb;margin-bottom:14px">Choisissez votre deck</div>
       <div style="max-width:500px;margin:0 auto 10px">${statsBarHTML()}</div>
-      ${lockMsg}
     </div>
     <div style="display:flex;gap:24px;flex-wrap:wrap;justify-content:center;max-width:1100px">${cards}</div>
     <div style="margin-top:24px;font-size:11px;color:#334455">Vous choisirez ensuite l'adversaire et la difficulté</div>
@@ -2010,13 +2329,7 @@ window.goPreview=id=>{PREVIEW_DECK_ID=id;SCREEN="deckpreview";renderDeckPreview(
 window.chooseDeck=id=>{
   const dk=DECKS[id];
   if(dk&&dk.locked){alert("Ce deck est verrouillé !");return;}
-  if(dk&&dk.collectionBased&&!getDeckUnlocked(dk)){alert("Tu dois posséder au moins 85% des cartes "+dk.lockFaction+" pour jouer ce deck !");return;}
-  // Daily deck lock
-  if(DAILY_DECK&&DAILY_DECK!==id){
-    alert("Tu as déjà choisi ton deck du jour : "+DECKS[DAILY_DECK].name+"\nReviens demain pour en choisir un autre !");
-    id=DAILY_DECK;
-  }
-  if(!DAILY_DECK)saveDailyDeck(id);
+  if(!isDeckPlayable(id)){alert("Tu dois posséder au moins 85% des cartes de ce deck pour le jouer !\nActuellement : "+Math.round(getDeckCollectionPct(id)*100)+"%");return;}
   DECK_IDS.player=id;
   SCREEN="opponentselect";
   renderOpponentSelect();
@@ -2083,11 +2396,16 @@ const renderOpponentSelect=()=>{
   deckHtml=`<div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
     ${regularDecks.map(id=>{
       const dk=DECKS[id];const selected=DECK_IDS.ai===id;
-      return`<div onclick="selectOpponent('${id}')" onmouseover="this.style.borderColor='${dk.color}'" onmouseout="this.style.borderColor='${selected?dk.color:'#334'}'" id="opp-${id}"
-        style="cursor:pointer;width:130px;background:linear-gradient(160deg,#0d1f3c,#050e1a);border:2px solid ${selected?dk.color:'#334'};border-radius:14px;padding:14px 10px;text-align:center;transition:all 0.2s">
-        <div style="font-size:36px;margin-bottom:6px">${dk.icon}</div>
-        <div style="font-size:11px;font-weight:bold;color:${dk.color}">${dk.name}</div>
-        ${selected?`<div style="font-size:9px;color:${dk.color};margin-top:4px">✓ Choisi</div>`:''}
+      return`<div onclick="selectOpponent('${id}')" onmouseover="this.style.borderColor='${dk.color}';this.style.transform='scale(1.04)'" onmouseout="this.style.borderColor='${selected?dk.color:'#334'}';this.style.transform=''" id="opp-${id}"
+        style="cursor:pointer;width:130px;background:linear-gradient(160deg,#0d1f3c,#050e1a);border:2px solid ${selected?dk.color:'#334'};border-radius:14px;overflow:hidden;text-align:center;transition:all 0.2s">
+        <div style="width:100%;height:80px;background:${dk.color}22;position:relative;overflow:hidden">
+          <img src="${dk.image||'adversaires/'+id+'.png'}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;font-size:36px">${dk.icon}</div>
+        </div>
+        <div style="padding:8px">
+          <div style="font-size:11px;font-weight:bold;color:${dk.color}">${dk.name}</div>
+          ${selected?`<div style="font-size:9px;color:${dk.color};margin-top:4px">✓ Choisi</div>`:''}
+        </div>
       </div>`}).join("")}
   </div>
   ${bossDecks.length?`<div style="margin-top:16px;width:100%;max-width:480px;text-align:center">
@@ -2124,7 +2442,7 @@ const renderOpponentSelect=()=>{
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">${diffHtml}</div>
     </div>
     <div style="display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;justify-content:center">
-      <button onclick="goTo('deckselect')" style="background:#1a2a3a;border:1px solid #445;border-radius:14px;color:#aac;padding:10px 22px;font-size:13px;cursor:pointer">← Retour</button>
+      <button onclick="goToPlay()" style="background:#1a2a3a;border:1px solid #445;border-radius:14px;color:#aac;padding:10px 22px;font-size:13px;cursor:pointer">← Retour</button>
       <button onclick="launchGame()" id="btn-launch" style="background:${DECK_IDS.ai?'linear-gradient(90deg,#224488,#4488cc)':'#222'};border:none;border-radius:14px;color:${DECK_IDS.ai?'#fff':'#555'};padding:12px 32px;font-size:15px;font-weight:bold;cursor:${DECK_IDS.ai?'pointer':'not-allowed'}">
         ${DECK_IDS.ai?'⚔️ Combat !':'Choisissez un adversaire'}
       </button>
@@ -2190,7 +2508,7 @@ const renderDeckPreview=()=>{
   $("app").innerHTML=`<div style="min-height:100vh;background:linear-gradient(160deg,#050e1a,#0a1628);color:#fff;padding:20px;overflow-y:auto">
     <div style="max-width:900px;margin:0 auto">
       <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap">
-        <button onclick="goTo('deckselect')" style="background:#112233;border:1px solid #4466aa;border-radius:10px;color:#aac;padding:8px 16px;cursor:pointer;font-size:12px">← Retour</button>
+        <button onclick="goToPlay()" style="background:#112233;border:1px solid #4466aa;border-radius:10px;color:#aac;padding:8px 16px;cursor:pointer;font-size:12px">← Retour</button>
         <div style="flex:1;text-align:center">
           <span style="font-size:36px">${dk.icon}</span>
           <div style="font-size:20px;font-weight:bold;color:${dk.color}">${dk.name}</div>
@@ -2238,7 +2556,7 @@ const renderMatchup=()=>{
       ${deckCard(ad,"DECK DE L'IA","#ff8888")}
     </div>
     <div style="display:flex;gap:12px">
-      <button onclick="goTo('deckselect')" style="background:#112233;border:1px solid #4466aa;border-radius:12px;color:#aac;padding:10px 22px;cursor:pointer;font-size:13px">← Rechoisir</button>
+      <button onclick="goToPlay()" style="background:#112233;border:1px solid #4466aa;border-radius:12px;color:#aac;padding:10px 22px;cursor:pointer;font-size:13px">← Rechoisir</button>
       <button onclick="startCombat()" style="background:linear-gradient(90deg,#cc8800,#ffaa00);border:none;border-radius:20px;color:#000;padding:12px 36px;font-weight:bold;font-size:16px;cursor:pointer;box-shadow:0 0 20px #ffaa0088">⚔️ Au combat !</button>
     </div>
     <div style="margin-top:12px;font-size:12px;color:#889">
@@ -2273,7 +2591,7 @@ const renderGame=()=>{
     <div style="display:flex;gap:5px;align-items:center">
       <button onclick="MUSIC.toggle();renderGame()" style="background:${MUSIC.isPlaying()?'rgba(74,155,255,0.2)':'rgba(80,80,80,0.2)'};border:1px solid ${MUSIC.isPlaying()?'#4a9eff':'#445'};border-radius:6px;color:${MUSIC.isPlaying()?'#4a9eff':'#888'};padding:3px 7px;font-size:11px;cursor:pointer">${MUSIC.isPlaying()?'🎵':'🔇'}</button>
       <input type="range" min="0" max="0.5" step="0.02" value="0.22" oninput="MUSIC.setVol(parseFloat(this.value))" style="width:48px;accent-color:#4a9eff;cursor:pointer" title="Volume musique">
-      <button onclick="goTo('deckselect')" class="btn-danger">Menu</button>
+      <button onclick="goToPlay()" class="btn-danger">Menu</button>
       <button onclick="replayGame()" class="btn-danger">Rejouer</button>
     </div>
   </div>`;
@@ -2484,9 +2802,10 @@ const renderGame=()=>{
         <div style="margin-bottom:14px">${statsBarHTML()}</div>
         ${rewardHtml}
         <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-          ${CHEMIN_STATE?`<button onclick="continuerChemin()" style="background:linear-gradient(90deg,#7a3a00,#f0c060);border:none;border-radius:24px;color:#000;padding:12px 28px;font-size:14px;font-weight:bold;cursor:pointer">⚔️ Adversaire suivant →</button>`:`<button onclick="goTo('deckselect')" style="background:linear-gradient(90deg,#cc8800,#ffaa00);border:none;border-radius:24px;color:#000;padding:12px 24px;font-size:14px;font-weight:bold;cursor:pointer">Changer de deck</button>`}
-          <button onclick="replayGame()" style="background:linear-gradient(90deg,#1144aa,#2266dd);border:none;border-radius:24px;color:#fff;padding:12px 24px;font-size:14px;font-weight:bold;cursor:pointer">${CHEMIN_STATE?'Recommencer ce combat':'Rejouer'}</button>
-          ${!CHEMIN_STATE?`<button onclick="goTo('deckselect')" style="background:#1a2a3a;border:1px solid #445;border-radius:24px;color:#aac;padding:12px 20px;font-size:13px;cursor:pointer">Menu</button>`:""}
+          ${CHEMIN_STATE?`<button onclick="continuerChemin()" style="background:linear-gradient(90deg,#7a3a00,#f0c060);border:none;border-radius:24px;color:#000;padding:12px 28px;font-size:14px;font-weight:bold;cursor:pointer">⚔️ Adversaire suivant →</button>`:`<button onclick="goToPlay()" style="background:linear-gradient(90deg,#cc8800,#ffaa00);border:none;border-radius:24px;color:#000;padding:12px 24px;font-size:14px;font-weight:bold;cursor:pointer">⚔️ Nouvel adversaire</button>`}
+          <button onclick="replayGame()" style="background:linear-gradient(90deg,#1144aa,#2266dd);border:none;border-radius:24px;color:#fff;padding:12px 24px;font-size:14px;font-weight:bold;cursor:pointer">${CHEMIN_STATE?'Recommencer ce combat':'🔄 Rejouer'}</button>
+          ${!CHEMIN_STATE?`<button onclick="goTo('shop')" style="background:#1a2a3a;border:1px solid #f0c06066;border-radius:24px;color:#f0c060;padding:12px 20px;font-size:13px;cursor:pointer">🏪 Boutique</button>`:""}
+        </div>
         </div>
       </div>
     </div>`;
@@ -2513,7 +2832,12 @@ const renderGame=()=>{
   const lieuBgOverlay=G.lieu?`<div style="position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.07;background-image:url('cards/${G.lieu.id}.png');background-size:cover;background-position:center;background-repeat:no-repeat;filter:blur(2px)"></div>`:"";
 
   $("app").innerHTML=`<div style="min-height:100vh;background:${bg};display:flex;flex-direction:column;position:relative">
+    <style>
+      @keyframes aiAnnounceIn{0%{opacity:0;transform:translate(-50%,-55%)}100%{opacity:1;transform:translate(-50%,-50%)}}
+      @keyframes aiAnnounceOut{0%{opacity:1}100%{opacity:0;transform:translate(-50%,-44%)}}
+    </style>
     ${lieuBgOverlay}
+    <div id="ai-announce" style="display:none"></div>
     <div style="position:relative;z-index:1;display:flex;flex-direction:column;flex:1">
     ${hdr}
     <div style="display:flex;flex:1;gap:8px;padding:8px">
@@ -2716,7 +3040,7 @@ const renderDetailModal=()=>{
 // INTERACTIONS
 // ═══════════════════════════════════════════════════════
 window.goTo=screen=>{if(screen!=="game")MUSIC.stop();SCREEN=screen;render();};
-window.replayGame=()=>{if(DECK_IDS.player){initGame(DECK_IDS.player,DECK_IDS.ai);SCREEN="game";renderGame();}else goTo("deckselect");};
+window.replayGame=()=>{if(DECK_IDS.player){initGame(DECK_IDS.player,DECK_IDS.ai);SCREEN="game";renderGame();}else goToPlay();};
 
 window.continuerChemin=()=>{
   if(!CHEMIN_STATE)return;
@@ -2758,7 +3082,7 @@ window.clickPlayerField=fi=>{
   if(G.firstTurn){addLog("Impossible d'attaquer au 1er tour!");renderGame();return;}
   const c=G.player.field[fi];
   if(c&&c.id==="recrueapeur"&&!G.player.field.some((x,i)=>x&&i!==fi)){addLog("Recrue ne peut attaquer seule!");renderGame();return;}
-  if(c&&!c.hasAttacked&&!c.justPlayed){ATTACK_MODE=true;ATTACK_FROM=fi;renderGame();}
+  if(c&&!c.hasAttacked&&!c.justPlayed&&!G.firstTurn){ATTACK_MODE=true;ATTACK_FROM=fi;renderGame();}
 };
 
 window.clickAiField=fi=>{
@@ -2858,7 +3182,8 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
       addLog("Nayra: attaquant -100 ATK !");
     }
   }
-  G[who].field[afi]={...atk,hasAttacked:true};
+  // Marquer l'attaquant comme ayant attaqué — utiliser l'état courant, pas le snapshot
+  if(G[who].field[afi])G[who].field[afi]={...G[who].field[afi],hasAttacked:true};
   if(atk.id==="moustique")G[who].field[afi].bonusHp=(G[who].field[afi].bonusHp||0)+100;
   // Naya / Brakka: quand elles attaquent, une Amazone alliée gagne ATK
   if(ttype==="field"&&(atk.id==="naya"||atk.id==="brakka")){
@@ -3496,7 +3821,7 @@ window.doChoice=(action,payload)=>{
   else if(ch.type==="volpuissance_en"){const myC=G.player.field[ch.myPick];const enC=G.ai.field[payload];if(myC&&enC){G.fx.push({target:myC.uid,bonus:200,type:"atk",endOfTurn:true},{target:enC.uid,bonus:-200,type:"atk",endOfTurn:true});addLog("Vol: "+myC.name+" +200, "+enC.name+" -200 ATK!");}}
   else if(ch.type==="eirik"&&action==="top"){if(G.player.deck.length>=2){const[a,b,...r]=G.player.deck;G.player.deck=payload===0?[a,...r,b]:[b,...r,a];addLog("Eirik réorganise le deck.");}}
   else if(ch.type==="olympe_choice"){if(action==="draw"){drawCard("player");addLog("L'Olympe: pioche 1!");}else{const al=G.player.field.find(x=>x&&x.faction==="Grecs");if(al){G.fx.push({target:al.uid,bonus:100,type:"atk",endOfTurn:true});addLog("L'Olympe: "+al.name+" +100 ATK!");}}}
-  else if(ch.type==="trio_grecs"){const c=G.ai.field[i];if(c){G.frozenChars.push(c.uid);addLog("🏛️ TRIO GRECS ! "+c.name+" ne peut pas attaquer au prochain tour !");}}  else if(ch.type==="duelheros_my"){CHOICE={...ch,type:"duelheros_en",myPick:payload};renderGame();return;}
+  else if(ch.type==="trio_grecs"){const c=G.ai.field[payload];if(c){G.frozenChars.push(c.uid);addLog("🏛️ TRIO GRECS ! "+c.name+" ne peut pas attaquer au prochain tour !");}}  else if(ch.type==="duelheros_my"){CHOICE={...ch,type:"duelheros_en",myPick:payload};renderGame();return;}
   else if(action==="pick"){
     const i=payload;
     if(ch.type==="sauvetage"||ch.type==="retourinattendu"||ch.type==="retourvalhalla"){
@@ -3670,6 +3995,8 @@ window.doEndTurn=()=>{
   }
   G.phase="ai";G.firstTurn=false;SELECTED_HAND=null;ATTACK_MODE=false;ATTACK_FROM=null;
   addLog("IA joue...");
+  renderGame();// Show "IA joue..." immediately
+  AI_ANNOUNCE_QUEUE=[];
   drawCard("ai");
   G.frozenAI=false;
   // ── DOTS: Apply AI-side poison (effects on AI chars at start of AI turn) ──
@@ -3704,7 +4031,6 @@ window.doEndTurn=()=>{
   const diff=MATCHUP?.difficulty||"moyen";
 
   // ── AI PLAY CHARS ──────────────────────────────────────
-  // Sort hand by cost desc on difficile, asc on facile
   const handToPlay=[...G.ai.hand];
   if(diff==="difficile")handToPlay.sort((a,b)=>(b.cost||0)-(a.cost||0));
   else if(diff==="facile")handToPlay.sort((a,b)=>(a.cost||0)-(b.cost||0));
@@ -3718,31 +4044,36 @@ window.doEndTurn=()=>{
     const idx=G.ai.hand.findIndex(x=>x.uid===c.uid);
     if(idx!==-1)G.ai.hand.splice(idx,1);
     addLog("IA pose: "+c.name);
-    if(c.id==="zyra"){["player","ai"].forEach(w=>{G[w].field.forEach((x,j)=>{if(x&&x.cost<=2){killCard(w,j);stealPrestige("ai","Zyra détruit "+x.name+"!");}});});}
-    if(c.id==="hurgan"){const ti=G.player.field.findIndex(x=>x);if(ti!==-1){const t=G.player.field[ti];G.player.field[ti]=null;G.player.equips[ti]=[null,null];G.player.hand.push({...t,uid:mkuid()});addLog("Hurgan IA: "+t.name+" renvoyé!");}}
-    if(c.id==="freyja"){const ti=G.player.field.findIndex(x=>x);if(ti!==-1){G.fx.push({target:G.player.field[ti].uid,bonus:-200,type:"atk",endOfTurn:true});addLog("Freyja IA: -200 ATK!");}}
-    if(c.id==="haldor"||c.id==="ylvabaies"){const al=G.ai.field.filter((x,j)=>x&&x.faction==="Vikings"&&x.uid!==placed.uid);if(al.length){al[0].bonusHp=(al[0].bonusHp||0)+100;}}
-    if(c.id==="petittorvald"){const al=G.ai.field.filter((x,j)=>x&&x.faction==="Vikings"&&x.uid!==placed.uid);if(al.length)G.fx.push({target:al[0].uid,bonus:100,type:"atk",endOfTurn:true});}
-    if(c.id==="astrid"){const al=G.ai.field.filter(x=>x&&x.faction==="Vikings"&&x.uid!==placed.uid);if(al.length)G.fx.push({target:al[0].uid,bonus:200,type:"atk",endOfTurn:true});}
-    if(c.id==="kaya"){const ti=G.player.field.findIndex(x=>x);if(ti!==-1){G.fx.push({target:G.player.field[ti].uid,bonus:-200,type:"atk",endOfTurn:true});const hov=G.ai.field.some(x=>x&&x.faction==="Vikings"&&x.uid!==placed.uid);if(hov)G.fx.push({target:placed.uid,bonus:200,type:"atk",endOfTurn:true});}}
-    if(c.id==="porteur"){const eq=G.ai.deck.find(x=>x.type==="equipement");if(eq){G.ai.deck=G.ai.deck.filter(x=>x.uid!==eq.uid);G.ai.hand.push(eq);}}
+    queueAiAnnounce(
+      "L'adversaire invoque",
+      "play",
+      `<strong style="color:#f0c060">${c.name}</strong>${c.faction?` · ${c.faction}`:""}${c.atk?`<br>⚔️ ${c.atk} ATK  ❤️ ${c.hp} PV`:""}`,
+      1800
+    );
+    // Entry effects
+    if(c.id==="zyra"){queueAiAnnounce(`${c.name} : détruit toutes les cartes coût ≤2 !`,"power","Pouvoir d'entrée",1400);["player","ai"].forEach(w=>{G[w].field.forEach((x,j)=>{if(x&&x.cost<=2){killCard(w,j);stealPrestige("ai","Zyra détruit "+x.name+"!");}});});}
+    if(c.id==="hurgan"){const ti=G.player.field.findIndex(x=>x);if(ti!==-1){const t=G.player.field[ti];G.player.field[ti]=null;G.player.equips[ti]=[null,null];G.player.hand.push({...t,uid:mkuid()});queueAiAnnounce(`${c.name} renvoie ${t.name} en main !`,"effect","Pouvoir d'entrée",1400);addLog("Hurgan IA: "+t.name+" renvoyé!");}}
+    if(c.id==="freyja"){const ti=G.player.field.findIndex(x=>x);if(ti!==-1){G.fx.push({target:G.player.field[ti].uid,bonus:-200,type:"atk",endOfTurn:true});queueAiAnnounce(`${c.name} affaiblit ${G.player.field[ti].name} de 200 ATK`,"effect","",1200);addLog("Freyja IA: -200 ATK!");}}
+    if(c.id==="haldor"||c.id==="ylvabaies"){const al=G.ai.field.filter((x,j)=>x&&x.faction==="Vikings"&&x.uid!==placed.uid);if(al.length){al[0].bonusHp=(al[0].bonusHp||0)+100;queueAiAnnounce(`${al[0].name} gagne +100 PV !`,"effect","Synergie Viking",1200);}}
+    if(c.id==="petittorvald"){const al=G.ai.field.filter((x,j)=>x&&x.faction==="Vikings"&&x.uid!==placed.uid);if(al.length){G.fx.push({target:al[0].uid,bonus:100,type:"atk",endOfTurn:true});queueAiAnnounce(`${al[0].name} gagne +100 ATK !`,"effect","Synergie Viking",1200);}}
+    if(c.id==="astrid"){const al=G.ai.field.filter(x=>x&&x.faction==="Vikings"&&x.uid!==placed.uid);if(al.length){G.fx.push({target:al[0].uid,bonus:200,type:"atk",endOfTurn:true});queueAiAnnounce(`${al[0].name} gagne +200 ATK !`,"effect","Astrid",1200);}}
+    if(c.id==="kaya"){const ti=G.player.field.findIndex(x=>x);if(ti!==-1){G.fx.push({target:G.player.field[ti].uid,bonus:-200,type:"atk",endOfTurn:true});const hov=G.ai.field.some(x=>x&&x.faction==="Vikings"&&x.uid!==placed.uid);if(hov)G.fx.push({target:placed.uid,bonus:200,type:"atk",endOfTurn:true});queueAiAnnounce(`Kaya affaiblit ${G.player.field[ti].name} de 200 ATK`,"effect","",1200);}}
+    if(c.id==="porteur"){const eq=G.ai.deck.find(x=>x.type==="equipement");if(eq){G.ai.deck=G.ai.deck.filter(x=>x.uid!==eq.uid);G.ai.hand.push(eq);queueAiAnnounce(`${c.name} pioche un équipement`,"effect","",1200);}}
   }
 
   // ── AI PLAY EQUIPMENT ─────────────────────────────────
-  // facile: never equips. moyen: 40% chance. difficile: always equips
   const eqChance=diff==="facile"?0:diff==="moyen"?0.5:1;
   G.ai.hand.filter(c=>c&&c.type==="equipement").forEach(c=>{
     if(Math.random()>eqChance)return;
-    // Find a valid target on AI field
     const target=G.ai.field.find(f=>f&&f.faction===c.faction);
     if(!target)return;
     const tfi=G.ai.field.findIndex(f=>f&&f.uid===target.uid);
-    // Find empty equip slot
     const eSlot=G.ai.equips[tfi].findIndex(e=>!e);
     if(eSlot===-1)return;
     G.ai.equips[tfi][eSlot]=c;
     G.ai.hand=G.ai.hand.filter(x=>x.uid!==c.uid);
     addLog("IA équipe: "+c.name+" sur "+target.name);
+    queueAiAnnounce(`Équipe ${target.name}`,`power`,`🛡️ ${c.name}`,1300);
   });
 
   // ── AI PLAY ACTIONS ───────────────────────────────────
@@ -3769,29 +4100,29 @@ window.doEndTurn=()=>{
     // Offensive actions targeting player
     if(c.id==="planche"||c.id==="impactcible"){
       const ti=G.player.field.findIndex(x=>x&&curHp(x,G.player,G.fx,G.lieu)<=400);
-      if(ti!==-1){killCard("player",ti);stealPrestige("ai",c.name+": détruit!");played=true;}
+      if(ti!==-1){const name=G.player.field[ti].name;killCard("player",ti);stealPrestige("ai",c.name+": détruit!");queueAiAnnounce(`${c.name} détruit ${name} !`,"destroy","",1400);played=true;}
     } else if(c.id==="abordage"||c.id==="frappenforcee"||c.id==="iskra"){
-      if(strongestAI){G.fx.push({target:strongestAI.uid,bonus:200,type:"atk",endOfTurn:true});addLog("IA "+c.name+": +200 ATK!");played=true;}
+      if(strongestAI){G.fx.push({target:strongestAI.uid,bonus:200,type:"atk",endOfTurn:true});addLog("IA "+c.name+": +200 ATK!");queueAiAnnounce(`${c.name} — ${strongestAI.name} +200 ATK !`,"power","",1300);played=true;}
     } else if(c.id==="benedictionpere"){
-      const v=G.ai.field.find(x=>x&&x.faction==="Vikings");if(v){G.fx.push({target:v.uid,bonus:200,type:"atk",endOfTurn:true});addLog("IA "+c.name+": +200!");played=true;}
+      const v=G.ai.field.find(x=>x&&x.faction==="Vikings");if(v){G.fx.push({target:v.uid,bonus:200,type:"atk",endOfTurn:true});addLog("IA "+c.name+": +200!");queueAiAnnounce(`Bénédiction du Père — ${v.name} +200 ATK !`,"power","",1300);played=true;}
     } else if(c.id==="bombe"||c.id==="explosion"){
       if(playerField.length){
         const pfi=G.player.field.findIndex(x=>x&&curHp(x,G.player,G.fx,G.lieu)<=300);
-        if(pfi!==-1){killCard("player",pfi);stealPrestige("ai",c.name+": détruit!");played=true;}
-        else if(weakestPlayer){const pfi2=G.player.field.indexOf(weakestPlayer);const ch=curHp(weakestPlayer,G.player,G.fx,G.lieu)-200;if(ch<=0){killCard("player",pfi2);stealPrestige("ai",c.name+": détruit!");}else{G.player.field[pfi2]={...weakestPlayer,dmgTaken:(weakestPlayer.dmgTaken||0)+200};addLog("IA "+c.name+": -200 PV!");}played=true;}
+        if(pfi!==-1){const name=G.player.field[pfi].name;killCard("player",pfi);stealPrestige("ai",c.name+": détruit!");queueAiAnnounce(`${c.name} détruit ${name} !`,"destroy","",1400);played=true;}
+        else if(weakestPlayer){const pfi2=G.player.field.indexOf(weakestPlayer);const ch=curHp(weakestPlayer,G.player,G.fx,G.lieu)-200;if(ch<=0){const name=weakestPlayer.name;killCard("player",pfi2);stealPrestige("ai",c.name+": détruit!");queueAiAnnounce(`${c.name} détruit ${name} !`,"destroy","",1400);}else{G.player.field[pfi2]={...weakestPlayer,dmgTaken:(weakestPlayer.dmgTaken||0)+200};addLog("IA "+c.name+": -200 PV!");queueAiAnnounce(`${c.name} inflige 200 dégâts à ${weakestPlayer.name} !`,"damage","",1300);}played=true;}
       }
     } else if(c.id==="cataclysme"){
-      [...G.player.field].forEach((x,j)=>{if(x&&curHp(x,G.player,G.fx,G.lieu)<=200){killCard("player",j);stealPrestige("ai","Cataclysme: "+x.name+"!");}});played=true;
+      [...G.player.field].forEach((x,j)=>{if(x&&curHp(x,G.player,G.fx,G.lieu)<=200){const name=x.name;killCard("player",j);stealPrestige("ai","Cataclysme: "+name+"!");}});queueAiAnnounce(`Cataclysme — détruit tous les personnages blessés !`,"destroy","",1400);played=true;
     } else if(c.id==="tempetesable"||c.id==="eclipsera"){
-      G.player.field.forEach(x=>{if(x)G.fx.push({target:x.uid,bonus:-200,type:"atk",endOfTurn:true});});addLog("IA "+c.name+": tous -200 ATK!");played=true;
+      G.player.field.forEach(x=>{if(x)G.fx.push({target:x.uid,bonus:-200,type:"atk",endOfTurn:true});});addLog("IA "+c.name+": tous -200 ATK!");queueAiAnnounce(`${c.name} — tous vos personnages -200 ATK !`,"effect","",1400);played=true;
     } else if(c.id==="fureurberserker"){
-      if(strongestAI){G.fx.push({target:strongestAI.uid,bonus:400,type:"atk",endOfTurn:true});G.fureurTarget=strongestAI.uid;addLog("IA Fureur: +400 ATK!");played=true;}
-    } else if(c.id==="benedictionpere"||c.id==="frappetonnerre"){
-      if(strongestAI){G.fx.push({target:strongestAI.uid,bonus:300,type:"atk",endOfTurn:true});addLog("IA "+c.name+": +300!");played=true;}
+      if(strongestAI){G.fx.push({target:strongestAI.uid,bonus:400,type:"atk",endOfTurn:true});G.fureurTarget=strongestAI.uid;addLog("IA Fureur: +400 ATK!");queueAiAnnounce(`Fureur Berserker — ${strongestAI.name} +400 ATK !`,"power","⚠️ Perdra 200 PV à la fin du tour",1500);played=true;}
+    } else if(c.id==="frappetonnerre"){
+      if(strongestAI){G.fx.push({target:strongestAI.uid,bonus:300,type:"atk",endOfTurn:true});addLog("IA "+c.name+": +300!");queueAiAnnounce(`${c.name} — ${strongestAI.name} +300 ATK !`,"power","",1300);played=true;}
     } else if(c.id==="appeldieux"){
-      G.ai.field.forEach(x=>{if(x&&x.faction==="Egyptiens")G.fx.push({target:x.uid,bonus:200,type:"atk",endOfTurn:true});});addLog("IA Appel des Dieux!");played=true;
+      G.ai.field.forEach(x=>{if(x&&x.faction==="Egyptiens")G.fx.push({target:x.uid,bonus:200,type:"atk",endOfTurn:true});});addLog("IA Appel des Dieux!");queueAiAnnounce(`Appel des Dieux — tous les Égyptiens +200 ATK !`,"power","",1400);played=true;
     } else if(c.id==="surcroit"){
-      if(weakestAI){G.fx.push({target:weakestAI.uid,bonus:200,type:"hp",endOfTurn:false});addLog("IA Surcroît: +200 PV!");played=true;}
+      if(weakestAI){G.fx.push({target:weakestAI.uid,bonus:200,type:"hp",endOfTurn:false});addLog("IA Surcroît: +200 PV!");queueAiAnnounce(`Surcroît — ${weakestAI.name} +200 PV !`,"effect","",1300);played=true;}
     } else if(c.id==="fracastonneroc"){
       const ti=G.player.field.findIndex(x=>x);if(ti!==-1){G.fx.push({target:G.player.field[ti].uid,bonus:-300,type:"atk",endOfTurn:true});addLog("IA Fracas: -300 ATK!");played=true;}
     } else if(c.id==="chargespartiate"||c.id==="pluiejavelots"){
@@ -3842,7 +4173,29 @@ window.doEndTurn=()=>{
         }
       }
     }
-    if(G.phase!=="end")resolveCombat("ai",i,ttype,tfi);
+    if(G.phase!=="end"){
+      const tgtName=ttype==="field"&&G.player.field[tfi]?G.player.field[tfi].name:"vos points de Prestige";
+      const beforeHp=ttype==="field"&&G.player.field[tfi]?curHp(G.player.field[tfi],G.player,G.fx,G.lieu):null;
+      resolveCombat("ai",i,ttype,tfi);
+      if(G.phase!=="end"){
+        // Check if target survived or was destroyed
+        const targetDied=ttype==="field"&&!G.player.field[tfi];
+        if(targetDied){
+          queueAiAnnounce(`${atk.name} détruit ${tgtName} !`,"destroy",`⚔️ ${calcAtk(atk,G.ai,G.fx,G.lieu,false)} ATK`,1600);
+        } else if(ttype==="prestige"){
+          queueAiAnnounce(`${atk.name} attaque votre Prestige !`,"attack","",1300);
+        } else {
+          const afterHp=ttype==="field"&&G.player.field[tfi]?curHp(G.player.field[tfi],G.player,G.fx,G.lieu):null;
+          const dmgDone=beforeHp&&afterHp?beforeHp-afterHp:null;
+          queueAiAnnounce(
+            `${atk.name} attaque ${tgtName}`,
+            "attack",
+            dmgDone?`${tgtName} perd ${dmgDone} PV (→ ${afterHp} restants)`:"",
+            1500
+          );
+        }
+      }
+    }
   });
   // Reset Moku protection and Yumi ATK at start of NEXT player turn (done in turn start)
 
@@ -3882,7 +4235,8 @@ window.doEndTurn=()=>{
     }).filter(Boolean);
     checkDeckOut();
   }
-  renderGame();
+  // Show AI actions progressively, then renderGame
+  flushAiAnnounce(()=>{renderGame();});
 };
 
 // ═══════════════════════════════════════════════════════
