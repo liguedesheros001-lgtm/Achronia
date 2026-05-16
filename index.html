@@ -102,7 +102,7 @@ const isDeckStarterUnlocked=(deckId)=>{
 const getDeckCollectionPct=(deckId)=>{
   const factions=DECK_REQ_FACTIONS[deckId]||[];
   if(!factions.length)return 0;
-  const allCards=CARDS.filter(c=>factions.includes(c.faction)&&!c.isFusion);
+  const allCards=CARDS.filter(c=>factions.includes(c.faction)&&!c.isFusion&&!c.isChronoLegendaire&&c.type!=="trophee");
   if(!allCards.length)return 0;
   const owned=allCards.filter(c=>(COLLECTION[c.id]||0)>0).length;
   return owned/allCards.length;
@@ -555,6 +555,19 @@ const CARDS = [
   {id:"thalorcyberdivin",name:"Thalor Cyberdivin",type:"personnage",atk:550,hp:550,cost:10,faction:"Grecs",isChronoLegendaire:true,chronoGrade:10,effect:"Quand il attaque, inflige 1000 dégâts supplémentaires à une carte ennemie que tu sélectionnes.",syn:"Gloire"},
   // Thalor Avatar — carte trophée, pas jouable (débloquée auto quand tous les Grecs CL obtenus)
   {id:"thaloravatar",name:"Thalor Avatar de l'Olympe",type:"trophee",faction:"Grecs",isChronoLegendaire:true,isAvatar:true,chronoGrade:0,effect:"Thalor a porté la lance d'Olympe à travers les siècles, affrontant rois, monstres, machines et dieux oubliés. À chaque époque traversée, son corps s'est chargé d'une nouvelle puissance, jusqu'à devenir plus qu'un héros : un avatar vivant de la volonté divine."},
+  // ── CHRONO-LÉGENDAIRES — Amazones (fichiers: 20.png … 30.png) ──
+  {id:"kalarachasseresse",name:"Kalara Chasseresse",type:"personnage",atk:100,hp:100,cost:1,faction:"Amazones",isChronoLegendaire:true,chronoGrade:1,effect:"À l'arrivée : gagne +50 ATQ pour chaque carte amazone de coût 1 sur ton terrain ou ta défausse.",syn:"Jungle"},
+  {id:"kalaralance",name:"Kalara Lance Antique",type:"personnage",atk:150,hp:150,cost:2,faction:"Amazones",isChronoLegendaire:true,chronoGrade:2,effect:"À l'arrivée : gagne +100 ATQ pour chaque carte amazone de coût 2 sur ton terrain ou ta défausse.",syn:"Jungle"},
+  {id:"kalarakingdom",name:"Kalara du Royaume",type:"personnage",atk:200,hp:200,cost:3,faction:"Amazones",isChronoLegendaire:true,chronoGrade:3,effect:"À l'arrivée : gagne +150 ATQ pour chaque carte amazone de coût 3 sur ton terrain ou ta défausse.",syn:"Jungle"},
+  {id:"kalaraarcanes",name:"Kalara des Arcanes",type:"personnage",atk:250,hp:250,cost:4,faction:"Amazones",isChronoLegendaire:true,chronoGrade:4,effect:"À l'arrivée : gagne +200 ATQ pour chaque carte amazone de coût 4 sur ton terrain ou ta défausse.",syn:"Jungle"},
+  {id:"kalaraflamme",name:"Kalara Flamme Révolte",type:"personnage",atk:300,hp:300,cost:5,faction:"Amazones",isChronoLegendaire:true,chronoGrade:5,effect:"À l'arrivée : gagne +250 ATQ pour chaque carte amazone de coût 5 sur ton terrain ou ta défausse.",syn:"Jungle"},
+  {id:"kalaratranchees",name:"Kalara des Tranchées",type:"personnage",atk:350,hp:350,cost:6,faction:"Amazones",isChronoLegendaire:true,chronoGrade:6,effect:"À l'arrivée : gagne +300 ATQ pour chaque carte amazone de coût 6 sur ton terrain ou ta défausse.",syn:"Jungle"},
+  {id:"kalarasangfroid",name:"Kalara du Sang-Froid",type:"personnage",atk:400,hp:400,cost:7,faction:"Amazones",isChronoLegendaire:true,chronoGrade:7,effect:"À l'arrivée : gagne +350 ATQ pour chaque carte amazone de coût 7 sur ton terrain ou ta défausse.",syn:"Jungle"},
+  {id:"kalaratitanide",name:"Kalara Titanide",type:"personnage",atk:450,hp:450,cost:8,faction:"Amazones",isChronoLegendaire:true,chronoGrade:8,effect:"À l'arrivée : gagne +400 ATQ pour chaque carte amazone de coût 8 sur ton terrain ou ta défausse.",syn:"Jungle"},
+  {id:"kalarareineruines",name:"Kalara Reine des Ruines",type:"personnage",atk:500,hp:500,cost:9,faction:"Amazones",isChronoLegendaire:true,chronoGrade:9,effect:"À l'arrivée : gagne +450 ATQ pour chaque carte amazone de coût 8 ou plus sur ton terrain ou ta défausse.",syn:"Jungle"},
+  {id:"kalaracyberguerriere",name:"Kalara Cyberguerrière",type:"personnage",atk:550,hp:550,cost:10,faction:"Amazones",isChronoLegendaire:true,chronoGrade:10,effect:"À l'arrivée : gagne +500 ATQ pour chaque carte amazone de coût 8 ou plus sur ton terrain ou ta défausse.",syn:"Jungle"},
+  // Kalara Avatar — trophée, débloqué quand tous les CL Amazones sont obtenus
+  {id:"kalaradeesse",name:"Kalara Déesse des Âges",type:"trophee",faction:"Amazones",isChronoLegendaire:true,isAvatar:true,chronoGrade:0,effect:"Kalara a traversé chaque époque, survivant aux guerres, aux empires, à la magie, aux machines et à la fin du monde elle-même. De simple chasseresse primordiale, elle est devenue une légende vivante, portant en elle la force de toutes les Amazones qui ont existé."},
   // ── STEAMPUNK — Équipements ──
   {id:"lanceflammecharbon",name:"Lance-Flamme au Charbon",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 ATK. L'ennemi touche perd 100 PV au debut de son tour."},
   {id:"lunettesing",name:"Lunettes d'Ingénieur",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 PV."},
@@ -779,8 +792,20 @@ const CHRONO_LEGENDAIRES={
     {id:"thalordtitan",grade:9},
     {id:"thalorcyberdivin",grade:10},
   ],
+  Amazones:[
+    {id:"kalarachasseresse",grade:1},
+    {id:"kalaralance",grade:2},
+    {id:"kalarakingdom",grade:3},
+    {id:"kalaraarcanes",grade:4},
+    {id:"kalaraflamme",grade:5},
+    {id:"kalaratranchees",grade:6},
+    {id:"kalarasangfroid",grade:7},
+    {id:"kalaratitanide",grade:8},
+    {id:"kalarareineruines",grade:9},
+    {id:"kalaracyberguerriere",grade:10},
+  ],
 };
-const CHRONO_AVATAR={Grecs:"thaloravatar"};
+const CHRONO_AVATAR={Grecs:"thaloravatar",Amazones:"kalaradeesse"};
 
 // Grades state: {faction: currentGrade (0–10)}
 let GRADES={};
@@ -1666,10 +1691,10 @@ const FACTION_NAMES={Pirates:"⚓ Pirates",Vikings:"⚡ Vikings",Amazones:"🌿 
 const renderCollection=()=>{
   const allFactions=FACTION_ORDER.filter(f=>CARDS.some(c=>c.faction===f&&!c.isFusion&&c.type!=="trophee"));
   let totalOwned=0,totalAll=0;
-  CARDS.forEach(c=>{if(!c.isFusion&&c.type!=="trophee"){totalAll++;if(COLLECTION[c.id])totalOwned++;}});
+  CARDS.forEach(c=>{if(!c.isFusion&&c.type!=="trophee"&&!c.isChronoLegendaire){totalAll++;if(COLLECTION[c.id])totalOwned++;}});
 
   const sections=allFactions.map(faction=>{
-    const fCards=CARDS.filter(c=>c.faction===faction&&!c.isFusion&&c.type!=="trophee");
+    const fCards=CARDS.filter(c=>c.faction===faction&&!c.isFusion&&c.type!=="trophee"&&!c.isChronoLegendaire);
     const ownedCount=fCards.filter(c=>COLLECTION[c.id]).length;
     const col=FACTION_COLOR[faction]||"#aaa";
     const cardGrid=fCards.map(c=>{
@@ -1707,6 +1732,43 @@ const renderCollection=()=>{
         </div>
       </div>`;
     }).join("");
+    // Chrono-Légendaires pour cette faction
+    const clCards=CARDS.filter(c=>c.faction===faction&&c.isChronoLegendaire&&c.type!=="trophee");
+    let clSection="";
+    if(clCards.length){
+      const clOwned=clCards.filter(c=>(COLLECTION[c.id]||0)>0).length;
+      const clGrid=clCards.map(c=>{
+        const owned=(COLLECTION[c.id]||0)>0;
+        const fGrade=GRADES[faction]||0;
+        const isEligible=fGrade>=(c.chronoGrade||0);
+        if(owned){
+          return`<div style="width:44px;text-align:center;cursor:pointer" onclick="showCollectionCard('${c.id}')" title="${c.name}">
+            <div style="width:44px;height:62px;border-radius:4px;border:2px solid #cc88ff;overflow:hidden;background:#0a1020;transition:all 0.2s"
+              onmouseover="this.style.transform='scale(1.12)';this.style.zIndex='10'" onmouseout="this.style.transform='';this.style.zIndex='1'">
+              <img src="cards/${c.id}.png" style="width:100%;height:100%;object-fit:cover">
+            </div>
+            <div style="font-size:6px;color:#cc88ff;margin-top:1px">G${c.chronoGrade}</div>
+          </div>`;
+        }
+        return`<div style="width:44px;text-align:center;cursor:default" title="${isEligible?c.name+' (drop possible)':'Grade '+c.chronoGrade+' requis'}">
+          <div style="width:44px;height:62px;border-radius:4px;border:2px solid ${isEligible?'#cc88ff44':'#1a2030'};overflow:hidden;background:#050a10;position:relative">
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px">
+              <div style="font-size:14px;opacity:${isEligible?0.7:0.18}">✨</div>
+              <div style="font-size:6px;color:${isEligible?'#cc88ff':'#1a2030'}">G${c.chronoGrade}</div>
+            </div>
+          </div>
+        </div>`;
+      }).join("");
+      clSection=`<div style="margin-top:8px;border-top:1px solid #cc88ff22;padding-top:6px">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">
+          <span style="font-size:9px;color:#cc88ff;font-weight:bold">✨ Chrono-Légendaires</span>
+          <span style="font-size:8px;color:#445">${clOwned}/${clCards.length}</span>
+          <span style="font-size:7px;color:#334">(Pack Nouvelle Ère · Grades)</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px">${clGrid}</div>
+      </div>`;
+    }
+
     return`<div style="margin-bottom:18px">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid ${col}33">
         <span style="font-size:13px;font-weight:bold;color:${col}">${FACTION_NAMES[faction]||faction}</span>
@@ -1715,6 +1777,7 @@ const renderCollection=()=>{
         <span style="font-size:9px;color:#445">${Math.round(ownedCount/fCards.length*100)}%</span>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:5px">${cardGrid}</div>
+      ${clSection}
     </div>`;
   }).join("");
 
@@ -1891,14 +1954,24 @@ window.showCollectionCard=(id)=>{
 // Aller au deck select ou direct opponent select si 1 seul deck
 const goToPlay=()=>{
   const playable=Object.keys(DECKS).filter(id=>isDeckPlayable(id)&&!DECKS[id].bossOnly);
+  if(playable.length===0){
+    SCREEN="opponentselect";renderOpponentSelect();
+    return;
+  }
+  // Si un seul deck jouable → direct
   if(playable.length===1){
     DECK_IDS.player=playable[0];
     SCREEN="opponentselect";renderOpponentSelect();
-  } else if(playable.length>1){
-    SCREEN="deckselect";render();// ← was calling goToPlay() recursively — fixed
-  } else {
-    SCREEN="opponentselect";renderOpponentSelect();
+    return;
   }
+  // Si le dernier deck joué est encore jouable → direct sans repasser par deckselect
+  const lastDeck=safeStorage.get("tcg_last_deck_v1");
+  if(lastDeck&&playable.includes(lastDeck)){
+    DECK_IDS.player=lastDeck;
+    SCREEN="opponentselect";renderOpponentSelect();
+    return;
+  }
+  SCREEN="deckselect";render();
 };
 window.goToPlay=goToPlay;
 
@@ -1953,12 +2026,13 @@ window.confirmStarterPack=(id)=>{
   COLLECTION={};
   // Give ONLY starter faction + neutral
   CARDS.forEach(c=>{
-    if((p.factions.includes(c.faction)||c.faction==="Neutre")&&!c.isFusion){
+    if((p.factions.includes(c.faction)||c.faction==="Neutre")&&!c.isFusion&&!c.isChronoLegendaire){
       COLLECTION[c.id]=1;
     }
   });
   PLAYER_STATS.coins=700;
   saveStats();saveCollection();
+  safeStorage.set("tcg_last_deck_v1",id);
   DECK_IDS.player=id;
   SCREEN="opponentselect";renderOpponentSelect();
 };
@@ -2215,7 +2289,7 @@ const initCollectionIfEmpty=()=>{
   if(!starterChoice)return;
   // Donner uniquement la faction de départ + neutres
   CARDS.forEach(c=>{
-    if((starterChoice.factions.includes(c.faction)||c.faction==="Neutre")&&!c.isFusion){
+    if((starterChoice.factions.includes(c.faction)||c.faction==="Neutre")&&!c.isFusion&&!c.isChronoLegendaire){
       COLLECTION[c.id]=1;
     }
   });
@@ -2239,7 +2313,7 @@ const SHOP_PACK_DEFS=[
 ];
 
 const getRarityPool=(factions)=>{
-  const pool=CARDS.filter(c=>factions.includes(c.faction)&&!c.isFusion);
+  const pool=CARDS.filter(c=>factions.includes(c.faction)&&!c.isFusion&&!c.isChronoLegendaire&&c.type!=="trophee");
   const common=pool.filter(c=>c.type==="action"||(c.type==="personnage"&&(c.cost||0)<=3));
   const rare=pool.filter(c=>c.type==="equipement"||(c.type==="personnage"&&(c.cost||0)>=4&&(c.cost||0)<=6));
   const prestige=pool.filter(c=>c.type==="lieu"||(c.type==="personnage"&&(c.cost||0)>=7&&(c.cost||0)<=9));
@@ -2813,6 +2887,7 @@ window.chooseDeck=id=>{
   const dk=DECKS[id];
   if(dk&&dk.locked){alert("Ce deck est verrouillé !");return;}
   if(!isDeckPlayable(id)){alert("Tu dois posséder au moins 85% des cartes de ce deck pour le jouer !\nActuellement : "+Math.round(getDeckCollectionPct(id)*100)+"%");return;}
+  safeStorage.set("tcg_last_deck_v1",id);
   DECK_IDS.player=id;
   SCREEN="opponentselect";
   renderOpponentSelect();
@@ -2914,7 +2989,10 @@ const renderOpponentSelect=()=>{
     ${statsBarHTML()}
     <div style="text-align:center">
       <div style="font-size:24px;color:#f0c060;font-weight:bold;margin-bottom:4px">⚔️ Préparez le combat</div>
-      <div style="font-size:12px;color:#8899bb">Votre deck : <span style="color:${playerDk.color};font-weight:bold">${playerDk.icon} ${playerDk.name}</span></div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap">
+        <div style="font-size:12px;color:#8899bb">Votre deck : <span style="color:${playerDk.color};font-weight:bold">${playerDk.icon} ${playerDk.name}</span></div>
+        <button onclick="SCREEN='deckselect';render()" style="background:rgba(255,255,255,0.06);border:1px solid #334;border-radius:8px;color:#889;padding:3px 10px;font-size:10px;cursor:pointer">🔄 Changer</button>
+      </div>
     </div>
     <div style="width:100%;max-width:680px">
       <div style="font-size:13px;color:#f0c060;font-weight:bold;margin-bottom:10px;text-align:center">🎯 Choisissez votre adversaire</div>
@@ -3228,48 +3306,47 @@ const renderGame=()=>{
       if(G.player.prestige>10)progressChallenge("win_nodmg");
       // ── GRADES: track faction win stats ──
       const diff2=MATCHUP?.difficulty||"moyen";
-      for(const faction of GRADES_FACTIONS){
-        // Count faction cards across all player zones
+      // Identifier la faction principale via le deck joué
+      const playerDeckDef=DECKS[DECK_IDS.player];
+      const deckFactions=playerDeckDef?.factions||[];
+      const gradeFaction=GRADES_FACTIONS.find(f=>deckFactions.includes(f));
+      if(gradeFaction){
         const allCards=[...G.player.deck,...G.player.hand,...G.player.field.filter(c=>c),...G.player.discard];
-        const factionCards=allCards.filter(c=>c.faction===faction);
-        const has20=factionCards.length>=20;
-        if(!has20){
-          // Reset diff streak even if not playing this faction
-          resetFactionStreak(faction);
-          continue;
-        }
-        // All per-game conditions
-        const fAlive=G.player.field.filter(c=>c&&c.faction===faction).length;
-        const hasHighCostAlive=G.player.field.some(c=>c&&c.faction===faction&&(c.cost||0)>=7);
+        const fAlive=G.player.field.filter(c=>c&&c.faction===gradeFaction).length;
+        const hasHighCostAlive=G.player.field.some(c=>c&&c.faction===gradeFaction&&(c.cost||0)>=7);
+        const factionCards=allCards.filter(c=>c.faction===gradeFaction);
         const noFactionCost5InDeck=!factionCards.some(c=>(c.cost||0)>=5);
-        const prestigeLost=10-G.player.prestige;// prestige starts at 10
+        const prestigeLost=10-G.player.prestige;
         const opponentId=DECK_IDS.ai||"unknown";
         // wins (grade 1 + 4)
-        incFactionStat(faction,"wins");
+        incFactionStat(gradeFaction,"wins");
         // wins3alive (grade 3)
-        if(fAlive>=3)incFactionStat(faction,"wins3alive");
+        if(fAlive>=3)incFactionStat(gradeFaction,"wins3alive");
         // winsHighCost (grade 5)
-        if(hasHighCostAlive)incFactionStat(faction,"winsHighCost");
+        if(hasHighCostAlive)incFactionStat(gradeFaction,"winsHighCost");
         // diffStreak (grade 6)
         if(diff2==="difficile"){
-          incFactionStat(faction,"diffStreak");
+          incFactionStat(gradeFaction,"diffStreak");
         } else {
-          resetFactionStreak(faction);
+          resetFactionStreak(gradeFaction);
         }
         // winsNoDmg (grade 7)
-        if(G.player.prestige>=10)incFactionStat(faction,"winsNoDmg");
-        // winsNoHigh (grade 8) — no faction cost 5+
-        if(noFactionCost5InDeck)incFactionStat(faction,"winsNoHigh");
+        if(G.player.prestige>=10)incFactionStat(gradeFaction,"winsNoDmg");
+        // winsNoHigh (grade 8) — pas de faction coût 5+
+        if(noFactionCost5InDeck)incFactionStat(gradeFaction,"winsNoHigh");
         // factionsBeatDiff (grade 9)
-        if(diff2==="difficile")addFactionBeatDiff(faction,opponentId);
+        if(diff2==="difficile")addFactionBeatDiff(gradeFaction,opponentId);
         // winsHardest (grade 10)
-        if(diff2==="difficile"&&noFactionCost5InDeck&&prestigeLost<=3)incFactionStat(faction,"winsHardest");
-        // Update grades
-        const gradeChanged=updateGrades(faction);
+        if(diff2==="difficile"&&noFactionCost5InDeck&&prestigeLost<=3)incFactionStat(gradeFaction,"winsHardest");
+        // Mettre à jour les grades
+        const gradeChanged=updateGrades(gradeFaction);
         if(gradeChanged){
-          const newGrade=GRADES[faction]||0;
-          setTimeout(()=>showNotif("🏅 Grade "+newGrade+" atteint !\n"+faction+"\n"+FACTION_GRADES_DEF[faction]?.[newGrade-1]?.label,"#cc88ff","🏅"),1800);
+          const newGrade=GRADES[gradeFaction]||0;
+          setTimeout(()=>showNotif("🏅 Grade "+newGrade+" atteint !\n"+gradeFaction+"\n"+(FACTION_GRADES_DEF[gradeFaction]?.[newGrade-1]?.label||""),"#cc88ff","🏅"),1800);
         }
+      } else {
+        // Faction hors grades → reset streak uniquement
+        for(const f of GRADES_FACTIONS)resetFactionStreak(f);
       }
       // Chemin vers la victoire
       if(CHEMIN_STATE){
@@ -4143,6 +4220,30 @@ const playCard=(cardUid,fi)=>{
     // bichecerynie: effet au combat (handled in resolveCombat)
     // ── AMAZONES nouvelles cartes ──
     // nalyaecume: effet au combat
+
+    // ── CHRONO-LÉGENDAIRES Amazones (Kalara) : effet à l'arrivée ──
+    // Helper: compte les Amazones d'un coût précis sur terrain + défausse
+    if(card.isChronoLegendaire&&card.faction==="Amazones"&&card.type==="personnage"){
+      const fi2=G.player.field.findIndex(c=>c&&c.uid===placed.uid);
+      if(fi2!==-1){
+        // Grades 1-7 : coût exact = card.cost ; grades 8-9-10 : coût >= 8
+        const exactCost=card.cost;
+        const useGeq=(card.chronoGrade||0)>=9; // grade 9 et 10 = coût 8 ou plus
+        const bonusPerCard=[0,50,100,150,200,250,300,350,400,450,500][card.chronoGrade]||0;
+        const allZones=[
+          ...G.player.field.filter(c=>c&&c.uid!==placed.uid&&c.faction==="Amazones"),
+          ...G.player.discard.filter(c=>c.faction==="Amazones"),
+        ];
+        const count=allZones.filter(c=>useGeq?(c.cost||0)>=8:(c.cost||0)===exactCost).length;
+        const total=bonusPerCard*count;
+        if(total>0){
+          G.player.field[fi2]={...G.player.field[fi2],bonusAtk:(G.player.field[fi2].bonusAtk||0)+total};
+          addLog(`${placed.name}: +${total} ATQ (${count} Amazone(s) coût ${useGeq?"8+":exactCost}) !`);
+        } else {
+          addLog(`${placed.name}: aucune Amazone coût ${useGeq?"8+":exactCost} trouvée.`);
+        }
+      }
+    }
 
     // ── ROBOTS HUMANOÏDES ──
     if(card.id==="diva09"){G.ai.field.forEach(c=>{if(c)G.fx.push({target:c.uid,bonus:-100,type:"atk",endOfTurn:true});});addLog("Diva-09: tous les ennemis -100 ATK ce tour !");}
