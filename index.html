@@ -1958,16 +1958,29 @@ const goToPlay=()=>{
     SCREEN="opponentselect";renderOpponentSelect();
     return;
   }
-  // Si un seul deck jouable → direct
   if(playable.length===1){
     DECK_IDS.player=playable[0];
     SCREEN="opponentselect";renderOpponentSelect();
     return;
   }
-  // Si le dernier deck joué est encore jouable → direct sans repasser par deckselect
+  // Priorité 1 : dernier deck sauvegardé
   const lastDeck=safeStorage.get("tcg_last_deck_v1");
   if(lastDeck&&playable.includes(lastDeck)){
     DECK_IDS.player=lastDeck;
+    SCREEN="opponentselect";renderOpponentSelect();
+    return;
+  }
+  // Priorité 2 : deck correspondant au starter pack (choix initial définitif)
+  if(STARTER_PACK&&playable.includes(STARTER_PACK)){
+    DECK_IDS.player=STARTER_PACK;
+    safeStorage.set("tcg_last_deck_v1",STARTER_PACK);
+    SCREEN="opponentselect";renderOpponentSelect();
+    return;
+  }
+  // Priorité 3 : premier deck jouable
+  if(playable.length>0){
+    DECK_IDS.player=playable[0];
+    safeStorage.set("tcg_last_deck_v1",playable[0]);
     SCREEN="opponentselect";renderOpponentSelect();
     return;
   }
@@ -2396,15 +2409,15 @@ const buildDraftDeck=deckId=>{
   if(isCollBased){
     const deck=[];
     for(const[type,count] of Object.entries(dk.slots)){
-      const pool=CARDS.filter(c=>c.type===type&&factions.includes(c.faction)&&!c.isFusion&&(COLLECTION[c.id]||0)>0);
+      const pool=CARDS.filter(c=>c.type===type&&factions.includes(c.faction)&&!c.isFusion&&!c.isChronoLegendaire&&c.type!=="trophee"&&(COLLECTION[c.id]||0)>0);
       deck.push(...draftSlot(pool,count));
     }
     return shuffle(deck);
   }
-  // Starter deck: full random draft
+  // Starter deck: toutes les cartes de la faction sont disponibles (hors CL, hors trophées)
   const deck=[];
   for(const[type,count] of Object.entries(dk.slots)){
-    const pool=CARDS.filter(c=>c.type===type&&factions.includes(c.faction)&&!c.isFusion&&!LOCKED_FROM_POOL.has(c.id));
+    const pool=CARDS.filter(c=>c.type===type&&factions.includes(c.faction)&&!c.isFusion&&!c.isChronoLegendaire&&c.type!=="trophee"&&!LOCKED_FROM_POOL.has(c.id));
     deck.push(...draftSlot(pool,count));
   }
   return shuffle(deck);
@@ -2415,7 +2428,7 @@ const buildDraftDeckWithDiff=(deckId,diff)=>{
   const factions=dk.factions;
   const deck=[];
   for(const[type,count] of Object.entries(dk.slots)){
-    let pool=CARDS.filter(c=>c.type===type&&factions.includes(c.faction)&&!c.isFusion&&!LOCKED_FROM_POOL.has(c.id));
+    let pool=CARDS.filter(c=>c.type===type&&factions.includes(c.faction)&&!c.isFusion&&!c.isChronoLegendaire&&!LOCKED_FROM_POOL.has(c.id));
     if(diff==="facile"&&type==="personnage")pool=pool.filter(c=>!c.cost||c.cost<=6);
     if(diff==="difficile"&&type==="personnage"){
       const strong=pool.filter(c=>c.cost&&c.cost>=5);
@@ -3575,19 +3588,34 @@ const renderChoiceModal=()=>{
   } else if(ch.type==="poison_single"||ch.type==="tayra_target"||ch.type==="klausbrume"){
     const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;text-align:center">${cardHTML(c,"mini",{cHp:curHp(c,G.ai,G.fx,G.lieu),mHp:maxHp(c,G.ai,G.fx,G.lieu)})}<div style="font-size:8px;color:#aac;margin-top:2px">${c.name}</div></div>`).join("");
     content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
+  } else if(ch.type==="olympe_choice"){
+    const grecsAlies=G.player.field.filter(c=>c&&c.faction==="Grecs");
+    const atkBtn=grecsAlies.length?`<button onclick="doChoice('atk',-1)" style="background:linear-gradient(90deg,#c8a020,#f0c060);border:none;border-radius:10px;color:#000;padding:10px 20px;font-weight:bold;cursor:pointer">⚔️ Grec allié +100 ATK</button>`:`<button disabled style="opacity:0.4;background:#1a2030;border:1px solid #334;border-radius:10px;color:#aaa;padding:10px 20px;cursor:not-allowed">⚔️ Aucun Grec allié</button>`;
+    content=`<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button onclick="doChoice('draw',-1)" style="background:linear-gradient(90deg,#1144aa,#2266dd);border:none;border-radius:10px;color:#fff;padding:10px 20px;font-weight:bold;cursor:pointer">🃏 Piocher 1 carte</button>
+      ${atkBtn}
+    </div>`;
   } else if(ch.type==="dragon_venin"||ch.type==="sylvara"){
     const maxSel=ch.type==="dragon_venin"?2:2;
     const sel=ch.selected||[];
     const grid=(ch.options||[]).map(({c,i})=>{const isSel=sel.includes(i);return`<div onclick="doChoice('toggle',${i})" style="cursor:pointer;text-align:center;opacity:${isSel?1:0.7}"><div style="border:2px solid ${isSel?'#55bb22':'#333'};border-radius:6px">${cardHTML(c,"mini",{cHp:curHp(c,G.ai,G.fx,G.lieu),mHp:maxHp(c,G.ai,G.fx,G.lieu)})}</div><div style="font-size:8px;color:${isSel?'#55bb22':'#aac'};margin-top:2px">${c.name}</div></div>`;}).join("");
     content=`<div style="display:flex;flex-direction:column;gap:10px;align-items:center"><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div><button onclick="doChoice('confirm',-1)" style="background:#55bb22;border:none;border-radius:8px;color:#000;padding:8px 24px;font-weight:bold;cursor:pointer">Confirmer (${sel.length}/${maxSel})</button></div>`;
   } else {
-    const isEnemy2=["freyja","entravesygg","kaya","impactcible","planche","prisongivre","corliss","hurgan","lyra","silence","selka","fosseauxpiques","marquetribale","prisonracines","gardiennil","cowboy","embuscadecobra","colerara_tgt","enfantrongeurs","etoileciel","harlementnloup","piegeplaines","totementrave"].includes(ch.type);
+    const isEnemy2=["freyja","entravesygg","kaya","impactcible","planche","prisongivre","corliss","hurgan","lyra","silence","selka","fosseauxpiques","marquetribale","prisonracines","gardiennil","cowboy","embuscadecobra","colerara_tgt","enfantrongeurs","etoileciel","harlementnloup","piegeplaines","totementrave","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","kuro_target","garruk_target","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","spectrebarillet","rictus","meteioide4"].includes(ch.type);
     const grid=isEnemy2?enCardGrid(ch.options||[]):myCardGrid(ch.options||[]);
     content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
   }
 
   const titles={
     trio_grecs:"🏛️ Trio Grecs — Choisir un ennemi à geler",ile:"Ile aux Tresors",explosion:"Explosion",
+    olympe_choice:"🏛️ L'Olympe — Choisir une récompense",
+    pegasefeu:"🔥 Pégase de Feu — 100 dégâts à un ennemi",
+    sireneegeenne:"🧜 Sirène Égéenne — Forcer un ennemi à attaquer la Sirène",
+    hopliteargos:"🛡️ Hoplite d'Argos — +100 PV à un allié",
+    harpiefalaises:"🦅 Harpie des Falaises — Ennemi -200 ATK",
+    eluzeus:"⚡ Élu de Zeus — 300 dégâts à un ennemi",
+    dionysos:"🍇 Dionysos — Grec allié +100 PV",
+    meduse:"🐍 Méduse — Geler un ennemi",
     volpuissance_my:"Vol de puissance — Votre personnage (+200 ATK)",volpuissance_en:"Vol de puissance — Ennemi (-200 ATK)",
     eirik:"Eirik — Quelle carte garder en haut ?",sauvetage:"Sauvetage — Pirate en défausse",
     planche:"La Planche (≤300 PV)",corliss:"Corliss — Voler une carte",hurgan:"Hurgan — Renvoyer",
@@ -3653,7 +3681,8 @@ const renderChoiceModal=()=>{
     marchenoir:"🏪 Marché Noir — Choisir une carte",
   };
 
-  const hasClose=!["clankbeak","ile","dragon_venin","sylvara","ninja_trio_recall"].includes(ch.type);
+  const mandatoryTypes=["clankbeak","ile","dragon_venin","sylvara","ninja_trio_recall","olympe_choice","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","hurgan","lyra","malgor","crocsr","iskra","kaya","freyja","astrid","haldor","ylvabaies","petittorvald","corliss","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","meteioide4","spectrebarillet","rictus","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","garruk_target","kuro_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","danseuseesprits","passeurnil","pretressenil","hopliteargos","dionysos","meduse","eluzeus","sireneegeenne","colerara_sacr","colerara_tgt","auxportolympe","isis","reveilpharaon","regenerationnil"];
+  const hasClose=!mandatoryTypes.includes(ch.type);
   return `<div class="modal-bg" onclick="${hasClose?"closeChoice()":""}"><div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-title">${titles[ch.type]||ch.type}</div>
     ${content}
@@ -4696,14 +4725,14 @@ window.doChoice=(action,payload)=>{
     else if(ch.type==="ninja_trio_recall"){
       if(action==="pick"){
         const c=G.player.field[payload];
-          // Reset all stats to base card values
+        if(c){
           const base=CARDS.find(x=>x.id===c.id)||c;
           G.player.hand.push({...base,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false,_poisoned:false,_poisonParalysant:false,_repassuspec:false,_nikoProtectExpires:0});
           addLog("🥷 Trio Ninja: "+c.name+" rappelé en main — PV et stats rechargés !");
         }
       }
-      // skip: just end the turn — fall through to doEndTurn
-      CHOICE=null;doEndTurn();return;
+      // skip ou pick : on termine le tour
+      CHOICE=null;renderGame();doEndTurn();return;
     }
     else if(ch.type==="poison_single"){
       const t=G.ai.field[payload];if(t){poisonChar("ai",t.uid,ch.dmg||0,ch.turns||-1,ch.atkPen||0);addLog("☠ "+(ch.label||"Poison")+": "+t.name+" empoisonné(e) !");}
@@ -4729,6 +4758,7 @@ window.doChoice=(action,payload)=>{
     else if(ch.type==="equip_curse"){const t=G.ai.field[payload];if(t&&ch.cursedCard){if(!G.enemyEquips)G.enemyEquips=[];G.enemyEquips.push({id:ch.cursedCard.id,name:ch.cursedCard.name,targetUid:t.uid,side:"ai"});t._poisoned=true;// Apply immediate effect for Fiole
       if(ch.cursedCard.id==="fioletox"){G.dotEffects.push({uid:t.uid,side:"ai",dmgHp:100,turnsLeft:-1});}addLog(ch.cursedCard.name+" attaché à "+t.name+" !");}}
     else if(ch.type==="marchenoir"){const c=ch.options[payload];if(c){G.player.deck=G.player.deck.filter(x=>x.uid!==c.c.uid);G.player.hand.push({...c.c,uid:mkuid()});addLog("🏪 Marché Noir: "+c.c.name+" en main !");}}
+  }// fin else if(action==="pick")
   CHOICE=null;renderGame();
 };
 
