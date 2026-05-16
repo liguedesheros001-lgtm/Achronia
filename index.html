@@ -510,6 +510,67 @@ const CARDS = [
   // ── EMPOISONNEURS — Lieux ──
   {id:"labocontrepoisons",name:"Laboratoire Contrepoisons",type:"lieu",cost:0,faction:"Empoisonneurs",effect:"1x/tour quand un Empoisonneur allie entre en jeu: retire un poison d'un allie OU soigne un allie +100 PV."},
   {id:"egouttox",name:"Égouts Toxiques",type:"lieu",cost:0,faction:"Empoisonneurs",effect:"Debut de chaque tour adverse: ennemis -50 PV. Deja empoisonnes: aussi -50 ATK."},
+  // ── STEAMPUNK — Industriels (nouveaux personnages) ──
+  {id:"rifftonnecuivre",name:"Riff Tonnecuivre",type:"personnage",atk:250,hp:250,cost:2,faction:"Steampunk",effect:"Entree: tous les Steampunk allies gagnent +100 ATK."},
+  {id:"alaricforgebrume",name:"Alaric Forgebrume",type:"personnage",atk:350,hp:450,cost:4,faction:"Steampunk",effect:"Entree: tu peux prendre un Equipement Steampunk de ton deck en main."},
+  {id:"minaclefargent",name:"Mina Clef-d'Argent",type:"personnage",atk:200,hp:250,cost:2,faction:"Steampunk",effect:"Entree: un Steampunk allie equipe gagne +100 PV."},
+  {id:"borossoudefer",name:"Boros Soudefer",type:"personnage",atk:300,hp:400,cost:3,faction:"Steampunk",effect:"Entree: un Steampunk allie gagne +100 ATK. S'il est equipe, +100 ATK supplementaires."},
+  {id:"octavechromacier",name:"Octave Chromacier",type:"personnage",atk:300,hp:500,cost:4,faction:"Steampunk",effect:"Entree: pioche 1 carte. Si c'est un Equipement, un Steampunk allie gagne +200 ATK."},
+  {id:"papyferraille",name:"Papy Ferraille",type:"personnage",atk:150,hp:250,cost:2,faction:"Steampunk",effect:"Entree: recupere un Equipement Steampunk de ta defausse en main."},
+  {id:"garrukscievapeur",name:"Garruk Scie-Vapeur",type:"personnage",atk:600,hp:450,cost:5,faction:"Steampunk",effect:"Entree: inflige 150 degats a un ennemi. Si ce personnage est equipe: 250 degats a la place."},
+  {id:"trollchaudieres",name:"Troll des Chaudières",type:"personnage",atk:150,hp:200,cost:1,faction:"Steampunk",effect:"Entree: un Steampunk allie equipe gagne +50 ATK."},
+  {id:"victorvonfumacier",name:"Victor von Fumacier",type:"personnage",atk:800,hp:900,cost:8,faction:"Steampunk",effect:"Entree: tous tes Steampunk equipes gagnent +200 ATK et +200 PV."},
+  {id:"airainherovapeur",name:"Airain Héros à Vapeur",type:"personnage",atk:700,hp:650,cost:6,faction:"Steampunk",effect:"Entree: si un Equipement est sur ton terrain, gagne +200 ATK jusqu'a la fin du tour."},
+  {id:"eleonorepressiondoree",name:"Éléonore Pressiondorée",type:"personnage",atk:500,hp:700,cost:6,faction:"Steampunk",effect:"Entree: tu peux lui attacher un Equipement Steampunk de ta main. Si oui: +150 PV."},
+  {id:"noirrouage",name:"Noir-Rouage",type:"personnage",atk:750,hp:700,cost:7,faction:"Steampunk",effect:"Entree: detruit tous tes Equipements. Pour chaque equip detruit: 200 degats a chaque ennemi."},
+  {id:"julesvifpiston",name:"Jules Vifpiston",type:"personnage",atk:400,hp:300,cost:3,faction:"Steampunk",effect:"Entree: un Steampunk allie gagne +150 ATK."},
+  {id:"noracharbonnelle",name:"Nora Charbonnelle",type:"personnage",atk:100,hp:150,cost:1,faction:"Steampunk",effect:"Entree: le prochain Equipement Steampunk joue donne +100 ATK supplementaires au porteur."},
+  {id:"balthazargemmepression",name:"Balthazar Gemmepression",type:"personnage",atk:250,hp:500,cost:4,faction:"Steampunk",effect:"Entree: si tu controles un Steampunk equipe, pioche 2 cartes."},
+  {id:"kurocorvacier",name:"Kuro Corvacier",type:"personnage",atk:700,hp:650,cost:7,faction:"Steampunk",effect:"Entree: inflige 200 degats a un ennemi par Equipement total sur le terrain."},
+  {id:"koracharbacier",name:"Kora Charbacier",type:"personnage",atk:1100,hp:1100,cost:10,faction:"Steampunk",isFusion:true,effect:"FUSION: Nora Charbonnelle + Kuro Corvacier + carte Fusion."},
+  {id:"gedeonverrebrume",name:"Gédéon Verrebrume",type:"personnage",atk:50,hp:200,cost:1,faction:"Steampunk",effect:"Entree: soigne 100 PV a un Steampunk allie."},
+  // ── STEAMPUNK — Actions ──
+  {id:"charbonhq",name:"Charbon de Haute Qualité",type:"action",cost:0,faction:"Steampunk",effect:"Choisis un Steampunk allie equipe. Quand il est detruit, ses equipements retournent en main."},
+  {id:"retouraiguilles",name:"Retour des Aiguilles",type:"action",cost:0,faction:"Steampunk",effect:"Recupere une carte Action Steampunk de ta defausse en main."},
+  {id:"prototypereussi",name:"Prototype Réussi",type:"action",cost:0,faction:"Steampunk",effect:"Choisis un Steampunk allie. Attache-lui un Equipement Steampunk depuis ton deck."},
+  {id:"surchargechaudiere",name:"Surcharge de Chaudière",type:"action",cost:0,faction:"Steampunk",effect:"Inflige 300 degats a un ennemi. Puis choisis un de tes Steampunk: il perd 100 PV."},
+  {id:"jetvapeurbrulante",name:"Jet de Vapeur Brûlante",type:"action",cost:0,faction:"Steampunk",effect:"Choisis un ennemi: -200 PV et -100 ATK jusqu'a la fin du tour."},
+  {id:"sabotagemeca",name:"Sabotage Mécanique",type:"action",cost:0,faction:"Steampunk",effect:"Detruit un Equipement adverse. Sinon: inflige 200 degats a un ennemi."},
+  {id:"blindageurgence",name:"Blindage d'Urgence",type:"action",cost:0,faction:"Steampunk",effect:"Choisis un Steampunk allie: +300 PV jusqu'a la fin du prochain tour adverse."},
+  {id:"recrutementindus",name:"Recrutement Industriel",type:"action",cost:0,faction:"Steampunk",effect:"Pioche 1 carte. Si tu controles un Steampunk equipe, pioche 1 carte supplementaire."},
+  {id:"greveouvriers",name:"Grève des Ouvriers",type:"action",cost:0,faction:"Steampunk",effect:"Choisis un ennemi: il ne peut pas attaquer pendant 3 tours adverses."},
+  // ── STEAMPUNK — Lieux ──
+  {id:"usineavapeur",name:"Usine à Vapeur Steampunk",type:"lieu",cost:0,faction:"Steampunk",effect:"1x/tour: quand tu joues un Equipement Steampunk, un Steampunk allie gagne +100 PV."},
+  {id:"manoirbaron",name:"Manoir du Baron",type:"lieu",cost:0,faction:"Steampunk",effect:"Debut de ton tour: si tu controles un Steampunk equipe, pioche 1 carte et remets 1 carte sous ton deck."},
+  // ── CHRONO-LÉGENDAIRES — Grecs (fichiers: 43.png … 53.png) ──
+  {id:"thalorsilex",name:"Thalor de Silex",type:"personnage",atk:100,hp:100,cost:1,faction:"Grecs",isChronoLegendaire:true,chronoGrade:1,effect:"Quand il attaque, inflige 100 dégâts supplémentaires à une carte ennemie que tu sélectionnes.",syn:"Gloire"},
+  {id:"thalordolympe",name:"Thalor Lance d'Olympe",type:"personnage",atk:150,hp:150,cost:2,faction:"Grecs",isChronoLegendaire:true,chronoGrade:2,effect:"Quand il attaque, inflige 200 dégâts supplémentaires à une carte ennemie que tu sélectionnes.",syn:"Gloire"},
+  {id:"thalorroyaumes",name:"Thalor des Royaumes",type:"personnage",atk:200,hp:200,cost:3,faction:"Grecs",isChronoLegendaire:true,chronoGrade:3,effect:"Quand il attaque, inflige 300 dégâts supplémentaires à une carte ennemie que tu sélectionnes.",syn:"Gloire"},
+  {id:"thalorfdieux",name:"Thalor Favori des Dieux",type:"personnage",atk:250,hp:250,cost:4,faction:"Grecs",isChronoLegendaire:true,chronoGrade:4,effect:"Quand il attaque, inflige 400 dégâts supplémentaires à une carte ennemie que tu sélectionnes.",syn:"Gloire"},
+  {id:"thalorbriseur",name:"Thalor le Briseur",type:"personnage",atk:300,hp:300,cost:5,faction:"Grecs",isChronoLegendaire:true,chronoGrade:5,effect:"Quand il attaque, inflige 500 dégâts supplémentaires à une carte ennemie que tu sélectionnes.",syn:"Gloire"},
+  {id:"thalortranchees",name:"Thalor des Tranchées",type:"personnage",atk:350,hp:350,cost:6,faction:"Grecs",isChronoLegendaire:true,chronoGrade:6,effect:"Quand il attaque, inflige 600 dégâts supplémentaires à une carte ennemie que tu sélectionnes.",syn:"Gloire"},
+  {id:"thalorparrain",name:"Thalor le Parrain",type:"personnage",atk:400,hp:400,cost:7,faction:"Grecs",isChronoLegendaire:true,chronoGrade:7,effect:"Quand il attaque, inflige 700 dégâts supplémentaires à une carte ennemie que tu sélectionnes.",syn:"Gloire"},
+  {id:"thalortitanurbain",name:"Thalor Titan Urbain",type:"personnage",atk:450,hp:450,cost:8,faction:"Grecs",isChronoLegendaire:true,chronoGrade:8,effect:"Quand il attaque, inflige 800 dégâts supplémentaires à une carte ennemie que tu sélectionnes.",syn:"Gloire"},
+  {id:"thalordtitan",name:"Thalor Dernier Titan",type:"personnage",atk:500,hp:500,cost:9,faction:"Grecs",isChronoLegendaire:true,chronoGrade:9,effect:"Quand il attaque, inflige 900 dégâts supplémentaires à une carte ennemie que tu sélectionnes.",syn:"Gloire"},
+  {id:"thalorcyberdivin",name:"Thalor Cyberdivin",type:"personnage",atk:550,hp:550,cost:10,faction:"Grecs",isChronoLegendaire:true,chronoGrade:10,effect:"Quand il attaque, inflige 1000 dégâts supplémentaires à une carte ennemie que tu sélectionnes.",syn:"Gloire"},
+  // Thalor Avatar — carte trophée, pas jouable (débloquée auto quand tous les Grecs CL obtenus)
+  {id:"thaloravatar",name:"Thalor Avatar de l'Olympe",type:"trophee",faction:"Grecs",isChronoLegendaire:true,isAvatar:true,chronoGrade:0,effect:"Thalor a porté la lance d'Olympe à travers les siècles, affrontant rois, monstres, machines et dieux oubliés. À chaque époque traversée, son corps s'est chargé d'une nouvelle puissance, jusqu'à devenir plus qu'un héros : un avatar vivant de la volonté divine."},
+  // ── STEAMPUNK — Équipements ──
+  {id:"lanceflammecharbon",name:"Lance-Flamme au Charbon",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 ATK. L'ennemi touche perd 100 PV au debut de son tour."},
+  {id:"lunettesing",name:"Lunettes d'Ingénieur",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 PV."},
+  {id:"bottesriff",name:"Bottes de Riff Tonnecuivre",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 ATK et +100 PV."},
+  {id:"dronelibellule",name:"Drone Libellule Mécanique",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 PV. Quand attaque: regarde la 1re carte du deck, remets au-dessus ou en-dessous."},
+  {id:"montrerouages",name:"Montre à Rouages",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 PV. 1x/tour: si le porteur devrait etre detruit, il reste en jeu avec 100 PV."},
+  {id:"grenadecharbon",name:"Grenade à Charbon",type:"equipement",cost:0,faction:"Steampunk",effect:"+300 ATK. Cet equipement est detruit apres la premiere attaque."},
+  {id:"cleuniverselle",name:"Clé Universelle d'Ingénieur",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 PV. A l'entree ou quand attaque: soigne 100 PV a un Steampunk allie equipe."},
+  {id:"sciegantelet",name:"Scie-Gantelet Circulaire",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 ATK. Quand attaque: inflige 100 degats a un autre ennemi."},
+  {id:"fusilvapeur",name:"Fusil à Vapeur Instable",type:"equipement",cost:0,faction:"Steampunk",effect:"+200 ATK. Apres chaque attaque: le porteur perd 100 PV."},
+  // ── ENTITÉS ASTRALES — Cosmiques ──
+  {id:"astrelyadesconfins",name:"Astrelya des Confins",type:"personnage",atk:400,hp:800,cost:6,faction:"EntitesAstrales",effect:"Entree: inflige 200 degats a tous les ennemis."},
+  // ── AMÉRINDIENS — Primitifs ──
+  {id:"akaiondefenseur",name:"Akaïon Défenseur des Terres",type:"personnage",atk:800,hp:750,cost:8,faction:"Amerindiens",effect:"Entree: inflige 300 degats a un ennemi, puis soigne tous les allies de 200 PV."},
+  // ── PUNK — Anarchistes ──
+  {id:"rokkhard",name:"Rokk-Hard",type:"personnage",atk:250,hp:550,cost:4,faction:"Punk",effect:"Entree: peut attaquer 2 fois ce tour."},
 ];
 
 const DECKS = {
@@ -581,10 +642,316 @@ const DECKS = {
     slots:{personnage:20,lieu:2,action:10,equipement:8}},
 };
 
-const TYPE_COLOR={personnage:"#4a9eff",equipement:"#f0a500",action:"#ff4444",lieu:"#44cc88"};
+const TYPE_COLOR={personnage:"#4a9eff",equipement:"#f0a500",action:"#ff4444",lieu:"#44cc88",trophee:"#f0c060"};
 const TYPE_BG={personnage:"linear-gradient(175deg,#1e3a5f,#0a0f1e)",equipement:"linear-gradient(175deg,#4a3000,#0a0f1e)",action:"linear-gradient(175deg,#3d0a0a,#0a0f1e)",lieu:"linear-gradient(175deg,#0a3d1a,#0a0f1e)"};
-const FACTION_COLOR={Pirates:"#f0a500",Vikings:"#4ab8ff",Neutre:"#aabbcc",Amazones:"#44bb66",Egyptiens:"#d4a800",Amerindiens:"#c87820",Grecs:"#c8a020",Ninjas:"#9933cc",Robots:"#00ccff",Extraterrestres:"#cc44ff",MagesNoirs:"#7700aa",Fantomes:"#88aacc",Pyromanes:"#ff5500","MaîtresBêtes":"#228833",DresseursDragons:"#cc6600",Steampunk:"#886644",Empoisonneurs:"#55bb22"};
+const FACTION_COLOR={Pirates:"#f0a500",Vikings:"#4ab8ff",Neutre:"#aabbcc",Amazones:"#44bb66",Egyptiens:"#d4a800",Amerindiens:"#c87820",Grecs:"#c8a020",Ninjas:"#9933cc",Robots:"#00ccff",Extraterrestres:"#cc44ff",MagesNoirs:"#7700aa",Fantomes:"#88aacc",Pyromanes:"#ff5500","MaîtresBêtes":"#228833",DresseursDragons:"#cc6600",Steampunk:"#886644",Empoisonneurs:"#55bb22",EntitesAstrales:"#6644ff",Punk:"#ff2244"};
 const PW=20;
+
+// ═══════════════════════════════════════════════════════
+// GRADES PAR FACTION
+// ═══════════════════════════════════════════════════════
+const GRADES_FACTIONS=["Grecs","Pirates","Vikings","Amazones","Egyptiens","Amerindiens","Ninjas","Empoisonneurs","Steampunk"];
+
+// Objectifs réels des 10 grades par faction
+// types: wins|kills|wins3alive|winsHighCost|diffStreak|winsNoDmg|winsNoHigh|factionsBeatDiff10x10|winsHardest
+const FACTION_GRADES_DEF={
+  Pirates:[
+    {label:"Serment du Pavillon Noir",   type:"wins",              target:10,  desc:"Gagner 10 combats avec au moins 20 Pirates dans le deck"},
+    {label:"Abordage Sanglant",          type:"kills",             target:100, desc:"Détruire 100 cartes avec des Pirates"},
+    {label:"Domination des Mers",        type:"wins3alive",        target:20,  desc:"Gagner 20 combats avec 3 Pirates vivants à la fin"},
+    {label:"Lignée de Capitaines",       type:"wins",              target:30,  desc:"Gagner 30 combats avec au moins 20 Pirates"},
+    {label:"Coup de Grâce au Canon",     type:"winsHighCost",      target:30,  desc:"Finir 30 combats avec un Pirate coût 7+ sur le terrain"},
+    {label:"Pacte de l'Équipage",        type:"diffStreak",        target:15,  desc:"Gagner 15 combats difficiles d'affilée avec au moins 20 Pirates"},
+    {label:"Flibustiers Invaincus",      type:"winsNoDmg",         target:10,  desc:"Gagner 10 combats sans perdre de prestige avec au moins 20 Pirates"},
+    {label:"Massacre sur le Pont",       type:"winsNoHigh",        target:20,  desc:"Gagner 20 combats avec au moins 20 Pirates, sans Pirate coût 5+"},
+    {label:"Roi des Sept Mers",          type:"factionsBeatDiff",  target:10,  desc:"Battre 10 factions, 10 fois chacune, en difficile avec au moins 20 Pirates"},
+    {label:"Légende du Pavillon Noir",   type:"winsHardest",       target:20,  desc:"Gagner 20 combats difficiles avec au moins 20 Pirates, sans personnage coût 5+, max 3 prestige perdu"},
+  ],
+  Vikings:[
+    {label:"Serment du Clan du Nord",          type:"wins",             target:10,  desc:"Gagner 10 combats avec au moins 20 Vikings"},
+    {label:"Raid Sanglant",                    type:"kills",            target:100, desc:"Détruire 100 cartes avec des Vikings"},
+    {label:"Domination du Fjord",              type:"wins3alive",       target:20,  desc:"Gagner 20 combats avec 3 Vikings vivants à la fin"},
+    {label:"Lignée des Jarls",                 type:"wins",             target:30,  desc:"Gagner 30 combats avec au moins 20 Vikings"},
+    {label:"Coup de Grâce Berserker",          type:"winsHighCost",     target:30,  desc:"Finir 30 combats avec un Viking coût 7+"},
+    {label:"Pureté du Clan",                   type:"diffStreak",       target:15,  desc:"Gagner 15 combats difficiles d'affilée avec au moins 20 Vikings"},
+    {label:"Guerriers Invaincus du Valhalla",  type:"winsNoDmg",        target:10,  desc:"Gagner 10 combats sans perdre de prestige avec au moins 20 Vikings"},
+    {label:"Massacre du Drakkar",              type:"winsNoHigh",       target:20,  desc:"Gagner 20 combats avec au moins 20 Vikings, sans Viking coût 5+"},
+    {label:"Roi de Guerre du Nord",            type:"factionsBeatDiff", target:10,  desc:"Battre 10 factions, 10 fois chacune, en difficile avec au moins 20 Vikings"},
+    {label:"Légende du Valhalla",              type:"winsHardest",      target:20,  desc:"Gagner 20 combats difficiles avec au moins 20 Vikings, sans personnage coût 5+, max 3 prestige perdu"},
+  ],
+  Amazones:[
+    {label:"Serment de la Jungle",         type:"wins",             target:10,  desc:"Gagner 10 combats avec au moins 20 Amazones"},
+    {label:"Chasse Sauvage",               type:"kills",            target:100, desc:"Détruire 100 cartes avec des Amazones"},
+    {label:"Domination de la Forêt",       type:"wins3alive",       target:20,  desc:"Gagner 20 combats avec 3 Amazones vivantes à la fin"},
+    {label:"Lignée des Guerrières",        type:"wins",             target:30,  desc:"Gagner 30 combats avec au moins 20 Amazones"},
+    {label:"Coup de Grâce de la Jungle",   type:"winsHighCost",     target:30,  desc:"Finir 30 combats avec une Amazone coût 7+"},
+    {label:"Pureté du Clan Primitif",      type:"diffStreak",       target:15,  desc:"Gagner 15 combats difficiles d'affilée avec au moins 20 Amazones"},
+    {label:"Chasseresses Invaincues",      type:"winsNoDmg",        target:10,  desc:"Gagner 10 combats sans perdre de prestige avec au moins 20 Amazones"},
+    {label:"Massacre dans la Jungle",      type:"winsNoHigh",       target:20,  desc:"Gagner 20 combats avec au moins 20 Amazones, sans Amazone coût 5+"},
+    {label:"Reine de Guerre des Forêts",   type:"factionsBeatDiff", target:10,  desc:"Battre 10 factions, 10 fois chacune, en difficile avec au moins 20 Amazones"},
+    {label:"Légende de la Jungle Sacrée",  type:"winsHardest",      target:20,  desc:"Gagner 20 combats difficiles avec au moins 20 Amazones, sans personnage coût 5+, max 3 prestige perdu"},
+  ],
+  Amerindiens:[
+    {label:"Serment des Ancêtres",          type:"wins",             target:10,  desc:"Gagner 10 combats avec au moins 20 Amérindiens"},
+    {label:"Chasse Sacrée",                 type:"kills",            target:100, desc:"Détruire 100 cartes avec des Amérindiens"},
+    {label:"Domination des Plaines",        type:"wins3alive",       target:20,  desc:"Gagner 20 combats avec 3 Amérindiens vivants à la fin"},
+    {label:"Lignée des Gardiens",           type:"wins",             target:30,  desc:"Gagner 30 combats avec au moins 20 Amérindiens"},
+    {label:"Coup de Grâce Totémique",       type:"winsHighCost",     target:30,  desc:"Finir 30 combats avec un Amérindien coût 7+"},
+    {label:"Pureté de la Tribu",            type:"diffStreak",       target:15,  desc:"Gagner 15 combats difficiles d'affilée avec au moins 20 Amérindiens"},
+    {label:"Esprits Invaincus",             type:"winsNoDmg",        target:10,  desc:"Gagner 10 combats sans perdre de prestige avec au moins 20 Amérindiens"},
+    {label:"Massacre Rituel",               type:"winsNoHigh",       target:20,  desc:"Gagner 20 combats avec au moins 20 Amérindiens, sans Amérindien coût 5+"},
+    {label:"Chef de Guerre des Nations",    type:"factionsBeatDiff", target:10,  desc:"Battre 10 factions, 10 fois chacune, en difficile avec au moins 20 Amérindiens"},
+    {label:"Légende des Esprits Anciens",   type:"winsHardest",      target:20,  desc:"Gagner 20 combats difficiles avec au moins 20 Amérindiens, sans personnage coût 5+, max 3 prestige perdu"},
+  ],
+  Grecs:[
+    {label:"Serment de l'Olympe",       type:"wins",             target:10,  desc:"Gagner 10 combats avec au moins 20 Grecs antiques"},
+    {label:"Chasse aux Monstres",       type:"kills",            target:100, desc:"Détruire 100 cartes avec des Grecs antiques"},
+    {label:"Domination des Cités",      type:"wins3alive",       target:20,  desc:"Gagner 20 combats avec 3 Grecs vivants à la fin"},
+    {label:"Lignée des Héros",          type:"wins",             target:30,  desc:"Gagner 30 combats avec au moins 20 Grecs antiques"},
+    {label:"Coup de Grâce Olympien",    type:"winsHighCost",     target:30,  desc:"Finir 30 combats avec un Grec coût 7+"},
+    {label:"Pureté de la Phalange",     type:"diffStreak",       target:15,  desc:"Gagner 15 combats difficiles d'affilée avec au moins 20 Grecs"},
+    {label:"Hoplites Invaincus",        type:"winsNoDmg",        target:10,  desc:"Gagner 10 combats sans perdre de prestige avec au moins 20 Grecs"},
+    {label:"Massacre des Titans",       type:"winsNoHigh",       target:20,  desc:"Gagner 20 combats avec au moins 20 Grecs, sans Grec coût 5+"},
+    {label:"Roi de Guerre Hellène",     type:"factionsBeatDiff", target:10,  desc:"Battre 10 factions, 10 fois chacune, en difficile avec au moins 20 Grecs"},
+    {label:"Légende de l'Olympe",       type:"winsHardest",      target:20,  desc:"Gagner 20 combats difficiles avec au moins 20 Grecs, sans personnage coût 5+, max 3 prestige perdu"},
+  ],
+  Egyptiens:[
+    {label:"Serment du Nil",                    type:"wins",             target:10,  desc:"Gagner 10 combats avec au moins 20 Égyptiens"},
+    {label:"Jugement des Tombeaux",             type:"kills",            target:100, desc:"Détruire 100 cartes avec des Égyptiens"},
+    {label:"Domination des Deux Terres",        type:"wins3alive",       target:20,  desc:"Gagner 20 combats avec 3 Égyptiens vivants à la fin"},
+    {label:"Lignée des Pharaons",               type:"wins",             target:30,  desc:"Gagner 30 combats avec au moins 20 Égyptiens"},
+    {label:"Coup de Grâce Solaire",             type:"winsHighCost",     target:30,  desc:"Finir 30 combats avec un Égyptien coût 7+"},
+    {label:"Pureté de la Dynastie",             type:"diffStreak",       target:15,  desc:"Gagner 15 combats difficiles d'affilée avec au moins 20 Égyptiens"},
+    {label:"Gardiens Invaincus du Nil",         type:"winsNoDmg",        target:10,  desc:"Gagner 10 combats sans perdre de prestige avec au moins 20 Égyptiens"},
+    {label:"Massacre sous la Pyramide",         type:"winsNoHigh",       target:20,  desc:"Gagner 20 combats avec au moins 20 Égyptiens, sans Égyptien coût 5+"},
+    {label:"Pharaon de Guerre Éternel",         type:"factionsBeatDiff", target:10,  desc:"Battre 10 factions, 10 fois chacune, en difficile avec au moins 20 Égyptiens"},
+    {label:"Légende du Soleil Noir",            type:"winsHardest",      target:20,  desc:"Gagner 20 combats difficiles avec au moins 20 Égyptiens, sans personnage coût 5+, max 3 prestige perdu"},
+  ],
+  Ninjas:[
+    {label:"Serment des Ombres",             type:"wins",             target:10,  desc:"Gagner 10 combats avec au moins 20 Ninjas"},
+    {label:"Assassinat Organisé",            type:"kills",            target:100, desc:"Détruire 100 cartes avec des Ninjas"},
+    {label:"Domination Silencieuse",         type:"wins3alive",       target:20,  desc:"Gagner 20 combats avec 3 Ninjas vivants à la fin"},
+    {label:"Lignée des Shinobis",            type:"wins",             target:30,  desc:"Gagner 30 combats avec au moins 20 Ninjas"},
+    {label:"Coup de Grâce Invisible",        type:"winsHighCost",     target:30,  desc:"Finir 30 combats avec un Ninja coût 7+"},
+    {label:"Pureté du Clan Ninja",           type:"diffStreak",       target:15,  desc:"Gagner 15 combats difficiles d'affilée avec au moins 20 Ninjas"},
+    {label:"Ombres Invaincues",              type:"winsNoDmg",        target:10,  desc:"Gagner 10 combats sans perdre de prestige avec au moins 20 Ninjas"},
+    {label:"Massacre dans la Nuit",          type:"winsNoHigh",       target:20,  desc:"Gagner 20 combats avec au moins 20 Ninjas, sans Ninja coût 5+"},
+    {label:"Shogun des Ombres",              type:"factionsBeatDiff", target:10,  desc:"Battre 10 factions, 10 fois chacune, en difficile avec au moins 20 Ninjas"},
+    {label:"Légende du Shinobi Éternel",     type:"winsHardest",      target:20,  desc:"Gagner 20 combats difficiles avec au moins 20 Ninjas, sans personnage coût 5+, max 3 prestige perdu"},
+  ],
+  Empoisonneurs:[
+    {label:"Serment du Venin",               type:"wins",             target:10,  desc:"Gagner 10 combats avec au moins 20 Empoisonneurs"},
+    {label:"Contamination Organisée",        type:"kills",            target:100, desc:"Détruire 100 cartes avec des Empoisonneurs"},
+    {label:"Domination Toxique",             type:"wins3alive",       target:20,  desc:"Gagner 20 combats avec 3 Empoisonneurs vivants à la fin"},
+    {label:"Lignée des Alchimistes Noirs",   type:"wins",             target:30,  desc:"Gagner 30 combats avec au moins 20 Empoisonneurs"},
+    {label:"Coup de Grâce Venimeux",         type:"winsHighCost",     target:30,  desc:"Finir 30 combats avec un Empoisonneur coût 7+"},
+    {label:"Pureté du Poison",               type:"diffStreak",       target:15,  desc:"Gagner 15 combats difficiles d'affilée avec au moins 20 Empoisonneurs"},
+    {label:"Assassins Invaincus",            type:"winsNoDmg",        target:10,  desc:"Gagner 10 combats sans perdre de prestige avec au moins 20 Empoisonneurs"},
+    {label:"Massacre Corrosif",              type:"winsNoHigh",       target:20,  desc:"Gagner 20 combats avec au moins 20 Empoisonneurs, sans Empoisonneur coût 5+"},
+    {label:"Roi du Venin Noir",              type:"factionsBeatDiff", target:10,  desc:"Battre 10 factions, 10 fois chacune, en difficile avec au moins 20 Empoisonneurs"},
+    {label:"Légende de la Mort Lente",       type:"winsHardest",      target:20,  desc:"Gagner 20 combats difficiles avec au moins 20 Empoisonneurs, sans personnage coût 5+, max 3 prestige perdu"},
+  ],
+  Steampunk:[
+    {label:"Serment des Rouages",         type:"wins",             target:10,  desc:"Gagner 10 combats avec au moins 20 Steampunk"},
+    {label:"Démolition Industrielle",     type:"kills",            target:100, desc:"Détruire 100 cartes avec des Steampunk"},
+    {label:"Domination de la Vapeur",     type:"wins3alive",       target:20,  desc:"Gagner 20 combats avec 3 Steampunk vivants à la fin"},
+    {label:"Lignée des Ingénieurs",       type:"wins",             target:30,  desc:"Gagner 30 combats avec au moins 20 Steampunk"},
+    {label:"Coup de Grâce Mécanique",     type:"winsHighCost",     target:30,  desc:"Finir 30 combats avec un Steampunk coût 7+"},
+    {label:"Pureté de l'Atelier",         type:"diffStreak",       target:15,  desc:"Gagner 15 combats difficiles d'affilée avec au moins 20 Steampunk"},
+    {label:"Machines Invaincues",         type:"winsNoDmg",        target:10,  desc:"Gagner 10 combats sans perdre de prestige avec au moins 20 Steampunk"},
+    {label:"Massacre à la Chaudière",     type:"winsNoHigh",       target:20,  desc:"Gagner 20 combats avec au moins 20 Steampunk, sans Steampunk coût 5+"},
+    {label:"Baron de Guerre Mécanique",   type:"factionsBeatDiff", target:10,  desc:"Battre 10 factions, 10 fois chacune, en difficile avec au moins 20 Steampunk"},
+    {label:"Légende de l'Âge de Vapeur",  type:"winsHardest",      target:20,  desc:"Gagner 20 combats difficiles avec au moins 20 Steampunk, sans personnage coût 5+, max 3 prestige perdu"},
+  ],
+};
+
+// Chrono-Légendaires par faction (dans l'ordre des grades)
+const CHRONO_LEGENDAIRES={
+  Grecs:[
+    {id:"thalorsilex",grade:1},
+    {id:"thalordolympe",grade:2},
+    {id:"thalorroyaumes",grade:3},
+    {id:"thalorfdieux",grade:4},
+    {id:"thalorbriseur",grade:5},
+    {id:"thalortranchees",grade:6},
+    {id:"thalorparrain",grade:7},
+    {id:"thalortitanurbain",grade:8},
+    {id:"thalordtitan",grade:9},
+    {id:"thalorcyberdivin",grade:10},
+  ],
+};
+const CHRONO_AVATAR={Grecs:"thaloravatar"};
+
+// Grades state: {faction: currentGrade (0–10)}
+let GRADES={};
+try{const s=safeStorage.get("tcg_grades_v1");if(s)GRADES=JSON.parse(s);}catch(e){}
+const saveGrades=()=>{try{safeStorage.set("tcg_grades_v1",JSON.stringify(GRADES));}catch(e){}};
+
+// Faction stats for grade tracking: {faction: {wins, winsDiff, trios}}
+let FACTION_STATS={};
+try{const s=safeStorage.get("tcg_faction_stats_v1");if(s)FACTION_STATS=JSON.parse(s);}catch(e){}
+const saveFactionStats=()=>{try{safeStorage.set("tcg_faction_stats_v1",JSON.stringify(FACTION_STATS));}catch(e){}};
+
+const getFactionStat=(faction,key)=>(FACTION_STATS[faction]&&FACTION_STATS[faction][key])||0;
+const incFactionStat=(faction,key,n=1)=>{
+  if(!FACTION_STATS[faction])FACTION_STATS[faction]={wins:0,kills:0,wins3alive:0,winsHighCost:0,diffStreak:0,winsNoDmg:0,winsNoHigh:0,factionsBeatDiff:{},winsHardest:0};
+  if(key==="factionsBeatDiff")return;// handled separately
+  FACTION_STATS[faction][key]=(FACTION_STATS[faction][key]||0)+n;
+  saveFactionStats();
+};
+const resetFactionStreak=(faction)=>{
+  if(!FACTION_STATS[faction])return;
+  FACTION_STATS[faction].diffStreak=0;
+  saveFactionStats();
+};
+const addFactionBeatDiff=(faction,opponentId)=>{
+  if(!FACTION_STATS[faction])FACTION_STATS[faction]={wins:0,kills:0,wins3alive:0,winsHighCost:0,diffStreak:0,winsNoDmg:0,winsNoHigh:0,factionsBeatDiff:{},winsHardest:0};
+  if(!FACTION_STATS[faction].factionsBeatDiff)FACTION_STATS[faction].factionsBeatDiff={};
+  FACTION_STATS[faction].factionsBeatDiff[opponentId]=(FACTION_STATS[faction].factionsBeatDiff[opponentId]||0)+1;
+  saveFactionStats();
+};
+
+// Returns true if the player's current game deck has ≥20 cards of a faction
+const deckHas20Faction=(faction)=>{
+  if(!G)return false;
+  const all=[...G.player.deck,...G.player.hand,...G.player.field.filter(c=>c),...G.player.discard];
+  return all.filter(c=>c.faction===faction).length>=20;
+};
+
+const checkGradeCondition=(faction,gradeIdx)=>{
+  const stats=FACTION_STATS[faction]||{};
+  switch(gradeIdx){
+    case 0:return(stats.wins||0)>=10;
+    case 1:return(stats.kills||0)>=100;
+    case 2:return(stats.wins3alive||0)>=20;
+    case 3:return(stats.wins||0)>=30;
+    case 4:return(stats.winsHighCost||0)>=30;
+    case 5:return(stats.diffStreak||0)>=15;
+    case 6:return(stats.winsNoDmg||0)>=10;
+    case 7:return(stats.winsNoHigh||0)>=20;
+    case 8:{const beaten=stats.factionsBeatDiff||{};return Object.values(beaten).filter(n=>n>=10).length>=10;}
+    case 9:return(stats.winsHardest||0)>=20;
+  }
+  return false;
+};
+const _gradeKey=i=>["wins","kills","wins3alive","wins","winsHighCost","diffStreak","winsNoDmg","winsNoHigh","factionsBeatDiff","winsHardest"][i];
+
+// Progress value for display (numerator/denominator)
+const getGradeProgress=(faction,gradeIdx)=>{
+  const stats=FACTION_STATS[faction]||{};
+  switch(gradeIdx){
+    case 0:return{val:stats.wins||0,max:10};
+    case 1:return{val:stats.kills||0,max:100};
+    case 2:return{val:stats.wins3alive||0,max:20};
+    case 3:return{val:stats.wins||0,max:30};
+    case 4:return{val:stats.winsHighCost||0,max:30};
+    case 5:return{val:stats.diffStreak||0,max:15};
+    case 6:return{val:stats.winsNoDmg||0,max:10};
+    case 7:return{val:stats.winsNoHigh||0,max:20};
+    case 8:{const beaten=stats.factionsBeatDiff||{};return{val:Object.values(beaten).filter(n=>n>=10).length,max:10};}
+    case 9:return{val:stats.winsHardest||0,max:20};
+  }
+  return{val:0,max:1};
+};
+
+// Update grades for a faction (call after stats change)
+const updateGrades=(faction)=>{
+  const current=GRADES[faction]||0;
+  let g=current;
+  while(g<10&&checkGradeCondition(faction,g)){g++;}
+  if(g!==current){
+    GRADES[faction]=g;
+    saveGrades();
+    // Check avatar unlock
+    checkChronoAvatarUnlock(faction);
+    return true;// grade changed
+  }
+  return false;
+};
+
+// Returns eligible chrono-légendaires for the booster prestige slot
+const getEligibleChrono=()=>{
+  const eligible=[];
+  for(const [faction,list] of Object.entries(CHRONO_LEGENDAIRES)){
+    const fGrade=GRADES[faction]||0;
+    list.forEach(({id,grade})=>{
+      if(grade<=fGrade&&!(COLLECTION[id]&&COLLECTION[id]>0)){
+        eligible.push({id,grade,faction});
+      }
+    });
+  }
+  return eligible;
+};
+
+// Check and unlock avatar trophy if all Chrono-Légendaires of a faction are owned
+const checkChronoAvatarUnlock=(faction)=>{
+  if(!CHRONO_AVATARS_CHECKED)CHRONO_AVATARS_CHECKED={};
+  const list=CHRONO_LEGENDAIRES[faction];
+  const avatarId=CHRONO_AVATAR[faction];
+  if(!list||!avatarId)return;
+  const allOwned=list.every(({id})=>(COLLECTION[id]||0)>0);
+  if(allOwned&&!(COLLECTION[avatarId]&&COLLECTION[avatarId]>0)){
+    COLLECTION[avatarId]=1;
+    saveCollection();
+    showNotif("✨ TROPHÉE DÉBLOQUÉ !\n"+CARDS.find(c=>c.id===avatarId)?.name,"#f0c060","👑");
+  }
+};
+let CHRONO_AVATARS_CHECKED={};
+
+// NE cards for booster (18 cartes Nouvelle Ère)
+const NE_CARD_IDS=["astrelyadesconfins","akaiondefenseur","rokkhard","bichecerynie","theonsacdor","nalyaecume","diva09","meteioide4","omegacuirasse","glorb","nikocapuche","mordrak","spectrebarillet","gluardent","rictus","gardienspectral","papybraise","pistacheturbo"];
+
+const openBoosterNE=()=>{
+  const pack=SHOP_PACK_DEFS.find(p=>p.id==="booster");
+  if(!pack)return null;
+  if(PLAYER_STATS.coins<pack.price)return{error:"Pas assez de pièces !"};
+
+  // Pick 4 cards based on cost tiers
+  const neCards=CARDS.filter(c=>NE_CARD_IDS.includes(c.id));
+  const tier1=neCards.filter(c=>(c.cost||0)>=1&&(c.cost||0)<=3);
+  const tier2=neCards.filter(c=>(c.cost||0)>=4&&(c.cost||0)<=6);
+  const tier3=neCards.filter(c=>(c.cost||0)>=7&&(c.cost||0)<=9);
+  const tier4=neCards.filter(c=>(c.cost||0)>=10);
+  const pickTier=()=>{
+    const r=Math.random();
+    if(r<0.59)return tier1;
+    if(r<0.89)return tier2;
+    if(r<0.99)return tier3;
+    return tier4;
+  };
+  const pick=(arr)=>arr.length?arr[Math.floor(Math.random()*arr.length)]:null;
+
+  const cards=[];
+  for(let i=0;i<4;i++){
+    let pool=pickTier();
+    if(!pool.length)pool=tier1; // fallback
+    const c=pick(pool);
+    if(c)cards.push({...c,rarity:"rare"});
+  }
+
+  // Prestige slot: roll for unlocked chrono-légendaires not yet owned
+  const eligible=getEligibleChrono();
+  for(const cl of eligible){
+    const chance=(11-cl.grade)/100;// grade 1 → 10%, grade 10 → 1%
+    if(Math.random()<chance){
+      const clCard=CARDS.find(c=>c.id===cl.id);
+      if(clCard){cards.push({...clCard,rarity:"prestige",isChronoLegendaire:true});break;}
+    }
+  }
+
+  cards.forEach(c=>{
+    c.isNew=(COLLECTION[c.id]||0)===0;
+    COLLECTION[c.id]=(COLLECTION[c.id]||0)+1;
+  });
+  // Check avatar after getting a chrono-légendaire
+  for(const faction of Object.keys(CHRONO_LEGENDAIRES))checkChronoAvatarUnlock(faction);
+
+  PLAYER_STATS.coins-=pack.price;
+  saveStats();saveCollection();
+  // Update collection-based grades after buying
+  for(const f of GRADES_FACTIONS)updateGrades(f);
+  return{cards,isBoosterNE:true};
+};
 
 // ═══════════════════════════════════════════════════════
 // SOUND ENGINE (Web Audio API — no external files)
@@ -741,7 +1108,7 @@ const checkTrioSynergy=(who)=>{
     if(count<3)return;
     SFX.trioLaugh();
     showTrioAnim(faction);
-    if(isP){GAME_TRACK.trio++;progressChallenge("trio");}
+    if(isP){GAME_TRACK.trio++;progressChallenge("trio");incFactionStat(faction,"trios");updateGrades(faction);}
 
     if(faction==="Pirates"){
       if(G[en].hand.length>0){
@@ -1193,6 +1560,7 @@ const statsBarHTML=()=>{
     <button onclick="SCREEN='daily';render()" style="background:${doneCount===10?'linear-gradient(90deg,#f0c060,#ffaa00)':'rgba(255,200,50,0.15)'};border:1px solid #f0c06066;border-radius:8px;color:${doneCount===10?'#000':'#f0c060'};padding:3px 10px;font-size:10px;cursor:pointer;font-weight:bold">
       📋 ${doneCount}/10
     </button>
+    <button onclick="SCREEN='grades';render()" style="background:rgba(200,136,255,0.15);border:1px solid #cc88ff55;border-radius:8px;color:#cc88ff;padding:3px 9px;font-size:10px;cursor:pointer">🏅</button>
   </div>`;
 };
 
@@ -1245,8 +1613,8 @@ const renderShop=()=>{
   }
   const packs=SHOP_PACK_DEFS.map(p=>{
     const canBuy=!p.locked&&PLAYER_STATS.coins>=p.price;
-    const pools=p.locked?null:getRarityPool(p.factions);
-    const total=pools?(pools.common.length+pools.rare.length+pools.prestige.length+pools.ultragold.length):0;
+    const pools=p.locked?null:(p.id==="booster"?null:getRarityPool(p.factions));
+    const total=pools?(pools.common.length+pools.rare.length+pools.prestige.length+pools.ultragold.length):(p.id==="booster"?NE_CARD_IDS.length:0);
     return`<div style="width:168px;background:linear-gradient(160deg,#0d1f3c,#050e1a);border:2px solid ${p.locked?'#1a2a3a':p.color+'66'};border-radius:14px;overflow:hidden;opacity:${p.locked?0.5:1};position:relative;transition:all 0.2s"
       ${!p.locked?`onmouseover="this.style.transform='translateY(-4px)';this.style.borderColor='${p.color}'" onmouseout="this.style.transform='';this.style.borderColor='${p.color}66'"`:""}>
       ${p.locked?`<div style="position:absolute;top:7px;right:8px;z-index:2">🔒</div>`:""}
@@ -1276,7 +1644,7 @@ const renderShop=()=>{
       </div>
       <div style="max-width:600px;margin:0 auto 12px">${statsBarHTML()}</div>
       <div style="background:#0a1010;border:1px solid #1a3020;border-radius:8px;padding:6px 12px;font-size:9px;color:#445;text-align:center;margin-bottom:14px">
-        📦 Contenu : 2 Communes · 2 Rares · 1 Prestige · 5% chance ✨ Ultra Gold
+        📦 Packs classiques : 2 Communes · 2 Rares · 1 Prestige · 5% Ultra Gold &nbsp;|&nbsp; ✨ Pack Nouvelle Ère : 4 cartes NE + slot Chrono-Légendaire (si grade atteint)
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">${packs}</div>
     </div>
@@ -1284,7 +1652,7 @@ const renderShop=()=>{
 };
 
 window.doBuyPack=id=>{
-  const result=openPack(id);
+  const result=id==="booster"?openBoosterNE():openPack(id);
   if(!result)return;
   if(result.error){alert(result.error);return;}
   PACK_RESULT=result;
@@ -1292,20 +1660,33 @@ window.doBuyPack=id=>{
 };
 
 // ── COLLECTION SCREEN ──────────────────────────────────
-const FACTION_ORDER=["Pirates","Vikings","Amazones","Egyptiens","Amerindiens","Grecs","Ninjas","Neutre","Robots","Extraterrestres","MagesNoirs","Fantomes","Pyromanes","MaîtresBêtes","DresseursDragons","Steampunk","Empoisonneurs"];
-const FACTION_NAMES={Pirates:"⚓ Pirates",Vikings:"⚡ Vikings",Amazones:"🌿 Amazones",Egyptiens:"🏺 Égyptiens",Amerindiens:"🪶 Amérindiens",Grecs:"🏛️ Grecs",Ninjas:"🥷 Ninjas",Neutre:"⚪ Neutre",Robots:"🤖 Robots Humanoïdes",Extraterrestres:"👽 Extraterrestres",MagesNoirs:"🔮 Mages Noirs",Fantomes:"👻 Fantômes",Pyromanes:"🔥 Pyromanes","MaîtresBêtes":"🐾 Maîtres des Bêtes",DresseursDragons:"🐉 Dresseurs de Dragons",Steampunk:"⚙️ Steampunk",Empoisonneurs:"☠️ Empoisonneurs"};
+const FACTION_ORDER=["Pirates","Vikings","Amazones","Egyptiens","Amerindiens","Grecs","Ninjas","Neutre","Robots","Extraterrestres","MagesNoirs","Fantomes","Pyromanes","MaîtresBêtes","DresseursDragons","Steampunk","Empoisonneurs","EntitesAstrales","Punk"];
+const FACTION_NAMES={Pirates:"⚓ Pirates",Vikings:"⚡ Vikings",Amazones:"🌿 Amazones",Egyptiens:"🏺 Égyptiens",Amerindiens:"🪶 Amérindiens",Grecs:"🏛️ Grecs",Ninjas:"🥷 Ninjas",Neutre:"⚪ Neutre",Robots:"🤖 Robots Humanoïdes",Extraterrestres:"👽 Extraterrestres",MagesNoirs:"🔮 Mages Noirs",Fantomes:"👻 Fantômes",Pyromanes:"🔥 Pyromanes","MaîtresBêtes":"🐾 Maîtres des Bêtes",DresseursDragons:"🐉 Dresseurs de Dragons",Steampunk:"⚙️ Steampunk",Empoisonneurs:"☠️ Empoisonneurs",EntitesAstrales:"✨ Entités Astrales",Punk:"🎸 Punk"};
 
 const renderCollection=()=>{
-  const allFactions=FACTION_ORDER.filter(f=>CARDS.some(c=>c.faction===f&&!c.isFusion));
+  const allFactions=FACTION_ORDER.filter(f=>CARDS.some(c=>c.faction===f&&!c.isFusion&&c.type!=="trophee"));
   let totalOwned=0,totalAll=0;
-  CARDS.forEach(c=>{if(!c.isFusion){totalAll++;if(COLLECTION[c.id])totalOwned++;}});
+  CARDS.forEach(c=>{if(!c.isFusion&&c.type!=="trophee"){totalAll++;if(COLLECTION[c.id])totalOwned++;}});
 
   const sections=allFactions.map(faction=>{
-    const fCards=CARDS.filter(c=>c.faction===faction&&!c.isFusion);
+    const fCards=CARDS.filter(c=>c.faction===faction&&!c.isFusion&&c.type!=="trophee");
     const ownedCount=fCards.filter(c=>COLLECTION[c.id]).length;
     const col=FACTION_COLOR[faction]||"#aaa";
     const cardGrid=fCards.map(c=>{
       const owned=COLLECTION[c.id]||0;
+      // Chrono-Légendaires non possédées : montrer icône spéciale
+      if(owned===0&&c.isChronoLegendaire){
+        const gradeNeeded=GRADES[faction]||0;
+        const isEligible=gradeNeeded>=(c.chronoGrade||0);
+        return`<div style="width:54px;text-align:center;cursor:default" title="Chrono-Légendaire Grade ${c.chronoGrade}">
+          <div style="width:54px;height:75px;border-radius:5px;border:2px solid ${isEligible?'#cc88ff55':'#1a2a3a'};overflow:hidden;background:#050a10;position:relative">
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px">
+              <div style="font-size:16px;opacity:${isEligible?0.7:0.2}">✨</div>
+              <div style="font-size:6px;color:${isEligible?'#cc88ff':'#223'};letter-spacing:1px">CL G${c.chronoGrade}</div>
+            </div>
+          </div>
+        </div>`;
+      }
       if(owned===0){
         // Carte non possédée : complètement cachée, silhouette mystère
         return`<div style="width:54px;text-align:center;cursor:default" title="???">
@@ -1337,6 +1718,30 @@ const renderCollection=()=>{
     </div>`;
   }).join("");
 
+  // ── Trophées (Avatars Chrono-Légendaires) ──
+  const tropheeCards=CARDS.filter(c=>c.type==="trophee");
+  let tropheeSection="";
+  if(tropheeCards.length){
+    const tGrid=tropheeCards.map(c=>{
+      const owned=(COLLECTION[c.id]||0)>0;
+      return`<div style="width:54px;text-align:center;cursor:${owned?'pointer':'default'}" onclick="${owned?`showCollectionCard('${c.id}')`:''}" title="${owned?c.name:'???'}">
+        <div style="width:54px;height:75px;border-radius:5px;border:2px solid ${owned?'#f0c060':'#1a2a3a'};overflow:hidden;background:#050a10;position:relative;transition:all 0.2s"
+          ${owned?`onmouseover="this.style.transform='scale(1.12)';this.style.zIndex='10'" onmouseout="this.style.transform='';this.style.zIndex='1'"`:''}>
+          <img src="cards/${c.id}.png" style="width:100%;height:100%;object-fit:cover;opacity:${owned?1:0.15}" onerror="this.parentNode.innerHTML='<div style=font-size:20px;padding:22px 6px>👑</div>'">
+          ${!owned?`<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center"><div style="font-size:16px">👑</div></div>`:''}
+        </div>
+        <div style="font-size:7px;color:${owned?'#f0c060':'#334'};margin-top:2px">${owned?'✨ Trophée':'???'}</div>
+      </div>`;
+    }).join("");
+    tropheeSection=`<div style="margin-bottom:18px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid #f0c06033">
+        <span style="font-size:13px;font-weight:bold;color:#f0c060">👑 Trophées</span>
+        <span style="font-size:9px;color:#445">${tropheeCards.filter(c=>(COLLECTION[c.id]||0)>0).length}/${tropheeCards.length}</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px">${tGrid}</div>
+    </div>`;
+  }
+
   $("app").innerHTML=`<div style="min-height:100vh;background:linear-gradient(160deg,#050e1a,#0a1628);padding:20px;max-width:700px;margin:0 auto">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
       <button onclick="goToPlay()" style="background:#1a2a3a;border:1px solid #445;border-radius:10px;color:#aac;padding:8px 16px;cursor:pointer;font-size:13px">← Retour</button>
@@ -1348,7 +1753,117 @@ const renderCollection=()=>{
     </div>
     <div style="max-width:600px;margin:0 auto 14px">${statsBarHTML()}</div>
     <div id="coll-detail" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:500;align-items:center;justify-content:center" onclick="this.style.display='none'"></div>
+    ${tropheeSection}
     ${sections}
+  </div>`;
+};
+
+// ── GRADES SCREEN ────────────────────────────────────────
+const renderGrades=()=>{
+  // Ensure grades are up to date
+  for(const f of GRADES_FACTIONS)updateGrades(f);
+
+  const FACTION_ICONS_G={Grecs:"🏛️",Pirates:"⚓",Vikings:"⚡",Amazones:"🌿",Egyptiens:"🏺",Amerindiens:"🪶",Ninjas:"🥷",Empoisonneurs:"☠️",Steampunk:"⚙️"};
+
+  const factionSections=GRADES_FACTIONS.map(faction=>{
+    const currentGrade=GRADES[faction]||0;
+    const defs=FACTION_GRADES_DEF[faction]||[];
+    const col=FACTION_COLOR[faction]||"#aaa";
+    const icon=FACTION_ICONS_G[faction]||"⚔️";
+
+    // Chrono-Légendaires for this faction
+    const chronoList=CHRONO_LEGENDAIRES[faction]||[];
+    const avatarId=CHRONO_AVATAR[faction];
+
+    const gradeBars=defs.map((def,i)=>{
+      const gradeNum=i+1;
+      const done=currentGrade>=gradeNum;
+      const isNext=!done&&currentGrade===i;
+      // Progress for current grade
+      let progressVal=0,progressMax=1;
+      if(isNext||done){
+        const gp=getGradeProgress(faction,i);
+        progressVal=gp.val;progressMax=gp.max;
+      }
+      const progress=Math.min(100,Math.round(progressVal/progressMax*100));
+
+      // Chrono-Légendaire for this grade
+      const cl=chronoList.find(x=>x.grade===gradeNum);
+      const clCard=cl?CARDS.find(c=>c.id===cl.id):null;
+      const clOwned=cl?(COLLECTION[cl.id]||0)>0:false;
+      const clReward=clCard?`<div style="display:flex;align-items:center;gap:6px;margin-top:4px;opacity:${done||isNext?1:0.3}">
+        <div style="width:30px;height:42px;border-radius:4px;overflow:hidden;background:#0a1020;border:1px solid ${clOwned?'#f0c060':'#334'};flex-shrink:0">
+          <img src="cards/${cl.id}.png" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='<div style=font-size:12px;padding:12px 4px>⚔</div>'">
+        </div>
+        <div>
+          <div style="font-size:9px;color:${clOwned?'#f0c060':'#667'};font-weight:bold">${clCard.name}</div>
+          <div style="font-size:8px;color:${clOwned?'#44cc88':'#445'}">${clOwned?'✅ Possédée':'🎴 Chance drop: '+(11-gradeNum)+'%'}</div>
+        </div>
+      </div>`:"";
+
+      return`<div style="background:${done?'rgba(200,136,255,0.12)':isNext?'rgba(100,80,180,0.08)':'rgba(0,0,0,0.2)'};border:1px solid ${done?col+'88':isNext?col+'44':'#1a2030'};border-radius:8px;padding:8px 12px;display:flex;gap:10px;align-items:flex-start">
+        <div style="min-width:26px;text-align:center;font-size:${done?'18':'14'}px;padding-top:2px">${done?'✅':isNext?'🔓':'🔒'}</div>
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px">
+            <span style="font-size:9px;background:${done?col+'44':'#1a2030'};color:${done?col:'#445'};border-radius:4px;padding:1px 5px;border:1px solid ${done?col+'44':'#2a3040'}">Grade ${gradeNum}</span>
+            <span style="font-size:11px;color:${done?col:isNext?'#ccd':'#445'};font-weight:${done||isNext?'bold':'normal'}">${def.label}</span>
+          </div>
+          <div style="font-size:9px;color:#556;margin-bottom:4px">${def.desc}</div>
+          ${isNext?`<div style="height:4px;background:#111;border-radius:2px;overflow:hidden;margin-bottom:3px"><div style="width:${progress}%;height:100%;background:${col};border-radius:2px;transition:width 0.4s"></div></div><div style="font-size:8px;color:#556">${progressVal}/${progressMax}</div>`:''}
+          ${clReward}
+        </div>
+      </div>`;
+    }).join("");
+
+    // Avatar section
+    let avatarSection="";
+    if(avatarId){
+      const avatarCard=CARDS.find(c=>c.id===avatarId);
+      const avatarOwned=(COLLECTION[avatarId]||0)>0;
+      const allCLOwned=chronoList.every(({id})=>(COLLECTION[id]||0)>0);
+      avatarSection=`<div style="margin-top:10px;background:${avatarOwned?'rgba(240,192,60,0.15)':'rgba(0,0,0,0.2)'};border:2px solid ${avatarOwned?'#f0c060':'#2a3040'};border-radius:10px;padding:10px 14px;display:flex;gap:12px;align-items:center">
+        <div style="width:50px;height:70px;border-radius:6px;overflow:hidden;background:#0a1020;border:2px solid ${avatarOwned?'#f0c060':'#334'}">
+          <img src="cards/${avatarId}.png" style="width:100%;height:100%;object-fit:cover;opacity:${avatarOwned?1:0.25}" onerror="this.parentNode.innerHTML='<div style=font-size:20px;padding:22px 6px>👑</div>'">
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:bold;color:${avatarOwned?'#f0c060':'#445'}">${avatarCard?.name||'Trophée Ultime'}</div>
+          <div style="font-size:9px;color:${avatarOwned?'#cc8800':'#445'};margin-top:2px">${avatarOwned?'✨ Trophée débloqué !':'Obtiens tous les Chrono-Légendaires '+faction+' pour débloquer'}</div>
+          ${!avatarOwned?`<div style="font-size:8px;color:#334;margin-top:3px">${chronoList.filter(({id})=>(COLLECTION[id]||0)>0).length}/${chronoList.length} Chrono-Légendaires obtenus</div>`:''}
+        </div>
+      </div>`;
+    }
+
+    return`<div style="margin-bottom:20px;background:rgba(10,20,40,0.4);border:1px solid ${col}33;border-radius:14px;padding:16px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span style="font-size:22px">${icon}</span>
+        <div style="flex:1">
+          <div style="font-size:14px;font-weight:bold;color:${col}">${faction}</div>
+          <div style="font-size:9px;color:#556">Grade ${currentGrade}/10${currentGrade>0?' · '+defs[currentGrade-1]?.label:''}</div>
+        </div>
+        <div style="text-align:right">
+          <div style="display:flex;gap:3px">${Array.from({length:10},(_,i)=>`<div style="width:10px;height:10px;border-radius:2px;background:${i<currentGrade?col:'#1a2030'};border:1px solid ${i<currentGrade?col+'66':'#2a3040'}"></div>`).join('')}</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px">${gradeBars}</div>
+      ${avatarSection}
+    </div>`;
+  }).join("");
+
+  $("app").innerHTML=`<div style="min-height:100vh;background:linear-gradient(160deg,#050e1a,#0a1628);padding:20px;max-width:700px;margin:0 auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <button onclick="goToPlay()" style="background:#1a2a3a;border:1px solid #445;border-radius:10px;color:#aac;padding:8px 16px;cursor:pointer;font-size:13px">← Retour</button>
+      <div style="text-align:center">
+        <div style="font-size:17px;font-weight:bold;color:#cc88ff">🏅 Grades de Faction</div>
+        <div style="font-size:9px;color:#445">Progresse pour débloquer des Chrono-Légendaires</div>
+      </div>
+      <button onclick="SCREEN='shop';render()" style="background:rgba(240,192,60,0.15);border:1px solid #f0c06055;border-radius:10px;color:#f0c060;padding:8px 14px;font-size:12px;cursor:pointer">🏪</button>
+    </div>
+    <div style="max-width:600px;margin:0 auto 14px">${statsBarHTML()}</div>
+    <div style="background:rgba(200,136,255,0.08);border:1px solid #cc88ff33;border-radius:10px;padding:8px 14px;font-size:9px;color:#8877bb;margin-bottom:16px;line-height:1.6">
+      🎴 Les <b style="color:#cc88ff">Chrono-Légendaires</b> sont des cartes exclusives obtenues en ouvrant le <b>Pack Nouvelle Ère</b>. 
+      Atteins un grade pour activer une chance de drop. Grade 1 = 10%, Grade 10 = 1%. Une seule copie possible par carte.
+    </div>
+    ${factionSections}
   </div>`;
 };
 
@@ -1434,9 +1949,8 @@ window.confirmStarterPack=(id)=>{
   const p=STARTER_CHOICES.find(x=>x.id===id);
   if(!p)return;
   saveStarterPack(id);
-  // ── Full reset: wipe collection and purchased list ──
+  // Reset collection complètement (nouveau départ propre)
   COLLECTION={};
-  try{safeStorage.set("tcg_purchased_v1","{}");}catch(e){}
   // Give ONLY starter faction + neutral
   CARDS.forEach(c=>{
     if((p.factions.includes(c.faction)||c.faction==="Neutre")&&!c.isFusion){
@@ -1691,53 +2205,22 @@ const BASE_FACTIONS=["Pirates","Vikings","Amazones","Egyptiens","Amerindiens","G
 let COLLECTION={};
 try{const s=safeStorage.get("tcg_collection_v1");if(s)COLLECTION=JSON.parse(s);}catch(e){}
 
-// ── COLLECTION MIGRATION ────────────────────────────────
-// If STARTER_PACK is set, purge any cards that don't belong
-// to the starter faction, neutral, or were explicitly purchased (tracked separately)
-const migrateCollectionToStarter=()=>{
-  if(!STARTER_PACK)return;
+// ── COLLECTION GUARD ────────────────────────────────────
+// Si aucune collection n'existe ET qu'un starter a été choisi → reconstruire proprement
+// On ne SUPPRIME JAMAIS de cartes à partir d'ici — seul confirmStarterPack le fait
+const initCollectionIfEmpty=()=>{
+  if(Object.keys(COLLECTION).length>0)return;// Déjà des cartes → ne rien toucher
+  if(!STARTER_PACK)return;// Pas de starter → attendre le choix
   const starterChoice=STARTER_CHOICES.find(x=>x.id===STARTER_PACK);
   if(!starterChoice)return;
-  // Load purchased cards list (cards obtained via pack opening)
-  let purchased={};
-  try{const s=safeStorage.get("tcg_purchased_v1");if(s)purchased=JSON.parse(s);}catch(e){}
-  // Build allowed set: starter faction + neutral + purchased
-  const allowedFactions=new Set([...starterChoice.factions,"Neutre"]);
-  let dirty=false;
-  Object.keys(COLLECTION).forEach(id=>{
-    if(COLLECTION[id]<=0){delete COLLECTION[id];dirty=true;return;}
-    const card=CARDS.find(c=>c.id===id);
-    if(!card)return;
-    // Keep if starter faction, neutral, or explicitly purchased via pack
-    if(!allowedFactions.has(card.faction)&&!purchased[id]){
-      delete COLLECTION[id];
-      dirty=true;
+  // Donner uniquement la faction de départ + neutres
+  CARDS.forEach(c=>{
+    if((starterChoice.factions.includes(c.faction)||c.faction==="Neutre")&&!c.isFusion){
+      COLLECTION[c.id]=1;
     }
   });
-  if(dirty){
-    try{safeStorage.set("tcg_collection_v1",JSON.stringify(COLLECTION));}catch(e){}
-  }
-};
-// Run migration immediately after loading
-(()=>{try{migrateCollectionToStarter();}catch(e){}})();
-
-// Si la collection est vide (1ère connexion), on donne toutes les cartes de base
-const initCollectionIfEmpty=()=>{
-  if(Object.keys(COLLECTION).length>0)return;
-  // If a starter was chosen, only give that faction + neutrals
-  if(STARTER_PACK){
-    const starterChoice=STARTER_CHOICES.find(x=>x.id===STARTER_PACK);
-    if(starterChoice){
-      CARDS.forEach(c=>{
-        if((starterChoice.factions.includes(c.faction)||c.faction==="Neutre")&&!c.isFusion){
-          COLLECTION[c.id]=(COLLECTION[c.id]||0)+1;
-        }
-      });
-      PLAYER_STATS.coins=PLAYER_STATS.coins||700;
-      saveStats();saveCollection();return;
-    }
-  }
-  // Legacy / no starter: do nothing — go to starter choice
+  if(!PLAYER_STATS.coins)PLAYER_STATS.coins=700;// Pièces de départ seulement si 0
+  saveStats();saveCollection();
 };
 
 const saveCollection=()=>{
@@ -1751,8 +2234,8 @@ const SHOP_PACK_DEFS=[
   {id:"empire",name:"Pack Empire",icon:"👑",desc:"Cartes Grecs + Égyptiens",price:350,factions:["Grecs","Egyptiens"],locked:false,color:"#d4a800"},
   {id:"corrompus",name:"Pack Corrompus",icon:"🥷",desc:"Ninjas & Empoisonneurs",price:600,factions:["Ninjas","Empoisonneurs"],locked:false,color:"#9933cc"},
   {id:"cosmiques",name:"Pack Cosmiques",icon:"🌌",desc:"Entités Astrales + Extraterrestres",price:600,factions:[],locked:true,color:"#4466ff"},
-  {id:"industriels",name:"Pack Industriel",icon:"⚙️",desc:"Steampunk + Robots",price:600,factions:[],locked:true,color:"#cc8800"},
-  {id:"booster",name:"Pack Booster Spécial",icon:"⭐",desc:"Cartes exclusives sélectionnées",price:1000,factions:[],locked:true,color:"#ff4444"},
+  {id:"industriels",name:"Pack Industriel",icon:"⚙️",desc:"Steampunk + Robots Humanoïdes — Bientôt disponible !",price:600,factions:["Steampunk","Robots"],locked:true,color:"#cc8800"},
+  {id:"booster",name:"Pack Nouvelle Ère",icon:"✨",desc:"4 cartes exclusives NE + slot Chrono-Légendaire si grade atteint",price:1000,factions:[],locked:false,color:"#cc88ff"},
 ];
 
 const getRarityPool=(factions)=>{
@@ -1782,15 +2265,11 @@ const openPack=(packId)=>{
   const p=pick(pools.prestige);if(p)cards.push({...p,rarity:"prestige"});
   // 5% ultra gold
   if(Math.random()<0.05&&pools.ultragold.length){const u=pick(pools.ultragold);if(u)cards.push({...u,rarity:"ultragold"});}
-  // Ajouter à la collection + marquer les nouvelles + enregistrer comme achetées
-  let purchased={};
-  try{const s=safeStorage.get("tcg_purchased_v1");if(s)purchased=JSON.parse(s);}catch(e){}
+  // Ajouter à la collection + marquer les nouvelles
   cards.forEach(c=>{
     c.isNew=(COLLECTION[c.id]||0)===0;
     COLLECTION[c.id]=(COLLECTION[c.id]||0)+1;
-    purchased[c.id]=true;// Mark as explicitly purchased
   });
-  try{safeStorage.set("tcg_purchased_v1",JSON.stringify(purchased));}catch(e){}
   PLAYER_STATS.coins-=pack.price;
   saveStats();saveCollection();
   return{cards};
@@ -1946,6 +2425,14 @@ const calcAtk=(card,side,fx,lieu,isP)=>{
     if(eq.find(e=>e.id==="sarbacane"))a+=50;
     if(eq.find(e=>e.id==="cannelame"))a+=100;
   }
+  // ── Steampunk équipements ATK ──
+  if(card.faction==="Steampunk"){
+    if(eq.find(e=>e.id==="lanceflammecharbon"))a+=100;
+    if(eq.find(e=>e.id==="bottesriff"))a+=100;
+    if(eq.find(e=>e.id==="sciegantelet"))a+=100;
+    if(eq.find(e=>e.id==="fusilvapeur"))a+=200;
+    if(eq.find(e=>e.id==="grenadecharbon"))a+=300;
+  }
   // Totem d'Entrave Mystique: l'ennemi ne reçoit plus de bonus d'ATK
   if(card.totalLock){return card.atk+(card.bonusAtk||0);}
   fx.filter(e=>e.target===card.uid&&e.type==="atk").forEach(e=>a+=e.bonus);
@@ -2004,6 +2491,14 @@ const maxHp=(card,side,fx,lieu)=>{
     if(eq.find(e=>e.id==="daguevenin"))b+=0;// ATK only
     if(eq.find(e=>e.id==="technomasquepeste"))b+=100;
   }
+  // ── Steampunk équipements PV ──
+  if(card.faction==="Steampunk"){
+    if(eq.find(e=>e.id==="lunettesing"))b+=100;
+    if(eq.find(e=>e.id==="bottesriff"))b+=100;
+    if(eq.find(e=>e.id==="dronelibellule"))b+=100;
+    if(eq.find(e=>e.id==="montrerouages"))b+=100;
+    if(eq.find(e=>e.id==="cleuniverselle"))b+=100;
+  }
   return b;
 };
 const curHp=(card,side,fx,lieu)=>maxHp(card,side,fx,lieu)-(card.dmgTaken||0);
@@ -2018,33 +2513,20 @@ const drawCard=(who)=>{
 };
 const killCard=(who,fi)=>{
   const card=G[who].field[fi];if(!card)return;
+  // ── Montre à Rouages: 1x/tour, survive avec 100 PV ──
+  if(who==="player"&&!card._montreSaved){const eq=eqs(G.player.equips,card.uid);if(eq.find(e=>e&&e.id==="montrerouages")){G.player.field[fi]={...card,dmgTaken:0,_montreSaved:true};const mhp=maxHp(card,G.player,G.fx,G.lieu);G.player.field[fi].dmgTaken=Math.max(0,mhp-100);addLog("⏱️ Montre à Rouages: "+card.name+" survit avec 100 PV !");return;}}
   SFX.kill();
   if(who==="ai"){GAME_TRACK.kills++;GAME_TRACK.kills_game++;progressChallenge("kills");progressChallenge("kills_game");}
   removeDotsByUid(card.uid);
-  // Dendro Grenouille Mortelle: on death, who killed it gets poisoned 100 PV/tour
-  if(card.id==="dendrogrenoui"){
-    const en=who==="player"?"ai":"player";
-    // The attacker is on "en" side - find who just attacked (we can't know exactly which, so poison all on field is too harsh; instead poison the one who attacked last or we add a flag)
-    // We'll store it as a global dot on all "en" field chars that have dmgTaken > 0 from this turn
-    // Simpler: add a Dendro dot to the enemy field - targeted at the first char that attacked
-    // Since we can't track exactly who attacked, we apply it to all enemies currently on field
-    G[en].field.forEach(c=>{if(c){c._poisoned=true;G.dotEffects.push({uid:c.uid,side:en,dmgHp:100,turnsLeft:-1});addLog("☠ Dendro: "+c.name+" empoisonné !");}});
-  }
-  // Tayra reaction: each time a player char dies, tayra targets take 100 PV dmg
-  if(who==="player"&&G.tayraTargets&&G.tayraTargets.length>0){
-    G.tayraTargets.forEach(tuid=>{
-      const ti=G.ai.field.findIndex(c=>c&&c.uid===tuid);
-      if(ti!==-1&&G.ai.field[ti]){const t=G.ai.field[ti];const ch=curHp(t,G.ai,G.fx,G.lieu);if(100>=ch){killCard("ai",ti);stealPrestige("player","Tayra: "+t.name+" détruit !");}else{G.ai.field[ti]={...t,dmgTaken:(t.dmgTaken||0)+100};addLog("Tayra: "+t.name+" -100 PV");}}
-    });
-  }
-  if(who==="ai"&&G.tayraTargets&&G.tayraTargets.length>0){
-    G.tayraTargets.forEach(tuid=>{
-      const ti=G.player.field.findIndex(c=>c&&c.uid===tuid);
-      if(ti!==-1&&G.player.field[ti]){const t=G.player.field[ti];const ch=curHp(t,G.player,G.fx,G.lieu);if(100>=ch){killCard("player",ti);stealPrestige("ai","Tayra: "+t.name+" détruit !");}else{G.player.field[ti]={...t,dmgTaken:(t.dmgTaken||0)+100};addLog("Tayra: "+t.name+" -100 PV");}}
-    });
-  }
+  if(G.enemyEquips)G.enemyEquips=G.enemyEquips.filter(e=>e.targetUid!==card.uid);
+  // Charbon de Haute Qualité: équipements retournent en main si card.charbonSaved
+  if(who==="player"&&card._charbonSaved){const cardEqs=G.player.equips[fi].filter(e=>e);cardEqs.forEach(eq=>G.player.hand.push({...eq,uid:mkuid()}));addLog("⚙️ Charbon HQ: équipements de "+card.name+" récupérés en main !");}
+  // Dendro Grenouille Mortelle
+  if(card.id==="dendrogrenoui"){const en=who==="player"?"ai":"player";G[en].field.forEach(c=>{if(c){c._poisoned=true;G.dotEffects.push({uid:c.uid,side:en,dmgHp:100,turnsLeft:-1});addLog("☠ Dendro: "+c.name+" empoisonné !");}});}
+  // Tayra reaction
+  if(who==="player"&&G.tayraTargets&&G.tayraTargets.length>0){G.tayraTargets.forEach(tuid=>{const ti=G.ai.field.findIndex(c=>c&&c.uid===tuid);if(ti!==-1&&G.ai.field[ti]){const t=G.ai.field[ti];const ch=curHp(t,G.ai,G.fx,G.lieu);if(100>=ch){killCard("ai",ti);stealPrestige("player","Tayra: "+t.name+" détruit !");}else{G.ai.field[ti]={...t,dmgTaken:(t.dmgTaken||0)+100};addLog("Tayra: "+t.name+" -100 PV");}}});}
+  if(who==="ai"&&G.tayraTargets&&G.tayraTargets.length>0){G.tayraTargets.forEach(tuid=>{const ti=G.player.field.findIndex(c=>c&&c.uid===tuid);if(ti!==-1&&G.player.field[ti]){const t=G.player.field[ti];const ch=curHp(t,G.player,G.fx,G.lieu);if(100>=ch){killCard("player",ti);stealPrestige("ai","Tayra: "+t.name+" détruit !");}else{G.player.field[ti]={...t,dmgTaken:(t.dmgTaken||0)+100};addLog("Tayra: "+t.name+" -100 PV");}}});}
   G[who].field[fi]=null;G[who].equips[fi]=[null,null];G[who].discard.push(card);
-  // Remove Tayra target if this card dies
   if(G.tayraTargets)G.tayraTargets=G.tayraTargets.filter(u=>u!==card.uid);
 };
 const stealPrestige=(who,msg)=>{
@@ -2087,7 +2569,7 @@ const initGame=(pId,aId)=>{
     fx:[],frozenAI:false,frozenChars:[],fureurTarget:null,
     sirenesTarget:null,artemisTarget:null,parthenon_active:false,papyActive:false,
     dotEffects:[],tayraTargets:[],enemyEquips:[],laboCooldown:false,
-    ninjaTrio:false,empoisonneurTrio:false};
+    ninjaTrio:false,empoisonneurTrio:false,noraBonus:false};
   SELECTED_HAND=null;ATTACK_MODE=false;ATTACK_FROM=null;CHOICE=null;ANIM_BUSY=false;
 };
 
@@ -2184,6 +2666,7 @@ const render=()=>{
   else if(SCREEN==="daily")renderDaily();
   else if(SCREEN==="shop")renderShop();
   else if(SCREEN==="collection")renderCollection();
+  else if(SCREEN==="grades")renderGrades();
 };
 
 // ── IMPORT ──
@@ -2743,6 +3226,51 @@ const renderGame=()=>{
       if(DECK_IDS.player){GAME_TRACK.decks_won.add(DECK_IDS.player);progressChallenge("win_decks");}
       const turnWin=G.turn;if(turnWin<=8)progressChallenge("win_quick",turnWin);
       if(G.player.prestige>10)progressChallenge("win_nodmg");
+      // ── GRADES: track faction win stats ──
+      const diff2=MATCHUP?.difficulty||"moyen";
+      for(const faction of GRADES_FACTIONS){
+        // Count faction cards across all player zones
+        const allCards=[...G.player.deck,...G.player.hand,...G.player.field.filter(c=>c),...G.player.discard];
+        const factionCards=allCards.filter(c=>c.faction===faction);
+        const has20=factionCards.length>=20;
+        if(!has20){
+          // Reset diff streak even if not playing this faction
+          resetFactionStreak(faction);
+          continue;
+        }
+        // All per-game conditions
+        const fAlive=G.player.field.filter(c=>c&&c.faction===faction).length;
+        const hasHighCostAlive=G.player.field.some(c=>c&&c.faction===faction&&(c.cost||0)>=7);
+        const noFactionCost5InDeck=!factionCards.some(c=>(c.cost||0)>=5);
+        const prestigeLost=10-G.player.prestige;// prestige starts at 10
+        const opponentId=DECK_IDS.ai||"unknown";
+        // wins (grade 1 + 4)
+        incFactionStat(faction,"wins");
+        // wins3alive (grade 3)
+        if(fAlive>=3)incFactionStat(faction,"wins3alive");
+        // winsHighCost (grade 5)
+        if(hasHighCostAlive)incFactionStat(faction,"winsHighCost");
+        // diffStreak (grade 6)
+        if(diff2==="difficile"){
+          incFactionStat(faction,"diffStreak");
+        } else {
+          resetFactionStreak(faction);
+        }
+        // winsNoDmg (grade 7)
+        if(G.player.prestige>=10)incFactionStat(faction,"winsNoDmg");
+        // winsNoHigh (grade 8) — no faction cost 5+
+        if(noFactionCost5InDeck)incFactionStat(faction,"winsNoHigh");
+        // factionsBeatDiff (grade 9)
+        if(diff2==="difficile")addFactionBeatDiff(faction,opponentId);
+        // winsHardest (grade 10)
+        if(diff2==="difficile"&&noFactionCost5InDeck&&prestigeLost<=3)incFactionStat(faction,"winsHardest");
+        // Update grades
+        const gradeChanged=updateGrades(faction);
+        if(gradeChanged){
+          const newGrade=GRADES[faction]||0;
+          setTimeout(()=>showNotif("🏅 Grade "+newGrade+" atteint !\n"+faction+"\n"+FACTION_GRADES_DEF[faction]?.[newGrade-1]?.label,"#cc88ff","🏅"),1800);
+        }
+      }
       // Chemin vers la victoire
       if(CHEMIN_STATE){
         CHEMIN_STATE.step++;
@@ -2778,6 +3306,8 @@ const renderGame=()=>{
     }
     if(!win&&!G._rewardApplied){
       G._rewardApplied=true;SFX.lose();MUSIC.stop();
+      // Reset diff streaks on loss
+      for(const faction of GRADES_FACTIONS)resetFactionStreak(faction);
       // Roi du Temps: lose penalty — -100 coins
       if(isBossMatch&&PLAYER_STATS.coins>=100){
         PLAYER_STATS.coins-=100;saveStats();
@@ -2922,6 +3452,30 @@ const renderChoiceModal=()=>{
   } else if(ch.type==="spectrebarillet"||ch.type==="rictus"){
     const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;text-align:center">${cardHTML(c,"mini",{cHp:curHp(c,G.ai,G.fx,G.lieu),mHp:maxHp(c,G.ai,G.fx,G.lieu)})}<div style="font-size:8px;color:#aac;margin-top:2px">${c.name}</div></div>`).join("");
     content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
+  } else if(ch.type==="boros_target"||ch.type==="jules_target"||ch.type==="gedeon_heal"||ch.type==="garruk_target"||ch.type==="kuro_target"){
+    const isAlly=ch.type==="boros_target"||ch.type==="jules_target"||ch.type==="gedeon_heal";
+    const side=isAlly?"player":"ai";
+    const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;text-align:center">${cardHTML(c,"mini",{cHp:curHp(c,G[side],G.fx,G.lieu),mHp:maxHp(c,G[side],G.fx,G.lieu)})}<div style="font-size:8px;color:#886644;margin-top:2px">${c.name}</div></div>`).join("");
+    content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
+  } else if(ch.type==="akaion_target"){
+    const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;text-align:center">${cardHTML(c,"mini",{cHp:curHp(c,G.ai,G.fx,G.lieu),mHp:maxHp(c,G.ai,G.fx,G.lieu)})}<div style="font-size:8px;color:#c87820;margin-top:2px">${c.name}</div></div>`).join("");
+    content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
+  } else if(ch.type==="charbonhq"||ch.type==="blindageurgence"||ch.type==="prototypereussi"||ch.type==="usine_bonus"||ch.type==="cleuniverselle_heal"){
+    const side=ch.type==="charbonhq"||ch.type==="blindageurgence"||ch.type==="prototypereussi"||ch.type==="usine_bonus"||ch.type==="cleuniverselle_heal"?"player":"ai";
+    const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;text-align:center">${cardHTML(c,"mini",{cHp:curHp(c,G.player,G.fx,G.lieu),mHp:maxHp(c,G.player,G.fx,G.lieu)})}<div style="font-size:8px;color:#cc8800;margin-top:2px">${c.name}</div></div>`).join("");
+    content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
+  } else if(ch.type==="surchargechaudiere"||ch.type==="jetvapeurbrulante"||ch.type==="sabotage_dmg"||ch.type==="greveouvriers"){
+    const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;text-align:center">${cardHTML(c,"mini",{cHp:curHp(c,G.ai,G.fx,G.lieu),mHp:maxHp(c,G.ai,G.fx,G.lieu)})}<div style="font-size:8px;color:#cc4400;margin-top:2px">${c.name}</div></div>`).join("");
+    content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
+  } else if(ch.type==="retouraiguilles"||ch.type==="manoir_remise"){
+    const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;text-align:center">${cardHTML(c,"hand")}<div style="font-size:8px;color:#cc8800;margin-top:2px">${c.name}</div></div>`).join("");
+    content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
+  } else if(ch.type==="surcharge_self"){
+    const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;text-align:center">${cardHTML(c,"mini",{cHp:curHp(c,G.player,G.fx,G.lieu),mHp:maxHp(c,G.player,G.fx,G.lieu)})}<div style="font-size:8px;color:#cc8800;margin-top:2px">${c.name}</div></div>`).join("");
+    content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
+  } else if(ch.type==="eleonore_equip"){
+    const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;text-align:center">${cardHTML(c,"hand")}<div style="font-size:8px;color:#886644;margin-top:2px">${c.name}</div></div>`).join("");
+    content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
   } else if(ch.type==="ninja_trio_recall"){
     const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;text-align:center">${cardHTML(c,"mini",{cHp:curHp(c,G.player,G.fx,G.lieu),mHp:maxHp(c,G.player,G.fx,G.lieu)})}<div style="font-size:8px;color:#9933cc;margin-top:2px">${c.name}</div></div>`).join("");
     content=`<div style="display:flex;flex-direction:column;gap:12px;align-items:center">
@@ -2993,7 +3547,24 @@ const renderChoiceModal=()=>{
     klausbrume:"Klaus Brume-Gaz — Cible -100 ATK",
     dragon_venin:"Dragon du Venin — Jusqu'à 2 cibles (confirmer)",
     sylvara:"Sylvara Mutante — Jusqu'à 2 cibles (confirmer)",
+    akaion_target:"🪶 Akaïon — Choisir un ennemi (300 dégâts + soigne alliés +200 PV)",
+    retouraiguilles:"⏱️ Retour des Aiguilles — Récupérer une Action Steampunk",
+    prototypereussi:"⚙️ Prototype Réussi — Choisir un Steampunk allié",
+    surchargechaudiere:"💥 Surcharge de Chaudière — Choisir une cible ennemie",
+    surcharge_self:"💥 Surcharge — Choisir un Steampunk allié à sacrifier (-100 PV)",
+    jetvapeurbrulante:"🔥 Jet de Vapeur — Choisir une cible ennemie",
+    sabotage_dmg:"⚙️ Sabotage Mécanique — Aucun équipement : choisir une cible",
+    blindageurgence:"🛡️ Blindage d'Urgence — Choisir un Steampunk allié (+300 PV)",
+    greveouvriers:"🪧 Grève des Ouvriers — Paralyser un ennemi (3 tours)",
+    usine_bonus:"🏭 Usine à Vapeur — Choisir un Steampunk allié (+100 PV)",
+    manoir_remise:"🏰 Manoir du Baron — Remettre 1 carte sous ton deck",
     ninja_trio_recall:"🥷 Trio Ninjas — Rappeler un Ninja en main ?",
+    boros_target:"⚙️ Boros Soudefer — Choisir un Steampunk allié",
+    jules_target:"⚙️ Jules Vifpiston — Choisir un Steampunk allié (+150 ATK)",
+    gedeon_heal:"🌿 Gédéon — Soigner un Steampunk allié (+100 PV)",
+    garruk_target:"🔪 Garruk Scie-Vapeur — Choisir une cible",
+    kuro_target:"🐦 Kuro Corvacier — Choisir une cible",
+    eleonore_equip:"⚙️ Éléonore — Équiper depuis la main (+150 PV)",
     poisonparalysant:"☠ Poison Paralysant — Paralyser un ennemi empoisonné",
     sporestouffe:"🍄 Spores d'Étouffement — Cibler un ennemi",
     recetteinterdite:"📜 Recette Interdite — Doubler un poison",
@@ -3289,6 +3860,8 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
           if(ki!==-1){G[who].field[ki]={...G[who].field[ki],bonusAtk:(G[who].field[ki].bonusAtk||0)-100};addLog("☠ Scarabée Maudit ! "+atk.name+" -100 ATK permanent !");}
         }
         killCard(en,tfi);stealPrestige(who,def.name+" detruit !");
+        // Grade kill tracking
+        if(isP&&GRADES_FACTIONS.includes(atk.faction)){incFactionStat(atk.faction,"kills");}
         if(isMomie){G[en].discard=G[en].discard.filter(c=>c.uid!==def.uid);G[en].deck.push({...def,dmgTaken:0,hasAttacked:false,lastStandUsed:false,uid:mkuid()});G[en].deck=shuffle(G[en].deck);addLog("Momie retourne dans le deck !");}
         if(G.phase==="end")return;
         // Horus: kill → un allié +100 ATK permanent
@@ -3306,6 +3879,8 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
         if(atk.id==="heroslionide"){const hi=G[who].field.findIndex(c=>c&&c.uid===atk.uid);if(hi!==-1){G[who].field[hi]={...G[who].field[hi],dmgTaken:Math.max(0,(G[who].field[hi].dmgTaken||0)-200)};addLog("Héros Lionide: +200 PV!");}}
         // Biche de Cérynie: kill → peut attaquer une seconde fois
         if(atk.id==="bichecerynie"){const bi=G[who].field.findIndex(c=>c&&c.uid===atk.uid);if(bi!==-1){G[who].field[bi]={...G[who].field[bi],hasAttacked:false};addLog("Biche de Cérynie: peut attaquer à nouveau!");}}
+        // Rokk-Hard _doubleAttack: après n'importe quelle attaque, si flag actif → reset
+        if(atk._doubleAttack&&who==="player"){const ri=G.player.field.findIndex(c=>c&&c.uid===atk.uid);if(ri!==-1){G.player.field[ri]={...G.player.field[ri],hasAttacked:false,_doubleAttack:false};addLog("🎸 Rokk-Hard: 2ème attaque disponible !");}}
         // Gardien Spectral Lupéen: kill → +50 PV
         if(atk.id==="gardienspectral"){const gi=G[who].field.findIndex(c=>c&&c.uid===atk.uid);if(gi!==-1){G[who].field[gi]={...G[who].field[gi],dmgTaken:Math.max(0,(G[who].field[gi].dmgTaken||0)-50)};addLog("Gardien Spectral: +50 PV !");}}
         // Gluardent: quand détruit, inflige 100 dégâts à l'attaquant
@@ -3369,7 +3944,8 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
       if(atk.id==="arachnavm"&&G[en].field[tfi]){const pen=G[en].field[tfi]._poisoned?150:100;G.fx.push({target:G[en].field[tfi].uid,bonus:-pen,type:"atk",endOfTurn:true});addLog("Arachna: "+def.name+" -"+pen+" ATK !");}
       // Skara Scorpion vert: inflige dégâts en combat → cible -100 ATK au prochain tour
       if(atk.id==="skarascorpion"&&G[en].field[tfi]){G.fx.push({target:G[en].field[tfi].uid,bonus:-100,type:"atk",endOfTurn:true});addLog("Skara: "+def.name+" -100 ATK !");}
-      // Selyra salive du Cobra: quand attaque → cible empoisonnée (100 PV/tour permanent)
+      // Rokk-Hard: double attack — reset hasAttacked after first attack (kill or survive)
+      if(who==="player"&&atk._doubleAttack){const ri=G.player.field.findIndex(c=>c&&c.uid===atk.uid);if(ri!==-1){G.player.field[ri]={...G.player.field[ri],hasAttacked:false,_doubleAttack:false};addLog("🎸 Rokk-Hard: 2ème attaque disponible !");}}
       if(atk.id==="selyracobra"&&G[en].field[tfi]&&!G[en].field[tfi]._poisoned){poisonChar(en,G[en].field[tfi].uid,100,-1);addLog("Selyra: "+def.name+" empoisonné(e) !");}
       // Repas Suspect: après attaque l'attaquant perd 100 PV
       if(ttype==="field"){const attackerIdx=G[who].field.findIndex(c=>c&&c.uid===atk.uid);if(attackerIdx!==-1&&G[who].field[attackerIdx]&&G[who].field[attackerIdx]._repassuspec){const rpc=G[who].field[attackerIdx];const rpch=curHp(rpc,G[who],G.fx,G.lieu);if(100>=rpch){killCard(who,attackerIdx);stealPrestige(en,"Repas Suspect: "+rpc.name+" détruit!");}else{G[who].field[attackerIdx]={...rpc,dmgTaken:(rpc.dmgTaken||0)+100};addLog("🍖 Repas Suspect: "+rpc.name+" -100 PV après attaque!");}}}
@@ -3388,8 +3964,16 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
       if(atk.id==="thorgal"||atk.id==="arya"||atk.id==="cavalierbison"||atk.id==="cyclopebrise"){        const oi=G[en].field.findIndex((c,i)=>c&&i!==tfi);
         if(oi!==-1){const o=G[en].field[oi];const oh=curHp(o,G[en],G.fx,G.lieu)-100;if(oh<=0){killCard(en,oi);stealPrestige(who,atk.name+" detruit "+o.name+"!");}else{G[en].field[oi]={...o,dmgTaken:(o.dmgTaken||0)+100};addLog(atk.name+": 100 degats a "+o.name);}}
       }
-      // Pistache Turbo-Patte: +50 ATK si cible déjà blessée (appliqué ce tour)
+      // Pistache Turbo-Patte: +50 ATK si cible déjà blessée
       if(atk.id==="pistacheturbo"&&ttype==="field"&&G[en].field[tfi]&&(G[en].field[tfi].dmgTaken||0)>0){G.fx.push({target:atk.uid,bonus:50,type:"atk",endOfTurn:true});addLog("Pistache Turbo: +50 ATK (cible blessée) !");}
+      // Lance-Flamme au Charbon: cible touchée perd 100 PV à son prochain tour
+      if(isP&&ttype==="field"&&G[en].field[tfi]){const eq2=eqs(G.player.equips,atk.uid);if(eq2.find(e=>e.id==="lanceflammecharbon")){poisonChar(en,G[en].field[tfi].uid,100,1);addLog("🔥 Lance-Flamme: "+def.name+" -100 PV au prochain tour !");}}
+      // Scie-Gantelet: inflige 100 dégâts à un autre ennemi
+      if(isP&&ttype==="field"){const eq2=eqs(G.player.equips,atk.uid);if(eq2.find(e=>e.id==="sciegantelet")){const other=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.i!==tfi);if(other.length){const t2=other[0];const ch2=curHp(t2.c,G.ai,G.fx,G.lieu);if(100>=ch2){killCard("ai",t2.i);stealPrestige("player","Scie-Gantelet détruit "+t2.c.name+"!");}else{G.ai.field[t2.i]={...t2.c,dmgTaken:(t2.c.dmgTaken||0)+100};addLog("⚙️ Scie-Gantelet: "+t2.c.name+" -100 PV !");}}}}
+      // Fusil à Vapeur Instable: porteur perd 100 PV après combat
+      if(isP&&ttype==="field"){const eq2=eqs(G.player.equips,atk.uid);if(eq2.find(e=>e.id==="fusilvapeur")){const afi2=G.player.field.findIndex(c=>c&&c.uid===atk.uid);if(afi2!==-1&&G.player.field[afi2]){const pc=G.player.field[afi2];const pch=curHp(pc,G.player,G.fx,G.lieu);if(100>=pch){killCard("player",afi2);addLog("💥 Fusil Instable: "+pc.name+" détruit !");}else{G.player.field[afi2]={...pc,dmgTaken:(pc.dmgTaken||0)+100};addLog("💥 Fusil Instable: "+pc.name+" -100 PV après attaque !");}}}}
+      // Grenade à Charbon: auto-détruit après la première attaque
+      if(isP&&ttype==="field"){const eq2=eqs(G.player.equips,atk.uid);const grenIdx=G.player.equips[G.player.field.findIndex(c=>c&&c.uid===atk.uid)]?.findIndex(e=>e&&e.id==="grenadecharbon");const afi3=G.player.field.findIndex(c=>c&&c.uid===atk.uid);if(afi3!==-1&&grenIdx!==undefined&&grenIdx>=0){G.player.equips[afi3][grenIdx]=null;addLog("💣 Grenade à Charbon détruite après l'attaque !");}}
       // Dague au Venin Noir: inflige 100 PV dot au prochain tour
       if(isP&&atk.faction==="Empoisonneurs"&&ttype==="field"&&G[en].field[tfi]){const eq2=eqs(G.player.equips,atk.uid);if(eq2.find(e=>e.id==="daguevenin")){poisonChar(en,G[en].field[tfi].uid,100,1);addLog("🗡️ Dague Venin: "+def.name+" -100 PV prochain tour!");}}
       // Sarbacane du Lotus: cible -100 ATK prochain tour
@@ -3583,7 +4167,32 @@ const playCard=(cardUid,fi)=>{
     // ── DRESSEURS DE DRAGONS ──
     if(card.id==="papybraise"){G.papyActive=true;addLog("Papy Braise-Écailles: le prochain Dresseur de Dragon allié gagne +100 PV !");}
     if(card.faction==="DresseursDragons"&&G.papyActive&&card.id!=="papybraise"){const fi2=G.player.field.findIndex(c=>c&&c.uid===placed.uid);if(fi2!==-1){G.player.field[fi2]={...G.player.field[fi2],bonusHp:(G.player.field[fi2].bonusHp||0)+100};addLog("Papy: +100 PV à "+placed.name+" !");}G.papyActive=false;}
-    // gardienspectral: effet au combat (handled in resolveCombat)
+    // ── Entités Astrales ──
+    if(card.id==="astrelyadesconfins"){[...G.ai.field].forEach((c,i)=>{if(!c||!G.ai.field[i])return;const ch=curHp(G.ai.field[i],G.ai,G.fx,G.lieu);if(200>=ch){killCard("ai",i);stealPrestige("player","Astrelya détruit "+c.name+"!");}else G.ai.field[i]={...G.ai.field[i],dmgTaken:(G.ai.field[i].dmgTaken||0)+200};});addLog("✨ Astrelya des Confins: 200 dégâts à tous les ennemis !");}
+    // ── Akaïon Défenseur (Amérindiens) ──
+    if(card.id==="akaiondefenseur"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length){setTimeout(()=>{CHOICE={type:"akaion_target",options:opts};renderGame();},100);return;}else{G.player.field.forEach((c,j)=>{if(c)G.player.field[j]={...c,dmgTaken:Math.max(0,(c.dmgTaken||0)-200)};});addLog("Akaïon: alliés +200 PV (aucun ennemi à cibler) !");}}
+    // ── Rokk-Hard (Punk) ──
+    if(card.id==="rokkhard"){const fi=G.player.field.findIndex(c=>c&&c.uid===placed.uid);if(fi!==-1)G.player.field[fi]={...G.player.field[fi],justPlayed:false,hasAttacked:false,_doubleAttack:true};addLog("🎸 Rokk-Hard: peut attaquer 2 fois ce tour !");}
+    // ── STEAMPUNK INDUSTRIELS entry effects ──
+    if(card.id==="rifftonnecuivre"){G.player.field.forEach((c,j)=>{if(c&&c.faction==="Steampunk"&&c.uid!==placed.uid)G.fx.push({target:c.uid,bonus:100,type:"atk",endOfTurn:true});});addLog("🎸 Riff: tous les Steampunk alliés +100 ATK !");}
+    if(card.id==="alaricforgebrume"){const eq=G.player.deck.find(c=>c.type==="equipement"&&c.faction==="Steampunk");if(eq){G.player.deck=G.player.deck.filter(x=>x.uid!==eq.uid);G.player.hand.push({...eq,uid:mkuid()});addLog("Alaric: "+eq.name+" pris du deck !");}else addLog("Alaric: aucun Équipement Steampunk dans le deck.");}
+    if(card.id==="minaclefargent"){const al=G.player.field.find(c=>c&&c.faction==="Steampunk"&&c.uid!==placed.uid&&eqs(G.player.equips,c.uid).find(e=>e));if(al){al.bonusHp=(al.bonusHp||0)+100;addLog("Mina: "+al.name+" +100 PV !");}else addLog("Mina: aucun Steampunk équipé allié.");}
+    if(card.id==="borossoudefer"){const opts=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Steampunk"&&x.c.uid!==placed.uid);if(opts.length){setTimeout(()=>{CHOICE={type:"boros_target",options:opts};renderGame();},100);return;}else addLog("Boros: aucun allié Steampunk.");}
+    if(card.id==="octavechromacier"){const drawn=G.player.deck.length>0?G.player.deck.shift():null;if(drawn){G.player.hand.push(drawn);if(drawn.type==="equipement"){const al=G.player.field.find(c=>c&&c.faction==="Steampunk"&&c.uid!==placed.uid);if(al)G.fx.push({target:al.uid,bonus:200,type:"atk",endOfTurn:true});addLog("Octave pioche "+drawn.name+(drawn.type==="equipement"?" → +200 ATK !":""));}else addLog("Octave pioche "+drawn.name+" (pas un équipement).");}else addLog("Octave: deck vide.");}
+    if(card.id==="papyferraille"){const eq=G.player.discard.find(c=>c.type==="equipement"&&c.faction==="Steampunk");if(eq){G.player.discard=G.player.discard.filter(x=>x.uid!==eq.uid);G.player.hand.push({...eq,uid:mkuid()});addLog("Papy Ferraille récupère "+eq.name+" de la défausse !");}else addLog("Papy Ferraille: aucun Équipement Steampunk en défausse.");}
+    if(card.id==="garrukscievapeur"){const equipe=eqs(G.player.equips,placed.uid).find(e=>e);const dmg=equipe?250:150;const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length){setTimeout(()=>{CHOICE={type:"garruk_target",options:opts,dmg};renderGame();},100);return;}else addLog("Garruk: aucun ennemi.");}
+    if(card.id==="trollchaudieres"){const al=G.player.field.find(c=>c&&c.faction==="Steampunk"&&c.uid!==placed.uid&&eqs(G.player.equips,c.uid).find(e=>e));if(al)G.fx.push({target:al.uid,bonus:50,type:"atk",endOfTurn:true});addLog(al?"Troll: "+al.name+" +50 ATK !":"Troll: aucun Steampunk équipé.");}
+    if(card.id==="victorvonfumacier"){G.player.field.forEach((c,j)=>{if(c&&c.faction==="Steampunk"&&eqs(G.player.equips,c.uid).find(e=>e)){G.fx.push({target:c.uid,bonus:200,type:"atk",endOfTurn:true});c.bonusHp=(c.bonusHp||0)+200;}});addLog("Victor: tous Steampunk équipés +200 ATK +200 PV !");}
+    if(card.id==="airainherovapeur"){const hasEq=G.player.equips.some(slot=>slot&&slot.some(e=>e));if(hasEq){G.fx.push({target:placed.uid,bonus:200,type:"atk",endOfTurn:true});addLog("Airain: +200 ATK ce tour (équipement présent) !");}else addLog("Airain: aucun équipement sur le terrain.");}
+    if(card.id==="eleonorepressiondoree"){const eqInHand=G.player.hand.filter(c=>c.type==="equipement"&&c.faction==="Steampunk");if(eqInHand.length){setTimeout(()=>{CHOICE={type:"eleonore_equip",options:eqInHand.map((c,i)=>({c,i})),targetUid:placed.uid};renderGame();},100);return;}else addLog("Éléonore: aucun Équipement Steampunk en main.");}
+    if(card.id==="noirrouage"){let count=0;G.player.equips.forEach((slot,j)=>{slot.forEach((eq,k)=>{if(eq){G.player.equips[j][k]=null;count++;}});});if(count>0){const dmgTotal=count*200;[...G.ai.field].forEach((c,i)=>{if(!c||!G.ai.field[i])return;const ch=curHp(G.ai.field[i],G.ai,G.fx,G.lieu);if(dmgTotal>=ch){killCard("ai",i);stealPrestige("player","Noir-Rouage détruit "+c.name+"!");}else G.ai.field[i]={...c,dmgTaken:(c.dmgTaken||0)+dmgTotal};});addLog("Noir-Rouage: "+count+" équip détruits → "+dmgTotal+" dégâts à chaque ennemi !");}else addLog("Noir-Rouage: aucun équipement à détruire.");}
+    if(card.id==="julesvifpiston"){const opts=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Steampunk"&&x.c.uid!==placed.uid);if(opts.length){setTimeout(()=>{CHOICE={type:"jules_target",options:opts};renderGame();},100);return;}else addLog("Jules: aucun allié Steampunk.");}
+    if(card.id==="noracharbonnelle"){G.noraBonus=true;addLog("Nora: le prochain Équipement joué donnera +100 ATK supplémentaires !");}
+    if(card.id==="balthazargemmepression"){const hasEquippedSteam=G.player.field.some((c,j)=>c&&c.faction==="Steampunk"&&eqs(G.player.equips,c.uid).find(e=>e));if(hasEquippedSteam){drawCard("player");drawCard("player");addLog("Balthazar: 2 cartes piochées !");}else addLog("Balthazar: aucun Steampunk équipé.");}
+    if(card.id==="kurocorvacier"){const totalEq=G.player.equips.reduce((s,slot)=>s+(slot?slot.filter(e=>e).length:0),0)+G.ai.equips.reduce((s,slot)=>s+(slot?slot.filter(e=>e).length:0),0);const dmg=totalEq*200;const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length&&totalEq>0){setTimeout(()=>{CHOICE={type:"kuro_target",options:opts,dmg};renderGame();},100);return;}else addLog("Kuro: aucun équipement sur le terrain ou aucune cible.");}
+    if(card.id==="gedeonverrebrume"){const opts=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Steampunk"&&x.c.uid!==placed.uid);if(opts.length){setTimeout(()=>{CHOICE={type:"gedeon_heal",options:opts};renderGame();},100);return;}else addLog("Gédéon: aucun Steampunk allié à soigner.");}
+    // Fusion Kora Charbacier
+    if(card.id==="koracharbacier")addLog("⚗️ Kora Charbacier invoquée !");
 
     // Laboratoire Contrepoisons: 1x/tour quand un Empoisonneur entre en jeu
     if(card.faction==="Empoisonneurs"&&G.lieu&&G.lieu.id==="labocontrepoisons"&&!G.laboCooldown){
@@ -3652,6 +4261,16 @@ const playCard=(cardUid,fi)=>{
     G.player.equips[fi][slot]={...card,attachedTo:tgt.uid,uid:mkuid()};
     G.player.hand.splice(ci,1);
     addLog(card.name+" équipé sur "+tgt.name+".");
+    // Nora Charbonnelle bonus
+    if(G.noraBonus&&card.faction==="Steampunk"){G.fx.push({target:tgt.uid,bonus:100,type:"atk",endOfTurn:true});G.noraBonus=false;addLog("🔥 Nora: +100 ATK bonus à "+tgt.name+" !");}
+    // Clé Universelle: soigne 100 PV à un allié équipé à l'équipement
+    if(card.id==="cleuniverselle"){const healed=G.player.field.find((c,j)=>c&&c.faction==="Steampunk"&&c.uid!==tgt.uid&&eqs(G.player.equips,c.uid).find(e=>e));if(healed){healed.dmgTaken=Math.max(0,(healed.dmgTaken||0)-100);addLog("🔧 Clé Universelle: "+healed.name+" +100 PV !");}}
+    // Usine à Vapeur: 1x/tour quand un équipement Steampunk est joué → un allié +100 PV
+    if(card.faction==="Steampunk"&&G.lieu&&G.lieu.id==="usineavapeur"&&!G.lieu.usineUsed){
+      G.lieu.usineUsed=true;
+      const opts=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Steampunk");
+      if(opts.length){setTimeout(()=>{CHOICE={type:"usine_bonus",options:opts};renderGame();},150);return;}
+    }
     // Technomasque de Peste: entry effect when equipped
     if(card.id==="technomasquepeste"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length){setTimeout(()=>{CHOICE={type:"technomasquepeste",options:opts};renderGame();},100);return;}}
 
@@ -3683,7 +4302,14 @@ const playCard=(cardUid,fi)=>{
       const ci2=G.player.field.findIndex(c=>c&&c.id==="clankbeak");
       const skaraIdx=G.player.field.findIndex(c=>c&&c.id==="skarascorpion");
       const reineIdx=G.player.field.findIndex(c=>c&&c.id==="reinepoisonnoir");
-      if(skaraIdx!==-1&&reineIdx!==-1){
+      const noraFusIdx=G.player.field.findIndex(c=>c&&c.id==="noracharbonnelle");
+      const kuroFusIdx=G.player.field.findIndex(c=>c&&c.id==="kurocorvacier");
+      if(noraFusIdx!==-1&&kuroFusIdx!==-1){
+        SFX.fusion();GAME_TRACK.fusion=true;progressChallenge("fusion");
+        const f={...CARDS.find(c=>c.id==="koracharbacier"),uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
+        G.player.field[noraFusIdx]=f;G.player.field[kuroFusIdx]=null;G.player.equips[kuroFusIdx]=[null,null];
+        addLog("⚗️ FUSION → Kora Charbacier invoquée !");
+      } else if(skaraIdx!==-1&&reineIdx!==-1){
         SFX.fusion();GAME_TRACK.fusion=true;progressChallenge("fusion");
         const f={...CARDS.find(c=>c.id==="reinescopion"),uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
         G.player.field[skaraIdx]=f;G.player.field[reineIdx]=null;G.player.equips[reineIdx]=[null,null];
@@ -3790,6 +4416,16 @@ const playCard=(cardUid,fi)=>{
     else if(id==="marquemort"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length){setTimeout(()=>{CHOICE={type:"marquemort",options:opts};renderGame();},100);return;}else addLog("Aucune cible.");}
     else if(id==="frappedos"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&(x.c.dmgTaken||0)>0);if(opts.length){setTimeout(()=>{CHOICE={type:"frappedos",options:opts};renderGame();},100);return;}else addLog("Aucun ennemi blessé.");}
     else if(id==="pluiekunai"){[...G.ai.field].forEach((c,i)=>{if(!c||!G.ai.field[i])return;const ch=curHp(G.ai.field[i],G.ai,G.fx,G.lieu);if(100>=ch){killCard("ai",i);stealPrestige("player","Kunai détruit "+c.name+"!");}else{G.ai.field[i]={...G.ai.field[i],dmgTaken:(G.ai.field[i].dmgTaken||0)+100};G.fx.push({target:c.uid,bonus:-100,type:"atk",endOfTurn:true});}});addLog("Pluie de Kunai: 100 dégâts + -100 ATK à tous!");}
+    // ── Actions Steampunk ──
+    else if(id==="charbonhq"){const opts=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Steampunk"&&eqs(G.player.equips,x.c.uid).find(e=>e));if(opts.length){setTimeout(()=>{CHOICE={type:"charbonhq",options:opts};renderGame();},100);return;}else addLog("Charbon HQ: aucun Steampunk équipé.");}
+    else if(id==="retouraiguilles"){const actions=G.player.discard.filter(c=>c.type==="action"&&c.faction==="Steampunk");if(actions.length){setTimeout(()=>{CHOICE={type:"retouraiguilles",options:actions.map((c,i)=>({c,i}))};renderGame();},100);return;}else addLog("Retour des Aiguilles: aucune Action Steampunk en défausse.");}
+    else if(id==="prototypereussi"){const steamChars=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Steampunk");const eqInDeck=G.player.deck.filter(c=>c.type==="equipement"&&c.faction==="Steampunk");if(steamChars.length&&eqInDeck.length){setTimeout(()=>{CHOICE={type:"prototypereussi",options:steamChars};renderGame();},100);return;}else addLog("Prototype Réussi: aucune cible ou aucun équipement dans le deck.");}
+    else if(id==="surchargechaudiere"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length){setTimeout(()=>{CHOICE={type:"surchargechaudiere",options:opts};renderGame();},100);return;}else addLog("Surcharge: aucun ennemi.");}
+    else if(id==="jetvapeurbrulante"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length){setTimeout(()=>{CHOICE={type:"jetvapeurbrulante",options:opts};renderGame();},100);return;}else addLog("Jet de Vapeur: aucun ennemi.");}
+    else if(id==="sabotagemeca"){const aiEqs=[];G.ai.equips.forEach((slot,fi)=>slot.forEach((eq,ei)=>{if(eq)aiEqs.push({eq,fi,ei});}));if(aiEqs.length){const pick=aiEqs[0];G.ai.equips[pick.fi][pick.ei]=null;G.ai.discard=[...(G.ai.discard||[]),pick.eq];addLog("⚙️ Sabotage: "+pick.eq.name+" détruit !");}else{const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length){setTimeout(()=>{CHOICE={type:"sabotage_dmg",options:opts};renderGame();},100);return;}else addLog("Sabotage: aucune cible.");}}
+    else if(id==="blindageurgence"){const opts=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Steampunk");if(opts.length){setTimeout(()=>{CHOICE={type:"blindageurgence",options:opts};renderGame();},100);return;}else addLog("Blindage: aucun Steampunk allié.");}
+    else if(id==="recrutementindus"){drawCard("player");const hasEq=G.player.field.some((c,j)=>c&&c.faction==="Steampunk"&&eqs(G.player.equips,c.uid).find(e=>e));if(hasEq){drawCard("player");addLog("⚙️ Recrutement Industriel: 2 cartes piochées !");}else addLog("⚙️ Recrutement: 1 carte piochée.");}
+    else if(id==="greveouvriers"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length){setTimeout(()=>{CHOICE={type:"greveouvriers",options:opts};renderGame();},100);return;}else addLog("Grève: aucun ennemi.");}
     // ── Actions Empoisonneurs ──
     else if(id==="brulureacide"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length){setTimeout(()=>{CHOICE={type:"brulureacide",options:opts};renderGame();},100);return;}else addLog("Brûlure: aucune cible.");}
     else if(id==="injectiontoxique"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length){setTimeout(()=>{CHOICE={type:"poison_single",options:opts,dmg:100,turns:3,label:"Injection Toxique"};renderGame();},100);return;}else addLog("Injection: aucune cible.");}
@@ -3940,11 +4576,25 @@ window.doChoice=(action,payload)=>{
     else if(ch.type==="meteioide4"){if(action==="orage"){const t=G.ai.field[payload];if(t){const ch2=curHp(t,G.ai,G.fx,G.lieu);if(200>=ch2){killCard("ai",payload);stealPrestige("player","Météoïde Orage détruit "+t.name+"!");}else{G.ai.field[payload]={...t,dmgTaken:(t.dmgTaken||0)+200};addLog("Météoïde-4 Orage: 200 dégâts à "+t.name);}}}else if(action==="canicule"){G.player.field.forEach(c=>{if(c)G.fx.push({target:c.uid,bonus:100,type:"atk",endOfTurn:true});});addLog("Météoïde-4 Canicule: tous alliés +100 ATK !");}}
     else if(ch.type==="spectrebarillet"){const t=G.ai.field[payload];if(t){const ch2=curHp(t,G.ai,G.fx,G.lieu);if(200>=ch2){killCard("ai",payload);stealPrestige("player","Spectre: détruit "+t.name+"!");}else{G.ai.field[payload]={...t,dmgTaken:(t.dmgTaken||0)+200};addLog("Spectre du Barillet: 200 dégâts à "+t.name);}}}
     else if(ch.type==="rictus"){const t=G.ai.field[payload];if(t){killCard("ai",payload);stealPrestige("player","Rictus l'Allumeur détruit "+t.name+" !");addLog("Rictus: ennemi blessé détruit !");}}
+    else if(ch.type==="boros_target"||ch.type==="jules_target"){const c=G.player.field[payload];if(c){const bonus=ch.type==="jules_target"?150:100;G.fx.push({target:c.uid,bonus,type:"atk",endOfTurn:true});if(ch.type==="boros_target"&&eqs(G.player.equips,c.uid).find(e=>e))G.fx.push({target:c.uid,bonus:100,type:"atk",endOfTurn:true});addLog("Steampunk: "+c.name+" bonus ATK !");}}
+    else if(ch.type==="garruk_target"||ch.type==="kuro_target"){const t=G.ai.field[payload];if(t){const dmg=ch.dmg||150;const ch2=curHp(t,G.ai,G.fx,G.lieu);if(dmg>=ch2){killCard("ai",payload);stealPrestige("player","Détruit "+t.name+"!");}else{G.ai.field[payload]={...t,dmgTaken:(t.dmgTaken||0)+dmg};addLog(t.name+" -"+dmg+" PV");}}}
+    else if(ch.type==="gedeon_heal"){const c=G.player.field[payload];if(c){G.player.field[payload]={...c,dmgTaken:Math.max(0,(c.dmgTaken||0)-100)};addLog("Gédéon: "+c.name+" +100 PV !");}}
+    else if(ch.type==="eleonore_equip"){const opt=ch.options[payload];if(opt){const eq=opt.c;const tuid=ch.targetUid;const fi=G.player.field.findIndex(c=>c&&c.uid===tuid);if(fi!==-1){const slot=G.player.equips[fi].findIndex(e=>!e);if(slot!==-1){const ci=G.player.hand.findIndex(x=>x.uid===eq.uid);if(ci!==-1)G.player.hand.splice(ci,1);G.player.equips[fi][slot]={...eq,attachedTo:tuid,uid:mkuid()};G.player.field[fi]={...G.player.field[fi],bonusHp:(G.player.field[fi].bonusHp||0)+150};addLog("Éléonore équipée +150 PV !");}}}}
+    // ── Steampunk actions handlers ──
+    else if(ch.type==="akaion_target"){const t=G.ai.field[payload];if(t){const ch2=curHp(t,G.ai,G.fx,G.lieu);if(300>=ch2){killCard("ai",payload);stealPrestige("player","Akaïon détruit "+t.name+"!");}else{G.ai.field[payload]={...t,dmgTaken:(t.dmgTaken||0)+300};addLog("🪶 Akaïon: "+t.name+" -300 PV !");}}G.player.field.forEach((c,j)=>{if(c)G.player.field[j]={...c,dmgTaken:Math.max(0,(c.dmgTaken||0)-200)};});addLog("🪶 Akaïon: tous les alliés +200 PV !");}
+    else if(ch.type==="charbonhq"){const c=G.player.field[payload];if(c){G.player.field[payload]={...c,_charbonSaved:true};addLog("⚙️ Charbon HQ: "+c.name+" protégé — équipements récupérés si détruit !");}}
+    else if(ch.type==="retouraiguilles"){const tgt=G.player.field[payload];if(tgt){const eq=G.player.deck.find(c=>c.type==="equipement"&&c.faction==="Steampunk");if(eq){G.player.deck=G.player.deck.filter(x=>x.uid!==eq.uid);const fi=G.player.field.findIndex(c=>c&&c.uid===tgt.uid);if(fi!==-1){const slot=G.player.equips[fi].findIndex(e=>!e);if(slot!==-1){G.player.equips[fi][slot]={...eq,attachedTo:tgt.uid,uid:mkuid()};addLog("⚙️ Prototype Réussi: "+eq.name+" attaché à "+tgt.name+" !");}}}else addLog("Prototype Réussi: aucun équipement Steampunk dans le deck.");}}
+    else if(ch.type==="surchargechaudiere"){const t=G.ai.field[payload];if(t){const ch2=curHp(t,G.ai,G.fx,G.lieu);if(300>=ch2){killCard("ai",payload);stealPrestige("player","Surcharge détruit "+t.name+"!");}else{G.ai.field[payload]={...t,dmgTaken:(t.dmgTaken||0)+300};addLog("💥 Surcharge: "+t.name+" -300 PV !");}const opts=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Steampunk");if(opts.length){CHOICE={type:"surcharge_self",options:opts};renderGame();return;}}}
+    else if(ch.type==="surcharge_self"){const c=G.player.field[payload];if(c){const ch2=curHp(c,G.player,G.fx,G.lieu);if(100>=ch2)killCard("player",payload);else{G.player.field[payload]={...c,dmgTaken:(c.dmgTaken||0)+100};addLog("Surcharge: "+c.name+" -100 PV.");}}}
+    else if(ch.type==="jetvapeurbrulante"){const t=G.ai.field[payload];if(t){const ch2=curHp(t,G.ai,G.fx,G.lieu);if(200>=ch2){killCard("ai",payload);stealPrestige("player","Jet Vapeur détruit "+t.name+"!");}else{G.ai.field[payload]={...t,dmgTaken:(t.dmgTaken||0)+200};G.fx.push({target:t.uid,bonus:-100,type:"atk",endOfTurn:true});addLog("🔥 Jet Vapeur: "+t.name+" -200 PV -100 ATK !");}}}
+    else if(ch.type==="sabotage_dmg"){const t=G.ai.field[payload];if(t){const ch2=curHp(t,G.ai,G.fx,G.lieu);if(200>=ch2){killCard("ai",payload);stealPrestige("player","Sabotage détruit "+t.name+"!");}else{G.ai.field[payload]={...t,dmgTaken:(t.dmgTaken||0)+200};addLog("⚙️ Sabotage: "+t.name+" -200 PV !");}}}
+    else if(ch.type==="blindageurgence"){const c=G.player.field[payload];if(c){G.player.field[payload]={...c,_blindage:G.turn+1,bonusHp:(c.bonusHp||0)+300};addLog("🛡️ Blindage: "+c.name+" +300 PV !");}}
+    else if(ch.type==="greveouvriers"){const t=G.ai.field[payload];if(t){G.ai.field[payload]={...t,_greve:3};addLog("🪧 Grève: "+t.name+" paralysé 3 tours !");}}
+    else if(ch.type==="usine_bonus"){const c=G.player.field[payload];if(c){G.player.field[payload]={...c,dmgTaken:Math.max(0,(c.dmgTaken||0)-100)};addLog("🏭 Usine: "+c.name+" +100 PV !");}}
+    else if(ch.type==="manoir_remise"){const opt=ch.options[payload];if(opt){const c=opt.c;G.player.hand=G.player.hand.filter(x=>x.uid!==c.uid);G.player.deck.push(c);addLog("🏰 Manoir: "+c.name+" remise sous le deck.");}}
     else if(ch.type==="ninja_trio_recall"){
       if(action==="pick"){
         const c=G.player.field[payload];
-        if(c){
-          G.player.field[payload]=null;G.player.equips[payload]=[null,null];
           // Reset all stats to base card values
           const base=CARDS.find(x=>x.id===c.id)||c;
           G.player.hand.push({...base,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false,_poisoned:false,_poisonParalysant:false,_repassuspec:false,_nikoProtectExpires:0});
@@ -3977,9 +4627,8 @@ window.doChoice=(action,payload)=>{
     else if(ch.type==="labo_contrepoisons"){const c=G.player.field[payload];if(c){if(c._poisoned){G.dotEffects=G.dotEffects.filter(d=>d.uid!==c.uid);G.player.field[payload]={...c,_poisoned:false};addLog("🧬 Labo: "+c.name+" poison retiré !");}else{G.player.field[payload]={...c,dmgTaken:Math.max(0,(c.dmgTaken||0)-100)};addLog("🧬 Labo: "+c.name+" +100 PV!");}}}
     else if(ch.type==="equip_curse"){const t=G.ai.field[payload];if(t&&ch.cursedCard){if(!G.enemyEquips)G.enemyEquips=[];G.enemyEquips.push({id:ch.cursedCard.id,name:ch.cursedCard.name,targetUid:t.uid,side:"ai"});t._poisoned=true;// Apply immediate effect for Fiole
       if(ch.cursedCard.id==="fioletox"){G.dotEffects.push({uid:t.uid,side:"ai",dmgHp:100,turnsLeft:-1});}addLog(ch.cursedCard.name+" attaché à "+t.name+" !");}}
-    else if(ch.type==="marchenoir"){const c=ch.options[payload];if(c){G.player.deck=G.player.deck.filter(x=>x.uid!==c.c.uid);G.player.hand.push({...c.c,uid:mkuid()});addLog("🏪 Marché Noir: "+c.c.name+" en main!");}}
-  }
-  renderGame();
+    else if(ch.type==="marchenoir"){const c=ch.options[payload];if(c){G.player.deck=G.player.deck.filter(x=>x.uid!==c.c.uid);G.player.hand.push({...c.c,uid:mkuid()});addLog("🏪 Marché Noir: "+c.c.name+" en main !");}}
+  CHOICE=null;renderGame();
 };
 
 // ── AI TURN ──
@@ -4140,6 +4789,8 @@ window.doEndTurn=()=>{
   // difficile: attacks weakest player first to get kills, moyen: normal, facile: random target
   G.ai.field.forEach((atk,i)=>{
     if(!atk||G.frozenAI||atk.hasAttacked||prevFrozen.includes(atk.uid)||G.phase==="end")return;
+    // Grève des Ouvriers: paralysie temporaire
+    if(atk._greve&&atk._greve>0){atk._greve--;addLog("🪧 Grève: "+atk.name+" paralysé ce tour.");return;}
     const ptgts=G.player.field.map((c,pi)=>({c,i:pi})).filter(x=>x.c&&!(x.c._nikoProtectExpires&&G.turn<=x.c._nikoProtectExpires&&(atk.cost||0)>4));
     let ttype="prestige",tfi=-1;
     if(ptgts.length>0){
@@ -4220,10 +4871,15 @@ window.doEndTurn=()=>{
     if(G.lieu&&G.lieu.id==="olympe")G.lieu.olympeUsedTurn=null;
     // Reset Ninja flags
     G.player.field.forEach(c=>{if(c){c._mokuProtected=false;c._yumiZero=false;c._canBypassField=false;c._technomaskUsed=false;}});
-    G.maruTauntUid=null;G.marqueTarget=null;G.fumigUsedTurn=false;G.lieu&&(G.lieu.jardinUsed=false);
+    G.maruTauntUid=null;G.marqueTarget=null;G.fumigUsedTurn=false;
+    G.lieu&&(G.lieu.jardinUsed=false);G.lieu&&(G.lieu.usineUsed=false);
     G.laboCooldown=false;G.ninjaTrio=false;
-    // Re-check empoisonneurTrio (stays active as long as 3+ Empoisonneurs on field)
     G.empoisonneurTrio=G.player.field.filter(c=>c&&c.faction==="Empoisonneurs").length>=3;
+    // Manoir du Baron: début de tour → pioche 1 + remets 1 si Steampunk équipé
+    if(G.lieu&&G.lieu.id==="manoirbaron"&&G.player.field.some((c,j)=>c&&c.faction==="Steampunk"&&eqs(G.player.equips,c.uid).find(e=>e))){
+      drawCard("player");
+      if(G.player.hand.length>0){setTimeout(()=>{CHOICE={type:"manoir_remise",options:G.player.hand.map((c,i)=>({c,i}))};renderGame();},200);}
+    }
     // Apply Kunai poison DoT
     G.fx=G.fx.map(e=>{
       if(e.type==="poison"&&e.turnsLeft!==undefined){
