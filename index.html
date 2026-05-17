@@ -72,7 +72,24 @@ button{cursor:pointer}
 <div id="anim-overlay"></div>
 
 <script>
-// ── STARTER PACK ────────────────────────────────────────
+// ── STORAGE (défini en premier, utilisé partout) ──────────
+const safeStorage={
+  get(k){try{return localStorage.getItem(k);}catch(e){return null;}},
+  set(k,v){try{localStorage.setItem(k,v);}catch(e){}},
+  remove(k){try{localStorage.removeItem(k);}catch(e){}}
+};
+
+// Boss wins tracking
+let BOSS_WINS={};
+try{const s=safeStorage.get("tcg_boss_wins_v1");if(s)BOSS_WINS=JSON.parse(s);}catch(e){}
+const saveBossWins=()=>{try{safeStorage.set("tcg_boss_wins_v1",JSON.stringify(BOSS_WINS));}catch(e){}};
+const getBossWins=(id)=>BOSS_WINS[id]||0;
+const incBossWins=(id)=>{BOSS_WINS[id]=(BOSS_WINS[id]||0)+1;saveBossWins();};
+const isBossUnlocked=(deckId)=>{
+  const dk=DECKS[deckId];if(!dk?.bossOnly)return true;
+  if(!dk.bossUnlockBoss)return true;// Roi du Temps: always available
+  return getBossWins(dk.bossUnlockBoss)>=dk.bossUnlockWins;
+};
 let STARTER_PACK=null;
 try{const s=safeStorage.get("tcg_starter_pack_v1");if(s)STARTER_PACK=s;}catch(e){}
 const saveStarterPack=id=>{STARTER_PACK=id;try{safeStorage.set("tcg_starter_pack_v1",id);}catch(e){}};
@@ -92,6 +109,7 @@ const DECK_REQ_FACTIONS={
   amazones:["Amazones"],amerindiens:["Amerindiens"],primitifs:["Amazones","Amerindiens"],
   egyptiens:["Egyptiens"],grecs:["Grecs"],empire:["Egyptiens","Grecs"],
   ninjas:["Ninjas"],empoisonneurs:["Empoisonneurs"],corrompus:["Ninjas","Empoisonneurs"],
+  industriels:["Robots","Steampunk"],
 };
 
 const isDeckStarterUnlocked=(deckId)=>{
@@ -143,11 +161,6 @@ const STARTER_CHOICES=[
    desc:"Seigneurs du Nord. Honneur de clan, force brute et berserkers.",
    flavor:"'Valhalla nous attend !'"},
 ];
-const safeStorage={
-  get(k){try{return localStorage.getItem(k);}catch(e){return null;}},
-  set(k,v){try{localStorage.setItem(k,v);}catch(e){}},
-  remove(k){try{localStorage.removeItem(k);}catch(e){}}
-};
 // ═══════════════════════════════════════════════════════
 // DONNÉES
 // ═══════════════════════════════════════════════════════
@@ -568,6 +581,56 @@ const CARDS = [
   {id:"kalaracyberguerriere",name:"Kalara Cyberguerrière",type:"personnage",atk:550,hp:550,cost:10,faction:"Amazones",isChronoLegendaire:true,chronoGrade:10,effect:"À l'arrivée : gagne +500 ATQ pour chaque carte amazone de coût 8 ou plus sur ton terrain ou ta défausse.",syn:"Jungle"},
   // Kalara Avatar — trophée, débloqué quand tous les CL Amazones sont obtenus
   {id:"kalaradeesse",name:"Kalara Déesse des Âges",type:"trophee",faction:"Amazones",isChronoLegendaire:true,isAvatar:true,chronoGrade:0,effect:"Kalara a traversé chaque époque, survivant aux guerres, aux empires, à la magie, aux machines et à la fin du monde elle-même. De simple chasseresse primordiale, elle est devenue une légende vivante, portant en elle la force de toutes les Amazones qui ont existé."},
+  // ── ROBOTS HUMANOÏDES — Pack Industriel (verrouillé) ──
+  // Coût 1
+  {id:"grukfaussecarcasse",name:"Gruk Fausse Carcasse",type:"personnage",atk:100,hp:150,cost:1,faction:"Robots",effect:"Quand ce personnage est détruit, pioche 1 carte si tu contrôles un Robot Humanoïde.",syn:"Protocole"},
+  {id:"err404",name:"ERR-404",type:"personnage",atk:100,hp:200,cost:1,faction:"Robots",effect:"Quand ce personnage est détruit, un Robot Humanoïde allié gagne +100 Attaque.",syn:"Protocole"},
+  {id:"mina7domestique",name:"Mina-7 Domestique",type:"personnage",atk:100,hp:200,cost:1,faction:"Robots",effect:"À l'arrivée : soigne un Robot Humanoïde allié de 100 PV.",syn:"Protocole"},
+  // Coût 2
+  {id:"elinaprototype",name:"Élina Prototype",type:"personnage",atk:200,hp:300,cost:2,faction:"Robots",effect:"À l'arrivée : vole 100 PV à un ennemi choisi. S'il tombe à 0 PV, il est détruit.",syn:"Protocole"},
+  // Coût 3
+  {id:"alpinoxgrimpeur",name:"Alpinox Grimpeur",type:"personnage",atk:300,hp:400,cost:3,faction:"Robots",effect:"1x/tour : quand ce personnage survit à des dégâts, il gagne +100 Attaque.",syn:"Protocole"},
+  {id:"braxboxeur",name:"Brax Boxeur",type:"personnage",atk:400,hp:300,cost:3,faction:"Robots",effect:"Quand ce personnage attaque, il inflige 100 dégâts à un autre personnage adverse.",syn:"Protocole"},
+  {id:"florabotjardinier",name:"Florabot Jardinier",type:"personnage",atk:300,hp:350,cost:3,faction:"Robots",effect:"1x/tour : soigne un allié de 100 PV. Si c'est un Robot Humanoïde, il gagne aussi +50 Attaque.",syn:"Protocole"},
+  // Coût 4
+  {id:"axiomguerrier",name:"Axiom Guerrier d'Acier",type:"personnage",atk:400,hp:450,cost:4,faction:"Robots",effect:"À l'arrivée : gagne +150 Attaque jusqu'à la fin du tour s'il y a un autre Robot Humanoïde allié.",syn:"Protocole"},
+  {id:"terrax9",name:"Terrax-9",type:"personnage",atk:400,hp:600,cost:4,faction:"Robots",effect:"À l'arrivée : gagne +200 PV s'il n'y a aucun Lieu sur ton terrain.",syn:"Protocole"},
+  {id:"velocis",name:"Vélocis",type:"personnage",atk:550,hp:300,cost:4,faction:"Robots",effect:"À l'arrivée : tu peux choisir un personnage adverse de coût 3 ou moins et le détruire.",syn:"Protocole"},
+  // Coût 5
+  {id:"nereus02",name:"Néréus-02",type:"personnage",atk:550,hp:600,cost:5,faction:"Robots",effect:"Quand ce personnage attaque, il peut infliger 200 dégâts à un ennemi blessé.",syn:"Protocole"},
+  {id:"ignissecouriste",name:"Ignis Secouriste",type:"personnage",atk:400,hp:700,cost:5,faction:"Robots",effect:"Passif : quand un allié Robot Humanoïde devrait recevoir des dégâts, réduis-les de 200 une fois par tour.",syn:"Protocole"},
+  {id:"khantor",name:"Khan-Tor",type:"personnage",atk:450,hp:650,cost:5,faction:"Robots",effect:"Quand ce personnage attaque, il gagne +100 Attaque pour chaque Équipement sur ton terrain jusqu'à la fin du tour.",syn:"Protocole"},
+  // Coût 6
+  {id:"aerionailesmecanique",name:"Aérion Ailes Mécanique",type:"personnage",atk:700,hp:500,cost:6,faction:"Robots",effect:"À l'arrivée : inflige 300 dégâts à un ennemi ayant 500 PV ou moins.",syn:"Protocole"},
+  // Coût 7
+  {id:"crocmetal",name:"Croc-Métal",type:"personnage",atk:600,hp:700,cost:7,faction:"Robots",effect:"Passif : si ce personnage est blessé, il gagne +300 Attaque supplémentaires.",syn:"Protocole"},
+  {id:"voxaria",name:"Voxaria",type:"personnage",atk:700,hp:650,cost:7,faction:"Robots",effect:"À l'arrivée : inflige 200 dégâts à tous les ennemis ayant 400 PV ou moins.",syn:"Protocole"},
+  // Coût 8
+  {id:"princesseauralia",name:"Princesse Auralia",type:"personnage",atk:750,hp:850,cost:8,faction:"Robots",effect:"À l'arrivée : tous tes Robots Humanoïdes alliés gagnent +150 Attaque et +150 PV.",syn:"Protocole"},
+  // Coût 10 — Fusion
+  {id:"voxarionarchange",name:"Voxarion Archange",type:"personnage",atk:1050,hp:900,cost:10,faction:"Robots",effect:"Fusion : Voxaria + Aérion Ailes Mécanique + carte Fusion.",syn:"Protocole",isFusion:true},
+  // ── ROBOTS HUMANOÏDES — Équipements (robotOnly) ──
+  {id:"coeurchybernetique",name:"Cœur Cybernétique",type:"equipement",cost:0,faction:"Robots",robotOnly:true,effect:"Porteur Robot +200 PV. 1ère destruction: survit avec 100 PV."},
+  {id:"brasmodulaire",name:"Bras Modulaire Cybernétique",type:"equipement",cost:0,faction:"Robots",robotOnly:true,effect:"Porteur Robot +200 ATK. 1x/tour à l'attaque: 100 dégâts à un autre ennemi."},
+  {id:"visionalgo",name:"Vision Algorithmique",type:"equipement",cost:0,faction:"Robots",robotOnly:true,effect:"Porteur Robot +100 ATK."},
+  {id:"colonnevertebrale",name:"Colonne Vertébrale Cyber",type:"equipement",cost:0,faction:"Robots",robotOnly:true,effect:"Porteur Robot +100 ATK +200 PV."},
+  {id:"ailesnoires",name:"Ailes Noires en Titane",type:"equipement",cost:0,faction:"Robots",robotOnly:true,effect:"Porteur Robot +200 ATK."},
+  {id:"griffesplasma",name:"Griffes de Plasma",type:"equipement",cost:0,faction:"Robots",robotOnly:true,effect:"Porteur Robot +300 ATK. -100 PV au début de chacun de tes tours."},
+  {id:"batterieame",name:"Batterie d'Âme Artificielle",type:"equipement",cost:0,faction:"Robots",robotOnly:true,effect:"Porteur Robot +200 PV. Quand il est détruit, soigne un autre Robot allié de 300 PV."},
+  {id:"mainsmultifonctions",name:"Mains Multifonctions",type:"equipement",cost:0,faction:"Robots",robotOnly:true,effect:"Porteur Robot +100 ATK +100 PV. À l'équipement: soigne un allié 100 PV ou 100 dégâts à un ennemi."},
+  // ── ROBOTS HUMANOÏDES — Actions ──
+  {id:"calcultrajectoire",name:"Calcul de Trajectoire",type:"action",cost:0,faction:"Robots",effect:"Robot allié +200 ATK fin tour et inflige 200 dégâts à un ennemi choisi."},
+  {id:"modeberserk",name:"Mode Berserk Activé",type:"action",cost:0,faction:"Robots",effect:"Robot allié +400 ATK fin tour, puis subit 200 dégâts."},
+  {id:"bouclierholographique",name:"Bouclier Holographique",type:"action",cost:0,faction:"Robots",effect:"Robot allié +400 PV jusqu'à la fin du prochain tour adverse."},
+  {id:"virusinformatique",name:"Virus Informatique",type:"action",cost:0,faction:"Robots",effect:"Ennemi choisi -200 ATK et subit 200 dégâts."},
+  {id:"explosionbatterie",name:"Explosion de Batterie",type:"action",cost:0,faction:"Robots",effect:"Ennemi choisi: 300 dégâts. Si Robot Humanoïde: 500 dégâts."},
+  {id:"reprogrammationforcee",name:"Reprogrammation Forcée",type:"action",cost:0,faction:"Robots",effect:"Ennemi choisi -300 ATK."},
+  {id:"protocolautodestruct",name:"Protocole d'Autodestruction",type:"action",cost:0,faction:"Robots",effect:"Choisis un Robot allié: il est détruit, puis inflige 400 dégâts à un ennemi."},
+  {id:"transfertconscience",name:"Transfert de Conscience",type:"action",cost:0,faction:"Robots",effect:"Choisis un Robot dans ta défausse: remets-le en jeu avec 300 PV."},
+  {id:"pluienanites",name:"Pluie de Nanites",type:"action",cost:0,faction:"Robots",effect:"Tous tes Robots Humanoïdes alliés +200 PV."},
+  // ── ROBOTS HUMANOÏDES — Lieux ──
+  {id:"cathedralemereia",name:"Cathédrale Mère de l'IA",type:"lieu",cost:0,faction:"Robots",effect:"Passif: tous tes Robots Humanoïdes gagnent +100 Attaque chaque tour."},
+  {id:"usineproduction",name:"Usine de Production de Protos",type:"lieu",cost:0,faction:"Robots",effect:"1x/tour: quand un Robot Humanoïde allié est détruit, soigne un autre de 200 PV."},
   // ── STEAMPUNK — Équipements ──
   {id:"lanceflammecharbon",name:"Lance-Flamme au Charbon",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 ATK. L'ennemi touche perd 100 PV au debut de son tour."},
   {id:"lunettesing",name:"Lunettes d'Ingénieur",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 PV."},
@@ -647,12 +710,44 @@ const DECKS = {
     lockFaction:"Empoisonneurs",
     slots:{personnage:20,lieu:2,action:10,equipement:8}},
   roitemps:{id:"roitemps",name:"Le Roi du Temps",icon:"⌛",color:"#cc8800",image:"adversaires/roi_du_temps.png",
-    desc:"Boss légendaire. Quasi imbattable. Récompense : 🪙+350 ⭐+350 XP. Défaite : 🪙-100.",
-    keys:["reinepoisonnoir","dragonvenin","rosalysroses","sylvaramut","selyracobra"],
+    desc:"Boss légendaire. Récompense : 🪙+350 ⭐+350 XP. Défaite : 🪙-100.",
+    keys:["reinepoisonnoir","dragonvenin","rosalysroses","sylvaramut","selyracobra","tayrascorpion","skeletonterror","skarasultane","corailmaudit","poisonultima"],
     factions:["Empoisonneurs"],
-    bossOnly:true,
+    bossOnly:true,bossLevel:1,
     forcedDifficulty:"difficile",
-    slots:{personnage:20,lieu:2,action:10,equipement:8}},
+    slots:{personnage:22,lieu:2,action:10,equipement:6}},
+  larchiviste:{id:"larchiviste",name:"L'Archiviste Immortel",icon:"📜",color:"#4466ff",image:"adversaires/larchiviste.png",
+    desc:"Boss Rang II. Débloqué après 20 victoires contre le Roi du Temps. Récompense : 🪙+450 ⭐+450 XP. Défaite : 🪙-150.",
+    keys:["gorgotaure","minotaure","meduse","hopliteargos","eluzeus","pegasefeu","sireneegeenne","harpiefalaises","dionysos","parthenon"],
+    factions:["Grecs"],
+    bossOnly:true,bossLevel:2,bossUnlockBoss:"roitemps",bossUnlockWins:20,
+    forcedDifficulty:"difficile",
+    playerPrestige:8,aiPrestige:12,
+    slots:{personnage:22,lieu:2,action:8,equipement:8}},
+  ladompteur:{id:"ladompteur",name:"Le Grand Dompteur",icon:"🦁",color:"#cc4400",image:"adversaires/ladompteur.png",
+    desc:"Boss Rang III. Débloqué après 20 victoires contre L'Archiviste. Récompense : 🪙+550 ⭐+550 XP. Défaite : 🪙-200.",
+    keys:["kraken","squawk","lyra","hurgan","zyra","naeva","ironhook","brask","iskra","malgor"],
+    factions:["Pirates"],
+    bossOnly:true,bossLevel:3,bossUnlockBoss:"larchiviste",bossUnlockWins:20,
+    forcedDifficulty:"difficile",
+    playerPrestige:6,aiPrestige:14,
+    slots:{personnage:22,lieu:2,action:8,equipement:8}},
+  lamechanicienne:{id:"lamechanicienne",name:"La Mécanicienne de l'Apocalypse",icon:"⚙️",color:"#00ccff",image:"adversaires/lamechanicienne.png",
+    desc:"Boss Rang IV. Débloqué après 20 victoires contre Le Grand Dompteur. Récompense : 🪙+650 ⭐+650 XP. Défaite : 🪙-250.",
+    keys:["voxaria","aerionailesmecanique","voxarionarchange","princesseauralia","crocmetal","velocis","axiomguerrier","khantor","ignissecouriste","nereus02"],
+    factions:["Robots"],
+    bossOnly:true,bossLevel:4,bossUnlockBoss:"ladompteur",bossUnlockWins:20,
+    forcedDifficulty:"difficile",
+    playerPrestige:4,aiPrestige:16,
+    slots:{personnage:22,lieu:2,action:8,equipement:8}},
+  letitan:{id:"letitan",name:"Le Titan Primordial",icon:"🌑",color:"#ff2244",image:"adversaires/letitan.png",
+    desc:"Boss FINAL. Débloqué après 20 victoires contre La Mécanicienne. Récompense : 🪙+1000 ⭐+1000 XP. Défaite : 🪙-300.",
+    keys:["bjornfenrir","bjorn","fenrir","ulfhednar","skaldvikings","haldor","astrid","brynhildr","torstein","ylvabaies"],
+    factions:["Vikings"],
+    bossOnly:true,bossLevel:5,bossUnlockBoss:"lamechanicienne",bossUnlockWins:20,
+    forcedDifficulty:"difficile",
+    playerPrestige:2,aiPrestige:18,
+    slots:{personnage:22,lieu:2,action:8,equipement:8}},
 };
 
 const TYPE_COLOR={personnage:"#4a9eff",equipement:"#f0a500",action:"#ff4444",lieu:"#44cc88",trophee:"#f0c060"};
@@ -663,7 +758,7 @@ const PW=20;
 // ═══════════════════════════════════════════════════════
 // GRADES PAR FACTION
 // ═══════════════════════════════════════════════════════
-const GRADES_FACTIONS=["Grecs","Pirates","Vikings","Amazones","Egyptiens","Amerindiens","Ninjas","Empoisonneurs","Steampunk"];
+const GRADES_FACTIONS=["Grecs","Pirates","Vikings","Amazones","Egyptiens","Amerindiens","Ninjas","Empoisonneurs","Steampunk","Robots"];
 
 // Objectifs réels des 10 grades par faction
 // types: wins|kills|wins3alive|winsHighCost|diffStreak|winsNoDmg|winsNoHigh|factionsBeatDiff10x10|winsHardest
@@ -763,6 +858,18 @@ const FACTION_GRADES_DEF={
     {label:"Massacre Corrosif",              type:"winsNoHigh",       target:20,  desc:"Gagner 20 combats avec au moins 20 Empoisonneurs, sans Empoisonneur coût 5+"},
     {label:"Roi du Venin Noir",              type:"factionsBeatDiff", target:10,  desc:"Battre 10 factions, 10 fois chacune, en difficile avec au moins 20 Empoisonneurs"},
     {label:"Légende de la Mort Lente",       type:"winsHardest",      target:20,  desc:"Gagner 20 combats difficiles avec au moins 20 Empoisonneurs, sans personnage coût 5+, max 3 prestige perdu"},
+  ],
+  Robots:[
+    {label:"Première Directive",      type:"wins",             target:10,  desc:"Gagner 10 combats avec le deck Robots Humanoïdes"},
+    {label:"Protocole d'Assaut",      type:"kills",            target:100, desc:"Détruire 100 cartes avec des Robots Humanoïdes"},
+    {label:"Réseau Synchronisé",      type:"wins3alive",       target:20,  desc:"Gagner 20 combats avec 3 Robots vivants à la fin"},
+    {label:"Armée de Fer",            type:"wins",             target:30,  desc:"Gagner 30 combats avec le deck Robots Humanoïdes"},
+    {label:"Offensive Mécanique",     type:"winsHighCost",     target:30,  desc:"Finir 30 combats avec un Robot coût 7+"},
+    {label:"Mode Suprématie",         type:"diffStreak",       target:15,  desc:"Gagner 15 combats difficiles d'affilée avec les Robots"},
+    {label:"Unités Indestructibles",  type:"winsNoDmg",        target:10,  desc:"Gagner 10 combats sans perdre de prestige avec les Robots"},
+    {label:"Épuration Totale",        type:"winsNoHigh",       target:20,  desc:"Gagner 20 combats avec les Robots, sans Robot coût 5+"},
+    {label:"Conquête Systémique",     type:"factionsBeatDiff", target:10,  desc:"Battre 10 factions 10× en difficile avec les Robots"},
+    {label:"Singularité Robotique",   type:"winsHardest",      target:20,  desc:"Gagner 20 combats difficiles, sans Robot coût 5+, max 3 prestige perdu"},
   ],
   Steampunk:[
     {label:"Serment des Rouages",         type:"wins",             target:10,  desc:"Gagner 10 combats avec au moins 20 Steampunk"},
@@ -946,12 +1053,20 @@ const openBoosterNE=()=>{
   };
   const pick=(arr)=>arr.length?arr[Math.floor(Math.random()*arr.length)]:null;
 
+  // Rareté selon le tier tiré
+  const tierRarity=(pool)=>{
+    if(pool===tier1)return"common";
+    if(pool===tier2)return"rare";
+    if(pool===tier3)return"prestige";
+    return"legendaire";
+  };
+
   const cards=[];
   for(let i=0;i<4;i++){
-    let pool=pickTier();
-    if(!pool.length)pool=tier1; // fallback
-    const c=pick(pool);
-    if(c)cards.push({...c,rarity:"rare"});
+    const pool=pickTier();
+    const chosen=pool.length?pool:tier1;
+    const c=pick(chosen);
+    if(c)cards.push({...c,rarity:tierRarity(chosen)});
   }
 
   // Prestige slot: roll for unlocked chrono-légendaires not yet owned
@@ -1103,14 +1218,14 @@ const TRIO_LABELS={
   Amerindiens:"🪶 Trio Amérindiens — Tous les ennemis -100 PV !",
   Grecs:"🏛️ Trio Grecs — Un ennemi gelé !",
   Ninjas:"🥷 Trio Ninjas — +150 ATK + Invulnérabilité !",
-  Robots:"🤖 Trio Robots — Tous alliés +100 PV !",
+  Robots:"🤖 Ingénierie Défensive — Un Robot allié mourra à votre place (1x/tour) !",
   Extraterrestres:"👽 Trio Extraterrestres — Vol de carte si moins de Prestige !",
   MagesNoirs:"🔮 Trio Mages Noirs — Ennemi -200 ATK !",
   Fantomes:"👻 Trio Fantômes — Un ennemi gelé !",
   Pyromanes:"🔥 Trio Pyromanes — 150 dégâts à tous les ennemis !",
   "MaîtresBêtes":"🐾 Trio Maîtres des Bêtes — Allié le plus fort +200 PV !",
   DresseursDragons:"🐉 Trio Dresseurs — Prochain allié +200 PV !",
-  Steampunk:"⚙️ Trio Steampunk — Tous alliés +100 ATK !",
+  Steampunk:"⚙️ Ingénierie Collective — Steampunk équipés +150 PV !",
   Empoisonneurs:"☠️ Trio Empoisonneurs — Tous les ennemis empoisonnés !",
 };
 
@@ -1195,8 +1310,9 @@ const checkTrioSynergy=(who)=>{
         if(ninjas.length>0){const worst=ninjas.reduce((a,b)=>curHp(b,G.ai,G.fx,G.lieu)<curHp(a,G.ai,G.fx,G.lieu)?b:a);const wi=G.ai.field.findIndex(c=>c&&c.uid===worst.uid);if(wi!==-1){G.ai.field[wi]=null;G.ai.equips[wi]=[null,null];G.ai.hand.push({...worst,dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,_poisoned:false,uid:mkuid()});addLog("🥷 TRIO NINJAS IA ! "+worst.name+" rappelé en main (PV rechargés)!");}}
       }
     } else if(faction==="Robots"){
-      side.field.forEach(c=>{if(c&&c.faction==="Robots")c.bonusHp=(c.bonusHp||0)+100;});
-      addLog("🤖 TRIO ROBOTS ! Tous vos Robots +100 PV !");
+      // Trio Robots : une fois par tour, quand un Robot allié devrait être détruit, un autre Robot allié meurt à la place
+      if(isP){G.robotShield=true;addLog("🤖 TRIO ROBOTS — Ingénierie Défensive ! Un autre Robot mourra à votre place si vous êtes détruits !");}
+      else{G.robotShieldAi=true;addLog("🤖 TRIO ROBOTS IA — Ingénierie Défensive activée !");}
     } else if(faction==="Extraterrestres"){
       if(G[who].prestige<G[en].prestige&&G[en].hand.length>0){const idx=Math.floor(Math.random()*G[en].hand.length);const stolen=G[en].hand.splice(idx,1)[0];G[who].hand.push({...stolen,uid:mkuid()});addLog("👽 TRIO EXTRATERRESTRES ! Carte volée !");}else addLog("👽 TRIO EXTRATERRESTRES ! Pas de vol possible.");
     } else if(faction==="MagesNoirs"){
@@ -1210,7 +1326,14 @@ const checkTrioSynergy=(who)=>{
     } else if(faction==="DresseursDragons"){
       G.papyActive=true;addLog("🐉 TRIO DRESSEURS ! Prochain Dresseur allié +200 PV !");
     } else if(faction==="Steampunk"){
-      side.field.forEach(c=>{if(c)G.fx.push({target:c.uid,bonus:100,type:"atk",endOfTurn:true});});addLog("⚙️ TRIO STEAMPUNK ! Tous alliés +100 ATK !");
+      // Ingénierie Collective: Steampunk équipés +150 PV
+      let n=0;
+      side.field.forEach((c,i)=>{
+        if(c&&c.faction==="Steampunk"&&eqs(G[who].equips,c.uid).some(e=>e)){
+          c.bonusHp=(c.bonusHp||0)+150;n++;
+        }
+      });
+      addLog("⚙️ TRIO STEAMPUNK — Ingénierie Collective ! "+n+" Steampunk équipé(s) +150 PV !");
     } else if(faction==="Empoisonneurs"){
       // Trio Empoisonneurs: passif actif — quand un ennemi est empoisonné, un autre perd 50 PV
       if(isP){G.empoisonneurTrio=true;addLog("☠️ TRIO EMPOISONNEURS actif ! Chaque ennemi empoisonné propagera 50 PV à un autre !");}
@@ -1456,29 +1579,50 @@ const saveStats=()=>{try{safeStorage.set("tcg_player_stats_v1",JSON.stringify(PL
 // DAILY CHALLENGES
 // ═══════════════════════════════════════════════════════
 const ALL_CHALLENGES=[
-  // Faciles
+  // ── Faciles ──
   {id:"win1",label:"Remporte 1 combat",icon:"⚔️",type:"win",target:1,coins:30,xp:30,diff:null},
-  {id:"win_facile",label:"Gagne 1 combat en mode Facile",icon:"🟢",type:"win",target:1,coins:25,xp:25,diff:"facile"},
+  {id:"win_facile",label:"Gagne en mode Facile",icon:"🟢",type:"win",target:1,coins:25,xp:25,diff:"facile"},
   {id:"play5cards",label:"Joue 5 personnages en une partie",icon:"🃏",type:"play_chars",target:5,coins:25,xp:25,diff:null},
-  {id:"use3actions",label:"Utilise 3 cartes Action",icon:"✨",type:"use_actions",target:3,coins:20,xp:20,diff:null},
+  {id:"use3actions",label:"Utilise 3 cartes Action en une partie",icon:"✨",type:"use_actions",target:3,coins:20,xp:20,diff:null},
   {id:"kill3",label:"Détruis 3 personnages ennemis",icon:"💀",type:"kills",target:3,coins:30,xp:30,diff:null},
-  {id:"reach15",label:"Atteins 15 prestige en une partie",icon:"🏆",type:"prestige",target:15,coins:35,xp:35,diff:null},
-  {id:"trio",label:"Déclenche un effet Trio",icon:"⚡",type:"trio",target:1,coins:40,xp:40,diff:null},
-  // Moyens
+  {id:"reach12",label:"Atteins 12 prestige en une partie",icon:"🏆",type:"prestige",target:12,coins:30,xp:30,diff:null},
+  {id:"trio1",label:"Déclenche un effet Trio",icon:"⚡",type:"trio",target:1,coins:40,xp:40,diff:null},
+  {id:"play3equip",label:"Équipe 3 personnages dans une partie",icon:"🛡️",type:"equip",target:3,coins:35,xp:35,diff:null},
+  {id:"use5actions",label:"Utilise 5 cartes Action en une partie",icon:"✨",type:"use_actions",target:5,coins:40,xp:40,diff:null},
+  {id:"kill5",label:"Détruis 5 personnages en une partie",icon:"💀",type:"kills_game",target:5,coins:40,xp:40,diff:null},
+  // ── Moyens ──
   {id:"win2moyen",label:"Gagne 2 combats en mode Moyen",icon:"🟡",type:"win",target:2,coins:60,xp:60,diff:"moyen"},
-  {id:"fusion",label:"Réalise une Fusion",icon:"🌟",type:"fusion",target:1,coins:70,xp:70,diff:null},
-  {id:"kill6",label:"Détruis 6 personnages en une partie",icon:"⚔️",type:"kills_game",target:6,coins:60,xp:60,diff:null},
-  {id:"play_equip3",label:"Équipe 3 personnages dans une partie",icon:"🛡️",type:"equip",target:3,coins:40,xp:40,diff:null},
+  {id:"kill8game",label:"Détruis 8 personnages en une partie",icon:"⚔️",type:"kills_game",target:8,coins:65,xp:65,diff:null},
   {id:"win_nodmg",label:"Gagne sans perdre de prestige",icon:"🛡️",type:"win_nodmg",target:1,coins:80,xp:80,diff:null},
-  // Difficiles
-  {id:"win3diff",label:"Gagne 3 combats en mode Difficile",icon:"🔴",type:"win",target:3,coins:150,xp:150,diff:"difficile"},
+  {id:"reach15",label:"Atteins 15 prestige en une partie",icon:"🏆",type:"prestige",target:15,coins:70,xp:70,diff:null},
+  {id:"play8chars",label:"Joue 8 personnages en une partie",icon:"🃏",type:"play_chars",target:8,coins:60,xp:60,diff:null},
+  {id:"trio2",label:"Déclenche 2 effets Trio dans la journée",icon:"⚡",type:"trio",target:2,coins:70,xp:70,diff:null},
+  {id:"kill12",label:"Détruis 12 personnages ennemis (cumulé)",icon:"💀",type:"kills",target:12,coins:75,xp:75,diff:null},
+  {id:"use8actions",label:"Utilise 8 cartes Action en une partie",icon:"✨",type:"use_actions",target:8,coins:65,xp:65,diff:null},
   {id:"win2diff",label:"Gagne 2 combats en Difficile",icon:"🔴",type:"win",target:2,coins:100,xp:100,diff:"difficile"},
-  {id:"win_diff_quick",label:"Gagne en Difficile en moins de 8 tours",icon:"⚡",type:"win_quick",target:8,coins:120,xp:120,diff:"difficile"},
-  {id:"kill10total",label:"Détruis 10 personnages ennemis (cumulé)",icon:"💀",type:"kills",target:10,coins:90,xp:90,diff:null},
-  {id:"use_fusion_win",label:"Gagne avec une carte Fusion sur le terrain",icon:"🌟",type:"fusion_win",target:1,coins:130,xp:130,diff:null},
-  {id:"trio3",label:"Déclenche 3 effets Trio dans la journée",icon:"🔱",type:"trio",target:3,coins:100,xp:100,diff:null},
-  {id:"win_all_decks",label:"Gagne avec 3 decks différents",icon:"🎴",type:"win_decks",target:3,coins:120,xp:120,diff:null},
-  {id:"prestige20",label:"Atteins 20 prestige (victoire parfaite)",icon:"👑",type:"prestige",target:20,coins:150,xp:150,diff:null},
+  {id:"win_all_decks2",label:"Gagne avec 2 decks différents aujourd'hui",icon:"🎴",type:"win_decks",target:2,coins:80,xp:80,diff:null},
+  // ── Difficiles ──
+  {id:"win3diff",label:"Gagne 3 combats en mode Difficile",icon:"🔴",type:"win",target:3,coins:150,xp:150,diff:"difficile"},
+  {id:"win_diff_quick",label:"Gagne en Difficile en moins de 8 tours",icon:"⚡",type:"win_quick",target:8,coins:130,xp:130,diff:"difficile"},
+  {id:"prestige18",label:"Atteins 18 prestige en une partie",icon:"👑",type:"prestige",target:18,coins:120,xp:120,diff:null},
+  {id:"kill15total",label:"Détruis 15 personnages (cumulé)",icon:"💀",type:"kills",target:15,coins:110,xp:110,diff:null},
+  {id:"trio3",label:"Déclenche 3 effets Trio dans la journée",icon:"🔱",type:"trio",target:3,coins:120,xp:120,diff:null},
+  {id:"win_nodmg_diff",label:"Gagne en Difficile sans perdre de prestige",icon:"🛡️",type:"win_nodmg",target:1,coins:160,xp:160,diff:"difficile"},
+  {id:"kill10game",label:"Détruis 10 personnages en une partie",icon:"⚔️",type:"kills_game",target:10,coins:130,xp:130,diff:null},
+  {id:"win_all_decks3",label:"Gagne avec 3 decks différents",icon:"🎴",type:"win_decks",target:3,coins:130,xp:130,diff:null},
+  {id:"use12actions",label:"Utilise 12 cartes Action en une partie",icon:"✨",type:"use_actions",target:12,coins:110,xp:110,diff:null},
+  {id:"prestige20",label:"Victoire parfaite — 20 prestige",icon:"👑",type:"prestige",target:20,coins:200,xp:200,diff:null},
+  // ── Très difficiles ──
+  {id:"win4diff",label:"Gagne 4 combats en Difficile",icon:"🔴",type:"win",target:4,coins:200,xp:200,diff:"difficile"},
+  {id:"kill20total",label:"Détruis 20 personnages (cumulé)",icon:"💀",type:"kills",target:20,coins:170,xp:170,diff:null},
+  {id:"win_quick6",label:"Gagne en Difficile en moins de 6 tours",icon:"⚡",type:"win_quick",target:6,coins:200,xp:200,diff:"difficile"},
+  {id:"trio5",label:"Déclenche 5 effets Trio dans la journée",icon:"🔱",type:"trio",target:5,coins:180,xp:180,diff:null},
+  {id:"play15chars",label:"Joue 15 personnages en une partie",icon:"🃏",type:"play_chars",target:15,coins:150,xp:150,diff:null},
+  {id:"kill15game",label:"Détruis 15 personnages en une partie",icon:"⚔️",type:"kills_game",target:15,coins:180,xp:180,diff:null},
+  {id:"win5diff",label:"Gagne 5 combats en Difficile aujourd'hui",icon:"🔴",type:"win",target:5,coins:250,xp:250,diff:"difficile"},
+  {id:"use_fusion_win",label:"Gagne avec une Fusion sur le terrain",icon:"🌟",type:"fusion_win",target:1,coins:130,xp:130,diff:null},
+  {id:"fusion",label:"Réalise une Fusion",icon:"🌟",type:"fusion",target:1,coins:70,xp:70,diff:null},
+  {id:"win_diff_nodmg2",label:"Gagne 2 fois en Difficile sans perdre de prestige",icon:"🛡️",type:"win_nodmg",target:2,coins:250,xp:250,diff:"difficile"},
 ];
 
 const loadDailyChallenges=()=>{
@@ -1592,8 +1736,8 @@ const statsBarHTML=()=>{
 // ── SHOP SCREEN ────────────────────────────────────────
 // ── PACK OPENING RESULT ────────────────────────────────
 let PACK_RESULT=null;
-const RARITY_LABEL={common:"Commune",rare:"Rare",prestige:"Prestige",ultragold:"✨ ULTRA GOLD"};
-const RARITY_COLOR={common:"#aabbcc",rare:"#4a9eff",prestige:"#f0c060",ultragold:"#ff8800"};
+const RARITY_LABEL={common:"Commune",rare:"Rare",prestige:"Prestige",ultragold:"✨ ULTRA GOLD",legendaire:"💎 LÉGENDAIRE"};
+const RARITY_COLOR={common:"#aabbcc",rare:"#4a9eff",prestige:"#f0c060",ultragold:"#ff8800",legendaire:"#cc44ff"};
 
 const renderShop=()=>{
   if(PACK_RESULT){
@@ -1643,10 +1787,13 @@ const renderShop=()=>{
     return`<div style="width:168px;background:linear-gradient(160deg,#0d1f3c,#050e1a);border:2px solid ${p.locked?'#1a2a3a':p.color+'66'};border-radius:14px;overflow:hidden;opacity:${p.locked?0.5:1};position:relative;transition:all 0.2s"
       ${!p.locked?`onmouseover="this.style.transform='translateY(-4px)';this.style.borderColor='${p.color}'" onmouseout="this.style.transform='';this.style.borderColor='${p.color}66'"`:""}>
       ${p.locked?`<div style="position:absolute;top:7px;right:8px;z-index:2">🔒</div>`:""}
-      <div id="pack-img-${p.id}" style="width:100%;height:100px;overflow:hidden;position:relative;background:${p.color}22">
+      <div style="width:100%;height:100px;overflow:hidden;position:relative;background:linear-gradient(135deg,${p.color}33,${p.color}11)">
         <img src="packs/${p.id}.png" style="width:100%;height:100%;object-fit:cover;display:block"
-          onerror="this.onerror=null;this.src='packs/${p.id}.jpg';this.onerror=function(){this.style.display='none';var fb=document.getElementById('pack-fallback-${p.id}');if(fb)fb.style.display='flex';}">
-        <div id="pack-fallback-${p.id}" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;font-size:40px">${p.icon}</div>
+          onerror="this.style.display='none'">
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;pointer-events:none">
+          <div style="font-size:38px;filter:drop-shadow(0 2px 6px ${p.color}88)">${p.icon}</div>
+          <div style="font-size:8px;color:${p.color};letter-spacing:2px;font-weight:bold;text-transform:uppercase;opacity:0.7">${p.name}</div>
+        </div>
       </div>
       <div style="padding:10px 12px 12px">
         <div style="font-size:11px;font-weight:bold;color:${p.locked?'#445':p.color};margin-bottom:3px">${p.name}</div>
@@ -1826,7 +1973,7 @@ const renderGrades=()=>{
   // Ensure grades are up to date
   for(const f of GRADES_FACTIONS)updateGrades(f);
 
-  const FACTION_ICONS_G={Grecs:"🏛️",Pirates:"⚓",Vikings:"⚡",Amazones:"🌿",Egyptiens:"🏺",Amerindiens:"🪶",Ninjas:"🥷",Empoisonneurs:"☠️",Steampunk:"⚙️"};
+  const FACTION_ICONS_G={Grecs:"🏛️",Pirates:"⚓",Vikings:"⚡",Amazones:"🌿",Egyptiens:"🏺",Amerindiens:"🪶",Ninjas:"🥷",Empoisonneurs:"☠️",Steampunk:"⚙️",Robots:"🤖"};
 
   const factionSections=GRADES_FACTIONS.map(faction=>{
     const currentGrade=GRADES[faction]||0;
@@ -2321,7 +2468,7 @@ const SHOP_PACK_DEFS=[
   {id:"empire",name:"Pack Empire",icon:"👑",desc:"Cartes Grecs + Égyptiens",price:350,factions:["Grecs","Egyptiens"],locked:false,color:"#d4a800"},
   {id:"corrompus",name:"Pack Corrompus",icon:"🥷",desc:"Ninjas & Empoisonneurs",price:600,factions:["Ninjas","Empoisonneurs"],locked:false,color:"#9933cc"},
   {id:"cosmiques",name:"Pack Cosmiques",icon:"🌌",desc:"Entités Astrales + Extraterrestres",price:600,factions:[],locked:true,color:"#4466ff"},
-  {id:"industriels",name:"Pack Industriel",icon:"⚙️",desc:"Steampunk + Robots Humanoïdes — Bientôt disponible !",price:600,factions:["Steampunk","Robots"],locked:true,color:"#cc8800"},
+  {id:"industriels",name:"Pack Industriel",icon:"⚙️",desc:"Robots Humanoïdes + Steampunk",price:600,factions:["Robots","Steampunk"],locked:false,color:"#cc8800"},
   {id:"booster",name:"Pack Nouvelle Ère",icon:"✨",desc:"4 cartes exclusives NE + slot Chrono-Légendaire si grade atteint",price:1000,factions:[],locked:false,color:"#cc88ff"},
 ];
 
@@ -2613,6 +2760,68 @@ const killCard=(who,fi)=>{
   // Tayra reaction
   if(who==="player"&&G.tayraTargets&&G.tayraTargets.length>0){G.tayraTargets.forEach(tuid=>{const ti=G.ai.field.findIndex(c=>c&&c.uid===tuid);if(ti!==-1&&G.ai.field[ti]){const t=G.ai.field[ti];const ch=curHp(t,G.ai,G.fx,G.lieu);if(100>=ch){killCard("ai",ti);stealPrestige("player","Tayra: "+t.name+" détruit !");}else{G.ai.field[ti]={...t,dmgTaken:(t.dmgTaken||0)+100};addLog("Tayra: "+t.name+" -100 PV");}}});}
   if(who==="ai"&&G.tayraTargets&&G.tayraTargets.length>0){G.tayraTargets.forEach(tuid=>{const ti=G.player.field.findIndex(c=>c&&c.uid===tuid);if(ti!==-1&&G.player.field[ti]){const t=G.player.field[ti];const ch=curHp(t,G.player,G.fx,G.lieu);if(100>=ch){killCard("player",ti);stealPrestige("ai","Tayra: "+t.name+" détruit !");}else{G.player.field[ti]={...t,dmgTaken:(t.dmgTaken||0)+100};addLog("Tayra: "+t.name+" -100 PV");}}});}
+  // ── ROBOT SHIELD — Trio Robots: un autre Robot meurt à la place ──
+  if(who==="player"&&card.faction==="Robots"&&G.robotShield){
+    const sacrifice=G.player.field.find(c=>c&&c.faction==="Robots"&&c.uid!==card.uid);
+    if(sacrifice){
+      G.robotShield=false;
+      const sacIdx=G.player.field.findIndex(c=>c&&c.uid===sacrifice.uid);
+      addLog("🤖 Trio Robots: "+sacrifice.name+" se sacrifie à la place de "+card.name+" !");
+      // Restore the original card (reset dmgTaken to survive with 1 PV)
+      G.player.field[fi]={...card,dmgTaken:Math.max(0,(card.hp+(card.bonusHp||0))-1)};
+      // Now kill the sacrifice
+      const sCard=G.player.field[sacIdx];
+      G.player.field[sacIdx]=null;G.player.equips[sacIdx]=[null,null];G.player.discard.push(sCard);
+      return;
+    }
+  }
+  if(who==="ai"&&card.faction==="Robots"&&G.robotShieldAi){
+    const sacrifice=G.ai.field.find(c=>c&&c.faction==="Robots"&&c.uid!==card.uid);
+    if(sacrifice){
+      G.robotShieldAi=false;
+      const sacIdx=G.ai.field.findIndex(c=>c&&c.uid===sacrifice.uid);
+      G.ai.field[fi]={...card,dmgTaken:Math.max(0,(card.hp+(card.bonusHp||0))-1)};
+      const sCard=G.ai.field[sacIdx];
+      G.ai.field[sacIdx]=null;G.ai.equips[sacIdx]=[null,null];G.ai.discard.push(sCard);
+      addLog("🤖 Trio Robots IA: "+sacrifice.name+" se sacrifie !");
+      return;
+    }
+  }
+  // ── ROBOTS HUMANOÏDES — effets à la destruction ──
+  if(who==="player"){
+    // Cœur Cybernétique: survit 1x avec 100 PV (si Robot et pas encore sauvé)
+    if(card.faction==="Robots"&&!card._coeurchybSaved){
+      const eq=eqs(G.player.equips,card.uid);
+      if(eq.find(e=>e&&e.id==="coeurchybernetique")){
+        G.player.field[fi]={...card,dmgTaken:0,_coeurchybSaved:true};
+        const mhp=maxHp(card,G.player,G.fx,G.lieu);
+        G.player.field[fi].dmgTaken=Math.max(0,mhp-100);
+        addLog("❤️ Cœur Cybernétique: "+card.name+" survit avec 100 PV !");return;
+      }
+    }
+    // Gruk : si détruit et un autre Robot allié → pioche 1
+    if(card.id==="grukfaussecarcasse"&&G.player.field.some(c=>c&&c.faction==="Robots"&&c.uid!==card.uid)){
+      if(G.player.deck.length>0){G.player.hand.push(G.player.deck.shift());addLog("Gruk: détruit → pioche 1 carte !");}
+    }
+    // ERR-404 : si détruit → un Robot allié +100 ATK
+    if(card.id==="err404"){
+      const rb=G.player.field.find(c=>c&&c.faction==="Robots");
+      if(rb){rb.bonusAtk=(rb.bonusAtk||0)+100;addLog("ERR-404: "+rb.name+" +100 ATK !");}
+    }
+    // Batterie d'Âme: si porteur Robot avec batterieame équipé → soigne autre Robot 300 PV
+    if(card.faction==="Robots"){
+      const eq=eqs(G.player.equips,card.uid);
+      if(eq.find(e=>e&&e.id==="batterieame")){
+        const rb=G.player.field.find(c=>c&&c.faction==="Robots"&&c.uid!==card.uid);
+        if(rb){rb.dmgTaken=Math.max(0,rb.dmgTaken-300);addLog("🔋 Batterie d'Âme: "+rb.name+" +300 PV !");}
+      }
+    }
+    // Usine de Production: si lieu actif et Robot allié détruit → soigne autre Robot 200 PV (1x/tour)
+    if(card.faction==="Robots"&&G.lieu&&G.lieu.id==="usineproduction"&&!G._usineUsed){
+      const rb=G.player.field.find(c=>c&&c.faction==="Robots"&&c.uid!==card.uid);
+      if(rb){rb.dmgTaken=Math.max(0,rb.dmgTaken-200);G._usineUsed=true;addLog("🏭 Usine: "+rb.name+" +200 PV (robot allié détruit) !");}
+    }
+  }
   G[who].field[fi]=null;G[who].equips[fi]=[null,null];G[who].discard.push(card);
   if(G.tayraTargets)G.tayraTargets=G.tayraTargets.filter(u=>u!==card.uid);
 };
@@ -2649,14 +2858,17 @@ const initGame=(pId,aId)=>{
   const as=initSide();as.deck=buildDraftDeckWithDiff(aId,diff);as.hand=as.deck.splice(0,6);
   if(diff==="facile"){as.deck=buildDraftDeckWithDiff(aId,"facile");as.hand=as.deck.splice(0,6);}
   else if(diff==="difficile"){as.deck=buildDraftDeckWithDiff(aId,"difficile");as.hand=as.deck.splice(0,6);}
+  // Apply custom boss prestige
+  const bossDk=DECKS[aId];
+  if(bossDk?.bossOnly&&bossDk.playerPrestige){ps.prestige=bossDk.playerPrestige;as.prestige=bossDk.aiPrestige||10;}
   // Reset game tracking for challenges
   GAME_TRACK={kills:0,kills_game:0,play_chars:0,use_actions:0,prestige_reached:0,trio:0,fusion:false,fusion_on_field:false,equip:0,decks_won:GAME_TRACK?.decks_won||new Set()};
   G={turn:1,phase:"player",firstTurn:true,gameResult:null,arcaneBreaker:false,
-    player:ps,ai:as,lieu:null,log:["Combat ! Atteignez 20 prestige ou réduisez l'adversaire à 0 !"],
+    player:ps,ai:as,lieu:null,log:["Combat ! Atteignez "+(bossDk?.aiPrestige||PW)+" prestige ou réduisez l'adversaire à 0 !"],
     fx:[],frozenAI:false,frozenChars:[],fureurTarget:null,
     sirenesTarget:null,artemisTarget:null,parthenon_active:false,papyActive:false,
     dotEffects:[],tayraTargets:[],enemyEquips:[],laboCooldown:false,
-    ninjaTrio:false,empoisonneurTrio:false,noraBonus:false};
+    ninjaTrio:false,empoisonneurTrio:false,noraBonus:false,robotShield:false,robotShieldAi:false};
   SELECTED_HAND=null;ATTACK_MODE=false;ATTACK_FROM=null;CHOICE=null;ANIM_BUSY=false;
 };
 
@@ -2923,80 +3135,73 @@ const renderOpponentSelect=()=>{
     </div>`).join("");
 
   const keys=Object.keys(DECKS).filter(k=>!DECKS[k].locked&&!DECKS[k].collectionBased||DECKS[k].bossOnly);
-  let deckHtml=keys.map(id=>{
-    const dk=DECKS[id];
-    const isSelf=id===DECK_IDS.player;
-    const selected=DECK_IDS.ai===id;
-    const isBoss=!!dk.bossOnly;
-    if(isSelf)return"";
-    const clickAttr=`onclick="selectOpponent('${id}')"`;
-    const hoverAttr=`onmouseover="this.style.borderColor='${dk.color}';this.style.transform='scale(1.04)'" onmouseout="this.style.borderColor='${selected?dk.color:'#334'}';this.style.transform=''"`;
-    if(isBoss){return`<div ${clickAttr} ${hoverAttr} id="opp-${id}"
-      style="cursor:pointer;width:100%;max-width:480px;background:linear-gradient(135deg,#1a0800,#2a1000,#1a0800);border:3px solid ${selected?dk.color:'#886600'};border-radius:16px;padding:16px 20px;text-align:center;transition:all 0.2s;position:relative;overflow:hidden;box-shadow:0 0 ${selected?'30px':'10px'} ${dk.color}66">
-        <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 10px,rgba(200,136,0,0.03) 10px,rgba(200,136,0,0.03) 20px);pointer-events:none"></div>
-        <div style="position:relative">
-          <div style="font-size:8px;color:#cc8800;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px">⚠️ ADVERSAIRE LÉGENDAIRE ⚠️</div>
-          <div style="display:flex;align-items:center;gap:16px;justify-content:center">
-            <div>
-              <img src="cards/roi_du_temps.png" style="width:70px;height:100px;object-fit:cover;border-radius:8px;border:2px solid #cc8800" onerror="this.style.display='none'">
-              <div style="font-size:40px">${dk.icon}</div>
-            </div>
-            <div style="text-align:left">
-              <div style="font-size:20px;font-weight:900;color:#ffcc44;text-shadow:0 0 20px #cc880088">${dk.name}</div>
-              <div style="font-size:10px;color:#aa8833;margin-top:4px;line-height:1.6">${dk.desc}</div>
-              <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
-                <span style="font-size:10px;background:#ff880022;border:1px solid #ff8800;border-radius:6px;padding:2px 8px;color:#ff8800">Difficulté : MAX</span>
-                <span style="font-size:10px;background:#44cc4422;border:1px solid #44cc44;border-radius:6px;padding:2px 8px;color:#44cc44">Victoire : 🪙+350 ⭐+350</span>
-                <span style="font-size:10px;background:#cc333322;border:1px solid #cc3333;border-radius:6px;padding:2px 8px;color:#cc3333">Défaite : 🪙-100</span>
-              </div>
-            </div>
-          </div>
-          ${selected?`<div style="margin-top:8px;font-size:11px;color:#ffcc44;font-weight:bold">⚔️ DÉFI ACCEPTÉ !</div>`:''}
-        </div>
-      </div>`;}
-    return`<div ${clickAttr} ${hoverAttr} id="opp-${id}"
-      style="cursor:pointer;width:130px;background:linear-gradient(160deg,#0d1f3c,#050e1a);border:2px solid ${selected?dk.color:'#334'};border-radius:14px;padding:14px 10px;text-align:center;transition:all 0.2s">
-      <div style="font-size:36px;margin-bottom:6px">${dk.icon}</div>
-      <div style="font-size:11px;font-weight:bold;color:${dk.color}">${dk.name}</div>
-      ${selected?`<div style="font-size:9px;color:${dk.color};margin-top:4px">✓ Choisi</div>`:''}
-    </div>`;
-  }).join("");
-  // Séparation visuelle
+  const bossRwMap={roitemps:{c:350,x:350},larchiviste:{c:450,x:450},ladompteur:{c:550,x:550},lamechanicienne:{c:650,x:650},letitan:{c:1000,x:1000}};
+  const bossLsMap={roitemps:100,larchiviste:150,ladompteur:200,lamechanicienne:250,letitan:300};
   const regularDecks=keys.filter(id=>!DECKS[id].bossOnly&&id!==DECK_IDS.player);
   const bossDecks=keys.filter(id=>DECKS[id].bossOnly);
-  deckHtml=`<div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
+  const deckHtml=`<div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
     ${regularDecks.map(id=>{
-      const dk=DECKS[id];const selected=DECK_IDS.ai===id;
-      return`<div onclick="selectOpponent('${id}')" onmouseover="this.style.borderColor='${dk.color}';this.style.transform='scale(1.04)'" onmouseout="this.style.borderColor='${selected?dk.color:'#334'}';this.style.transform=''" id="opp-${id}"
-        style="cursor:pointer;width:130px;background:linear-gradient(160deg,#0d1f3c,#050e1a);border:2px solid ${selected?dk.color:'#334'};border-radius:14px;overflow:hidden;text-align:center;transition:all 0.2s">
+      const dk=DECKS[id];const sel=DECK_IDS.ai===id;
+      return`<div onclick="selectOpponent('${id}')" onmouseover="this.style.borderColor='${dk.color}';this.style.transform='scale(1.04)'" onmouseout="this.style.borderColor='${sel?dk.color:'#334'}';this.style.transform=''" id="opp-${id}"
+        style="cursor:pointer;width:130px;background:linear-gradient(160deg,#0d1f3c,#050e1a);border:2px solid ${sel?dk.color:'#334'};border-radius:14px;overflow:hidden;text-align:center;transition:all 0.2s">
         <div style="width:100%;height:80px;background:${dk.color}22;position:relative;overflow:hidden">
           <img src="${dk.image||'adversaires/'+id+'.png'}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;font-size:36px">${dk.icon}</div>
         </div>
         <div style="padding:8px">
           <div style="font-size:11px;font-weight:bold;color:${dk.color}">${dk.name}</div>
-          ${selected?`<div style="font-size:9px;color:${dk.color};margin-top:4px">✓ Choisi</div>`:''}
+          ${sel?`<div style="font-size:9px;color:${dk.color};margin-top:4px">✓ Choisi</div>`:''}
         </div>
-      </div>`}).join("")}
+      </div>`;}).join("")}
   </div>
-  ${bossDecks.length?`<div style="margin-top:16px;width:100%;max-width:480px;text-align:center">
-    <div style="font-size:11px;color:#886600;letter-spacing:2px;margin-bottom:8px">── DÉFI LÉGENDAIRE ──</div>
-    ${bossDecks.map(id=>{
-      const dk=DECKS[id];const selected=DECK_IDS.ai===id;
-      return`<div onclick="selectOpponent('${id}')" onmouseover="this.style.transform='scale(1.02)';this.style.boxShadow='0 0 30px ${dk.color}88'" onmouseout="this.style.transform='';this.style.boxShadow='0 0 10px ${dk.color}44'" id="opp-${id}"
-        style="cursor:pointer;width:100%;background:linear-gradient(135deg,#1a0800,#2a1000);border:3px solid ${selected?dk.color:'#886600'};border-radius:16px;padding:16px 20px;text-align:center;transition:all 0.2s;box-shadow:0 0 10px ${dk.color}44">
-        <div style="font-size:9px;color:#cc8800;letter-spacing:2px;margin-bottom:6px">⚠️ ADVERSAIRE LÉGENDAIRE ⚠️</div>
-        <div style="font-size:24px;margin-bottom:4px">${dk.icon}</div>
-        <div style="font-size:18px;font-weight:900;color:#ffcc44">${dk.name}</div>
-        <div style="font-size:10px;color:#aa8833;margin-top:6px;line-height:1.8">
-          Difficulté : <span style="color:#ff8800">MAX</span><br>
-          <span style="color:#44cc44">Victoire : 🪙 +350 ⭐ +350 XP</span><br>
-          <span style="color:#cc3333">Défaite : 🪙 -100</span>
-        </div>
-        ${selected?`<div style="margin-top:8px;font-size:12px;color:#ffcc44;font-weight:bold">⚔️ DÉFI ACCEPTÉ !</div>`:''}
-      </div>`}).join("")}
-  </div>`:""}`;
-
+  <div style="margin-top:16px;width:100%;max-width:520px">
+    <div style="font-size:11px;color:#886600;letter-spacing:2px;margin-bottom:10px;text-align:center">── BOSS LÉGENDAIRES ──</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      ${bossDecks.map(id=>{
+        const dk=DECKS[id];
+        const unlocked=isBossUnlocked(id);
+        const wins=getBossWins(id);
+        const maxWins=dk.bossUnlockWins||20;
+        const rw=bossRwMap[id]||{c:350,x:350};
+        const ls=bossLsMap[id]||100;
+        const sel=DECK_IDS.ai===id;
+        const prevBoss=dk.bossUnlockBoss?DECKS[dk.bossUnlockBoss]:null;
+        const prevWins=dk.bossUnlockBoss?getBossWins(dk.bossUnlockBoss):0;
+        const pInfo=dk.playerPrestige?`<span style="font-size:9px;background:#33003366;border:1px solid #9944cc;border-radius:4px;padding:1px 6px;color:#cc88ff">⚖️ ${dk.playerPrestige}↔${dk.aiPrestige}</span>`:"";
+        if(!unlocked){return`<div style="background:rgba(0,0,0,0.35);border:2px solid #222;border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:12px;opacity:0.45">
+          <div style="font-size:26px">🔒</div>
+          <div>
+            <div style="font-size:13px;color:#334;font-weight:bold">${dk.name}</div>
+            <div style="font-size:9px;color:#223;margin-top:2px">Bat <b style="color:#445">${prevBoss?.name||"?"}</b> ${prevWins}/${maxWins} fois</div>
+            <div style="height:3px;background:#111;border-radius:2px;margin-top:4px;overflow:hidden;width:120px"><div style="width:${Math.min(100,Math.round(prevWins/maxWins*100))}%;height:100%;background:#334;border-radius:2px"></div></div>
+          </div>
+        </div>`;}
+        return`<div onclick="selectOpponent('${id}')" onmouseover="this.style.boxShadow='0 0 20px ${dk.color}66';this.style.borderColor='${dk.color}'" onmouseout="this.style.boxShadow='0 0 8px ${dk.color}33';this.style.borderColor='${sel?dk.color:'#886600'}'" id="opp-${id}"
+          style="cursor:pointer;background:linear-gradient(135deg,#1a0800,#2a1000,#1a0800);border:2px solid ${sel?dk.color:'#886600'};border-radius:12px;padding:12px 16px;transition:all 0.2s;box-shadow:0 0 8px ${dk.color}33">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="font-size:32px">${dk.icon}</div>
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                <div style="font-size:14px;font-weight:900;color:${dk.color}">${dk.name}</div>
+                <div style="font-size:8px;color:#886600;background:#cc880011;border:1px solid #886600;border-radius:4px;padding:1px 5px">RANG ${dk.bossLevel}</div>
+              </div>
+              <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:5px">
+                <span style="font-size:9px;background:#ff880018;border:1px solid #ff8800;border-radius:4px;padding:1px 6px;color:#ff8800">MAX</span>
+                <span style="font-size:9px;background:#44cc4418;border:1px solid #44cc44;border-radius:4px;padding:1px 6px;color:#44cc44">🪙+${rw.c} ⭐+${rw.x}</span>
+                <span style="font-size:9px;background:#cc333318;border:1px solid #cc3333;border-radius:4px;padding:1px 6px;color:#cc3333">🪙-${ls}</span>
+                ${pInfo}
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;margin-top:5px">
+                <div style="flex:1;height:3px;background:#111;border-radius:2px;overflow:hidden"><div style="width:${Math.min(100,Math.round(wins/maxWins*100))}%;height:100%;background:${dk.color};border-radius:2px"></div></div>
+                <span style="font-size:9px;color:#556">${wins}/${maxWins}</span>
+              </div>
+            </div>
+          </div>
+          ${sel?`<div style="text-align:center;margin-top:6px;font-size:11px;color:${dk.color};font-weight:bold">⚔️ DÉFI ACCEPTÉ !</div>`:""}
+        </div>`;
+      }).join("")}
+    </div>
+  </div>`;
 
   $("app").innerHTML=`<div style="min-height:100vh;background:linear-gradient(160deg,#050e1a,#0a1628);display:flex;flex-direction:column;align-items:center;padding:20px;gap:20px">
     ${statsBarHTML()}
@@ -3284,27 +3489,37 @@ const renderGame=()=>{
     const diffLabels={facile:"🟢 Facile",moyen:"🟡 Moyen",difficile:"🔴 Difficile"};
     // Apply reward once on win (guard with flag)
     let rewardHtml="";
-    const isBossMatch=MATCHUP?.ai==="roitemps";
+    const bossId=MATCHUP?.ai;
+    const bossDeck=bossId&&DECKS[bossId]?.bossOnly?DECKS[bossId]:null;
+    const isBossMatch=!!bossDeck;
+    const bossRewards={roitemps:{c:350,x:350},larchiviste:{c:450,x:450},ladompteur:{c:550,x:550},lamechanicienne:{c:650,x:650},letitan:{c:1000,x:1000}};
+    const bossLoss={roitemps:100,larchiviste:150,ladompteur:200,lamechanicienne:250,letitan:300};
     if(win&&!G._rewardApplied){
       G._rewardApplied=true;
       SFX.win();
       let r;
       if(isBossMatch){
-        // Roi du Temps: special reward
-        PLAYER_STATS.coins+=350;PLAYER_STATS.xp+=350;
+        const rw=bossRewards[bossId]||{c:350,x:350};
+        PLAYER_STATS.coins+=rw.c;PLAYER_STATS.xp+=rw.x;
         let leveled=false;
         while(true){const needed=xpForLevel(PLAYER_STATS.level+1);if(PLAYER_STATS.xp>=needed){PLAYER_STATS.xp-=needed;PLAYER_STATS.level++;leveled=true;}else break;}
         saveStats();
+        incBossWins(bossId);
+        const winsNow=getBossWins(bossId);
         if(leveled)setTimeout(()=>SFX.levelUp(),800);
-        r={coins:350,xp:350,leveled};
-        rewardHtml=`<div style="background:linear-gradient(135deg,rgba(200,136,0,0.2),rgba(255,200,50,0.1));border:2px solid #cc8800;border-radius:12px;padding:16px 20px;margin-bottom:16px">
-          <div style="font-size:24px;margin-bottom:6px">👑⌛</div>
-          <div style="font-size:16px;color:#ffcc44;font-weight:bold;margin-bottom:6px">Le Roi du Temps a été vaincu !</div>
-          <div style="font-size:11px;color:#aa8833;margin-bottom:10px">Une victoire quasi impossible — tu es une légende.</div>
+        r={coins:rw.c,xp:rw.x,leveled};
+        // Check if a new boss is now unlocked
+        const newlyUnlocked=Object.values(DECKS).find(d=>d.bossUnlockBoss===bossId&&d.bossUnlockWins===winsNow);
+        const unlockMsg=newlyUnlocked?`<div style="margin-top:10px;font-size:12px;color:#cc88ff;font-weight:bold">🔓 NOUVEAU BOSS DÉBLOQUÉ : ${newlyUnlocked.name} !</div>`:"";
+        const winsMsg=winsNow<(bossDeck.bossUnlockWins||999)?`<div style="font-size:10px;color:#666;margin-top:4px">${winsNow}/${bossDeck.bossUnlockWins||"∞"} victoires pour débloquer le prochain boss</div>`:"";
+        rewardHtml=`<div style="background:linear-gradient(135deg,rgba(200,136,0,0.2),rgba(255,200,50,0.1));border:2px solid ${bossDeck.color||"#cc8800"};border-radius:12px;padding:16px 20px;margin-bottom:16px">
+          <div style="font-size:24px;margin-bottom:6px">${bossDeck.icon||"👑"}⌛</div>
+          <div style="font-size:16px;color:${bossDeck.color||"#ffcc44"};font-weight:bold;margin-bottom:6px">${bossDeck.name} vaincu !</div>
           <div style="display:flex;gap:20px;justify-content:center;font-size:16px;font-weight:bold">
-            <span style="color:#f0c060">🪙 +350</span><span style="color:#4ab8ff">⭐ +350 XP</span>
+            <span style="color:#f0c060">🪙 +${rw.c}</span><span style="color:#4ab8ff">⭐ +${rw.x} XP</span>
           </div>
           ${leveled?`<div style="margin-top:10px;font-size:15px;color:#f0c060;font-weight:bold">✨ NIVEAU ${PLAYER_STATS.level} !</div>`:""}
+          ${winsMsg}${unlockMsg}
         </div>`;
       } else {
         r=applyReward(diff);
@@ -3399,12 +3614,13 @@ const renderGame=()=>{
       // Reset diff streaks on loss
       for(const faction of GRADES_FACTIONS)resetFactionStreak(faction);
       // Roi du Temps: lose penalty — -100 coins
-      if(isBossMatch&&PLAYER_STATS.coins>=100){
-        PLAYER_STATS.coins-=100;saveStats();
+      if(isBossMatch&&PLAYER_STATS.coins>=(bossLoss[bossId]||100)){
+        const penalty=bossLoss[bossId]||100;
+        PLAYER_STATS.coins-=penalty;saveStats();
         rewardHtml=`<div style="background:rgba(200,0,0,0.12);border:1px solid #cc333344;border-radius:12px;padding:12px 20px;margin-bottom:16px">
           <div style="font-size:20px;margin-bottom:4px">💀</div>
-          <div style="font-size:13px;color:#cc3333;font-weight:bold">Le Roi du Temps a réclamé son dû…</div>
-          <div style="font-size:14px;color:#ff6644;margin-top:6px">🪙 -100 pièces</div>
+          <div style="font-size:13px;color:#cc3333;font-weight:bold">${bossDeck?.name||"Le Boss"} a réclamé son dû…</div>
+          <div style="font-size:14px;color:#ff6644;margin-top:6px">🪙 -${penalty} pièces</div>
         </div>`;
       } else if(isBossMatch){
         rewardHtml=`<div style="background:rgba(200,0,0,0.12);border:1px solid #cc333344;border-radius:12px;padding:12px 20px;margin-bottom:16px">
@@ -3588,6 +3804,11 @@ const renderChoiceModal=()=>{
   } else if(ch.type==="poison_single"||ch.type==="tayra_target"||ch.type==="klausbrume"){
     const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;text-align:center">${cardHTML(c,"mini",{cHp:curHp(c,G.ai,G.fx,G.lieu),mHp:maxHp(c,G.ai,G.fx,G.lieu)})}<div style="font-size:8px;color:#aac;margin-top:2px">${c.name}</div></div>`).join("");
     content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
+  } else if(ch.type==="mains_choice"){
+    content=`<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button onclick="doChoice('heal',-1)" style="background:linear-gradient(90deg,#22aa44,#118833);border:none;border-radius:10px;color:#fff;padding:10px 18px;font-weight:bold;cursor:pointer">💚 Soigner un allié +100 PV</button>
+      <button onclick="doChoice('dmg',-1)" style="background:linear-gradient(90deg,#cc4400,#aa2200);border:none;border-radius:10px;color:#fff;padding:10px 18px;font-weight:bold;cursor:pointer">💥 100 dégâts à un ennemi</button>
+    </div>`;
   } else if(ch.type==="olympe_choice"){
     const grecsAlies=G.player.field.filter(c=>c&&c.faction==="Grecs");
     const atkBtn=grecsAlies.length?`<button onclick="doChoice('atk',-1)" style="background:linear-gradient(90deg,#c8a020,#f0c060);border:none;border-radius:10px;color:#000;padding:10px 20px;font-weight:bold;cursor:pointer">⚔️ Grec allié +100 ATK</button>`:`<button disabled style="opacity:0.4;background:#1a2030;border:1px solid #334;border-radius:10px;color:#aaa;padding:10px 20px;cursor:not-allowed">⚔️ Aucun Grec allié</button>`;
@@ -3601,13 +3822,28 @@ const renderChoiceModal=()=>{
     const grid=(ch.options||[]).map(({c,i})=>{const isSel=sel.includes(i);return`<div onclick="doChoice('toggle',${i})" style="cursor:pointer;text-align:center;opacity:${isSel?1:0.7}"><div style="border:2px solid ${isSel?'#55bb22':'#333'};border-radius:6px">${cardHTML(c,"mini",{cHp:curHp(c,G.ai,G.fx,G.lieu),mHp:maxHp(c,G.ai,G.fx,G.lieu)})}</div><div style="font-size:8px;color:${isSel?'#55bb22':'#aac'};margin-top:2px">${c.name}</div></div>`;}).join("");
     content=`<div style="display:flex;flex-direction:column;gap:10px;align-items:center"><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div><button onclick="doChoice('confirm',-1)" style="background:#55bb22;border:none;border-radius:8px;color:#000;padding:8px 24px;font-weight:bold;cursor:pointer">Confirmer (${sel.length}/${maxSel})</button></div>`;
   } else {
-    const isEnemy2=["freyja","entravesygg","kaya","impactcible","planche","prisongivre","corliss","hurgan","lyra","silence","selka","fosseauxpiques","marquetribale","prisonracines","gardiennil","cowboy","embuscadecobra","colerara_tgt","enfantrongeurs","etoileciel","harlementnloup","piegeplaines","totementrave","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","kuro_target","garruk_target","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","spectrebarillet","rictus","meteioide4"].includes(ch.type);
+    const isEnemy2=["freyja","entravesygg","kaya","impactcible","planche","prisongivre","corliss","hurgan","lyra","silence","selka","fosseauxpiques","marquetribale","prisonracines","gardiennil","cowboy","embuscadecobra","colerara_tgt","enfantrongeurs","etoileciel","harlementnloup","piegeplaines","totementrave","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","kuro_target","garruk_target","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","spectrebarillet","rictus","meteioide4","elina_target","velocis_destroy","virusinformatique","explosionbatterie","reprogrammationforcee","calcultraj_enemy","autodestruct_enemy","mains_dmg_target"].includes(ch.type);
     const grid=isEnemy2?enCardGrid(ch.options||[]):myCardGrid(ch.options||[]);
     content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
   }
 
   const titles={
     trio_grecs:"🏛️ Trio Grecs — Choisir un ennemi à geler",ile:"Ile aux Tresors",explosion:"Explosion",
+    calcultraj_ally:"🎯 Calcul — Choisir un Robot allié",
+    calcultraj_enemy:"🎯 Calcul — Choisir un ennemi à frapper",
+    modeberserk:"🔴 Mode Berserk — Choisir un Robot allié",
+    bouclierholo:"🛡️ Bouclier Holographique — Choisir un Robot allié",
+    virusinformatique:"💻 Virus Informatique — Choisir un ennemi",
+    explosionbatterie:"💥 Explosion de Batterie — Choisir un ennemi",
+    reprogrammationforcee:"🔧 Reprogrammation — Choisir un ennemi",
+    autodestruct_ally:"💣 Autodestruction — Choisir le Robot à sacrifier",
+    autodestruct_enemy:"💣 Autodestruction — Choisir l'ennemi à frapper (400 dégâts)",
+    transfertconscience:"🔄 Transfert — Choisir un Robot dans ta défausse",
+    mains_choice:"🤜 Mains Multifonctions — Choisir l'effet",
+    mains_heal_target:"💚 Mains — Choisir un allié à soigner (+100 PV)",
+    mains_dmg_target:"💥 Mains — Choisir un ennemi (100 dégâts)",
+    elina_target:"⚡ Élina Prototype — Vole 100 PV à un ennemi",
+    velocis_destroy:"💨 Vélocis — Détruire un ennemi coût ≤3",
     olympe_choice:"🏛️ L'Olympe — Choisir une récompense",
     pegasefeu:"🔥 Pégase de Feu — 100 dégâts à un ennemi",
     sireneegeenne:"🧜 Sirène Égéenne — Forcer un ennemi à attaquer la Sirène",
@@ -3681,7 +3917,7 @@ const renderChoiceModal=()=>{
     marchenoir:"🏪 Marché Noir — Choisir une carte",
   };
 
-  const mandatoryTypes=["clankbeak","ile","dragon_venin","sylvara","ninja_trio_recall","olympe_choice","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","hurgan","lyra","malgor","crocsr","iskra","kaya","freyja","astrid","haldor","ylvabaies","petittorvald","corliss","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","meteioide4","spectrebarillet","rictus","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","garruk_target","kuro_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","danseuseesprits","passeurnil","pretressenil","hopliteargos","dionysos","meduse","eluzeus","sireneegeenne","colerara_sacr","colerara_tgt","auxportolympe","isis","reveilpharaon","regenerationnil"];
+  const mandatoryTypes=["clankbeak","ile","dragon_venin","sylvara","ninja_trio_recall","olympe_choice","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","hurgan","lyra","malgor","crocsr","iskra","kaya","freyja","astrid","haldor","ylvabaies","petittorvald","corliss","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","meteioide4","spectrebarillet","rictus","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","garruk_target","kuro_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","danseuseesprits","passeurnil","pretressenil","hopliteargos","dionysos","meduse","eluzeus","sireneegeenne","colerara_sacr","colerara_tgt","auxportolympe","isis","reveilpharaon","regenerationnil","elina_target","velocis_destroy","calcultraj_ally","calcultraj_enemy","modeberserk","bouclierholo","virusinformatique","explosionbatterie","reprogrammationforcee","autodestruct_ally","autodestruct_enemy","transfertconscience","mains_choice","mains_heal_target","mains_dmg_target"];
   const hasClose=!mandatoryTypes.includes(ch.type);
   return `<div class="modal-bg" onclick="${hasClose?"closeChoice()":""}"><div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-title">${titles[ch.type]||ch.type}</div>
@@ -4053,6 +4289,15 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
       // Rokk-Hard: double attack — reset hasAttacked after first attack (kill or survive)
       if(who==="player"&&atk._doubleAttack){const ri=G.player.field.findIndex(c=>c&&c.uid===atk.uid);if(ri!==-1){G.player.field[ri]={...G.player.field[ri],hasAttacked:false,_doubleAttack:false};addLog("🎸 Rokk-Hard: 2ème attaque disponible !");}}
       if(atk.id==="selyracobra"&&G[en].field[tfi]&&!G[en].field[tfi]._poisoned){poisonChar(en,G[en].field[tfi].uid,100,-1);addLog("Selyra: "+def.name+" empoisonné(e) !");}
+      // ── ROBOTS HUMANOÏDES — effets sur attaque ──
+      if(who==="player"){
+        if(atk.id==="braxboxeur"){const others=G.ai.field.filter(c=>c&&c.uid!==def.uid);if(others.length){others[0].dmgTaken+=100;addLog("Brax: 100 dégâts à "+others[0].name+" !");}}
+        if(atk.id==="khantor"){const eq=G.player.field.filter(c=>c&&c.type==="equipement").length;if(eq>0){G.fx.push({target:atk.uid,bonus:100*eq,type:"atk",endOfTurn:true});addLog("Khan-Tor: +"+100*eq+" ATK ("+eq+" équipement(s)) !");}}
+        if(atk.id==="nereus02"){const bl=G.ai.field.find(c=>c&&c.dmgTaken>0&&c.uid!==def.uid);if(bl){bl.dmgTaken+=200;addLog("Néréus-02: 200 dégâts bonus à "+bl.name+" !");}}
+        if(atk.id==="crocmetal"&&atk.dmgTaken>0){G.fx.push({target:atk.uid,bonus:300,type:"atk",endOfTurn:true});addLog("Croc-Métal: +300 ATK car blessé !");}
+        // Bras Modulaire Cybernétique: 1x/tour, 100 dégâts à un autre ennemi
+        if(!atk._brasUsed){const brasMod=eqs(G.player.equips,atk.uid).find(e=>e&&e.id==="brasmodulaire");if(brasMod){const others=G.ai.field.filter(c=>c&&c.uid!==def.uid);if(others.length){others[0].dmgTaken+=100;atk._brasUsed=true;addLog("⚙️ Bras Modulaire: 100 dégâts à "+others[0].name+" !");}}}
+      }
       // Repas Suspect: après attaque l'attaquant perd 100 PV
       if(ttype==="field"){const attackerIdx=G[who].field.findIndex(c=>c&&c.uid===atk.uid);if(attackerIdx!==-1&&G[who].field[attackerIdx]&&G[who].field[attackerIdx]._repassuspec){const rpc=G[who].field[attackerIdx];const rpch=curHp(rpc,G[who],G.fx,G.lieu);if(100>=rpch){killCard(who,attackerIdx);stealPrestige(en,"Repas Suspect: "+rpc.name+" détruit!");}else{G[who].field[attackerIdx]={...rpc,dmgTaken:(rpc.dmgTaken||0)+100};addLog("🍖 Repas Suspect: "+rpc.name+" -100 PV après attaque!");}}}
       // Bombe de Gaz (cursed on attacker): perd 100 PV après attaque
@@ -4250,7 +4495,47 @@ const playCard=(cardUid,fi)=>{
     // ── AMAZONES nouvelles cartes ──
     // nalyaecume: effet au combat
 
-    // ── CHRONO-LÉGENDAIRES Amazones (Kalara) : effet à l'arrivée ──
+    // ── ROBOTS HUMANOÏDES — effets à l'arrivée ──
+    if(card.faction==="Robots"&&placed){
+      const fi=G.player.field.findIndex(c=>c&&c.uid===placed.uid);
+      const robotAllies=()=>G.player.field.filter(c=>c&&c.faction==="Robots"&&c.uid!==placed.uid);
+      if(card.id==="mina7domestique"){
+        const t=robotAllies()[0];
+        if(t){t.dmgTaken=Math.max(0,t.dmgTaken-100);addLog("Mina-7: "+t.name+" +100 PV !");}
+        else addLog("Mina-7: aucun Robot allié à soigner.");
+      }
+      else if(card.id==="elinaprototype"){
+        const en=G.ai.field.filter(c=>c);
+        if(en.length>0)CHOICE={type:"elina_target"};
+        else addLog("Élina: aucun ennemi.");
+      }
+      else if(card.id==="axiomguerrier"){
+        if(fi!==-1&&robotAllies().length>0){G.player.field[fi]={...G.player.field[fi],bonusAtk:(G.player.field[fi].bonusAtk||0)+150,_axiomExpires:G.turn};addLog("Axiom: +150 ATK ce tour !");}
+      }
+      else if(card.id==="terrax9"){
+        if(fi!==-1&&!G.player.field.some(c=>c&&c.type==="lieu")){G.player.field[fi]={...G.player.field[fi],bonusHp:(G.player.field[fi].bonusHp||0)+200};addLog("Terrax-9: aucun Lieu → +200 PV !");}
+      }
+      else if(card.id==="velocis"){
+        const low=G.ai.field.filter(c=>c&&(c.cost||0)<=3);
+        if(low.length)CHOICE={type:"velocis_destroy"};
+        else addLog("Vélocis: aucun ennemi coût ≤3.");
+      }
+      else if(card.id==="aerionailesmecanique"){
+        const targets=G.ai.field.filter(c=>c&&(c.hp-c.dmgTaken)<=500);
+        if(targets.length>0){targets.forEach(t=>{t.dmgTaken+=300;});addLog("Aérion: 300 dégâts aux ennemis ≤500 PV !");}
+        else addLog("Aérion: aucun ennemi avec ≤500 PV.");
+      }
+      else if(card.id==="voxaria"){
+        let killed=0;
+        G.ai.field.forEach((c,i)=>{if(c&&(c.hp-c.dmgTaken)<=400){c.dmgTaken+=200;if(c.hp-c.dmgTaken<=0){killCard(i,false);killed++;}}});
+        addLog("Voxaria: 200 dégâts aux ennemis ≤400 PV !"+(killed?` (${killed} détruit${killed>1?"s":""})`:"")); 
+      }
+      else if(card.id==="princesseauralia"){
+        let n=0;
+        G.player.field.forEach(c=>{if(c&&c.faction==="Robots"&&c.uid!==placed.uid){c.bonusAtk=(c.bonusAtk||0)+150;c.bonusHp=(c.bonusHp||0)+150;n++;}});
+        addLog("Princesse Auralia: "+n+" Robot(s) allié(s) +150 ATK +150 PV !");
+      }
+    }
     // Helper: compte les Amazones d'un coût précis sur terrain + défausse
     if(card.isChronoLegendaire&&card.faction==="Amazones"&&card.type==="personnage"){
       const fi2=G.player.field.findIndex(c=>c&&c.uid===placed.uid);
@@ -4386,6 +4671,8 @@ const playCard=(cardUid,fi)=>{
     if(amEqs.includes(card.id)&&tgt.faction!=="Amerindiens"){addLog("Équipement Amérindien uniquement!");renderGame();return;}
     if(grEqs.includes(card.id)&&tgt.faction!=="Grecs"){addLog("Équipement Grec uniquement!");renderGame();return;}
     if(ninjaEqs.includes(card.id)&&tgt.faction!=="Ninjas"){addLog("Équipement Ninja uniquement!");renderGame();return;}
+    const robotEqs=["coeurchybernetique","brasmodulaire","visionalgo","colonnevertebrale","ailesnoires","griffesplasma","batterieame","mainsmultifonctions"];
+    if(robotEqs.includes(card.id)&&tgt.faction!=="Robots"){addLog("Équipement Robot Humanoïde uniquement!");renderGame();return;}
     const slot=G.player.equips[fi].findIndex(e=>!e);
     if(slot===-1){addLog("Déjà 2 équipements!");renderGame();return;}
     G.player.equips[fi][slot]={...card,attachedTo:tgt.uid,uid:mkuid()};
@@ -4393,6 +4680,22 @@ const playCard=(cardUid,fi)=>{
     addLog(card.name+" équipé sur "+tgt.name+".");
     // Nora Charbonnelle bonus
     if(G.noraBonus&&card.faction==="Steampunk"){G.fx.push({target:tgt.uid,bonus:100,type:"atk",endOfTurn:true});G.noraBonus=false;addLog("🔥 Nora: +100 ATK bonus à "+tgt.name+" !");}
+    // ── Robot Humanoïde equipment bonuses ──
+    if(tgt.faction==="Robots"){
+      if(card.id==="coeurchybernetique"){tgt.bonusHp=(tgt.bonusHp||0)+200;addLog("⚙️ Cœur Cyber: +200 PV !");}
+      if(card.id==="brasmodulaire"){tgt.bonusAtk=(tgt.bonusAtk||0)+200;addLog("⚙️ Bras Modulaire: +200 ATK !");}
+      if(card.id==="visionalgo"){tgt.bonusAtk=(tgt.bonusAtk||0)+100;addLog("⚙️ Vision Algo: +100 ATK !");}
+      if(card.id==="colonnevertebrale"){tgt.bonusAtk=(tgt.bonusAtk||0)+100;tgt.bonusHp=(tgt.bonusHp||0)+200;addLog("⚙️ Colonne: +100 ATK +200 PV !");}
+      if(card.id==="ailesnoires"){tgt.bonusAtk=(tgt.bonusAtk||0)+200;addLog("⚙️ Ailes Noires: +200 ATK !");}
+      if(card.id==="griffesplasma"){tgt.bonusAtk=(tgt.bonusAtk||0)+300;addLog("⚙️ Griffes Plasma: +300 ATK (−100 PV/tour) !");}
+      if(card.id==="batterieame"){tgt.bonusHp=(tgt.bonusHp||0)+200;addLog("⚙️ Batterie d'Âme: +200 PV !");}
+      if(card.id==="mainsmultifonctions"){
+        tgt.bonusAtk=(tgt.bonusAtk||0)+100;tgt.bonusHp=(tgt.bonusHp||0)+100;
+        const hasAl=G.player.field.some(c=>c),hasEn=G.ai.field.some(c=>c);
+        if(hasAl||hasEn){G.player.hand.splice(ci,1);G.player.equips[fi][slot]={...card,attachedTo:tgt.uid,uid:mkuid()};setTimeout(()=>{CHOICE={type:"mains_choice",tgtUid:tgt.uid};renderGame();},100);return;}
+        addLog("⚙️ Mains Multi: +100 ATK +100 PV !");
+      }
+    }
     // Clé Universelle: soigne 100 PV à un allié équipé à l'équipement
     if(card.id==="cleuniverselle"){const healed=G.player.field.find((c,j)=>c&&c.faction==="Steampunk"&&c.uid!==tgt.uid&&eqs(G.player.equips,c.uid).find(e=>e));if(healed){healed.dmgTaken=Math.max(0,(healed.dmgTaken||0)-100);addLog("🔧 Clé Universelle: "+healed.name+" +100 PV !");}}
     // Usine à Vapeur: 1x/tour quand un équipement Steampunk est joué → un allié +100 PV
@@ -4406,8 +4709,19 @@ const playCard=(cardUid,fi)=>{
 
   } else if(card.type==="action"){
     G.player.hand.splice(ci,1);G.player.discard.push(card);
+    GAME_TRACK.use_actions++;progressChallenge("use_actions");// ← fix bug : comptage des actions
     const id=card.id;
-    if(id==="sauvetage"){const opts=G.player.discard.filter(c=>c.type==="personnage"&&c.faction==="Pirates").map((c,i)=>({c,i}));if(opts.length){setTimeout(()=>{CHOICE={type:"sauvetage",options:opts};renderGame();},100);return;}else addLog("Aucun Pirate en défausse.");}
+    // ── ROBOTS HUMANOÏDES — Actions ──
+    if(id==="pluienanites"){let n=0;G.player.field.forEach(c=>{if(c&&c.faction==="Robots"){c.dmgTaken=Math.max(0,(c.dmgTaken||0)-200);n++;}});addLog("🌧️ Pluie de Nanites: "+n+" Robot(s) +200 PV !");}
+    else if(id==="calcultrajectoire"){const r=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Robots");if(r.length)setTimeout(()=>{CHOICE={type:"calcultraj_ally",options:r};renderGame();},100);else addLog("Calcul: aucun Robot allié !");}
+    else if(id==="modeberserk"){const r=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Robots");if(r.length)setTimeout(()=>{CHOICE={type:"modeberserk",options:r};renderGame();},100);else addLog("Berserk: aucun Robot allié !");}
+    else if(id==="bouclierholographique"){const r=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Robots");if(r.length)setTimeout(()=>{CHOICE={type:"bouclierholo",options:r};renderGame();},100);else addLog("Bouclier Holo: aucun Robot allié !");}
+    else if(id==="virusinformatique"){if(G.ai.field.some(c=>c))setTimeout(()=>{CHOICE={type:"virusinformatique"};renderGame();},100);else addLog("Virus: aucun ennemi !");}
+    else if(id==="explosionbatterie"){if(G.ai.field.some(c=>c))setTimeout(()=>{CHOICE={type:"explosionbatterie"};renderGame();},100);else addLog("Explosion Batterie: aucun ennemi !");}
+    else if(id==="reprogrammationforcee"){if(G.ai.field.some(c=>c))setTimeout(()=>{CHOICE={type:"reprogrammationforcee"};renderGame();},100);else addLog("Reprogrammation: aucun ennemi !");}
+    else if(id==="protocolautodestruct"){const r=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Robots");if(r.length&&G.ai.field.some(c=>c))setTimeout(()=>{CHOICE={type:"autodestruct_ally",options:r};renderGame();},100);else addLog("Protocole: cibles insuffisantes !");}
+    else if(id==="transfertconscience"){const dr=G.player.discard.map((c,i)=>({c,i})).filter(x=>x.c.faction==="Robots");if(dr.length)setTimeout(()=>{CHOICE={type:"transfertconscience",options:dr};renderGame();},100);else addLog("Transfert: aucun Robot en défausse !");}
+    else if(id==="sauvetage"){const opts=G.player.discard.filter(c=>c.type==="personnage"&&c.faction==="Pirates").map((c,i)=>({c,i}));if(opts.length){setTimeout(()=>{CHOICE={type:"sauvetage",options:opts};renderGame();},100);return;}else addLog("Aucun Pirate en défausse.");}
     else if(id==="planche"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&curHp(x.c,G.ai,G.fx,G.lieu)<=300);if(opts.length){setTimeout(()=>{CHOICE={type:"planche",options:opts};renderGame();},100);return;}else addLog("Aucune cible.");}
     else if(id==="abordage"){const opts=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length){setTimeout(()=>{CHOICE={type:"abordage",options:opts};renderGame();},100);return;}}
     else if(id==="nettoyage"){const opts=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length){setTimeout(()=>{CHOICE={type:"nettoyage",options:opts};renderGame();},100);return;}}
@@ -4434,7 +4748,25 @@ const playCard=(cardUid,fi)=>{
       const reineIdx=G.player.field.findIndex(c=>c&&c.id==="reinepoisonnoir");
       const noraFusIdx=G.player.field.findIndex(c=>c&&c.id==="noracharbonnelle");
       const kuroFusIdx=G.player.field.findIndex(c=>c&&c.id==="kurocorvacier");
-      if(noraFusIdx!==-1&&kuroFusIdx!==-1){
+      const voxariaIdx=G.player.field.findIndex(c=>c&&c.id==="voxaria");
+      const aerionIdx=G.player.field.findIndex(c=>c&&c.id==="aerionailesmecanique");
+      const vaelIdx=G.player.field.findIndex(c=>c&&c.id==="vaelya");
+      const nayraIdx=G.player.field.findIndex(c=>c&&c.id==="nayra");
+      if(voxariaIdx!==-1&&aerionIdx!==-1){
+        SFX.fusion();GAME_TRACK.fusion=true;progressChallenge("fusion");
+        const f={...CARDS.find(c=>c.id==="voxarionarchange"),uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
+        G.player.field[voxariaIdx]=f;G.player.field[aerionIdx]=null;G.player.equips[aerionIdx]=[null,null];
+        // Voxarion Archange: entry effect — 300 dégâts à tous les ennemis ≤600 PV
+        G.ai.field.forEach((c,i)=>{if(!c||!G.ai.field[i])return;const ch=curHp(c,G.ai,G.fx,G.lieu);if(300>=ch){killCard("ai",i);stealPrestige("player","Voxarion détruit "+c.name+"!");}else{G.ai.field[i]={...G.ai.field[i],dmgTaken:(G.ai.field[i].dmgTaken||0)+300};addLog("Voxarion: "+c.name+" -300 PV !");}});
+        addLog("⚗️ FUSION → Voxarion Archange invoqué ! 300 dégâts à tous les ennemis ≤600 PV !");
+      } else if(vaelIdx!==-1&&nayraIdx!==-1){
+        SFX.fusion();GAME_TRACK.fusion=true;progressChallenge("fusion");
+        const f={...CARDS.find(c=>c.id==="vaenyra"),uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
+        G.player.field[vaelIdx]=f;G.player.field[nayraIdx]=null;G.player.equips[nayraIdx]=[null,null];
+        // Vaenyra: Cri de Guerre permanent + détruit ennemis <200 PV
+        G.ai.field.forEach((c,i)=>{if(c&&curHp(c,G.ai,G.fx,G.lieu)<200){killCard("ai",i);stealPrestige("player","Vaenyra détruit "+c.name+"!");}});
+        addLog("⚗️ FUSION → Vaenyra, Reine Primordiale invoquée !");
+      } else if(noraFusIdx!==-1&&kuroFusIdx!==-1){
         SFX.fusion();GAME_TRACK.fusion=true;progressChallenge("fusion");
         const f={...CARDS.find(c=>c.id==="koracharbacier"),uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
         G.player.field[noraFusIdx]=f;G.player.field[kuroFusIdx]=null;G.player.equips[kuroFusIdx]=[null,null];
@@ -4757,7 +5089,89 @@ window.doChoice=(action,payload)=>{
     else if(ch.type==="labo_contrepoisons"){const c=G.player.field[payload];if(c){if(c._poisoned){G.dotEffects=G.dotEffects.filter(d=>d.uid!==c.uid);G.player.field[payload]={...c,_poisoned:false};addLog("🧬 Labo: "+c.name+" poison retiré !");}else{G.player.field[payload]={...c,dmgTaken:Math.max(0,(c.dmgTaken||0)-100)};addLog("🧬 Labo: "+c.name+" +100 PV!");}}}
     else if(ch.type==="equip_curse"){const t=G.ai.field[payload];if(t&&ch.cursedCard){if(!G.enemyEquips)G.enemyEquips=[];G.enemyEquips.push({id:ch.cursedCard.id,name:ch.cursedCard.name,targetUid:t.uid,side:"ai"});t._poisoned=true;// Apply immediate effect for Fiole
       if(ch.cursedCard.id==="fioletox"){G.dotEffects.push({uid:t.uid,side:"ai",dmgHp:100,turnsLeft:-1});}addLog(ch.cursedCard.name+" attaché à "+t.name+" !");}}
-    else if(ch.type==="marchenoir"){const c=ch.options[payload];if(c){G.player.deck=G.player.deck.filter(x=>x.uid!==c.c.uid);G.player.hand.push({...c.c,uid:mkuid()});addLog("🏪 Marché Noir: "+c.c.name+" en main !");}}
+    else if(ch.type==="calcultraj_ally"){
+      const t=G.player.field[payload];
+      if(t&&t.faction==="Robots"){CHOICE={type:"calcultraj_enemy",allyIdx:payload};renderGame();return;}
+    }
+    else if(ch.type==="calcultraj_enemy"){
+      const ally=G.player.field[ch.allyIdx];const en=G.ai.field[payload];
+      if(ally)G.fx.push({target:ally.uid,bonus:200,type:"atk",endOfTurn:true});
+      if(en){en.dmgTaken+=200;addLog("Calcul de Trajectoire: "+ally?.name+" +200 ATK + 200 dégâts à "+en.name+" !");}
+    }
+    else if(ch.type==="modeberserk"){
+      const t=G.player.field[payload];
+      if(t&&t.faction==="Robots"){G.fx.push({target:t.uid,bonus:400,type:"atk",endOfTurn:true});t.dmgTaken+=200;addLog("Mode Berserk: "+t.name+" +400 ATK ce tour (−200 PV) !");}
+    }
+    else if(ch.type==="bouclierholo"){
+      const t=G.player.field[payload];
+      if(t&&t.faction==="Robots"){t.bonusHp=(t.bonusHp||0)+400;t._bouclierholo=G.turn+2;addLog("Bouclier Holo: "+t.name+" +400 PV jusqu'au prochain tour adverse !");}
+    }
+    else if(ch.type==="virusinformatique"){
+      const t=G.ai.field[payload];
+      if(t){G.fx.push({target:t.uid,bonus:-200,type:"atk",endOfTurn:false});t.dmgTaken+=200;addLog("💻 Virus: "+t.name+" −200 ATK et −200 PV !");}
+    }
+    else if(ch.type==="explosionbatterie"){
+      const t=G.ai.field[payload];
+      if(t){const dmg=t.faction==="Robots"?500:300;t.dmgTaken+=dmg;addLog("💥 Explosion de Batterie: "+t.name+" −"+dmg+" PV"+(t.faction==="Robots"?" (Robot x2)":"")+"!");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard(payload,false);stealPrestige("player",t.name+" détruit !");}}
+    }
+    else if(ch.type==="reprogrammationforcee"){
+      const t=G.ai.field[payload];
+      if(t){G.fx.push({target:t.uid,bonus:-300,type:"atk",endOfTurn:false});addLog("🔧 Reprogrammation: "+t.name+" −300 ATK permanents !");}
+    }
+    else if(ch.type==="autodestruct_ally"){
+      const t=G.player.field[payload];
+      if(t&&t.faction==="Robots"){killCard(payload,"player");CHOICE={type:"autodestruct_enemy"};renderGame();return;}
+    }
+    else if(ch.type==="autodestruct_enemy"){
+      const t=G.ai.field[payload];
+      if(t){t.dmgTaken+=400;addLog("💣 Autodestruction: "+t.name+" −400 PV !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard(payload,false);stealPrestige("player",t.name+" détruit !");}}
+    }
+    else if(ch.type==="transfertconscience"){
+      const opt=ch.options[payload];
+      if(opt){
+        const card=G.player.discard[opt.i];
+        if(card){
+          G.player.discard.splice(opt.i,1);
+          const slot=G.player.field.findIndex(s=>!s);
+          if(slot!==-1){
+            const restored={...card,uid:mkuid(),dmgTaken:Math.max(0,card.hp-300),bonusAtk:0,bonusHp:0,hasAttacked:true,justPlayed:true,_poisoned:false};
+            G.player.field[slot]=restored;G.player.equips[slot]=[null,null];
+            addLog("🔄 Transfert: "+card.name+" revient en jeu avec 300 PV !");
+          } else addLog("Transfert: terrain plein !");
+        }
+      }
+    }
+    else if(ch.type==="mains_choice"){
+      if(action==="heal"){CHOICE={type:"mains_heal_target",options:G.player.field.map((c,i)=>({c,i})).filter(x=>x.c)};renderGame();return;}
+      if(action==="dmg"){CHOICE={type:"mains_dmg_target"};renderGame();return;}
+    }
+    else if(ch.type==="mains_heal_target"){
+      const t=G.player.field[payload];
+      if(t){t.dmgTaken=Math.max(0,t.dmgTaken-100);addLog("🤜 Mains Multi: "+t.name+" +100 PV !");}
+    }
+    else if(ch.type==="mains_dmg_target"){
+      const t=G.ai.field[payload];
+      if(t){t.dmgTaken+=100;addLog("🤜 Mains Multi: "+t.name+" −100 PV !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard(payload,false);stealPrestige("player",t.name+" détruit par Mains Multi !");}}
+    }
+    else if(ch.type==="elina_target"){
+      const t=G.ai.field[payload];
+      if(t){
+        const drain=100;
+        t.dmgTaken+=drain;
+        // Heal the player's Élina (or any robot)
+        const elina=G.player.field.find(c=>c&&c.id==="elinaprototype");
+        if(elina)elina.dmgTaken=Math.max(0,elina.dmgTaken-drain);
+        addLog("Élina: vole 100 PV à "+t.name+" !");
+        if(t.hp-t.dmgTaken<=0){killCard(payload,false);stealPrestige("player",t.name+" détruit par Élina !");}
+      }
+    }
+    else if(ch.type==="velocis_destroy"){
+      const t=G.ai.field[payload];
+      if(t&&(t.cost||0)<=3){
+        killCard(payload,false);stealPrestige("player",t.name+" détruit par Vélocis !");
+        addLog("Vélocis: "+t.name+" détruit !");
+      }
+    }
   }// fin else if(action==="pick")
   CHOICE=null;renderGame();
 };
@@ -4987,7 +5401,7 @@ window.doEndTurn=()=>{
     // ── DOTS: Apply player-side poison (effects on player chars at start of player turn) ──
     applyDotEffects("player");
     if(G.phase==="end"){renderGame();return;}
-    G.player.field.forEach(c=>{if(c)c.hasAttacked=false;});
+    G.player.field.forEach(c=>{if(c){c.hasAttacked=false;c._brasUsed=false;}});
     G.ai.field.forEach(c=>{if(c){c.hasAttacked=false;c.justPlayed=false;}});
     addLog("Tour "+G.turn+" — Votre tour!");
     checkTrioSynergy("player");
@@ -5000,6 +5414,40 @@ window.doEndTurn=()=>{
     G.egyptShield=false;
     G.artemisTarget=null;
     if(G.lieu&&G.lieu.id==="olympe")G.lieu.olympeUsedTurn=null;
+    // ── ROBOTS HUMANOÏDES — effets de début de tour ──
+    G._ignisUsed=false;// Reset Ignis bouclier
+    G._usineUsed=false;// Reset Usine de Production
+    G.robotShield=false;// Reset Robot shield (1x/tour)
+    G.robotShieldAi=false;
+    G.player.field.forEach(c=>{if(c)c._alpinoxTriggered=false;});// Reset Alpinox
+    // Florabot Jardinier: 1x/tour, soigne un allié de 100 PV (+ Robot +50 ATK)
+    const florabot=G.player.field.find(c=>c&&c.id==="florabotjardinier");
+    if(florabot){
+      const targets=G.player.field.filter(c=>c&&c.uid!==florabot.uid&&c.type==="personnage");
+      if(targets.length>0){
+        const t=targets[0];
+        t.dmgTaken=Math.max(0,t.dmgTaken-100);
+        if(t.faction==="Robots"){t.bonusAtk=(t.bonusAtk||0)+50;addLog("Florabot: "+t.name+" +100 PV +50 ATK !");}
+        else addLog("Florabot: "+t.name+" +100 PV !");
+      }
+    }
+    // Cathédrale Mère de l'IA: tous les Robots +100 ATK
+    if(G.lieu&&G.lieu.id==="cathedralemereia"){
+      G.player.field.forEach(c=>{if(c&&c.faction==="Robots"){G.fx.push({target:c.uid,bonus:100,type:"atk",endOfTurn:true});}});
+      addLog("🏛️ Cathédrale: tous les Robots +100 ATK ce tour !");
+    }
+    // Griffes de Plasma: -100 PV au porteur
+    G.player.field.forEach((c,i)=>{
+      if(!c)return;
+      const hasGriffes=eqs(G.player.equips,c.uid).find(e=>e&&e.id==="griffesplasma");
+      if(hasGriffes){
+        const ch2=curHp(c,G.player,G.fx,G.lieu);
+        if(ch2<=100){killCard(i,"player");stealPrestige("ai","Griffes de Plasma détruit "+c.name+" !");}
+        else{G.player.field[i]={...c,dmgTaken:(c.dmgTaken||0)+100};addLog("⚔️ Griffes de Plasma: "+c.name+" −100 PV (coût du pouvoir) !");}
+      }
+    });
+    // Bouclier Holographique expiry: retirer le bonus au tour adverse (G.turn = AI)
+    G.player.field.forEach(c=>{if(c&&c._bouclierholo&&G.turn>=c._bouclierholo){c.bonusHp=Math.max(0,(c.bonusHp||0)-400);c._bouclierholo=null;addLog("🛡️ Bouclier Holo: bonus PV expiré pour "+c.name);}}); 
     // Reset Ninja flags
     G.player.field.forEach(c=>{if(c){c._mokuProtected=false;c._yumiZero=false;c._canBypassField=false;c._technomaskUsed=false;}});
     G.maruTauntUid=null;G.marqueTarget=null;G.fumigUsedTurn=false;
