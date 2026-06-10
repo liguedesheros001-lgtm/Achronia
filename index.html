@@ -2734,6 +2734,8 @@ const LOCKED_FROM_POOL=new Set(["nalyaecume","bichecerynie","theonsacdor"]);
 const buildDraftDeck=deckId=>{
   const dk=DECKS[deckId];
   const factions=dk.factions;
+  // Calculer isCollBased d'abord
+  const isCollBased=dk.collectionBased||!isDeckStarterUnlocked(deckId);
   // Use custom deck if defined
   if(CUSTOM_DECKS[deckId]){
     const custom=CUSTOM_DECKS[deckId];
@@ -2753,7 +2755,6 @@ const buildDraftDeck=deckId=>{
     return shuffle(deck);
   }
   // Collection-based: non-starter decks play only with owned cards
-  const isCollBased=dk.collectionBased||!isDeckStarterUnlocked(deckId);
   if(isCollBased){
     const deck=[];
     for(const[type,count] of Object.entries(dk.slots)){
