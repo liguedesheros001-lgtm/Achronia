@@ -672,6 +672,10 @@ const CARDS = [
   {id:"meliadardruche",name:"Mélia Dard-de-Ruche",type:"personnage",atk:300,hp:450,cost:3,faction:"HommesInsectes",syn:"Mutant",effect:"À l'arrivée : pioche autant de cartes qu'il y a de personnages sur le terrain adverse."},
   // Zombies (nouvelle faction, catégorie Mutant)
   {id:"zombalooroidisco",name:"Zombaloo Roi du Disco",type:"personnage",atk:100,hp:200,cost:2,faction:"Zombies",syn:"Mutant",effect:"À l'arrivée : inflige 50 dégâts à tous les ennemis déjà blessés ; si aucun n'est blessé, inflige 100 dégâts à une cible ennemie aléatoire."},
+  // ── NOUVELLES CARTES (lot 2) ──
+  {id:"croqueplanete",name:"Croque-Planète",type:"personnage",atk:100,hp:150,cost:2,faction:"EntitesAstrales",effect:"À l'arrivée : donne +100 PV à un allié Entité Astrale.",syn:"Cosmos"},
+  {id:"veneapictoxine",name:"Vénéra Pic-de-Toxine",type:"personnage",atk:500,hp:100,cost:3,faction:"Empoisonneurs",effect:"Quand elle attaque un adversaire, cet adversaire est empoisonné (-20 PV/tour).",syn:"Venin"},
+  {id:"elythraolympe",name:"Elythra de l'Olympe",type:"personnage",atk:800,hp:1000,cost:9,faction:"Grecs",effect:"À l'arrivée : inflige 400 dégâts à tous les ennemis. Pour chaque ennemi détruit, gagne +100 ATK permanent.",syn:"Gloire"},
   // ── STEAMPUNK — Équipements ──
   {id:"lanceflammecharbon",name:"Lance-Flamme au Charbon",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 ATK. L'ennemi touche perd 100 PV au debut de son tour."},
   {id:"lunettesing",name:"Lunettes d'Ingénieur",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 PV."},
@@ -1088,7 +1092,8 @@ let CHRONO_AVATARS_CHECKED={};
 // NE cards for booster (18 cartes Nouvelle Ère)
 const NE_CARD_IDS=["astrelyadesconfins","akaiondefenseur","rokkhard","bichecerynie","theonsacdor","nalyaecume","diva09","meteioide4","omegacuirasse","glorb","nikocapuche","mordrak","spectrebarillet","gluardent","rictus","gardienspectral","papybraise","pistacheturbo",
   // Nouvelles cartes NE
-  "zetipedalelune","nyxaragladiatrice","morganemajorpromo","mackhramcoffrerouge","bartonunchakoups","rackhamrivetnoir","meilinombrelle","kromurgraffeur","bjirggrivrehaches","bjangpiedgrue","astradcyberfjord","doroslexile","alpixsecouriste","docrustine","spiderpunkpochtron","mollymeurage","maitrephyllobate","kaorabrisering","kiaracoupemangue","lumacueilleuse","meliadardruche","zombalooroidisco"];
+  "zetipedalelune","nyxaragladiatrice","morganemajorpromo","mackhramcoffrerouge","bartonunchakoups","rackhamrivetnoir","meilinombrelle","kromurgraffeur","bjirggrivrehaches","bjangpiedgrue","astradcyberfjord","doroslexile","alpixsecouriste","docrustine","spiderpunkpochtron","mollymeurage","maitrephyllobate","kaorabrisering","kiaracoupemangue","lumacueilleuse","meliadardruche","zombalooroidisco",
+  "croqueplanete","veneapictoxine","elythraolympe"];
 
 const openBoosterNE=()=>{
   const pack=SHOP_PACK_DEFS.find(p=>p.id==="booster");
@@ -1889,7 +1894,7 @@ window.doBuyPack=id=>{
 };
 
 // ── COLLECTION SCREEN ──────────────────────────────────
-const FACTION_ORDER=["Pirates","Vikings","Amazones","Egyptiens","Amerindiens","Grecs","Ninjas","Neutre","Robots","Extraterrestres","MagesNoirs","Fantomes","Pyromanes","MaîtresBêtes","DresseursDragons","Steampunk","Empoisonneurs","EntitesAstrales","Punk"];
+const FACTION_ORDER=["Pirates","Vikings","Amazones","Egyptiens","Amerindiens","Grecs","Ninjas","Neutre","Robots","Extraterrestres","MagesNoirs","Fantomes","Pyromanes","MaîtresBêtes","DresseursDragons","Steampunk","Empoisonneurs","EntitesAstrales","Punk","HommesInsectes","Zombies"];
 const FACTION_NAMES={Pirates:"⚓ Pirates",Vikings:"⚡ Vikings",Amazones:"🌿 Amazones",Egyptiens:"🏺 Égyptiens",Amerindiens:"🪶 Amérindiens",Grecs:"🏛️ Grecs",Ninjas:"🥷 Ninjas",Neutre:"⚪ Neutre",Robots:"🤖 Robots Humanoïdes",Extraterrestres:"👽 Extraterrestres",MagesNoirs:"🔮 Mages Noirs",Fantomes:"👻 Fantômes",Pyromanes:"🔥 Pyromanes","MaîtresBêtes":"🐾 Maîtres des Bêtes",DresseursDragons:"🐉 Dresseurs de Dragons",Steampunk:"⚙️ Steampunk",Empoisonneurs:"☠️ Empoisonneurs",EntitesAstrales:"✨ Entités Astrales",Punk:"🎸 Punk",HommesInsectes:"🦟 Hommes-Insectes",Zombies:"🧟 Zombies"};
 
 const renderCollection=()=>{
@@ -2736,18 +2741,23 @@ const buildDraftDeck=deckId=>{
   const factions=dk.factions;
   // Calculer isCollBased d'abord
   const isCollBased=dk.collectionBased||!isDeckStarterUnlocked(deckId);
-  // Use custom deck if defined
-  if(CUSTOM_DECKS[deckId]){
-    const custom=CUSTOM_DECKS[deckId];
+  // Use custom deck if defined AND non-vide
+  const customDk=CUSTOM_DECKS[deckId];
+  const customTotal=customDk?Object.values(customDk).reduce((a,v)=>a+(v?.length||0),0):0;
+  if(customDk&&customTotal>0){
     const SLOT_MAX2={personnage:20,lieu:2,action:10,equipement:8};
     const deck=[];
     for(const[type,max] of Object.entries(SLOT_MAX2)){
-      const selected=(custom[type]||[]).map(id=>CARDS.find(c=>c.id===id)).filter(Boolean);
-      const take=Math.min(selected.length,max);
-      selected.slice(0,take).forEach(c=>deck.push({...c}));
+      const selectedCards=(customDk[type]||[]).map(id=>CARDS.find(c=>c.id===id)).filter(Boolean);
+      const take=Math.min(selectedCards.length,max);
+      selectedCards.slice(0,take).forEach(c=>deck.push({
+        ...c,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,
+        hasAttacked:false,justPlayed:false,_poisoned:false,
+        _poisonParalysant:false,_repassuspec:false,_nikoProtectExpires:0
+      }));
       const remaining=max-take;
       if(remaining>0){
-        const usedIds=new Set(selected.map(c=>c.id));
+        const usedIds=new Set(selectedCards.map(c=>c.id));
         const pool=CARDS.filter(c=>c.type===type&&factions.includes(c.faction)&&!c.isFusion&&!c.isChronoLegendaire&&c.type!=="trophee"&&(isCollBased?(COLLECTION[c.id]||0)>0:true)&&!usedIds.has(c.id));
         deck.push(...draftSlot(pool,remaining));
       }
@@ -4041,7 +4051,7 @@ const renderChoiceModal=()=>{
 
   const titles={
     trio_grecs:"🏛️ Trio Grecs — Choisir un ennemi à geler",ile:"Ile aux Tresors",explosion:"Explosion",
-    nyxara_target:"👽 Nyxara — 100 dégâts à un ennemi coût ≤2",
+    croqueplanete_heal:"🌌 Croque-Planète — Choisir un allié Entité Astrale (+100 PV)",
     bjirg_target:"⚡ Bjirg — 200 dégâts + gel si survit",
     bjang_target:"⚡ Bjang — 100 dégâts + -100 ATK si survit",
     meiling_target1:"🔥 Mei-Lin — Choisir la 1ère cible (150 dégâts)",
@@ -4137,7 +4147,7 @@ const renderChoiceModal=()=>{
     marchenoir:"🏪 Marché Noir — Choisir une carte",
   };
 
-  const mandatoryTypes=["clankbeak","ile","dragon_venin","sylvara","ninja_trio_recall","olympe_choice","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","hurgan","lyra","malgor","crocsr","iskra","kaya","freyja","astrid","haldor","ylvabaies","petittorvald","corliss","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","meteioide4","spectrebarillet","rictus","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","garruk_target","kuro_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","danseuseesprits","passeurnil","pretressenil","hopliteargos","dionysos","meduse","eluzeus","sireneegeenne","colerara_sacr","colerara_tgt","auxportolympe","isis","reveilpharaon","regenerationnil","elina_target","velocis_destroy","calcultraj_ally","calcultraj_enemy","modeberserk","bouclierholo","virusinformatique","explosionbatterie","reprogrammationforcee","autodestruct_ally","autodestruct_enemy","transfertconscience","mains_choice","mains_heal_target","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_sacrif","morgane_destroy1","alpix_heal"];
+  const mandatoryTypes=["clankbeak","ile","dragon_venin","sylvara","ninja_trio_recall","olympe_choice","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","hurgan","lyra","malgor","crocsr","iskra","kaya","freyja","astrid","haldor","ylvabaies","petittorvald","corliss","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","meteioide4","spectrebarillet","rictus","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","garruk_target","kuro_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","danseuseesprits","passeurnil","pretressenil","hopliteargos","dionysos","meduse","eluzeus","sireneegeenne","colerara_sacr","colerara_tgt","auxportolympe","isis","reveilpharaon","regenerationnil","elina_target","velocis_destroy","calcultraj_ally","calcultraj_enemy","modeberserk","bouclierholo","virusinformatique","explosionbatterie","reprogrammationforcee","autodestruct_ally","autodestruct_enemy","transfertconscience","mains_choice","mains_heal_target","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_sacrif","morgane_destroy1","alpix_heal","croqueplanete_heal"];
   const hasClose=!mandatoryTypes.includes(ch.type);
   return `<div class="modal-bg" onclick="${hasClose?"closeChoice()":""}"><div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-title">${titles[ch.type]||ch.type}</div>
@@ -4541,6 +4551,8 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
         if(atk.id==="kaorabrisering"&&G.ai.field[tfi]){const kch=curHp(G.ai.field[tfi],G.ai,G.fx,G.lieu);if(kch>0){G.ai.field[tfi]={...G.ai.field[tfi],_frozen:true};addLog("Kaora: "+G.ai.field[tfi].name+" gelé !");}}
         // Spider-Punk Pochtron: kill ennemi coût ≥4 → pioche 1
         if(atk.id==="spiderpunkpochtron"&&G.ai.field[tfi]){const spch=curHp(G.ai.field[tfi],G.ai,G.fx,G.lieu);if(spch<=0&&(def.cost||0)>=4&&G.player.deck.length>0){G.player.hand.push(G.player.deck.shift());addLog("Spider-Punk: ennemi ≥4 tué → pioche 1 !");}}
+        // Vénéra Pic-de-Toxine: empoisonne l'ennemi attaqué (20 PV/tour)
+        if(atk.id==="veneapictoxine"&&G.ai.field[tfi]&&!G.ai.field[tfi]._poisoned){poisonChar("ai",G.ai.field[tfi].uid,20,-1);addLog("Vénéra: "+def.name+" empoisonné(e) (-20 PV/tour) !");}
         // Doros l'Exilé: +100 ATK vs Primitifs
         if(atk.id==="doroslexile"&&["Amazones","Amerindiens"].includes(def.faction)){G.fx.push({target:atk.uid,bonus:100,type:"atk",endOfTurn:true});addLog("Doros: +100 ATK contre Primitifs !");}
       }
@@ -4742,7 +4754,29 @@ const playCard=(cardUid,fi)=>{
     // nalyaecume: effet au combat
 
     // ── NOUVELLES CARTES — effets à l'arrivée ──
-    // Nyxara Gladiatrice: 100 dégâts à ennemi coût ≤2
+    // Croque-Planète: +100 PV à un allié Entité Astrale
+    if(card.id==="croqueplanete"){
+      const allies=G.player.field.filter(c=>c&&c.faction==="EntitesAstrales"&&c.uid!==placed.uid);
+      if(allies.length===1){allies[0].dmgTaken=Math.max(0,allies[0].dmgTaken-100);addLog("Croque-Planète: "+allies[0].name+" +100 PV !");}
+      else if(allies.length>1)setTimeout(()=>{CHOICE={type:"croqueplanete_heal",options:G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="EntitesAstrales"&&x.c.uid!==placed.uid)};renderGame();},100);
+      else addLog("Croque-Planète: aucun allié Entité Astrale !");
+    }
+    // Elythra de l'Olympe: 400 dégâts à tous les ennemis, +100 ATK par ennemi détruit
+    if(card.id==="elythraolympe"){
+      let kills=0;
+      const elyIdx=G.player.field.findIndex(c=>c&&c.uid===placed.uid);
+      [...G.ai.field].forEach((c,i)=>{
+        if(!c)return;
+        c.dmgTaken+=400;
+        const ch=curHp(c,G.ai,G.fx,G.lieu);
+        if(ch<=0){killCard("ai",i);stealPrestige("player","Elythra détruit "+c.name+"!");kills++;}
+        else addLog("Elythra: "+c.name+" -400 PV !");
+      });
+      if(kills>0&&elyIdx!==-1){
+        G.player.field[elyIdx]={...G.player.field[elyIdx],bonusAtk:(G.player.field[elyIdx].bonusAtk||0)+kills*100};
+        addLog("Elythra: +"+kills*100+" ATK ("+kills+" ennemi(s) détruit(s)) !");
+      }
+    }
     if(card.id==="nyxaragladiatrice"){
       const targets=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&(x.c.cost||0)<=2);
       if(targets.length)setTimeout(()=>{CHOICE={type:"nyxara_target",options:targets};renderGame();},100);
@@ -5421,6 +5455,9 @@ window.doChoice=(action,payload)=>{
     else if(ch.type==="labo_contrepoisons"){const c=G.player.field[payload];if(c){if(c._poisoned){G.dotEffects=G.dotEffects.filter(d=>d.uid!==c.uid);G.player.field[payload]={...c,_poisoned:false};addLog("🧬 Labo: "+c.name+" poison retiré !");}else{G.player.field[payload]={...c,dmgTaken:Math.max(0,(c.dmgTaken||0)-100)};addLog("🧬 Labo: "+c.name+" +100 PV!");}}}
     else if(ch.type==="equip_curse"){const t=G.ai.field[payload];if(t&&ch.cursedCard){if(!G.enemyEquips)G.enemyEquips=[];G.enemyEquips.push({id:ch.cursedCard.id,name:ch.cursedCard.name,targetUid:t.uid,side:"ai"});t._poisoned=true;// Apply immediate effect for Fiole
       if(ch.cursedCard.id==="fioletox"){G.dotEffects.push({uid:t.uid,side:"ai",dmgHp:100,turnsLeft:-1});}addLog(ch.cursedCard.name+" attaché à "+t.name+" !");}}
+    else if(ch.type==="croqueplanete_heal"){
+      const t=G.player.field[payload];if(t&&t.faction==="EntitesAstrales"){t.dmgTaken=Math.max(0,t.dmgTaken-100);addLog("Croque-Planète: "+t.name+" +100 PV !");}
+    }
     // ── NOUVELLES CARTES ──
     else if(ch.type==="nyxara_target"){
       const t=G.ai.field[payload];if(t&&(t.cost||0)<=2){t.dmgTaken+=100;addLog("Nyxara: "+t.name+" -100 PV !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard(payload,false);stealPrestige("player",t.name+" détruit !");}}
