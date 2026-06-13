@@ -2158,10 +2158,25 @@ window.dbToggleCard=(cardId)=>{
   const tab=DB_STATE.tab;
   const SLOT_MAX={personnage:20,lieu:2,action:10,equipement:8};
   const arr=DB_STATE.selected[tab];
-  const idx=arr.indexOf(cardId);
-  if(idx!==-1){arr.splice(idx,1);}
-  else{
-    const max=SLOT_MAX[tab]||20;
+  const max=SLOT_MAX[tab]||20;
+  const dk=DECKS[DB_STATE.deckId];
+  const isCollBased2=dk&&(dk.collectionBased||!isDeckStarterUnlocked(DB_STATE.deckId));
+  const owned=COLLECTION[cardId]||0;
+  const alreadySelected=arr.filter(id=>id===cardId).length;
+
+  if(alreadySelected>0){
+    // Si toutes les copies possédées sont déjà sélectionnées (ou deck starter) → désélectionner une
+    if(isCollBased2&&alreadySelected>=owned){
+      arr.splice(arr.lastIndexOf(cardId),1);
+    } else if(!isCollBased2&&alreadySelected>=3){
+      // Starter : max 3 copies par carte
+      arr.splice(arr.lastIndexOf(cardId),1);
+    } else {
+      // Ajouter une copie de plus
+      if(arr.length>=max){showNotif(`Maximum ${max} ${tab}s !`,"#ff4444","⚠️");return;}
+      arr.push(cardId);
+    }
+  } else {
     if(arr.length>=max){showNotif(`Maximum ${max} ${tab}s !`,"#ff4444","⚠️");return;}
     arr.push(cardId);
   }
@@ -2190,11 +2205,12 @@ const renderDeckBuilder=()=>{
   const tabColors={personnage:"#4a9eff",lieu:"#44cc88",action:"#ff6644",equipement:"#f0a500"};
 
   const isCollBased=dk.collectionBased||!isDeckStarterUnlocked(deckId);
+  const builderFactions=[...factions,"Neutre"];// Toujours proposer les cartes Neutres
 
   // Cards available in this tab
   const pool=CARDS.filter(c=>
     c.type===tab&&
-    factions.includes(c.faction)&&
+    builderFactions.includes(c.faction)&&
     !c.isFusion&&!c.isChronoLegendaire&&c.type!=="trophee"&&
     // Starter decks: toutes les cartes faction. Collection-based: uniquement possédées
     (!isCollBased||((COLLECTION[c.id]||0)>0))
@@ -2207,13 +2223,17 @@ const renderDeckBuilder=()=>{
     const owned=COLLECTION[c.id]||0;
     const isOwned=owned>0;
     const isSelected=selArr.includes(c.id);
+    const selCount=selArr.filter(id=>id===c.id).length;
     const col=tabColors[tab];
+    const maxCopies=isCollBased?owned:3;
+    const allUsed=selCount>=maxCopies&&isCollBased;
     return`<div onclick="dbToggleCard('${c.id}')" style="cursor:pointer;width:80px;text-align:center;position:relative">
-      <div style="width:80px;height:112px;border-radius:7px;border:3px solid ${isSelected?col:isOwned?'#1a3a2a':'#1a2030'};overflow:hidden;background:#0a1020;transition:all 0.15s;transform:${isSelected?'scale(1.05)':'scale(1)'};box-shadow:${isSelected?`0 0 12px ${col}88`:'none'};opacity:${isOwned||isSelected?1:0.5}">
+      <div style="width:80px;height:112px;border-radius:7px;border:3px solid ${isSelected?col:isOwned?'#1a3a2a':'#1a2030'};overflow:hidden;background:#0a1020;transition:all 0.15s;transform:${isSelected?'scale(1.05)':'scale(1)'};box-shadow:${isSelected?`0 0 12px ${col}88`:'none'};opacity:${isOwned||!isCollBased?1:0.4}">
         <img src="cards/${c.id}.png" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='<div style=font-size:28px;padding:32px 22px;color:#334>${c.type==="personnage"?"⚔":"✨"}</div>'">
-        ${isSelected?`<div style="position:absolute;top:3px;right:3px;background:${col};color:#000;font-size:9px;font-weight:bold;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center">✓</div>`:""}
+        ${selCount>0?`<div style="position:absolute;top:3px;right:3px;background:${col};color:#000;font-size:10px;font-weight:bold;border-radius:10px;padding:1px 5px;min-width:18px;text-align:center">×${selCount}</div>`:""}
+        ${isCollBased&&owned>1?`<div style="position:absolute;bottom:3px;right:3px;background:#1a2030cc;color:#888;font-size:8px;border-radius:4px;padding:1px 4px">×${owned}</div>`:""}
         ${!isOwned&&!isCollBased?`<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);font-size:7px;color:#556;text-align:center;padding:2px">non possédée</div>`:""}
-        ${owned>=2?`<div style="position:absolute;bottom:3px;right:3px;background:#223;color:#aaa;font-size:8px;border-radius:6px;padding:1px 4px">×${owned}</div>`:""}
+        ${allUsed?`<div style="position:absolute;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;font-size:20px">✅</div>`:""}
       </div>
       <div style="font-size:8px;color:${isSelected?col:isOwned?'#889':'#445'};margin-top:2px;line-height:1.2;max-height:28px;overflow:hidden">${c.name}</div>
       ${c.cost?`<div style="font-size:8px;color:#445">★${c.cost}</div>`:""}
@@ -2748,6 +2768,7 @@ const buildDraftDeck=deckId=>{
     const SLOT_MAX2={personnage:20,lieu:2,action:10,equipement:8};
     const deck=[];
     for(const[type,max] of Object.entries(SLOT_MAX2)){
+      // 1. Cartes sélectionnées manuellement
       const selectedCards=(customDk[type]||[]).map(id=>CARDS.find(c=>c.id===id)).filter(Boolean);
       const take=Math.min(selectedCards.length,max);
       selectedCards.slice(0,take).forEach(c=>deck.push({
@@ -2755,11 +2776,29 @@ const buildDraftDeck=deckId=>{
         hasAttacked:false,justPlayed:false,_poisoned:false,
         _poisonParalysant:false,_repassuspec:false,_nikoProtectExpires:0
       }));
+      // 2. Auto-complétion avec doublons et cartes Neutres
       const remaining=max-take;
       if(remaining>0){
-        const usedIds=new Set(selectedCards.map(c=>c.id));
-        const pool=CARDS.filter(c=>c.type===type&&factions.includes(c.faction)&&!c.isFusion&&!c.isChronoLegendaire&&c.type!=="trophee"&&(isCollBased?(COLLECTION[c.id]||0)>0:true)&&!usedIds.has(c.id));
-        deck.push(...draftSlot(pool,remaining));
+        // Compter combien de fois chaque carte est déjà utilisée
+        const usedCount={};
+        selectedCards.slice(0,take).forEach(c=>{usedCount[c.id]=(usedCount[c.id]||0)+1;});
+        // Pool élargi : faction du deck + Neutre
+        const allFactions=[...factions,"Neutre"];
+        // Cartes disponibles avec doublons
+        const candidates=CARDS.filter(c=>
+          c.type===type&&allFactions.includes(c.faction)&&
+          !c.isFusion&&!c.isChronoLegendaire&&c.type!=="trophee"&&
+          (isCollBased?(COLLECTION[c.id]||0)>0:true)
+        );
+        // Construire un pool avec copies selon collection
+        const fillPool=[];
+        candidates.forEach(c=>{
+          const owned=isCollBased?(COLLECTION[c.id]||0):3;
+          const alreadyUsed=usedCount[c.id]||0;
+          const extra=Math.max(0,owned-alreadyUsed);
+          for(let i=0;i<extra;i++)fillPool.push(c);
+        });
+        deck.push(...draftSlot(fillPool,remaining));
       }
     }
     return shuffle(deck);
