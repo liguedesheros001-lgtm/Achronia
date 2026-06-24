@@ -209,7 +209,7 @@ const CARDS = [
   {id:"surcroit",name:"Surcroit de vitalite",type:"action",cost:0,faction:"Neutre",effect:"Un personnage +200 PV."},
   {id:"volpuissance",name:"Vol de puissance",type:"action",cost:0,faction:"Neutre",effect:"Allie +200 ATK. Ennemi -200 ATK ce tour."},
   {id:"retourinattendu",name:"Retour inattendu",type:"action",cost:0,faction:"Neutre",effect:"1 personnage de la defausse en main."},
-  {id:"fusion_card",name:"Fusion",type:"action",cost:0,faction:"Neutre",effect:"Kraken + Clankbeak => Squawkbeard."},
+  {id:"fusion_card",name:"Fusion",type:"action",cost:0,faction:"Neutre",effect:"Fusionne 2 cartes compatibles (en main ou sur le terrain) si le tour est suffisant. Ex: Kraken + Clankbeak => Squawkbeard."},
   {id:"briseurarcanes",name:"Briseur d'Arcanes",type:"action",cost:0,faction:"Neutre",effect:"Annule la prochaine action adverse."},
   {id:"cataclysme",name:"Cataclysme Celeste",type:"action",cost:0,faction:"Neutre",effect:"Detruisez 1 Lieu."},
   {id:"echangerisque",name:"Echange Risque",type:"action",cost:0,faction:"Neutre",effect:"Detruisez 1 Lieu."},
@@ -573,6 +573,19 @@ const CARDS = [
   {id:"thalorcyberdivin",name:"Thalor Cyberdivin",type:"personnage",atk:550,hp:550,cost:10,faction:"Grecs",isChronoLegendaire:true,chronoGrade:10,effect:"Quand il attaque, inflige 1000 dégâts supplémentaires à une carte ennemie que tu sélectionnes.",syn:"Gloire"},
   // Thalor Avatar — carte trophée, pas jouable (débloquée auto quand tous les Grecs CL obtenus)
   {id:"thaloravatar",name:"Thalor Avatar de l'Olympe",type:"trophee",faction:"Grecs",isChronoLegendaire:true,isAvatar:true,chronoGrade:0,effect:"Thalor a porté la lance d'Olympe à travers les siècles, affrontant rois, monstres, machines et dieux oubliés. À chaque époque traversée, son corps s'est chargé d'une nouvelle puissance, jusqu'à devenir plus qu'un héros : un avatar vivant de la volonté divine."},
+  // ── CHRONO-LÉGENDAIRES — Amérindiens ──
+  {id:"nahkopisteur",name:"Nahko le Pisteur",type:"personnage",atk:100,hp:100,cost:1,faction:"Amerindiens",isChronoLegendaire:true,chronoGrade:1,effect:"Après avoir attaqué : +100 PV à un allié Amérindien.",syn:"Terre"},
+  {id:"nahkoarcherplaines",name:"Nahko Archer des Plaines",type:"personnage",atk:200,hp:200,cost:2,faction:"Amerindiens",isChronoLegendaire:true,chronoGrade:2,effect:"Après avoir attaqué : +200 PV à un allié Amérindien.",syn:"Terre"},
+  {id:"nahkogardien",name:"Nahko le Gardien",type:"personnage",atk:300,hp:300,cost:3,faction:"Amerindiens",isChronoLegendaire:true,chronoGrade:3,effect:"Après avoir attaqué : +300 PV à un allié Amérindien.",syn:"Terre"},
+  {id:"nahkoporteesprit",name:"Nahko Porte-Esprit",type:"personnage",atk:400,hp:400,cost:4,faction:"Amerindiens",isChronoLegendaire:true,chronoGrade:4,effect:"Après avoir attaqué : +400 PV à un allié Amérindien.",syn:"Terre"},
+  {id:"nahkovoixterres",name:"Nahko Voix des Terres",type:"personnage",atk:500,hp:500,cost:5,faction:"Amerindiens",isChronoLegendaire:true,chronoGrade:5,effect:"Après avoir attaqué : +500 PV à un allié Amérindien.",syn:"Terre"},
+  {id:"nahkoeclaireur",name:"Nahko Éclaireur",type:"personnage",atk:600,hp:600,cost:6,faction:"Amerindiens",isChronoLegendaire:true,chronoGrade:6,effect:"Après avoir attaqué : +600 PV à un allié Amérindien.",syn:"Terre"},
+  {id:"nahkoombrerues",name:"Nahko Ombre des Rues",type:"personnage",atk:700,hp:700,cost:7,faction:"Amerindiens",isChronoLegendaire:true,chronoGrade:7,effect:"Après avoir attaqué : +700 PV à un allié Amérindien.",syn:"Terre"},
+  {id:"nahkoprotecteur",name:"Nahko Protecteur",type:"personnage",atk:800,hp:800,cost:8,faction:"Amerindiens",isChronoLegendaire:true,chronoGrade:8,effect:"Après avoir attaqué : +800 PV à un allié Amérindien.",syn:"Terre"},
+  {id:"nahkodernierchaman",name:"Nahko Dernier Chaman",type:"personnage",atk:900,hp:900,cost:9,faction:"Amerindiens",isChronoLegendaire:true,chronoGrade:9,effect:"Après avoir attaqué : +900 PV à un allié Amérindien.",syn:"Terre"},
+  {id:"nahkototemcyber",name:"Nahko Totem Cyber",type:"personnage",atk:1000,hp:1000,cost:10,faction:"Amerindiens",isChronoLegendaire:true,chronoGrade:10,effect:"Après avoir attaqué : +1000 PV à un allié Amérindien.",syn:"Terre"},
+  // Nahko Avatar — trophée, débloqué quand tous les CL Amérindiens sont obtenus
+  {id:"nahkograndesprit",name:"Nahko Grand Esprit",type:"trophee",faction:"Amerindiens",isChronoLegendaire:true,isAvatar:true,chronoGrade:0,effect:"Nahko a traversé les âges en suivant la voix des anciens esprits, protégeant la terre même lorsque les royaumes, les machines et les mondes s'effondraient. À force de porter la mémoire des peuples oubliés, il n'est plus seulement un guerrier : il est devenu un totem vivant."},
   // ── CHRONO-LÉGENDAIRES — Amazones (fichiers: 20.png … 30.png) ──
   {id:"kalarachasseresse",name:"Kalara Chasseresse",type:"personnage",atk:100,hp:100,cost:1,faction:"Amazones",isChronoLegendaire:true,chronoGrade:1,effect:"À l'arrivée : gagne +50 ATQ pour chaque carte amazone de coût 1 sur ton terrain ou ta défausse.",syn:"Jungle"},
   {id:"kalaralance",name:"Kalara Lance Antique",type:"personnage",atk:150,hp:150,cost:2,faction:"Amazones",isChronoLegendaire:true,chronoGrade:2,effect:"À l'arrivée : gagne +100 ATQ pour chaque carte amazone de coût 2 sur ton terrain ou ta défausse.",syn:"Jungle"},
@@ -676,6 +689,21 @@ const CARDS = [
   {id:"croqueplanete",name:"Croque-Planète",type:"personnage",atk:100,hp:150,cost:2,faction:"EntitesAstrales",effect:"À l'arrivée : donne +100 PV à un allié Entité Astrale.",syn:"Cosmos"},
   {id:"veneapictoxine",name:"Vénéra Pic-de-Toxine",type:"personnage",atk:500,hp:100,cost:3,faction:"Empoisonneurs",effect:"Quand elle attaque un adversaire, cet adversaire est empoisonné (-20 PV/tour).",syn:"Venin"},
   {id:"elythraolympe",name:"Elythra de l'Olympe",type:"personnage",atk:800,hp:1000,cost:9,faction:"Grecs",effect:"À l'arrivée : inflige 400 dégâts à tous les ennemis. Pour chaque ennemi détruit, gagne +100 ATK permanent.",syn:"Gloire"},
+  // ── NOUVELLES CARTES (lot 3) ──
+  {id:"saryamuseauecume",name:"Sarya Museau-d'Écume",type:"personnage",atk:400,hp:100,cost:3,faction:"MaîtresBêtes",effect:"Ne peut pas être détruite par la première attaque qu'elle subit.",syn:"Sauvage"},
+  {id:"nikandroslecaille",name:"Nikandros l'Écaille",type:"personnage",atk:50,hp:200,cost:2,faction:"Grecs",effect:"À l'arrivée : inflige 100 dégâts à un ennemi choisi ; s'il survit, gagne +100 PV.",syn:"Gloire"},
+  {id:"aiyanapeaudours",name:"Aiyana Peau-d'Ours",type:"personnage",atk:500,hp:500,cost:5,faction:"Amerindiens",effect:"Chaque fois qu'elle subit des dégâts, gagne +50 ATK.",syn:"Terre"},
+  {id:"morvanfletriracine",name:"Morvan Flétriracine",type:"personnage",atk:50,hp:50,cost:1,faction:"MagesNoirs",effect:"Gagne +100 ATK pendant le combat contre un personnage de faction Primitifs (Amazones ou Amérindiens).",syn:"Arcane"},
+  {id:"nebkharcavalier",name:"Neb-Khar Cavalier",type:"personnage",atk:50,hp:450,cost:3,faction:"Egyptiens",effect:"Gagne +100 PV s'il y a au moins un personnage Zombie sur le terrain (allié ou ennemi).",syn:"Pharaon"},
+  {id:"rouageecran",name:"Rouage-Écran",type:"personnage",atk:50,hp:600,cost:4,faction:"Steampunk",effect:"À l'arrivée : regarde la 1ère carte du deck, remets-la au-dessus ou en-dessous.",syn:"Engrenage"},
+  {id:"yaradansefjord",name:"Yara Danse-Fjord",type:"personnage",atk:200,hp:700,cost:5,faction:"Vikings",effect:"À l'arrivée : inflige 100 dégâts à une unité choisie.",syn:"Clan"},
+  // ── NOUVELLES CARTES (lot 4) ──
+  {id:"destructiontotale",name:"Destruction Totale",type:"action",cost:0,neCost:5,faction:"Neutre",effect:"Détruit un personnage adverse de ton choix."},
+  {id:"fouilleobjet",name:"Fouille d'Objet",type:"action",cost:0,neCost:2,faction:"Neutre",effect:"Cherche une carte Équipement dans ton deck et ajoute-la à ta main."},
+  {id:"calystapeaubronze",name:"Calysta Peau Bronze",type:"personnage",atk:100,hp:300,cost:2,faction:"Grecs",effect:"Quand elle est attaquée, inflige 50 dégâts à l'attaquant.",syn:"Gloire"},
+  {id:"asclepiosportebaton",name:"Asclépios Porte-Bâton",type:"personnage",atk:500,hp:350,cost:4,faction:"Grecs",effect:"À l'arrivée : soigne un allié Grec de 200 PV ; si déjà blessé, +100 ATK jusqu'au prochain tour.",syn:"Gloire"},
+  {id:"selenemidiable",name:"Sélène Mi-Diable",type:"personnage",atk:100,hp:500,cost:4,faction:"Pyromanes",effect:"À l'arrivée : tous les ennemis ne peuvent pas attaquer au prochain tour.",syn:"Flamme"},
+  {id:"aliblaze",name:"Ali Blaze",type:"personnage",atk:100,hp:400,cost:3,neCost:5,faction:"Pyromanes",effect:"À l'arrivée : 400 dégâts à un ennemi ; si détruit, 200 dégâts à un autre ennemi.",syn:"Flamme"},
   // ── STEAMPUNK — Équipements ──
   {id:"lanceflammecharbon",name:"Lance-Flamme au Charbon",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 ATK. L'ennemi touche perd 100 PV au debut de son tour."},
   {id:"lunettesing",name:"Lunettes d'Ingénieur",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 PV."},
@@ -970,8 +998,20 @@ const CHRONO_LEGENDAIRES={
     {id:"kalarareineruines",grade:9},
     {id:"kalaracyberguerriere",grade:10},
   ],
+  Amerindiens:[
+    {id:"nahkopisteur",grade:1},
+    {id:"nahkoarcherplaines",grade:2},
+    {id:"nahkogardien",grade:3},
+    {id:"nahkoporteesprit",grade:4},
+    {id:"nahkovoixterres",grade:5},
+    {id:"nahkoeclaireur",grade:6},
+    {id:"nahkoombrerues",grade:7},
+    {id:"nahkoprotecteur",grade:8},
+    {id:"nahkodernierchaman",grade:9},
+    {id:"nahkototemcyber",grade:10},
+  ],
 };
-const CHRONO_AVATAR={Grecs:"thaloravatar",Amazones:"kalaradeesse"};
+const CHRONO_AVATAR={Grecs:"thaloravatar",Amazones:"kalaradeesse",Amerindiens:"nahkograndesprit"};
 
 // Grades state: {faction: currentGrade (0–10)}
 let GRADES={};
@@ -1093,19 +1133,21 @@ let CHRONO_AVATARS_CHECKED={};
 const NE_CARD_IDS=["astrelyadesconfins","akaiondefenseur","rokkhard","bichecerynie","theonsacdor","nalyaecume","diva09","meteioide4","omegacuirasse","glorb","nikocapuche","mordrak","spectrebarillet","gluardent","rictus","gardienspectral","papybraise","pistacheturbo",
   // Nouvelles cartes NE
   "zetipedalelune","nyxaragladiatrice","morganemajorpromo","mackhramcoffrerouge","bartonunchakoups","rackhamrivetnoir","meilinombrelle","kromurgraffeur","bjirggrivrehaches","bjangpiedgrue","astradcyberfjord","doroslexile","alpixsecouriste","docrustine","spiderpunkpochtron","mollymeurage","maitrephyllobate","kaorabrisering","kiaracoupemangue","lumacueilleuse","meliadardruche","zombalooroidisco",
-  "croqueplanete","veneapictoxine","elythraolympe"];
+  "croqueplanete","veneapictoxine","elythraolympe",
+  "saryamuseauecume","nikandroslecaille","aiyanapeaudours","morvanfletriracine","nebkharcavalier","rouageecran","yaradansefjord",
+  "destructiontotale","fouilleobjet","calystapeaubronze","asclepiosportebaton","selenemidiable","aliblaze"];
 
 const openBoosterNE=()=>{
   const pack=SHOP_PACK_DEFS.find(p=>p.id==="booster");
   if(!pack)return null;
   if(PLAYER_STATS.coins<pack.price)return{error:"Pas assez de pièces !"};
 
-  // Pick 4 cards based on cost tiers
+  // Pick 4 cards based on cost tiers (neCost permet de surclasser le coût réel pour le drop)
   const neCards=CARDS.filter(c=>NE_CARD_IDS.includes(c.id));
-  const tier1=neCards.filter(c=>(c.cost||0)>=1&&(c.cost||0)<=3);
-  const tier2=neCards.filter(c=>(c.cost||0)>=4&&(c.cost||0)<=6);
-  const tier3=neCards.filter(c=>(c.cost||0)>=7&&(c.cost||0)<=9);
-  const tier4=neCards.filter(c=>(c.cost||0)>=10);
+  const tier1=neCards.filter(c=>(c.neCost||c.cost||0)>=1&&(c.neCost||c.cost||0)<=3);
+  const tier2=neCards.filter(c=>(c.neCost||c.cost||0)>=4&&(c.neCost||c.cost||0)<=6);
+  const tier3=neCards.filter(c=>(c.neCost||c.cost||0)>=7&&(c.neCost||c.cost||0)<=9);
+  const tier4=neCards.filter(c=>(c.neCost||c.cost||0)>=10);
   const pickTier=()=>{
     const r=Math.random();
     if(r<0.59)return tier1;
@@ -1380,22 +1422,23 @@ const checkTrioSynergy=(who)=>{
     } else if(faction==="MagesNoirs"){
       const tgt=G[en].field.filter(c=>c);if(tgt.length){const t=tgt.reduce((a,b)=>calcAtk(b,G[en],G.fx,G.lieu,!isP)>calcAtk(a,G[en],G.fx,G.lieu,!isP)?b:a);G.fx.push({target:t.uid,bonus:-200,type:"atk",endOfTurn:true});addLog("🔮 TRIO MAGES NOIRS ! "+t.name+" -200 ATK !");}
     } else if(faction==="Fantomes"){
-      if(isP){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length)setTimeout(()=>{CHOICE={type:"trio_grecs",options:opts};renderGame();},400);}else{const si=G.player.field.findIndex(c=>c);if(si!==-1){G.frozenChars.push(G.player.field[si].uid);addLog("👻 TRIO FANTÔMES IA ! "+G.player.field[si].name+" gelé !");}}
+      if(isP){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length)setTimeout(()=>{CHOICE={type:"trio_grecs",options:opts,trioLabel:"👻 TRIO FANTÔMES"};renderGame();},400);}else{const si=G.player.field.findIndex(c=>c);if(si!==-1){G.frozenChars.push(G.player.field[si].uid);addLog("👻 TRIO FANTÔMES IA ! "+G.player.field[si].name+" gelé !");}}
     } else if(faction==="Pyromanes"){
       [...G[en].field].forEach((c,i)=>{if(!c||!G[en].field[i])return;const ch=curHp(G[en].field[i],G[en],G.fx,G.lieu);if(150>=ch){killCard(en,i);stealPrestige(who,"Trio Pyromanes détruit "+c.name+"!");}else{G[en].field[i]={...G[en].field[i],dmgTaken:(G[en].field[i].dmgTaken||0)+150};addLog("🔥 Trio Pyromanes: "+c.name+" -150 PV!");}});
     } else if(faction==="MaîtresBêtes"){
-      const al=side.field.filter(c=>c);if(al.length){const strongest=al.reduce((a,b)=>calcAtk(b,G[who],G.fx,G.lieu,isP)>calcAtk(a,G[who],G.fx,G.lieu,isP)?b:a);strongest.bonusHp=(strongest.bonusHp||0)+200;addLog("🐾 TRIO MAÎTRES ! "+strongest.name+" +200 PV !");}
+      const al=side.field.filter(c=>c&&!c._maitresBetesTrioBonus);
+      if(al.length){const strongest=al.reduce((a,b)=>calcAtk(b,G[who],G.fx,G.lieu,isP)>calcAtk(a,G[who],G.fx,G.lieu,isP)?b:a);strongest.bonusHp=(strongest.bonusHp||0)+200;strongest._maitresBetesTrioBonus=true;addLog("🐾 TRIO MAÎTRES ! "+strongest.name+" +200 PV !");}
     } else if(faction==="DresseursDragons"){
       G.papyActive=true;addLog("🐉 TRIO DRESSEURS ! Prochain Dresseur allié +200 PV !");
     } else if(faction==="Steampunk"){
-      // Ingénierie Collective: Steampunk équipés +150 PV
+      // Ingénierie Collective: Steampunk équipés +150 PV (1x par carte, pas de cumul si le trio reste actif plusieurs tours)
       let n=0;
       side.field.forEach((c,i)=>{
-        if(c&&c.faction==="Steampunk"&&eqs(G[who].equips,c.uid).some(e=>e)){
-          c.bonusHp=(c.bonusHp||0)+150;n++;
+        if(c&&c.faction==="Steampunk"&&!c._steampunkTrioBonus&&eqs(G[who].equips,c.uid).some(e=>e)){
+          c.bonusHp=(c.bonusHp||0)+150;c._steampunkTrioBonus=true;n++;
         }
       });
-      addLog("⚙️ TRIO STEAMPUNK — Ingénierie Collective ! "+n+" Steampunk équipé(s) +150 PV !");
+      if(n>0)addLog("⚙️ TRIO STEAMPUNK — Ingénierie Collective ! "+n+" Steampunk équipé(s) +150 PV !");
     } else if(faction==="Empoisonneurs"){
       // Trio Empoisonneurs: passif actif — quand un ennemi est empoisonné, un autre perd 50 PV
       if(isP){G.empoisonneurTrio=true;addLog("☠️ TRIO EMPOISONNEURS actif ! Chaque ennemi empoisonné propagera 50 PV à un autre !");}
@@ -2183,6 +2226,19 @@ window.dbToggleCard=(cardId)=>{
   render();
 };
 
+window.dbToggleCL=(cardId)=>{
+  const arr=DB_STATE.selected.personnage;
+  const clSelected=arr.filter(id=>{const c=CARDS.find(x=>x.id===id);return c&&c.isChronoLegendaire;});
+  const idx=arr.indexOf(cardId);
+  if(idx!==-1){arr.splice(idx,1);}
+  else{
+    if(clSelected.length>=3){showNotif("Maximum 3 Chrono-Légendaires par deck !","#cc88ff","✨");return;}
+    if(arr.length>=20){showNotif("Maximum 20 personnages !","#ff4444","⚠️");return;}
+    arr.push(cardId);
+  }
+  render();
+};
+
 window.dbSave=()=>{
   CUSTOM_DECKS[DB_STATE.deckId]=JSON.parse(JSON.stringify(DB_STATE.selected));
   saveCustomDecks();
@@ -2257,6 +2313,21 @@ const renderDeckBuilder=()=>{
     </button>`;
   }).join("");
 
+  // ── Chrono-Légendaires disponibles pour ce deck ──
+  const clPool=tab==="personnage"?CARDS.filter(c=>
+    c.isChronoLegendaire&&factions.includes(c.faction)&&(COLLECTION[c.id]||0)>0
+  ).sort((a,b)=>(a.chronoGrade||0)-(b.chronoGrade||0)):[];
+  const clSelectedCount=(selected.personnage||[]).filter(id=>{const c=CARDS.find(x=>x.id===id);return c&&c.isChronoLegendaire;}).length;
+  const clSection=clPool.length?`<div style="width:100%;margin-top:16px;border-top:1px solid #cc88ff33;padding-top:12px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:0 4px">
+      <span style="font-size:12px;color:#cc88ff;font-weight:bold">✨ Chrono-Légendaires possédées</span>
+      <span style="font-size:10px;background:#33003366;border:1px solid #cc88ff55;border-radius:8px;padding:2px 8px;color:#cc88ff">${clSelectedCount}/3 max</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
+      ${clPool.map(c=>{const isCLSelected=(selected.personnage||[]).includes(c.id);return`<div onclick="dbToggleCL('${c.id}')" style="cursor:pointer;width:80px;text-align:center;position:relative"><div style="width:80px;height:112px;border-radius:7px;border:3px solid ${isCLSelected?'#cc88ff':'#331a55'};overflow:hidden;background:#0a0515;transition:all 0.15s;transform:${isCLSelected?'scale(1.05)':'scale(1)'};box-shadow:${isCLSelected?'0 0 16px #cc88ff88':'none'}"><img src="cards/${c.id}.png" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='<div style=font-size:28px;padding:32px 22px;color:#443>✨</div>'">${isCLSelected?`<div style="position:absolute;top:3px;right:3px;background:#cc88ff;color:#000;font-size:9px;font-weight:bold;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center">✓</div>`:""}<div style="position:absolute;bottom:2px;left:2px;background:#33003388;border-radius:4px;padding:1px 4px;font-size:7px;color:#cc88ff">G${c.chronoGrade}</div></div><div style="font-size:8px;color:${isCLSelected?'#cc88ff':'#667'};margin-top:2px;line-height:1.2;max-height:28px;overflow:hidden">${c.name}</div></div>`;}).join("")}
+    </div>
+  </div>`:"";
+
   $("app").innerHTML=`<div style="min-height:100vh;background:linear-gradient(160deg,#050e1a,#0a1628);display:flex;flex-direction:column;max-width:700px;margin:0 auto;padding:16px">
     <!-- Header -->
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
@@ -2274,7 +2345,8 @@ const renderDeckBuilder=()=>{
     </div>
     <!-- Card grid -->
     <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;flex:1;overflow-y:auto;padding-bottom:80px">
-      ${pool.length?cardGrid:`<div style="color:#334;font-size:13px;padding:40px;text-align:center">Aucune carte ${tab} de type ${factions.join('/')} dans ta collection</div>`}
+      ${pool.length?cardGrid:`<div style="color:#334;font-size:13px;padding:40px;text-align:center">Aucune carte ${tab} dans ce deck</div>`}
+      ${tab==="personnage"?clSection:""}
     </div>
     <!-- Footer actions -->
     <div style="position:fixed;bottom:0;left:0;right:0;background:rgba(5,14,26,0.97);border-top:1px solid #1a2a3a;padding:12px 16px;display:flex;gap:10px;justify-content:center;max-width:700px;margin:0 auto">
@@ -2770,6 +2842,8 @@ const buildDraftDeck=deckId=>{
     for(const[type,max] of Object.entries(SLOT_MAX2)){
       // 1. Cartes sélectionnées manuellement
       const selectedCards=(customDk[type]||[]).map(id=>CARDS.find(c=>c.id===id)).filter(Boolean);
+      // CL cards (in personnage slot only): included if selected
+      const isCLfiltered=type!=="personnage";
       const take=Math.min(selectedCards.length,max);
       selectedCards.slice(0,take).forEach(c=>deck.push({
         ...c,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,
@@ -2947,6 +3021,11 @@ const maxHp=(card,side,fx,lieu)=>{
     const sceptre=eq.find(e=>e.id==="sceptreanubis");if(sceptre)b+=card.cost<=3?300:100;
     if(eq.find(e=>e.id==="bouclierscara"))b+=200;
     if(eq.find(e=>e.id==="oeilhorus"))b+=100;
+    // Neb-Khar Cavalier: +100 PV si au moins un Zombie sur le terrain (allié ou ennemi)
+    if(card.id==="nebkharcavalier"){
+      const zombiePresent=(G?.player?.field||[]).some(c=>c&&c.faction==="Zombies")||(G?.ai?.field||[]).some(c=>c&&c.faction==="Zombies");
+      if(zombiePresent)b+=100;
+    }
   }
   if(card.faction==="Amerindiens"){
     if((side.field||[]).find(c=>c&&c.id==="grandcheftotem"&&c.uid!==card.uid))b+=150;
@@ -4002,6 +4081,10 @@ const renderChoiceModal=()=>{
     content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${myCardGrid(ch.myOpts)}</div>`;
   } else if(ch.type==="volpuissance_en"){
     content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${enCardGrid(ch.enOpts)}</div>`;
+  } else if(ch.type==="duelheros_my"){
+    content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${myCardGrid(ch.myOpts)}</div>`;
+  } else if(ch.type==="duelheros_en"){
+    content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${enCardGrid(ch.enOpts)}</div>`;
   } else if(ch.type==="signauxfumee"){
     content=`<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">${(ch.cards||[]).map((c,i)=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;text-align:center">${cardHTML(c,"hand")}<div style="font-size:9px;color:#c87820;margin-top:4px">Garder en main</div><div style="font-size:8px;color:#aac">${c.name}</div></div>`).join("")}</div><div style="text-align:center;font-size:10px;color:#667;margin-top:8px">Les autres remises sous le deck.</div>`;
   } else if(ch.type==="eirik"){
@@ -4043,6 +4126,9 @@ const renderChoiceModal=()=>{
   } else if(ch.type==="eleonore_equip"){
     const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;text-align:center">${cardHTML(c,"hand")}<div style="font-size:8px;color:#886644;margin-top:2px">${c.name}</div></div>`).join("");
     content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
+  } else if(ch.type==="fouilleobjet"){
+    const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;text-align:center">${cardHTML(c,"hand")}<div style="font-size:8px;color:#886644;margin-top:2px">${c.name}</div></div>`).join("");
+    content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid.length?grid:'<div style="color:#667;font-size:11px">Aucun équipement dans le deck</div>'}</div>`;
   } else if(ch.type==="ninja_trio_recall"){
     const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;text-align:center">${cardHTML(c,"mini",{cHp:curHp(c,G.player,G.fx,G.lieu),mHp:maxHp(c,G.player,G.fx,G.lieu)})}<div style="font-size:8px;color:#9933cc;margin-top:2px">${c.name}</div></div>`).join("");
     content=`<div style="display:flex;flex-direction:column;gap:12px;align-items:center">
@@ -4082,15 +4168,45 @@ const renderChoiceModal=()=>{
     const sel=ch.selected||[];
     const grid=(ch.options||[]).map(({c,i})=>{const isSel=sel.includes(i);return`<div onclick="doChoice('toggle',${i})" style="cursor:pointer;text-align:center;opacity:${isSel?1:0.7}"><div style="border:2px solid ${isSel?'#55bb22':'#333'};border-radius:6px">${cardHTML(c,"mini",{cHp:curHp(c,G.ai,G.fx,G.lieu),mHp:maxHp(c,G.ai,G.fx,G.lieu)})}</div><div style="font-size:8px;color:${isSel?'#55bb22':'#aac'};margin-top:2px">${c.name}</div></div>`;}).join("");
     content=`<div style="display:flex;flex-direction:column;gap:10px;align-items:center"><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div><button onclick="doChoice('confirm',-1)" style="background:#55bb22;border:none;border-radius:8px;color:#000;padding:8px 24px;font-weight:bold;cursor:pointer">Confirmer (${sel.length}/${maxSel})</button></div>`;
+  } else if(ch.type==="rouageecran_peek"){
+    const tc=ch.topCard;
+    content=`<div style="text-align:center">
+      <div style="width:90px;height:126px;margin:0 auto 12px;border-radius:8px;border:3px solid #886644;overflow:hidden;background:#0a1020">
+        <img src="cards/${tc.id}.png" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='<div style=padding:40px 10px;color:#445;font-size:24px>🃏</div>'">
+      </div>
+      <div style="color:#ccc;font-size:13px;font-weight:bold;margin-bottom:4px">${tc.name}</div>
+      <div style="color:#667;font-size:10px;margin-bottom:14px">★${tc.cost||0} · ${tc.type}</div>
+      <div style="display:flex;gap:10px;justify-content:center">
+        <button onclick="doChoice('top',-1)" style="background:linear-gradient(90deg,#886644,#aa8866);border:none;border-radius:10px;color:#fff;padding:10px 18px;font-weight:bold;cursor:pointer">⬆️ Garder au-dessus</button>
+        <button onclick="doChoice('bottom',-1)" style="background:rgba(255,255,255,0.08);border:1px solid #556;border-radius:10px;color:#aac;padding:10px 18px;cursor:pointer">⬇️ Mettre dessous</button>
+      </div>
+    </div>`;
+  } else if(ch.type==="yara_target"){
+    const enGrid=G.ai.field.map((c,i)=>c?`<div onclick="doChoice('pick',${i})" style="cursor:pointer;width:70px;text-align:center"><div style="width:70px;height:98px;border-radius:6px;border:2px solid #cc4444;overflow:hidden;background:#1a0a0a"><img src="cards/${c.id}.png" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='⚔️'"></div><div style="font-size:8px;color:#cc8888;margin-top:2px">${c.name}</div></div>`:"").join("");
+    const allyGrid=G.player.field.map((c,i)=>(c&&c.uid!==CHOICE.casterUid)?`<div onclick="doChoice('pickAlly',${i})" style="cursor:pointer;width:70px;text-align:center"><div style="width:70px;height:98px;border-radius:6px;border:2px solid #4488cc;overflow:hidden;background:#0a1a2a"><img src="cards/${c.id}.png" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='⚔️'"></div><div style="font-size:8px;color:#88aacc;margin-top:2px">${c.name}</div></div>`:"").join("");
+    content=`<div>
+      <div style="font-size:10px;color:#cc6666;margin-bottom:6px;text-align:center">Ennemis</div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:14px">${enGrid||'<div style="color:#445;font-size:11px">Aucun</div>'}</div>
+      <div style="font-size:10px;color:#6699cc;margin-bottom:6px;text-align:center">Alliés</div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">${allyGrid||'<div style="color:#445;font-size:11px">Aucun</div>'}</div>
+    </div>`;
   } else {
-    const isEnemy2=["freyja","entravesygg","kaya","impactcible","planche","prisongivre","corliss","hurgan","lyra","silence","selka","fosseauxpiques","marquetribale","prisonracines","gardiennil","cowboy","embuscadecobra","colerara_tgt","enfantrongeurs","etoileciel","harlementnloup","piegeplaines","totementrave","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","kuro_target","garruk_target","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","spectrebarillet","rictus","meteioide4","elina_target","velocis_destroy","virusinformatique","explosionbatterie","reprogrammationforcee","calcultraj_enemy","autodestruct_enemy","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_destroy1","morgane_destroy2"].includes(ch.type);
+    const isEnemy2=["freyja","entravesygg","kaya","impactcible","planche","prisongivre","corliss","hurgan","lyra","silence","selka","fosseauxpiques","marquetribale","prisonracines","gardiennil","cowboy","embuscadecobra","colerara_tgt","enfantrongeurs","etoileciel","harlementnloup","piegeplaines","totementrave","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","kuro_target","garruk_target","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","spectrebarillet","rictus","meteioide4","elina_target","velocis_destroy","virusinformatique","explosionbatterie","reprogrammationforcee","calcultraj_enemy","autodestruct_enemy","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_destroy1","morgane_destroy2","nikandros_target","destructiontotale","aliblaze_target1","aliblaze_target2"].includes(ch.type);
     const grid=isEnemy2?enCardGrid(ch.options||[]):myCardGrid(ch.options||[]);
     content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
   }
 
   const titles={
     trio_grecs:"🏛️ Trio Grecs — Choisir un ennemi à geler",ile:"Ile aux Tresors",explosion:"Explosion",
+    nikandros_target:"🛡️ Nikandros l'Écaille — 100 dégâts à un ennemi",
+    rouageecran_peek:"⚙️ Rouage-Écran — Carte du dessus du deck",
+    yara_target:"⚡ Yara Danse-Fjord — Choisir une cible (allié ou ennemi)",
     croqueplanete_heal:"🌌 Croque-Planète — Choisir un allié Entité Astrale (+100 PV)",
+    destructiontotale:"💀 Destruction Totale — Choisir l'ennemi à détruire",
+    fouilleobjet:"🔍 Fouille d'Objet — Choisir un équipement",
+    asclepios_heal:"⚕️ Asclépios — Choisir un allié Grec à soigner (+200 PV)",
+    aliblaze_target1:"🔥 Ali Blaze — Choisir la cible (400 dégâts)",
+    aliblaze_target2:"🔥 Ali Blaze — Cible bonus (200 dégâts)",
     bjirg_target:"⚡ Bjirg — 200 dégâts + gel si survit",
     bjang_target:"⚡ Bjang — 100 dégâts + -100 ATK si survit",
     meiling_target1:"🔥 Mei-Lin — Choisir la 1ère cible (150 dégâts)",
@@ -4122,6 +4238,7 @@ const renderChoiceModal=()=>{
     dionysos:"🍇 Dionysos — Grec allié +100 PV",
     meduse:"🐍 Méduse — Geler un ennemi",
     volpuissance_my:"Vol de puissance — Votre personnage (+200 ATK)",volpuissance_en:"Vol de puissance — Ennemi (-200 ATK)",
+    duelheros_my:"Duel des Héros — Votre Grec",duelheros_en:"Duel des Héros — Ennemi à défier",
     eirik:"Eirik — Quelle carte garder en haut ?",sauvetage:"Sauvetage — Pirate en défausse",
     planche:"La Planche (≤300 PV)",corliss:"Corliss — Voler une carte",hurgan:"Hurgan — Renvoyer",
     iskra:"Iskra +200 ATK",lyra:"Lyra — Contrôler",malgor:"Malgor — Équipement",
@@ -4186,7 +4303,7 @@ const renderChoiceModal=()=>{
     marchenoir:"🏪 Marché Noir — Choisir une carte",
   };
 
-  const mandatoryTypes=["clankbeak","ile","dragon_venin","sylvara","ninja_trio_recall","olympe_choice","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","hurgan","lyra","malgor","crocsr","iskra","kaya","freyja","astrid","haldor","ylvabaies","petittorvald","corliss","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","meteioide4","spectrebarillet","rictus","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","garruk_target","kuro_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","danseuseesprits","passeurnil","pretressenil","hopliteargos","dionysos","meduse","eluzeus","sireneegeenne","colerara_sacr","colerara_tgt","auxportolympe","isis","reveilpharaon","regenerationnil","elina_target","velocis_destroy","calcultraj_ally","calcultraj_enemy","modeberserk","bouclierholo","virusinformatique","explosionbatterie","reprogrammationforcee","autodestruct_ally","autodestruct_enemy","transfertconscience","mains_choice","mains_heal_target","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_sacrif","morgane_destroy1","alpix_heal","croqueplanete_heal"];
+  const mandatoryTypes=["clankbeak","ile","dragon_venin","sylvara","ninja_trio_recall","olympe_choice","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","hurgan","lyra","malgor","crocsr","iskra","kaya","freyja","astrid","haldor","ylvabaies","petittorvald","corliss","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","meteioide4","spectrebarillet","rictus","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","garruk_target","kuro_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","danseuseesprits","passeurnil","pretressenil","hopliteargos","dionysos","meduse","eluzeus","sireneegeenne","colerara_sacr","colerara_tgt","auxportolympe","isis","reveilpharaon","regenerationnil","elina_target","velocis_destroy","calcultraj_ally","calcultraj_enemy","modeberserk","bouclierholo","virusinformatique","explosionbatterie","reprogrammationforcee","autodestruct_ally","autodestruct_enemy","transfertconscience","mains_choice","mains_heal_target","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_sacrif","morgane_destroy1","alpix_heal","croqueplanete_heal","nikandros_target","rouageecran_peek","yara_target","volpuissance_my","volpuissance_en","duelheros_my","duelheros_en","destructiontotale","fouilleobjet","asclepios_heal","aliblaze_target1","aliblaze_target2"];
   const hasClose=!mandatoryTypes.includes(ch.type);
   return `<div class="modal-bg" onclick="${hasClose?"closeChoice()":""}"><div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-title">${titles[ch.type]||ch.type}</div>
@@ -4410,6 +4527,10 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
         const mx=maxHp(def,G[en],G.fx,G.lieu);
         G[en].field[tfi]={...def,dmgTaken:mx-100,lastStandUsed:true};
         addLog("Borgh survit avec 100 PV !");
+      } else if(def.id==="saryamuseauecume"&&!def.lastStandUsed){
+        const mx=maxHp(def,G[en],G.fx,G.lieu);
+        G[en].field[tfi]={...def,dmgTaken:mx-100,lastStandUsed:true};
+        addLog("Sarya Museau-d'Écume survit à la première attaque (100 PV) !");
       } else {
         // Armure Amazone last stand
         if(def.faction==="Amazones"&&!def.lastStandUsed){
@@ -4526,6 +4647,7 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
       let ud={...def,dmgTaken:nd};
       if(def.id==="olaf"&&!def.olafShieldUsed){ud.olafShieldUsed=true;addLog("Olaf absorbe 100 !");}
       if(def.id==="survivant"){ud.bonusAtk=(ud.bonusAtk||0)+100;}
+      if(def.id==="aiyanapeaudours"&&fa>0){ud.bonusAtk=(ud.bonusAtk||0)+50;addLog("Aiyana Peau-d'Ours: +50 ATK (a subi des dégâts) !");}
       G[en].field[tfi]=ud;
       addLog(def.name+" -> PV:"+(ch-fa));
       // Éventail des Lames: splash 50 PV à un autre ennemi
@@ -4561,14 +4683,8 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
       if(who==="player"){
         // Zéti Pédale-Lune: +50 ATK par allié Extraterrestre (calculé dynamiquement à l'attaque)
         if(atk.id==="zetipedalelune"){const n=G.player.field.filter(c=>c&&c.faction==="Extraterrestres"&&c.uid!==atk.uid).length;if(n>0){G.fx.push({target:atk.uid,bonus:50*n,type:"atk",endOfTurn:true});addLog("Zéti: +"+50*n+" ATK ("+n+" Extraterrestre(s)) !");}}
-        // Doros l'Exilé: +100 ATK vs Primitifs
-        if(atk.id==="doroslexile"&&["Amazones","Amerindiens"].includes(def.faction)){G.fx.push({target:atk.uid,bonus:100,type:"atk",endOfTurn:true});addLog("Doros: +100 ATK contre Primitifs !");}
-        // Kaora Brise-Ring: si blesse un ennemi (survit), il ne peut pas attaquer
-        if(atk.id==="kaorabrisering"&&def.uid){const ch3=curHp(def,G.ai,G.fx,G.lieu);if(ch3>0){G.ai.field[tfi]={...G.ai.field[tfi],_frozen:true};addLog("Kaora: "+def.name+" ne peut plus attaquer !");}}
-        // Spider-Punk Pochtron: sur kill ennemi coût ≥4, pioche 1
-        if(atk.id==="spiderpunkpochtron"&&(def.cost||0)>=4){/* handled in killCard */}
-        // Molly Meuh-Rage: après attaque, perd 50 PV
-        if(atk.id==="mollymeurage"){const mfi=G.player.field.findIndex(c=>c&&c.uid===atk.uid);if(mfi!==-1){G.player.field[mfi]={...G.player.field[mfi],dmgTaken:(G.player.field[mfi].dmgTaken||0)+50};addLog("Molly: -50 PV (coût du Meuh-Rage !");}}
+        // Morvan Flétriracine: +100 ATK pendant le combat vs Primitifs
+        if(atk.id==="morvanfletriracine"&&["Amazones","Amerindiens"].includes(def.faction)){G.fx.push({target:atk.uid,bonus:100,type:"atk",endOfTurn:true});addLog("Morvan: +100 ATK contre Primitifs !");}
         // Barto Nunchak-Oups: dodge passif géré dans le bloc défense, ici skip
       }
       // Barto Nunchak-Oups: si le défenseur est Barto et l'attaquant a >300 ATK, annuler l'attaque
@@ -4577,6 +4693,13 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
         if(atkAtk>300){addLog("Barto: l'attaque rate ! (ATK trop haute)");return;}
       }
       if(who==="player"&&def&&def.id==="bartonunchakoups"){/* handled by AI block above when AI attacks */}
+      // Calysta Peau Bronze: riposte 50 dégâts à l'attaquant quand elle est attaquée
+      if(def&&def.id==="calystapeaubronze"){
+        G[who].field[afi]={...G[who].field[afi],dmgTaken:(G[who].field[afi].dmgTaken||0)+50};
+        addLog("Calysta: riposte, "+atk.name+" -50 PV !");
+        const atkHpAfter=curHp(G[who].field[afi],G[who],G.fx,G.lieu);
+        if(atkHpAfter<=0){killCard(who,afi);stealPrestige(en,atk.name+" détruit par la riposte de Calysta !");}
+      }
       if(who==="player"){
         if(atk.id==="braxboxeur"){const others=G.ai.field.filter(c=>c&&c.uid!==def.uid);if(others.length){others[0].dmgTaken+=100;addLog("Brax: 100 dégâts à "+others[0].name+" !");}}
         if(atk.id==="khantor"){const eq=G.player.field.filter(c=>c&&c.type==="equipement").length;if(eq>0){G.fx.push({target:atk.uid,bonus:100*eq,type:"atk",endOfTurn:true});addLog("Khan-Tor: +"+100*eq+" ATK ("+eq+" équipement(s)) !");}}
@@ -4594,6 +4717,12 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
         if(atk.id==="veneapictoxine"&&G.ai.field[tfi]&&!G.ai.field[tfi]._poisoned){poisonChar("ai",G.ai.field[tfi].uid,20,-1);addLog("Vénéra: "+def.name+" empoisonné(e) (-20 PV/tour) !");}
         // Doros l'Exilé: +100 ATK vs Primitifs
         if(atk.id==="doroslexile"&&["Amazones","Amerindiens"].includes(def.faction)){G.fx.push({target:atk.uid,bonus:100,type:"atk",endOfTurn:true});addLog("Doros: +100 ATK contre Primitifs !");}
+        // Nahko (Chrono-Légendaire Amérindien): après avoir attaqué, +100×coût PV à un allié Amérindien
+        if(atk.faction==="Amerindiens"&&atk.isChronoLegendaire&&!atk.isAvatar){
+          const healAmt=(atk.cost||0)*100;
+          const ally=G.player.field.find(c=>c&&c.faction==="Amerindiens"&&c.uid!==atk.uid);
+          if(ally){ally.dmgTaken=Math.max(0,ally.dmgTaken-healAmt);addLog(atk.name+": "+ally.name+" +"+healAmt+" PV !");}
+        }
       }
       // Repas Suspect: après attaque l'attaquant perd 100 PV
       if(ttype==="field"){const attackerIdx=G[who].field.findIndex(c=>c&&c.uid===atk.uid);if(attackerIdx!==-1&&G[who].field[attackerIdx]&&G[who].field[attackerIdx]._repassuspec){const rpc=G[who].field[attackerIdx];const rpch=curHp(rpc,G[who],G.fx,G.lieu);if(100>=rpch){killCard(who,attackerIdx);stealPrestige(en,"Repas Suspect: "+rpc.name+" détruit!");}else{G[who].field[attackerIdx]={...rpc,dmgTaken:(rpc.dmgTaken||0)+100};addLog("🍖 Repas Suspect: "+rpc.name+" -100 PV après attaque!");}}}
@@ -4793,7 +4922,45 @@ const playCard=(cardUid,fi)=>{
     // nalyaecume: effet au combat
 
     // ── NOUVELLES CARTES — effets à l'arrivée ──
-    // Croque-Planète: +100 PV à un allié Entité Astrale
+    // Nikandros l'Écaille: 100 dégâts à un ennemi ; s'il survit, +100 PV
+    if(card.id==="nikandroslecaille"){
+      const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(enemies.length)setTimeout(()=>{CHOICE={type:"nikandros_target",options:enemies};renderGame();},100);
+      else addLog("Nikandros: aucun ennemi !");
+    }
+    // Rouage-Écran: regarde la 1ère carte du deck, choisir dessus/dessous
+    if(card.id==="rouageecran"){
+      if(G.player.deck.length>0){setTimeout(()=>{CHOICE={type:"rouageecran_peek",topCard:G.player.deck[0]};renderGame();},100);}
+      else addLog("Rouage-Écran: deck vide !");
+    }
+    // Yara Danse-Fjord: 100 dégâts à une unité choisie (allié ou ennemi)
+    if(card.id==="yaradansefjord"){
+      const allTargets=[...G.ai.field.map((c,i)=>({c,i,side:"ai"})),...G.player.field.map((c,i)=>({c,i,side:"player"})).filter(x=>x.c&&x.c.uid!==placed.uid)].filter(x=>x.c);
+      if(allTargets.length)setTimeout(()=>{CHOICE={type:"yara_target",casterUid:placed.uid};renderGame();},100);
+      else addLog("Yara: aucune cible !");
+    }
+    // Asclépios Porte-Bâton: soigne un allié Grec 200 PV (+100 ATK si déjà blessé)
+    if(card.id==="asclepiosportebaton"){
+      const allies=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Grecs"&&x.c.uid!==placed.uid);
+      if(allies.length===1){
+        const t=allies[0].c;const wasWounded=t.dmgTaken>0;
+        t.dmgTaken=Math.max(0,t.dmgTaken-200);
+        addLog("Asclépios: "+t.name+" +200 PV !");
+        if(wasWounded){G.fx.push({target:t.uid,bonus:100,type:"atk",endOfTurn:true});addLog("Asclépios: "+t.name+" était blessé → +100 ATK !");}
+      } else if(allies.length>1)setTimeout(()=>{CHOICE={type:"asclepios_heal",options:allies};renderGame();},100);
+      else addLog("Asclépios: aucun allié Grec à soigner !");
+    }
+    // Sélène Mi-Diable: tous les ennemis ne peuvent pas attaquer au prochain tour
+    if(card.id==="selenemidiable"){
+      G.ai.field.forEach(c=>{if(c)c._frozen=true;});
+      addLog("Sélène Mi-Diable: tous les ennemis sont figés pour leur prochain tour !");
+    }
+    // Ali Blaze: 400 dégâts à un ennemi ; si détruit, 200 dégâts à un autre
+    if(card.id==="aliblaze"){
+      const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(enemies.length)setTimeout(()=>{CHOICE={type:"aliblaze_target1",options:enemies};renderGame();},100);
+      else addLog("Ali Blaze: aucun ennemi !");
+    }
     if(card.id==="croqueplanete"){
       const allies=G.player.field.filter(c=>c&&c.faction==="EntitesAstrales"&&c.uid!==placed.uid);
       if(allies.length===1){allies[0].dmgTaken=Math.max(0,allies[0].dmgTaken-100);addLog("Croque-Planète: "+allies[0].name+" +100 PV !");}
@@ -4848,21 +5015,21 @@ const playCard=(cardUid,fi)=>{
     }
     // Mei-Lin Ombrelle: 150 dégâts à 2 ennemis différents
     if(card.id==="meilinombrelle"){
-      const enemies=G.ai.field.filter(c=>c);
-      if(enemies.length>=2)setTimeout(()=>{CHOICE={type:"meiling_target1"};renderGame();},100);
-      else if(enemies.length===1){enemies[0].dmgTaken+=150;addLog("Mei-Lin: "+enemies[0].name+" -150 PV !");}
+      const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(enemies.length>=2)setTimeout(()=>{CHOICE={type:"meiling_target1",options:enemies};renderGame();},100);
+      else if(enemies.length===1){enemies[0].c.dmgTaken+=150;addLog("Mei-Lin: "+enemies[0].c.name+" -150 PV !");}
       else addLog("Mei-Lin: aucun ennemi !");
     }
     // Bjirg Givre-Haches: 200 dégâts + gel si survit
     if(card.id==="bjirggrivrehaches"){
       const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
-      if(enemies.length)setTimeout(()=>{CHOICE={type:"bjirg_target"};renderGame();},100);
+      if(enemies.length)setTimeout(()=>{CHOICE={type:"bjirg_target",options:enemies};renderGame();},100);
       else addLog("Bjirg: aucun ennemi !");
     }
     // Bjang Pied-de-Grue: 100 dégâts + -100 ATK si survit
     if(card.id==="bjangpiedgrue"){
       const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
-      if(enemies.length)setTimeout(()=>{CHOICE={type:"bjang_target"};renderGame();},100);
+      if(enemies.length)setTimeout(()=>{CHOICE={type:"bjang_target",options:enemies};renderGame();},100);
       else addLog("Bjang: aucun ennemi !");
     }
     // Astrad Cyber-Fjord: +150 ATK ce tour uniquement
@@ -4910,8 +5077,8 @@ const playCard=(cardUid,fi)=>{
         else addLog("Mina-7: aucun Robot allié à soigner.");
       }
       else if(card.id==="elinaprototype"){
-        const en=G.ai.field.filter(c=>c);
-        if(en.length>0)CHOICE={type:"elina_target"};
+        const en=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+        if(en.length>0)CHOICE={type:"elina_target",options:en};
         else addLog("Élina: aucun ennemi.");
       }
       else if(card.id==="axiomguerrier"){
@@ -4921,8 +5088,8 @@ const playCard=(cardUid,fi)=>{
         if(fi!==-1&&!G.player.field.some(c=>c&&c.type==="lieu")){G.player.field[fi]={...G.player.field[fi],bonusHp:(G.player.field[fi].bonusHp||0)+200};addLog("Terrax-9: aucun Lieu → +200 PV !");}
       }
       else if(card.id==="velocis"){
-        const low=G.ai.field.filter(c=>c&&(c.cost||0)<=3);
-        if(low.length)CHOICE={type:"velocis_destroy"};
+        const low=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&(x.c.cost||0)<=3);
+        if(low.length)CHOICE={type:"velocis_destroy",options:low};
         else addLog("Vélocis: aucun ennemi coût ≤3.");
       }
       else if(card.id==="aerionailesmecanique"){
@@ -4932,7 +5099,7 @@ const playCard=(cardUid,fi)=>{
       }
       else if(card.id==="voxaria"){
         let killed=0;
-        G.ai.field.forEach((c,i)=>{if(c&&(c.hp-c.dmgTaken)<=400){c.dmgTaken+=200;if(c.hp-c.dmgTaken<=0){killCard(i,false);killed++;}}});
+        G.ai.field.forEach((c,i)=>{if(c&&(c.hp-c.dmgTaken)<=400){c.dmgTaken+=200;if(c.hp-c.dmgTaken<=0){killCard("ai",i);killed++;}}});
         addLog("Voxaria: 200 dégâts aux ennemis ≤400 PV !"+(killed?` (${killed} détruit${killed>1?"s":""})`:"")); 
       }
       else if(card.id==="princesseauralia"){
@@ -5097,7 +5264,7 @@ const playCard=(cardUid,fi)=>{
       if(card.id==="mainsmultifonctions"){
         tgt.bonusAtk=(tgt.bonusAtk||0)+100;tgt.bonusHp=(tgt.bonusHp||0)+100;
         const hasAl=G.player.field.some(c=>c),hasEn=G.ai.field.some(c=>c);
-        if(hasAl||hasEn){G.player.hand.splice(ci,1);G.player.equips[fi][slot]={...card,attachedTo:tgt.uid,uid:mkuid()};setTimeout(()=>{CHOICE={type:"mains_choice",tgtUid:tgt.uid};renderGame();},100);return;}
+        if(hasAl||hasEn){setTimeout(()=>{CHOICE={type:"mains_choice",tgtUid:tgt.uid};renderGame();},100);return;}
         addLog("⚙️ Mains Multi: +100 ATK +100 PV !");
       }
     }
@@ -5116,14 +5283,24 @@ const playCard=(cardUid,fi)=>{
     G.player.hand.splice(ci,1);G.player.discard.push(card);
     GAME_TRACK.use_actions++;progressChallenge("use_actions");// ← fix bug : comptage des actions
     const id=card.id;
+    if(id==="destructiontotale"){
+      const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(opts.length)setTimeout(()=>{CHOICE={type:"destructiontotale",options:opts};renderGame();},100);
+      else addLog("Destruction Totale: aucun ennemi !");
+    }
+    else if(id==="fouilleobjet"){
+      const opts=G.player.deck.map((c,i)=>({c,i})).filter(x=>x.c.type==="equipement");
+      if(opts.length)setTimeout(()=>{CHOICE={type:"fouilleobjet",options:opts};renderGame();},100);
+      else addLog("Fouille d'Objet: aucun équipement dans le deck !");
+    }
     // ── ROBOTS HUMANOÏDES — Actions ──
     if(id==="pluienanites"){let n=0;G.player.field.forEach(c=>{if(c&&c.faction==="Robots"){c.dmgTaken=Math.max(0,(c.dmgTaken||0)-200);n++;}});addLog("🌧️ Pluie de Nanites: "+n+" Robot(s) +200 PV !");}
     else if(id==="calcultrajectoire"){const r=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Robots");if(r.length)setTimeout(()=>{CHOICE={type:"calcultraj_ally",options:r};renderGame();},100);else addLog("Calcul: aucun Robot allié !");}
     else if(id==="modeberserk"){const r=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Robots");if(r.length)setTimeout(()=>{CHOICE={type:"modeberserk",options:r};renderGame();},100);else addLog("Berserk: aucun Robot allié !");}
     else if(id==="bouclierholographique"){const r=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Robots");if(r.length)setTimeout(()=>{CHOICE={type:"bouclierholo",options:r};renderGame();},100);else addLog("Bouclier Holo: aucun Robot allié !");}
-    else if(id==="virusinformatique"){if(G.ai.field.some(c=>c))setTimeout(()=>{CHOICE={type:"virusinformatique"};renderGame();},100);else addLog("Virus: aucun ennemi !");}
-    else if(id==="explosionbatterie"){if(G.ai.field.some(c=>c))setTimeout(()=>{CHOICE={type:"explosionbatterie"};renderGame();},100);else addLog("Explosion Batterie: aucun ennemi !");}
-    else if(id==="reprogrammationforcee"){if(G.ai.field.some(c=>c))setTimeout(()=>{CHOICE={type:"reprogrammationforcee"};renderGame();},100);else addLog("Reprogrammation: aucun ennemi !");}
+    else if(id==="virusinformatique"){if(G.ai.field.some(c=>c)){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);setTimeout(()=>{CHOICE={type:"virusinformatique",options:opts};renderGame();},100);}else addLog("Virus: aucun ennemi !");}
+    else if(id==="explosionbatterie"){if(G.ai.field.some(c=>c)){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);setTimeout(()=>{CHOICE={type:"explosionbatterie",options:opts};renderGame();},100);}else addLog("Explosion Batterie: aucun ennemi !");}
+    else if(id==="reprogrammationforcee"){if(G.ai.field.some(c=>c)){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);setTimeout(()=>{CHOICE={type:"reprogrammationforcee",options:opts};renderGame();},100);}else addLog("Reprogrammation: aucun ennemi !");}
     else if(id==="protocolautodestruct"){const r=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Robots");if(r.length&&G.ai.field.some(c=>c))setTimeout(()=>{CHOICE={type:"autodestruct_ally",options:r};renderGame();},100);else addLog("Protocole: cibles insuffisantes !");}
     else if(id==="transfertconscience"){const dr=G.player.discard.map((c,i)=>({c,i})).filter(x=>x.c.faction==="Robots");if(dr.length)setTimeout(()=>{CHOICE={type:"transfertconscience",options:dr};renderGame();},100);else addLog("Transfert: aucun Robot en défausse !");}
     else if(id==="sauvetage"){const opts=G.player.discard.filter(c=>c.type==="personnage"&&c.faction==="Pirates").map((c,i)=>({c,i}));if(opts.length){setTimeout(()=>{CHOICE={type:"sauvetage",options:opts};renderGame();},100);return;}else addLog("Aucun Pirate en défausse.");}
@@ -5137,85 +5314,66 @@ const playCard=(cardUid,fi)=>{
     else if(id==="volpuissance"){const my=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c);const en=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(my.length&&en.length){setTimeout(()=>{CHOICE={type:"volpuissance_my",myOpts:my,enOpts:en};renderGame();},100);return;}else addLog("Pas assez de cibles.");}
     else if(id==="retourinattendu"){const opts=G.player.discard.filter(c=>c.type==="personnage").map((c,i)=>({c,i}));if(opts.length){setTimeout(()=>{CHOICE={type:"retourinattendu",options:opts};renderGame();},100);return;}else addLog("Aucun personnage en défausse.");}
     else if(id==="fusion_card"){
-      const kuroIdx=G.player.field.findIndex(c=>c&&c.id==="kuroganeclan");
-      const kikiIdx=G.player.field.findIndex(c=>c&&c.id==="kikivoleur");
-      const maitresseIdx=G.player.field.findIndex(c=>c&&c.id==="maitresseraptors");
-      const motardIdx=G.player.field.findIndex(c=>c&&c.id==="motardterres");
-      const minIdx=G.player.field.findIndex(c=>c&&c.id==="minotaure");
-      const medIdx=G.player.field.findIndex(c=>c&&c.id==="meduse");
-      const isisIdx=G.player.field.findIndex(c=>c&&c.id==="isis");
-      const pharaonIdx=G.player.field.findIndex(c=>c&&c.id==="pharaon");
-      const bjornIdx=G.player.field.findIndex(c=>c&&c.id==="bjorn");
-      const fenrirIdx=G.player.field.findIndex(c=>c&&c.id==="fenrir");
-      const ki=G.player.field.findIndex(c=>c&&c.id==="kraken");
-      const ci2=G.player.field.findIndex(c=>c&&c.id==="clankbeak");
-      const skaraIdx=G.player.field.findIndex(c=>c&&c.id==="skarascorpion");
-      const reineIdx=G.player.field.findIndex(c=>c&&c.id==="reinepoisonnoir");
-      const noraFusIdx=G.player.field.findIndex(c=>c&&c.id==="noracharbonnelle");
-      const kuroFusIdx=G.player.field.findIndex(c=>c&&c.id==="kurocorvacier");
-      const voxariaIdx=G.player.field.findIndex(c=>c&&c.id==="voxaria");
-      const aerionIdx=G.player.field.findIndex(c=>c&&c.id==="aerionailesmecanique");
-      const vaelIdx=G.player.field.findIndex(c=>c&&c.id==="vaelya");
-      const nayraIdx=G.player.field.findIndex(c=>c&&c.id==="nayra");
-      if(voxariaIdx!==-1&&aerionIdx!==-1){
+      // Cherche une carte par id sur le terrain OU dans la main
+      const findLoc=(cid)=>{
+        let idx=G.player.field.findIndex(c=>c&&c.id===cid);
+        if(idx!==-1)return{type:"field",idx};
+        idx=G.player.hand.findIndex(c=>c&&c.id===cid);
+        if(idx!==-1)return{type:"hand",idx};
+        return null;
+      };
+      const FUSIONS=[
+        {a:"voxaria",b:"aerionailesmecanique",result:"voxarionarchange",onFuse:()=>{
+          G.ai.field.forEach((c,i)=>{if(!c)return;const ch=curHp(c,G.ai,G.fx,G.lieu);if(300>=ch){killCard("ai",i);stealPrestige("player","Voxarion détruit "+c.name+"!");}else{G.ai.field[i]={...G.ai.field[i],dmgTaken:(G.ai.field[i].dmgTaken||0)+300};addLog("Voxarion: "+c.name+" -300 PV !");}});
+          addLog("⚗️ FUSION → Voxarion Archange invoqué ! 300 dégâts à tous les ennemis ≤600 PV !");
+        }},
+        {a:"vaelya",b:"nayra",result:"vaenyra",onFuse:()=>{
+          G.ai.field.forEach((c,i)=>{if(c&&curHp(c,G.ai,G.fx,G.lieu)<200){killCard("ai",i);stealPrestige("player","Vaenyra détruit "+c.name+"!");}});
+          addLog("⚗️ FUSION → Vaenyra, Reine Primordiale invoquée !");
+        }},
+        {a:"noracharbonnelle",b:"kurocorvacier",result:"koracharbacier",onFuse:()=>{addLog("⚗️ FUSION → Kora Charbacier invoquée !");}},
+        {a:"skarascorpion",b:"reinepoisonnoir",result:"reinescopion",onFuse:()=>{addLog("⚗️ FUSION → Reine-Scorpion du Poison invoquée !");}},
+        {a:"kuroganeclan",b:"kikivoleur",result:"wukong",onFuse:()=>{addLog("FUSION TRIPLE → Wu-Kong Roi-Singe !");}},
+        {a:"maitresseraptors",b:"motardterres",result:"motardraptors",onFuse:()=>{addLog("Fusion => Motard des Raptors !");}},
+        {a:"minotaure",b:"meduse",result:"gorgotaure",onFuse:()=>{
+          addLog("Fusion => Gorgotaure la Terreur !");
+          G.ai.field.forEach((c,i)=>{if(c&&curHp(c,G.ai,G.fx,G.lieu)<=400){killCard("ai",i);stealPrestige("player","Gorgotaure détruit "+c.name+"!");}});
+        }},
+        {a:"isis",b:"pharaon",result:"ra",onFuse:()=>{addLog("Fusion => Ra, Dieu Soleil Absolu !");}},
+        {a:"bjorn",b:"fenrir",result:"bjornfenrir",onFuse:()=>{addLog("Fusion => Bjorn Fenrirmouth !");}},
+        {a:"kraken",b:"clankbeak",result:"squawk",onFuse:()=>{
+          addLog("Fusion => Squawkbeard !");
+          ["player","ai"].forEach(w=>{G[w].field.forEach((c,i)=>{if(c&&c.id!=="squawk"&&curHp(c,G[w],G.fx,G.lieu)<200){killCard(w,i);stealPrestige("player","Squawk détruit "+c.name+"!");}});});
+        }},
+      ];
+      let fused=false,blockedByCost=null,blockedByField=null;
+      for(const fus of FUSIONS){
+        const locA=findLoc(fus.a),locB=findLoc(fus.b);
+        if(!locA||!locB)continue;
+        const resultCard=CARDS.find(c=>c.id===fus.result);
+        if(G.turn<resultCard.cost){blockedByCost=resultCard;continue;}
+        let targetSlot=locA.type==="field"?locA.idx:(locB.type==="field"?locB.idx:G.player.field.findIndex(s=>!s));
+        if(targetSlot===-1){blockedByField=resultCard;continue;}
+        // Retire le composant A (main ou terrain)
+        if(locA.type==="hand"){G.player.hand.splice(locA.idx,1);}
+        else if(locA.idx!==targetSlot){G.player.field[locA.idx]=null;G.player.equips[locA.idx]=[null,null];}
+        // Recherche B à nouveau (les index de main peuvent avoir changé après le retrait de A)
+        const locB2=findLoc(fus.b);
+        if(locB2){
+          if(locB2.type==="hand"){G.player.hand.splice(locB2.idx,1);}
+          else if(locB2.idx!==targetSlot){G.player.field[locB2.idx]=null;G.player.equips[locB2.idx]=[null,null];}
+        }
         SFX.fusion();GAME_TRACK.fusion=true;progressChallenge("fusion");
-        const f={...CARDS.find(c=>c.id==="voxarionarchange"),uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
-        G.player.field[voxariaIdx]=f;G.player.field[aerionIdx]=null;G.player.equips[aerionIdx]=[null,null];
-        // Voxarion Archange: entry effect — 300 dégâts à tous les ennemis ≤600 PV
-        G.ai.field.forEach((c,i)=>{if(!c||!G.ai.field[i])return;const ch=curHp(c,G.ai,G.fx,G.lieu);if(300>=ch){killCard("ai",i);stealPrestige("player","Voxarion détruit "+c.name+"!");}else{G.ai.field[i]={...G.ai.field[i],dmgTaken:(G.ai.field[i].dmgTaken||0)+300};addLog("Voxarion: "+c.name+" -300 PV !");}});
-        addLog("⚗️ FUSION → Voxarion Archange invoqué ! 300 dégâts à tous les ennemis ≤600 PV !");
-      } else if(vaelIdx!==-1&&nayraIdx!==-1){
-        SFX.fusion();GAME_TRACK.fusion=true;progressChallenge("fusion");
-        const f={...CARDS.find(c=>c.id==="vaenyra"),uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
-        G.player.field[vaelIdx]=f;G.player.field[nayraIdx]=null;G.player.equips[nayraIdx]=[null,null];
-        // Vaenyra: Cri de Guerre permanent + détruit ennemis <200 PV
-        G.ai.field.forEach((c,i)=>{if(c&&curHp(c,G.ai,G.fx,G.lieu)<200){killCard("ai",i);stealPrestige("player","Vaenyra détruit "+c.name+"!");}});
-        addLog("⚗️ FUSION → Vaenyra, Reine Primordiale invoquée !");
-      } else if(noraFusIdx!==-1&&kuroFusIdx!==-1){
-        SFX.fusion();GAME_TRACK.fusion=true;progressChallenge("fusion");
-        const f={...CARDS.find(c=>c.id==="koracharbacier"),uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
-        G.player.field[noraFusIdx]=f;G.player.field[kuroFusIdx]=null;G.player.equips[kuroFusIdx]=[null,null];
-        addLog("⚗️ FUSION → Kora Charbacier invoquée !");
-      } else if(skaraIdx!==-1&&reineIdx!==-1){
-        SFX.fusion();GAME_TRACK.fusion=true;progressChallenge("fusion");
-        const f={...CARDS.find(c=>c.id==="reinescopion"),uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
-        G.player.field[skaraIdx]=f;G.player.field[reineIdx]=null;G.player.equips[reineIdx]=[null,null];
-        addLog("⚗️ FUSION → Reine-Scorpion du Poison invoquée !");
-      } else
-      if(kuroIdx!==-1&&kikiIdx!==-1){
-        SFX.fusion();GAME_TRACK.fusion=true;progressChallenge("fusion");
-        const f={...CARDS.find(c=>c.id==="wukong"),uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
-        G.player.field[kuroIdx]=f;G.player.field[kikiIdx]=null;G.player.equips[kikiIdx]=[null,null];
-        addLog("FUSION TRIPLE → Wu-Kong Roi-Singe !");
-      } else if(maitresseIdx!==-1&&motardIdx!==-1){
-        SFX.fusion();GAME_TRACK.fusion=true;progressChallenge("fusion");
-        const f={...CARDS.find(c=>c.id==="motardraptors"),uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
-        G.player.field[maitresseIdx]=f;G.player.field[motardIdx]=null;G.player.equips[motardIdx]=[null,null];
-        addLog("Fusion => Motard des Raptors !");
-      } else if(minIdx!==-1&&medIdx!==-1){
-        SFX.fusion();
-        const f={...CARDS.find(c=>c.id==="gorgotaure"),uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
-        G.player.field[minIdx]=f;G.player.field[medIdx]=null;G.player.equips[medIdx]=[null,null];
-        addLog("Fusion => Gorgotaure la Terreur !");
-        G.ai.field.forEach((c,i)=>{if(c&&curHp(c,G.ai,G.fx,G.lieu)<=400){killCard("ai",i);stealPrestige("player","Gorgotaure détruit "+c.name+"!");}});
-      } else if(isisIdx!==-1&&pharaonIdx!==-1){
-        SFX.fusion();
-        const f={...CARDS.find(c=>c.id==="ra"),uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
-        G.player.field[isisIdx]=f;G.player.field[pharaonIdx]=null;G.player.equips[pharaonIdx]=[null,null];
-        addLog("Fusion => Ra, Dieu Soleil Absolu !");
-      } else if(bjornIdx!==-1&&fenrirIdx!==-1){
-        SFX.fusion();
-        const f={...CARDS.find(c=>c.id==="bjornfenrir"),uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
-        G.player.field[bjornIdx]=f;G.player.field[fenrirIdx]=null;G.player.equips[fenrirIdx]=[null,null];
-        addLog("Fusion => Bjorn Fenrirmouth !");
-      } else if(ki!==-1&&ci2!==-1){
-        SFX.fusion();
-        const f={...CARDS.find(c=>c.id==="squawk"),uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
-        G.player.field[ki]=f;G.player.field[ci2]=null;G.player.equips[ci2]=[null,null];
-        addLog("Fusion => Squawkbeard !");
-        ["player","ai"].forEach(w=>{G[w].field.forEach((c,i)=>{if(c&&c.id!=="squawk"&&curHp(c,G[w],G.fx,G.lieu)<200){killCard(w,i);stealPrestige("player","Squawk détruit "+c.name()+"!");}});});
-      } else {
-        addLog("Fusion: conditions non remplies !");
+        const f={...resultCard,uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
+        G.player.field[targetSlot]=f;G.player.equips[targetSlot]=[null,null];
+        fus.onFuse(f);
+        fused=true;
+        break;
+      }
+      if(!fused){
+        if(blockedByCost)addLog("Fusion: "+blockedByCost.name+" nécessite d'avoir atteint le tour "+blockedByCost.cost+" !");
+        else if(blockedByField)addLog("Fusion: terrain plein, impossible d'invoquer "+blockedByField.name+" !");
+        else addLog("Fusion: conditions non remplies (cartes manquantes en main ou sur le terrain) !");
       }
     }    else if(id==="briseurarcanes"){G.arcaneBreaker=true;addLog("Briseur d'Arcanes actif!");}
     else if(id==="cataclysme"||id==="echangerisque"){if(G.lieu){addLog(G.lieu.name+" détruit!");G.lieu=null;}else addLog("Aucun lieu.");}
@@ -5324,7 +5482,42 @@ window.doChoice=(action,payload)=>{
   else if(ch.type==="volpuissance_en"){const myC=G.player.field[ch.myPick];const enC=G.ai.field[payload];if(myC&&enC){G.fx.push({target:myC.uid,bonus:200,type:"atk",endOfTurn:true},{target:enC.uid,bonus:-200,type:"atk",endOfTurn:true});addLog("Vol: "+myC.name+" +200, "+enC.name+" -200 ATK!");}}
   else if(ch.type==="eirik"&&action==="top"){if(G.player.deck.length>=2){const[a,b,...r]=G.player.deck;G.player.deck=payload===0?[a,...r,b]:[b,...r,a];addLog("Eirik réorganise le deck.");}}
   else if(ch.type==="olympe_choice"){if(action==="draw"){drawCard("player");addLog("L'Olympe: pioche 1!");}else{const al=G.player.field.find(x=>x&&x.faction==="Grecs");if(al){G.fx.push({target:al.uid,bonus:100,type:"atk",endOfTurn:true});addLog("L'Olympe: "+al.name+" +100 ATK!");}}}
-  else if(ch.type==="trio_grecs"){const c=G.ai.field[payload];if(c){G.frozenChars.push(c.uid);addLog("🏛️ TRIO GRECS ! "+c.name+" ne peut pas attaquer au prochain tour !");}}  else if(ch.type==="duelheros_my"){CHOICE={...ch,type:"duelheros_en",myPick:payload};renderGame();return;}
+  else if(ch.type==="trio_grecs"){const c=G.ai.field[payload];if(c){G.frozenChars.push(c.uid);addLog((ch.trioLabel||"🏛️ TRIO GRECS")+" ! "+c.name+" ne peut pas attaquer au prochain tour !");}}  else if(ch.type==="duelheros_my"){CHOICE={...ch,type:"duelheros_en",myPick:payload};renderGame();return;}
+  else if(ch.type==="yara_target"){
+    if(action==="pick"){
+      const t=G.ai.field[payload];
+      if(t){t.dmgTaken+=100;addLog("Yara: "+t.name+" -100 PV !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",payload);stealPrestige("player",t.name+" détruit par Yara !");}}
+    } else if(action==="pickAlly"){
+      const t=G.player.field[payload];
+      if(t){t.dmgTaken+=100;addLog("Yara: "+t.name+" (allié) -100 PV !");const ch2=curHp(t,G.player,G.fx,G.lieu);if(ch2<=0)killCard("player",payload);}
+    }
+  }
+  else if(ch.type==="dragon_venin"||ch.type==="sylvara"){
+    if(action==="toggle"){const sel=ch.selected||[];const idx=sel.indexOf(payload);if(idx!==-1)ch.selected=sel.filter(x=>x!==payload);else if(sel.length<2)ch.selected=[...sel,payload];CHOICE=ch;renderGame();return;}
+    else if(action==="confirm"){const dmg=ch.type==="dragon_venin"?150:100;const turns=ch.type==="dragon_venin"?-1:3;(ch.selected||[]).forEach(i=>{const t=G.ai.field[i];if(t){poisonChar("ai",t.uid,dmg,turns);addLog("☠ "+(ch.type==="dragon_venin"?"Dragon":"Sylvara")+": "+t.name+" empoisonné(e) !");}});}
+  }
+  else if(ch.type==="mains_choice"){
+    if(action==="heal"){CHOICE={type:"mains_heal_target",options:G.player.field.map((c,i)=>({c,i})).filter(x=>x.c)};renderGame();return;}
+    if(action==="dmg"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);CHOICE={type:"mains_dmg_target",options:opts};renderGame();return;}
+  }
+  else if(ch.type==="rouageecran_peek"){
+    if(action==="bottom"&&G.player.deck.length>0){
+      const c=G.player.deck.shift();
+      G.player.deck.push(c);
+      addLog("Rouage-Écran: "+c.name+" placée au-dessous du deck.");
+    } else if(action==="top"){
+      addLog("Rouage-Écran: la carte reste au-dessus du deck.");
+    }
+  }
+  else if(ch.type==="meteioide4"){
+    if(action==="orage"){
+      const t=G.ai.field[payload];
+      if(t){const ch2=curHp(t,G.ai,G.fx,G.lieu);if(200>=ch2){killCard("ai",payload);stealPrestige("player","Météoïde Orage détruit "+t.name+"!");}else{G.ai.field[payload]={...t,dmgTaken:(t.dmgTaken||0)+200};addLog("Météoïde-4 Orage: 200 dégâts à "+t.name);}}
+    } else if(action==="canicule"){
+      G.player.field.forEach(c=>{if(c)G.fx.push({target:c.uid,bonus:100,type:"atk",endOfTurn:true});});
+      addLog("Météoïde-4 Canicule: tous alliés +100 ATK !");
+    }
+  }
   else if(action==="pick"){
     const i=payload;
     if(ch.type==="sauvetage"||ch.type==="retourinattendu"||ch.type==="retourvalhalla"){
@@ -5433,14 +5626,12 @@ window.doChoice=(action,payload)=>{
     else if(ch.type==="minotaure"){const def=G.ai.field[i];if(def){const ch2=curHp(def,G.ai,G.fx,G.lieu);if(200>=ch2){killCard("ai",i);stealPrestige("player","Minotaure détruit "+def.name+"!");}else{G.ai.field[i]={...def,dmgTaken:(def.dmgTaken||0)+200};addLog("Minotaure: "+def.name+" -200 PV!");}}}
     else if(ch.type==="eluzeus"){const def=G.ai.field[i];if(def){const ch2=curHp(def,G.ai,G.fx,G.lieu);if(300>=ch2){killCard("ai",i);stealPrestige("player","Élu de Zeus détruit "+def.name+"!");[...G.ai.field].forEach((c2,i2)=>{if(!c2||!G.ai.field[i2]||G.phase==="end")return;const ch3=curHp(G.ai.field[i2],G.ai,G.fx,G.lieu);if(300>=ch3){killCard("ai",i2);stealPrestige("player","Éclair Zeus détruit "+c2.name+"!");}else{G.ai.field[i2]={...G.ai.field[i2],dmgTaken:(G.ai.field[i2].dmgTaken||0)+300};}});}else{G.ai.field[i]={...def,dmgTaken:(def.dmgTaken||0)+300};addLog("Élu de Zeus: "+def.name+" -300 PV!");}}}
     else if(ch.type==="chargespartiate"){const c=G.player.field[i];if(c){G.fx.push({target:c.uid,bonus:300,type:"atk",endOfTurn:true});addLog(c.name+" +300 ATK (Charge Spartiate)!");}}
-    else if(ch.type==="duelheros_my"){CHOICE={...ch,type:"duelheros_en",myPick:payload};renderGame();return;}
     else if(ch.type==="duelheros_en"){const myC=G.player.field[ch.myPick];const enC=G.ai.field[payload];if(myC&&enC){G.fx.push({target:myC.uid,bonus:200,type:"atk",endOfTurn:true});addLog("Duel: "+myC.name+" vs "+enC.name+" (+200 ATK)!");resolveCombat("player",ch.myPick,"field",payload);}}
     else if(ch.type==="colerezeus"){const def=G.ai.field[i];if(def){const ch2=curHp(def,G.ai,G.fx,G.lieu);if(300>=ch2){killCard("ai",i);stealPrestige("player","Colère de Zeus détruit "+def.name+"!");[...G.ai.field].forEach((c2,i2)=>{if(!c2||!G.ai.field[i2])return;const ch3=curHp(G.ai.field[i2],G.ai,G.fx,G.lieu);if(100>=ch3){killCard("ai",i2);stealPrestige("player","Éclair détruit "+c2.name+"!");}else{G.ai.field[i2]={...G.ai.field[i2],dmgTaken:(G.ai.field[i2].dmgTaken||0)+100};addLog("Éclair: "+c2.name+" -100 PV");}});} else{G.ai.field[i]={...def,dmgTaken:(def.dmgTaken||0)+300};addLog("Colère de Zeus: "+def.name+" -300 PV!");}}}
     else if(ch.type==="benedictionartemis"){const c=G.player.field[i];if(c){G.fx.push({target:c.uid,bonus:200,type:"atk",endOfTurn:true,artemisUid:c.uid});addLog(c.name+" +200 ATK (Bénédiction d'Artémis)! Si kill: pioche 1.");G.artemisTarget=c.uid;}}
     else if(ch.type==="regardmeduse"){const c=G.ai.field[i];if(c){G.fx.push({target:c.uid,bonus:-9999,type:"atk",turnsLeft:3});addLog("Regard de Méduse: "+c.name+" gelé 3 tours!");G.frozenChars.push(c.uid);}}
     else if(ch.type==="chantsirenes"){const t=G.ai.field[i];if(t){G.ai.field[i]=null;G.ai.equips[i]=[null,null];G.ai.hand.push({...t,uid:mkuid()});addLog("Chant des Sirènes: "+t.name+" renvoyé en main!")}}
     else if(ch.type==="auxportolympe"){const arr=G.player.discard.filter(c=>c.faction==="Grecs");const c=arr[i];if(c){G.player.discard=G.player.discard.filter(x=>x.uid!==c.uid);G.player.hand.push({...c,uid:mkuid()});addLog("Aux Portes: "+c.name+" en main!");if(c.cost>=5){const al=G.player.field.find(x=>x&&x.faction==="Grecs");if(al){al.bonusHp=(al.bonusHp||0)+100;addLog(al.name+" +100 PV!");}}}}
-    else if(ch.type==="meteioide4"){if(action==="orage"){const t=G.ai.field[payload];if(t){const ch2=curHp(t,G.ai,G.fx,G.lieu);if(200>=ch2){killCard("ai",payload);stealPrestige("player","Météoïde Orage détruit "+t.name+"!");}else{G.ai.field[payload]={...t,dmgTaken:(t.dmgTaken||0)+200};addLog("Météoïde-4 Orage: 200 dégâts à "+t.name);}}}else if(action==="canicule"){G.player.field.forEach(c=>{if(c)G.fx.push({target:c.uid,bonus:100,type:"atk",endOfTurn:true});});addLog("Météoïde-4 Canicule: tous alliés +100 ATK !");}}
     else if(ch.type==="spectrebarillet"){const t=G.ai.field[payload];if(t){const ch2=curHp(t,G.ai,G.fx,G.lieu);if(200>=ch2){killCard("ai",payload);stealPrestige("player","Spectre: détruit "+t.name+"!");}else{G.ai.field[payload]={...t,dmgTaken:(t.dmgTaken||0)+200};addLog("Spectre du Barillet: 200 dégâts à "+t.name);}}}
     else if(ch.type==="rictus"){const t=G.ai.field[payload];if(t){killCard("ai",payload);stealPrestige("player","Rictus l'Allumeur détruit "+t.name+" !");addLog("Rictus: ennemi blessé détruit !");}}
     else if(ch.type==="boros_target"||ch.type==="jules_target"){const c=G.player.field[payload];if(c){const bonus=ch.type==="jules_target"?150:100;G.fx.push({target:c.uid,bonus,type:"atk",endOfTurn:true});if(ch.type==="boros_target"&&eqs(G.player.equips,c.uid).find(e=>e))G.fx.push({target:c.uid,bonus:100,type:"atk",endOfTurn:true});addLog("Steampunk: "+c.name+" bonus ATK !");}}
@@ -5480,10 +5671,6 @@ window.doChoice=(action,payload)=>{
     else if(ch.type==="klausbrume"){
       const t=G.ai.field[payload];if(t){G.fx.push({target:t.uid,bonus:-100,type:"atk",endOfTurn:true});addLog("Klaus: "+t.name+" -100 ATK !");if(ch.hasLieu){const ch2=curHp(t,G.ai,G.fx,G.lieu);if(100>=ch2){killCard("ai",payload);stealPrestige("player","Klaus détruit "+t.name+"!");}else{G.ai.field[payload]={...G.ai.field[payload],dmgTaken:(G.ai.field[payload].dmgTaken||0)+100};addLog("Klaus (lieu): "+t.name+" -100 PV !");}}}
     }
-    else if(ch.type==="dragon_venin"||ch.type==="sylvara"){
-      if(action==="toggle"){const sel=ch.selected||[];const idx=sel.indexOf(payload);if(idx!==-1)ch.selected=sel.filter(x=>x!==payload);else if(sel.length<2)ch.selected=[...sel,payload];CHOICE=ch;renderGame();return;}
-      else if(action==="confirm"){const dmg=ch.type==="dragon_venin"?150:100;const turns=ch.type==="dragon_venin"?-1:3;(ch.selected||[]).forEach(i=>{const t=G.ai.field[i];if(t){poisonChar("ai",t.uid,dmg,turns);addLog("☠ "+(ch.type==="dragon_venin"?"Dragon":"Sylvara")+": "+t.name+" empoisonné(e) !");}});}
-    }
     else if(ch.type==="brulureacide"){const t=G.ai.field[payload];if(t){const ch2=curHp(t,G.ai,G.fx,G.lieu);const dmg=200;if(dmg>=ch2){killCard("ai",payload);stealPrestige("player","Brûlure Acide détruit "+t.name+"!");}else{G.ai.field[payload]={...t,dmgTaken:(t.dmgTaken||0)+dmg};G.fx.push({target:t.uid,bonus:-50,type:"atk",endOfTurn:true});addLog("🔥 Brûlure Acide: "+t.name+" -200 PV -50 ATK!");}}}
     else if(ch.type==="poisonparalysant"){const t=G.ai.field[payload];if(t){G.ai.field[payload]={...t,_poisonParalysant:true};addLog("☠ Poison Paralysant: "+t.name+" ne peut plus attaquer tant qu'empoisonné !");};}
     else if(ch.type==="sporestouffe"){const t=G.ai.field[payload];if(t){poisonChar("ai",t.uid,100,3,t._poisoned?50:0);addLog("🍄 Spores: "+t.name+" -100 PV/tour pendant 3 tours"+(t._poisoned?" -50 ATK":"")+"!");}}
@@ -5497,48 +5684,101 @@ window.doChoice=(action,payload)=>{
     else if(ch.type==="croqueplanete_heal"){
       const t=G.player.field[payload];if(t&&t.faction==="EntitesAstrales"){t.dmgTaken=Math.max(0,t.dmgTaken-100);addLog("Croque-Planète: "+t.name+" +100 PV !");}
     }
+    else if(ch.type==="nikandros_target"){
+      const t=G.ai.field[payload];
+      if(t){
+        t.dmgTaken+=100;
+        const ch2=curHp(t,G.ai,G.fx,G.lieu);
+        if(ch2<=0){killCard("ai",payload);stealPrestige("player",t.name+" détruit par Nikandros !");}
+        else{
+          const nIdx=G.player.field.findIndex(c=>c&&c.id==="nikandroslecaille");
+          if(nIdx!==-1){G.player.field[nIdx].bonusHp=(G.player.field[nIdx].bonusHp||0)+100;addLog("Nikandros: "+t.name+" survit → Nikandros +100 PV !");}
+        }
+      }
+    }
     // ── NOUVELLES CARTES ──
     else if(ch.type==="nyxara_target"){
-      const t=G.ai.field[payload];if(t&&(t.cost||0)<=2){t.dmgTaken+=100;addLog("Nyxara: "+t.name+" -100 PV !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard(payload,false);stealPrestige("player",t.name+" détruit !");}}
+      const t=G.ai.field[payload];if(t&&(t.cost||0)<=2){t.dmgTaken+=100;addLog("Nyxara: "+t.name+" -100 PV !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",payload);stealPrestige("player",t.name+" détruit !");}}
     }
     else if(ch.type==="bjirg_target"){
-      const t=G.ai.field[payload];if(t){t.dmgTaken+=200;addLog("Bjirg: "+t.name+" -200 PV !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard(payload,false);stealPrestige("player",t.name+" détruit !");}else{t._frozen=true;addLog("Bjirg: "+t.name+" gelé !");}}
+      const t=G.ai.field[payload];if(t){t.dmgTaken+=200;addLog("Bjirg: "+t.name+" -200 PV !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",payload);stealPrestige("player",t.name+" détruit !");}else{t._frozen=true;addLog("Bjirg: "+t.name+" gelé !");}}
     }
     else if(ch.type==="bjang_target"){
-      const t=G.ai.field[payload];if(t){t.dmgTaken+=100;addLog("Bjang: "+t.name+" -100 PV !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard(payload,false);stealPrestige("player",t.name+" détruit !");}else{G.fx.push({target:t.uid,bonus:-100,type:"atk",endOfTurn:false});addLog("Bjang: "+t.name+" -100 ATK !");}}
+      const t=G.ai.field[payload];if(t){t.dmgTaken+=100;addLog("Bjang: "+t.name+" -100 PV !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",payload);stealPrestige("player",t.name+" détruit !");}else{G.fx.push({target:t.uid,bonus:-100,type:"atk",endOfTurn:false});addLog("Bjang: "+t.name+" -100 ATK !");}}
     }
     else if(ch.type==="meiling_target1"){
-      const t=G.ai.field[payload];if(t){t.dmgTaken+=150;addLog("Mei-Lin: "+t.name+" -150 PV (1/2)!");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0)killCard(payload,false);}
+      const t=G.ai.field[payload];if(t){t.dmgTaken+=150;addLog("Mei-Lin: "+t.name+" -150 PV (1/2)!");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0)killCard("ai",payload);}
       const remaining=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.i!==payload);
-      if(remaining.length){CHOICE={type:"meiling_target2"};renderGame();return;}
+      if(remaining.length){CHOICE={type:"meiling_target2",options:remaining};renderGame();return;}
     }
     else if(ch.type==="meiling_target2"){
-      const t=G.ai.field[payload];if(t){t.dmgTaken+=150;addLog("Mei-Lin: "+t.name+" -150 PV (2/2)!");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0)killCard(payload,false);}
+      const t=G.ai.field[payload];if(t){t.dmgTaken+=150;addLog("Mei-Lin: "+t.name+" -150 PV (2/2)!");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0)killCard("ai",payload);}
     }
     else if(ch.type==="morgane_sacrif"){
       const ally=G.player.field[payload];if(ally){
         const allyCost=ally.cost||0;
-        killCard(payload,"player");
+        killCard("player",payload);
         const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&(x.c.cost||0)<=allyCost);
-        if(enemies.length){CHOICE={type:"morgane_destroy1",allyCost};renderGame();return;}
+        if(enemies.length){CHOICE={type:"morgane_destroy1",allyCost,options:enemies};renderGame();return;}
         else addLog("Morgane: aucun ennemi de coût ≤"+allyCost+" !");
       }
     }
     else if(ch.type==="morgane_destroy1"){
-      const t=G.ai.field[payload];if(t&&(t.cost||0)<=ch.allyCost){killCard(payload,false);stealPrestige("player",t.name+" détruit par Morgane !");addLog("Morgane: "+t.name+" détruit (1/2) !");}
+      const t=G.ai.field[payload];if(t&&(t.cost||0)<=ch.allyCost){killCard("ai",payload);stealPrestige("player",t.name+" détruit par Morgane !");addLog("Morgane: "+t.name+" détruit (1/2) !");}
       const remaining=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&(x.c.cost||0)<=ch.allyCost);
-      if(remaining.length){CHOICE={type:"morgane_destroy2",allyCost:ch.allyCost};renderGame();return;}
+      if(remaining.length){CHOICE={type:"morgane_destroy2",allyCost:ch.allyCost,options:remaining};renderGame();return;}
     }
     else if(ch.type==="morgane_destroy2"){
       if(payload===-1){addLog("Morgane: 2ème destruction passée.");}
-      else{const t=G.ai.field[payload];if(t&&(t.cost||0)<=ch.allyCost){killCard(payload,false);stealPrestige("player",t.name+" détruit (2/2) !");}}
+      else{const t=G.ai.field[payload];if(t&&(t.cost||0)<=ch.allyCost){killCard("ai",payload);stealPrestige("player",t.name+" détruit (2/2) !");}}
     }
     else if(ch.type==="alpix_heal"){
       const t=G.player.field[payload];if(t){t.dmgTaken=Math.max(0,t.dmgTaken-300);addLog("Alpi-X: "+t.name+" +300 PV !");}
     }
+    else if(ch.type==="destructiontotale"){
+      const t=G.ai.field[payload];
+      if(t){killCard("ai",payload);stealPrestige("player","Destruction Totale: "+t.name+" détruit !");addLog("Destruction Totale: "+t.name+" détruit !");}
+    }
+    else if(ch.type==="fouilleobjet"){
+      const opt=ch.options[payload];
+      if(opt){
+        const card=G.player.deck[opt.i];
+        if(card){
+          G.player.deck.splice(opt.i,1);
+          G.player.hand.push({...card,uid:mkuid()});
+          addLog("Fouille d'Objet: "+card.name+" ajoutée à ta main !");
+        }
+      }
+    }
+    else if(ch.type==="asclepios_heal"){
+      const t=G.player.field[payload];
+      if(t){
+        const wasWounded=t.dmgTaken>0;
+        t.dmgTaken=Math.max(0,t.dmgTaken-200);
+        addLog("Asclépios: "+t.name+" +200 PV !");
+        if(wasWounded){G.fx.push({target:t.uid,bonus:100,type:"atk",endOfTurn:true});addLog("Asclépios: "+t.name+" était blessé → +100 ATK !");}
+      }
+    }
+    else if(ch.type==="aliblaze_target1"){
+      const t=G.ai.field[payload];
+      if(t){
+        t.dmgTaken+=400;
+        const ch2=curHp(t,G.ai,G.fx,G.lieu);
+        addLog("Ali Blaze: "+t.name+" -400 PV !");
+        if(ch2<=0){
+          killCard("ai",payload);stealPrestige("player",t.name+" détruit par Ali Blaze !");
+          const remaining=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+          if(remaining.length){CHOICE={type:"aliblaze_target2",options:remaining};renderGame();return;}
+        }
+      }
+    }
+    else if(ch.type==="aliblaze_target2"){
+      const t=G.ai.field[payload];
+      if(t){t.dmgTaken+=200;addLog("Ali Blaze: "+t.name+" -200 PV (cible bonus) !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",payload);stealPrestige("player",t.name+" détruit par Ali Blaze !");}}
+    }
     else if(ch.type==="calcultraj_ally"){
       const t=G.player.field[payload];
-      if(t&&t.faction==="Robots"){CHOICE={type:"calcultraj_enemy",allyIdx:payload};renderGame();return;}
+      if(t&&t.faction==="Robots"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);CHOICE={type:"calcultraj_enemy",allyIdx:payload,options:opts};renderGame();return;}
     }
     else if(ch.type==="calcultraj_enemy"){
       const ally=G.player.field[ch.allyIdx];const en=G.ai.field[payload];
@@ -5559,7 +5799,7 @@ window.doChoice=(action,payload)=>{
     }
     else if(ch.type==="explosionbatterie"){
       const t=G.ai.field[payload];
-      if(t){const dmg=t.faction==="Robots"?500:300;t.dmgTaken+=dmg;addLog("💥 Explosion de Batterie: "+t.name+" −"+dmg+" PV"+(t.faction==="Robots"?" (Robot x2)":"")+"!");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard(payload,false);stealPrestige("player",t.name+" détruit !");}}
+      if(t){const dmg=t.faction==="Robots"?500:300;t.dmgTaken+=dmg;addLog("💥 Explosion de Batterie: "+t.name+" −"+dmg+" PV"+(t.faction==="Robots"?" (Robot x2)":"")+"!");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",payload);stealPrestige("player",t.name+" détruit !");}}
     }
     else if(ch.type==="reprogrammationforcee"){
       const t=G.ai.field[payload];
@@ -5567,11 +5807,11 @@ window.doChoice=(action,payload)=>{
     }
     else if(ch.type==="autodestruct_ally"){
       const t=G.player.field[payload];
-      if(t&&t.faction==="Robots"){killCard(payload,"player");CHOICE={type:"autodestruct_enemy"};renderGame();return;}
+      if(t&&t.faction==="Robots"){killCard("player",payload);const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);CHOICE={type:"autodestruct_enemy",options:opts};renderGame();return;}
     }
     else if(ch.type==="autodestruct_enemy"){
       const t=G.ai.field[payload];
-      if(t){t.dmgTaken+=400;addLog("💣 Autodestruction: "+t.name+" −400 PV !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard(payload,false);stealPrestige("player",t.name+" détruit !");}}
+      if(t){t.dmgTaken+=400;addLog("💣 Autodestruction: "+t.name+" −400 PV !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",payload);stealPrestige("player",t.name+" détruit !");}}
     }
     else if(ch.type==="transfertconscience"){
       const opt=ch.options[payload];
@@ -5588,17 +5828,13 @@ window.doChoice=(action,payload)=>{
         }
       }
     }
-    else if(ch.type==="mains_choice"){
-      if(action==="heal"){CHOICE={type:"mains_heal_target",options:G.player.field.map((c,i)=>({c,i})).filter(x=>x.c)};renderGame();return;}
-      if(action==="dmg"){CHOICE={type:"mains_dmg_target"};renderGame();return;}
-    }
     else if(ch.type==="mains_heal_target"){
       const t=G.player.field[payload];
       if(t){t.dmgTaken=Math.max(0,t.dmgTaken-100);addLog("🤜 Mains Multi: "+t.name+" +100 PV !");}
     }
     else if(ch.type==="mains_dmg_target"){
       const t=G.ai.field[payload];
-      if(t){t.dmgTaken+=100;addLog("🤜 Mains Multi: "+t.name+" −100 PV !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard(payload,false);stealPrestige("player",t.name+" détruit par Mains Multi !");}}
+      if(t){t.dmgTaken+=100;addLog("🤜 Mains Multi: "+t.name+" −100 PV !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",payload);stealPrestige("player",t.name+" détruit par Mains Multi !");}}
     }
     else if(ch.type==="elina_target"){
       const t=G.ai.field[payload];
@@ -5609,13 +5845,13 @@ window.doChoice=(action,payload)=>{
         const elina=G.player.field.find(c=>c&&c.id==="elinaprototype");
         if(elina)elina.dmgTaken=Math.max(0,elina.dmgTaken-drain);
         addLog("Élina: vole 100 PV à "+t.name+" !");
-        if(t.hp-t.dmgTaken<=0){killCard(payload,false);stealPrestige("player",t.name+" détruit par Élina !");}
+        if(t.hp-t.dmgTaken<=0){killCard("ai",payload);stealPrestige("player",t.name+" détruit par Élina !");}
       }
     }
     else if(ch.type==="velocis_destroy"){
       const t=G.ai.field[payload];
       if(t&&(t.cost||0)<=3){
-        killCard(payload,false);stealPrestige("player",t.name+" détruit par Vélocis !");
+        killCard("ai",payload);stealPrestige("player",t.name+" détruit par Vélocis !");
         addLog("Vélocis: "+t.name+" détruit !");
       }
     }
@@ -5908,7 +6144,7 @@ window.doEndTurn=()=>{
       const hasGriffes=eqs(G.player.equips,c.uid).find(e=>e&&e.id==="griffesplasma");
       if(hasGriffes){
         const ch2=curHp(c,G.player,G.fx,G.lieu);
-        if(ch2<=100){killCard(i,"player");stealPrestige("ai","Griffes de Plasma détruit "+c.name+" !");}
+        if(ch2<=100){killCard("player",i);stealPrestige("ai","Griffes de Plasma détruit "+c.name+" !");}
         else{G.player.field[i]={...c,dmgTaken:(c.dmgTaken||0)+100};addLog("⚔️ Griffes de Plasma: "+c.name+" −100 PV (coût du pouvoir) !");}
       }
     });
