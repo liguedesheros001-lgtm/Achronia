@@ -704,6 +704,13 @@ const CARDS = [
   {id:"asclepiosportebaton",name:"Asclépios Porte-Bâton",type:"personnage",atk:500,hp:350,cost:4,faction:"Grecs",effect:"À l'arrivée : soigne un allié Grec de 200 PV ; si déjà blessé, +100 ATK jusqu'au prochain tour.",syn:"Gloire"},
   {id:"selenemidiable",name:"Sélène Mi-Diable",type:"personnage",atk:100,hp:500,cost:4,faction:"Pyromanes",effect:"À l'arrivée : tous les ennemis ne peuvent pas attaquer au prochain tour.",syn:"Flamme"},
   {id:"aliblaze",name:"Ali Blaze",type:"personnage",atk:100,hp:400,cost:3,neCost:5,faction:"Pyromanes",effect:"À l'arrivée : 400 dégâts à un ennemi ; si détruit, 200 dégâts à un autre ennemi.",syn:"Flamme"},
+  // ── NOUVELLES CARTES (lot 5) ──
+  {id:"memenocturne",name:"Mémé Nocturne",type:"personnage",atk:100,hp:300,cost:2,faction:"MagesNoirs",effect:"À chaque tour, se soigne de 50 PV pour chaque allié Magie noire sur le terrain.",syn:"Arcane"},
+  {id:"gustavechenillefumante",name:"Gustave Chenille-Fumante",type:"personnage",atk:700,hp:100,cost:5,faction:"Steampunk",effect:"À l'arrivée : inflige 100 dégâts à deux ennemis aléatoires.",syn:"Engrenage"},
+  {id:"ventiloide6",name:"Ventiloïde-6",type:"personnage",atk:300,hp:900,cost:6,faction:"Robots",effect:"À l'arrivée : renvoie un personnage adverse dans la main de son propriétaire.",syn:"Protocole"},
+  {id:"piquemort",name:"Piquemort",type:"personnage",atk:100,hp:500,cost:3,faction:"Zombies",effect:"Quand un ennemi l'attaque, cet ennemi subit 50 dégâts.",syn:"Mutant"},
+  {id:"bureau07",name:"Bureau-07",type:"personnage",atk:250,hp:450,cost:3,faction:"Robots",effect:"À l'arrivée : regarde la 1ère carte du deck, garde-la au-dessus ou place-la en-dessous.",syn:"Protocole"},
+  {id:"billycretferoce",name:"Billy Crête-Féroce",type:"personnage",atk:600,hp:700,cost:6,faction:"Punk",effect:"Quand il attaque, toutes les autres unités ennemies perdent 100 PV.",syn:"Chaos"},
   // ── STEAMPUNK — Équipements ──
   {id:"lanceflammecharbon",name:"Lance-Flamme au Charbon",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 ATK. L'ennemi touche perd 100 PV au debut de son tour."},
   {id:"lunettesing",name:"Lunettes d'Ingénieur",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 PV."},
@@ -1135,7 +1142,8 @@ const NE_CARD_IDS=["astrelyadesconfins","akaiondefenseur","rokkhard","bicheceryn
   "zetipedalelune","nyxaragladiatrice","morganemajorpromo","mackhramcoffrerouge","bartonunchakoups","rackhamrivetnoir","meilinombrelle","kromurgraffeur","bjirggrivrehaches","bjangpiedgrue","astradcyberfjord","doroslexile","alpixsecouriste","docrustine","spiderpunkpochtron","mollymeurage","maitrephyllobate","kaorabrisering","kiaracoupemangue","lumacueilleuse","meliadardruche","zombalooroidisco",
   "croqueplanete","veneapictoxine","elythraolympe",
   "saryamuseauecume","nikandroslecaille","aiyanapeaudours","morvanfletriracine","nebkharcavalier","rouageecran","yaradansefjord",
-  "destructiontotale","fouilleobjet","calystapeaubronze","asclepiosportebaton","selenemidiable","aliblaze"];
+  "destructiontotale","fouilleobjet","calystapeaubronze","asclepiosportebaton","selenemidiable","aliblaze",
+  "memenocturne","gustavechenillefumante","ventiloide6","piquemort","bureau07","billycretferoce"];
 
 const openBoosterNE=()=>{
   const pack=SHOP_PACK_DEFS.find(p=>p.id==="booster");
@@ -2202,17 +2210,13 @@ window.dbToggleCard=(cardId)=>{
   const SLOT_MAX={personnage:20,lieu:2,action:10,equipement:8};
   const arr=DB_STATE.selected[tab];
   const max=SLOT_MAX[tab]||20;
-  const dk=DECKS[DB_STATE.deckId];
-  const isCollBased2=dk&&(dk.collectionBased||!isDeckStarterUnlocked(DB_STATE.deckId));
   const owned=COLLECTION[cardId]||0;
+  if(owned<=0){showNotif("Tu ne possèdes pas cette carte !","#ff4444","🔒");return;}
   const alreadySelected=arr.filter(id=>id===cardId).length;
 
   if(alreadySelected>0){
-    // Si toutes les copies possédées sont déjà sélectionnées (ou deck starter) → désélectionner une
-    if(isCollBased2&&alreadySelected>=owned){
-      arr.splice(arr.lastIndexOf(cardId),1);
-    } else if(!isCollBased2&&alreadySelected>=3){
-      // Starter : max 3 copies par carte
+    // Si toutes les copies possédées sont déjà sélectionnées → désélectionner une
+    if(alreadySelected>=owned){
       arr.splice(arr.lastIndexOf(cardId),1);
     } else {
       // Ajouter une copie de plus
@@ -2263,13 +2267,12 @@ const renderDeckBuilder=()=>{
   const isCollBased=dk.collectionBased||!isDeckStarterUnlocked(deckId);
   const builderFactions=[...factions,"Neutre"];// Toujours proposer les cartes Neutres
 
-  // Cards available in this tab
+  // Cards available in this tab — uniquement les cartes possédées, pour tous les types de decks
   const pool=CARDS.filter(c=>
     c.type===tab&&
     builderFactions.includes(c.faction)&&
     !c.isFusion&&!c.isChronoLegendaire&&c.type!=="trophee"&&
-    // Starter decks: toutes les cartes faction. Collection-based: uniquement possédées
-    (!isCollBased||((COLLECTION[c.id]||0)>0))
+    (COLLECTION[c.id]||0)>0
   ).sort((a,b)=>(a.cost||0)-(b.cost||0));
 
   const selArr=selected[tab]||[];
@@ -2277,21 +2280,18 @@ const renderDeckBuilder=()=>{
 
   const cardGrid=pool.map(c=>{
     const owned=COLLECTION[c.id]||0;
-    const isOwned=owned>0;
     const isSelected=selArr.includes(c.id);
     const selCount=selArr.filter(id=>id===c.id).length;
     const col=tabColors[tab];
-    const maxCopies=isCollBased?owned:3;
-    const allUsed=selCount>=maxCopies&&isCollBased;
+    const allUsed=selCount>=owned;
     return`<div onclick="dbToggleCard('${c.id}')" style="cursor:pointer;width:80px;text-align:center;position:relative">
-      <div style="width:80px;height:112px;border-radius:7px;border:3px solid ${isSelected?col:isOwned?'#1a3a2a':'#1a2030'};overflow:hidden;background:#0a1020;transition:all 0.15s;transform:${isSelected?'scale(1.05)':'scale(1)'};box-shadow:${isSelected?`0 0 12px ${col}88`:'none'};opacity:${isOwned||!isCollBased?1:0.4}">
+      <div style="width:80px;height:112px;border-radius:7px;border:3px solid ${isSelected?col:'#1a3a2a'};overflow:hidden;background:#0a1020;transition:all 0.15s;transform:${isSelected?'scale(1.05)':'scale(1)'};box-shadow:${isSelected?`0 0 12px ${col}88`:'none'}">
         <img src="cards/${c.id}.png" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='<div style=font-size:28px;padding:32px 22px;color:#334>${c.type==="personnage"?"⚔":"✨"}</div>'">
         ${selCount>0?`<div style="position:absolute;top:3px;right:3px;background:${col};color:#000;font-size:10px;font-weight:bold;border-radius:10px;padding:1px 5px;min-width:18px;text-align:center">×${selCount}</div>`:""}
-        ${isCollBased&&owned>1?`<div style="position:absolute;bottom:3px;right:3px;background:#1a2030cc;color:#888;font-size:8px;border-radius:4px;padding:1px 4px">×${owned}</div>`:""}
-        ${!isOwned&&!isCollBased?`<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);font-size:7px;color:#556;text-align:center;padding:2px">non possédée</div>`:""}
+        ${owned>1?`<div style="position:absolute;bottom:3px;right:3px;background:#1a2030cc;color:#888;font-size:8px;border-radius:4px;padding:1px 4px">×${owned}</div>`:""}
         ${allUsed?`<div style="position:absolute;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;font-size:20px">✅</div>`:""}
       </div>
-      <div style="font-size:8px;color:${isSelected?col:isOwned?'#889':'#445'};margin-top:2px;line-height:1.2;max-height:28px;overflow:hidden">${c.name}</div>
+      <div style="font-size:8px;color:${isSelected?col:'#889'};margin-top:2px;line-height:1.2;max-height:28px;overflow:hidden">${c.name}</div>
       ${c.cost?`<div style="font-size:8px;color:#445">★${c.cost}</div>`:""}
     </div>`;
   }).join("");
@@ -2334,7 +2334,7 @@ const renderDeckBuilder=()=>{
       <button onclick="SCREEN='deckselect';render()" style="background:#1a2a3a;border:1px solid #445;border-radius:10px;color:#aac;padding:8px 14px;cursor:pointer;font-size:13px">← Retour</button>
       <div style="flex:1;text-align:center">
         <div style="font-size:16px;font-weight:bold;color:${dk.color}">${dk.icon} Composer — ${dk.name}</div>
-        <div style="font-size:9px;color:#445;margin-top:2px">${totalSelected}/40 · ⚔${persoCount}/20 · 🏛${selected.lieu?.length||0}/2 · ✨${selected.action?.length||0}/10 · 🛡${selected.equipement?.length||0}/8 · ${isCollBased?"Ta collection":"Toutes les cartes faction"}</div>
+        <div style="font-size:9px;color:#445;margin-top:2px">${totalSelected}/40 · ⚔${persoCount}/20 · 🏛${selected.lieu?.length||0}/2 · ✨${selected.action?.length||0}/10 · 🛡${selected.equipement?.length||0}/8 · Ta collection uniquement</div>
       </div>
     </div>
     <!-- Tab counters -->
@@ -2862,12 +2862,12 @@ const buildDraftDeck=deckId=>{
         const candidates=CARDS.filter(c=>
           c.type===type&&allFactions.includes(c.faction)&&
           !c.isFusion&&!c.isChronoLegendaire&&c.type!=="trophee"&&
-          (isCollBased?(COLLECTION[c.id]||0)>0:true)
+          (COLLECTION[c.id]||0)>0
         );
         // Construire un pool avec copies selon collection
         const fillPool=[];
         candidates.forEach(c=>{
-          const owned=isCollBased?(COLLECTION[c.id]||0):3;
+          const owned=COLLECTION[c.id]||0;
           const alreadyUsed=usedCount[c.id]||0;
           const extra=Math.max(0,owned-alreadyUsed);
           for(let i=0;i<extra;i++)fillPool.push(c);
@@ -3233,7 +3233,9 @@ const cardHTML=(card,size,opts={})=>{
 
   // Build the image element with fallback chain
   const imgEl=`<img src="${imgSrc}" class="card-img" draggable="false" 
-    onerror="this.onerror=null;this.src='${localImg||''}';if(!this.src||this.src.endsWith('null')){this.style.display='none';this.nextElementSibling.style.display='flex';}"
+    onerror="${localImg
+      ? `this.onerror=function(){this.style.display='none';this.nextElementSibling.style.display='flex';};this.src='${localImg}';`
+      : `this.style.display='none';this.nextElementSibling.style.display='flex';`}"
     style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover">
     <div style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;align-items:center;justify-content:center">
       <div class="card-header" style="position:absolute;top:0;left:0;right:0;border-bottom:1px solid ${borderCol}44"><span style="font-size:6px;color:${FACTION_COLOR[card.faction]||'#aaa'}">◆</span><span class="card-name">${card.name}</span><span style="font-size:6px;color:${FACTION_COLOR[card.faction]||'#aaa'}">◆</span></div>
@@ -4156,6 +4158,15 @@ const renderChoiceModal=()=>{
       <button onclick="doChoice('heal',-1)" style="background:linear-gradient(90deg,#22aa44,#118833);border:none;border-radius:10px;color:#fff;padding:10px 18px;font-weight:bold;cursor:pointer">💚 Soigner un allié +100 PV</button>
       <button onclick="doChoice('dmg',-1)" style="background:linear-gradient(90deg,#cc4400,#aa2200);border:none;border-radius:10px;color:#fff;padding:10px 18px;font-weight:bold;cursor:pointer">💥 100 dégâts à un ennemi</button>
     </div>`;
+  } else if(ch.type==="fusion_select"){
+    const nameOf=(id)=>{const c=CARDS.find(x=>x.id===id);return c?c.name:id;};
+    content=`<div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+      ${(ch.options||[]).map((fus,i)=>`<button onclick="doChoice('select',${i})" style="width:100%;max-width:380px;background:linear-gradient(90deg,#5a2d8c,#3a1d6c);border:1px solid #cc88ff66;border-radius:12px;color:#fff;padding:12px 16px;cursor:pointer;text-align:left">
+        <div style="font-size:12px;color:#dcb8ff">${nameOf(fus.a)} + ${nameOf(fus.b)}</div>
+        <div style="font-size:15px;font-weight:bold;margin-top:3px">⚗️ → ${fus.resultCard.name}</div>
+      </button>`).join("")}
+      <button onclick="doChoice('cancel',-1)" style="width:100%;max-width:380px;background:rgba(255,255,255,0.06);border:1px solid #667;border-radius:12px;color:#aab;padding:10px 16px;cursor:pointer;margin-top:6px">✋ Ne pas faire de fusion</button>
+    </div>`;
   } else if(ch.type==="olympe_choice"){
     const grecsAlies=G.player.field.filter(c=>c&&c.faction==="Grecs");
     const atkBtn=grecsAlies.length?`<button onclick="doChoice('atk',-1)" style="background:linear-gradient(90deg,#c8a020,#f0c060);border:none;border-radius:10px;color:#000;padding:10px 20px;font-weight:bold;cursor:pointer">⚔️ Grec allié +100 ATK</button>`:`<button disabled style="opacity:0.4;background:#1a2030;border:1px solid #334;border-radius:10px;color:#aaa;padding:10px 20px;cursor:not-allowed">⚔️ Aucun Grec allié</button>`;
@@ -4191,7 +4202,7 @@ const renderChoiceModal=()=>{
       <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">${allyGrid||'<div style="color:#445;font-size:11px">Aucun</div>'}</div>
     </div>`;
   } else {
-    const isEnemy2=["freyja","entravesygg","kaya","impactcible","planche","prisongivre","corliss","hurgan","lyra","silence","selka","fosseauxpiques","marquetribale","prisonracines","gardiennil","cowboy","embuscadecobra","colerara_tgt","enfantrongeurs","etoileciel","harlementnloup","piegeplaines","totementrave","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","kuro_target","garruk_target","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","spectrebarillet","rictus","meteioide4","elina_target","velocis_destroy","virusinformatique","explosionbatterie","reprogrammationforcee","calcultraj_enemy","autodestruct_enemy","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_destroy1","morgane_destroy2","nikandros_target","destructiontotale","aliblaze_target1","aliblaze_target2"].includes(ch.type);
+    const isEnemy2=["freyja","entravesygg","kaya","impactcible","planche","prisongivre","corliss","hurgan","lyra","silence","selka","fosseauxpiques","marquetribale","prisonracines","gardiennil","cowboy","embuscadecobra","colerara_tgt","enfantrongeurs","etoileciel","harlementnloup","piegeplaines","totementrave","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","kuro_target","garruk_target","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","spectrebarillet","rictus","meteioide4","elina_target","velocis_destroy","virusinformatique","explosionbatterie","reprogrammationforcee","calcultraj_enemy","autodestruct_enemy","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_destroy1","morgane_destroy2","nikandros_target","destructiontotale","aliblaze_target1","aliblaze_target2","thalor_target","ventiloide_bounce"].includes(ch.type);
     const grid=isEnemy2?enCardGrid(ch.options||[]):myCardGrid(ch.options||[]);
     content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
   }
@@ -4203,6 +4214,9 @@ const renderChoiceModal=()=>{
     yara_target:"⚡ Yara Danse-Fjord — Choisir une cible (allié ou ennemi)",
     croqueplanete_heal:"🌌 Croque-Planète — Choisir un allié Entité Astrale (+100 PV)",
     destructiontotale:"💀 Destruction Totale — Choisir l'ennemi à détruire",
+    thalor_target:"🏛️ Thalor — Choisir une cible (dégâts supplémentaires)",
+    ventiloide_bounce:"🤖 Ventiloïde-6 — Choisir l'ennemi à renvoyer en main",
+    fusion_select:"⚗️ Fusion — Choisir une combinaison",
     fouilleobjet:"🔍 Fouille d'Objet — Choisir un équipement",
     asclepios_heal:"⚕️ Asclépios — Choisir un allié Grec à soigner (+200 PV)",
     aliblaze_target1:"🔥 Ali Blaze — Choisir la cible (400 dégâts)",
@@ -4303,7 +4317,7 @@ const renderChoiceModal=()=>{
     marchenoir:"🏪 Marché Noir — Choisir une carte",
   };
 
-  const mandatoryTypes=["clankbeak","ile","dragon_venin","sylvara","ninja_trio_recall","olympe_choice","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","hurgan","lyra","malgor","crocsr","iskra","kaya","freyja","astrid","haldor","ylvabaies","petittorvald","corliss","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","meteioide4","spectrebarillet","rictus","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","garruk_target","kuro_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","danseuseesprits","passeurnil","pretressenil","hopliteargos","dionysos","meduse","eluzeus","sireneegeenne","colerara_sacr","colerara_tgt","auxportolympe","isis","reveilpharaon","regenerationnil","elina_target","velocis_destroy","calcultraj_ally","calcultraj_enemy","modeberserk","bouclierholo","virusinformatique","explosionbatterie","reprogrammationforcee","autodestruct_ally","autodestruct_enemy","transfertconscience","mains_choice","mains_heal_target","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_sacrif","morgane_destroy1","alpix_heal","croqueplanete_heal","nikandros_target","rouageecran_peek","yara_target","volpuissance_my","volpuissance_en","duelheros_my","duelheros_en","destructiontotale","fouilleobjet","asclepios_heal","aliblaze_target1","aliblaze_target2"];
+  const mandatoryTypes=["clankbeak","ile","dragon_venin","sylvara","ninja_trio_recall","olympe_choice","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","hurgan","lyra","malgor","crocsr","iskra","kaya","freyja","astrid","haldor","ylvabaies","petittorvald","corliss","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","meteioide4","spectrebarillet","rictus","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","garruk_target","kuro_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","danseuseesprits","passeurnil","pretressenil","hopliteargos","dionysos","meduse","eluzeus","sireneegeenne","colerara_sacr","colerara_tgt","auxportolympe","isis","reveilpharaon","regenerationnil","elina_target","velocis_destroy","calcultraj_ally","calcultraj_enemy","modeberserk","bouclierholo","virusinformatique","explosionbatterie","reprogrammationforcee","autodestruct_ally","autodestruct_enemy","transfertconscience","mains_choice","mains_heal_target","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_sacrif","morgane_destroy1","alpix_heal","croqueplanete_heal","nikandros_target","rouageecran_peek","yara_target","volpuissance_my","volpuissance_en","duelheros_my","duelheros_en","destructiontotale","fouilleobjet","asclepios_heal","aliblaze_target1","aliblaze_target2","thalor_target","ventiloide_bounce"];
   const hasClose=!mandatoryTypes.includes(ch.type);
   return `<div class="modal-bg" onclick="${hasClose?"closeChoice()":""}"><div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-title">${titles[ch.type]||ch.type}</div>
@@ -4700,6 +4714,13 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
         const atkHpAfter=curHp(G[who].field[afi],G[who],G.fx,G.lieu);
         if(atkHpAfter<=0){killCard(who,afi);stealPrestige(en,atk.name+" détruit par la riposte de Calysta !");}
       }
+      // Piquemort: riposte 50 dégâts à l'attaquant quand il est attaqué
+      if(def&&def.id==="piquemort"){
+        G[who].field[afi]={...G[who].field[afi],dmgTaken:(G[who].field[afi].dmgTaken||0)+50};
+        addLog("Piquemort: riposte, "+atk.name+" -50 PV !");
+        const atkHpAfter2=curHp(G[who].field[afi],G[who],G.fx,G.lieu);
+        if(atkHpAfter2<=0){killCard(who,afi);stealPrestige(en,atk.name+" détruit par la riposte de Piquemort !");}
+      }
       if(who==="player"){
         if(atk.id==="braxboxeur"){const others=G.ai.field.filter(c=>c&&c.uid!==def.uid);if(others.length){others[0].dmgTaken+=100;addLog("Brax: 100 dégâts à "+others[0].name+" !");}}
         if(atk.id==="khantor"){const eq=G.player.field.filter(c=>c&&c.type==="equipement").length;if(eq>0){G.fx.push({target:atk.uid,bonus:100*eq,type:"atk",endOfTurn:true});addLog("Khan-Tor: +"+100*eq+" ATK ("+eq+" équipement(s)) !");}}
@@ -4717,11 +4738,27 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
         if(atk.id==="veneapictoxine"&&G.ai.field[tfi]&&!G.ai.field[tfi]._poisoned){poisonChar("ai",G.ai.field[tfi].uid,20,-1);addLog("Vénéra: "+def.name+" empoisonné(e) (-20 PV/tour) !");}
         // Doros l'Exilé: +100 ATK vs Primitifs
         if(atk.id==="doroslexile"&&["Amazones","Amerindiens"].includes(def.faction)){G.fx.push({target:atk.uid,bonus:100,type:"atk",endOfTurn:true});addLog("Doros: +100 ATK contre Primitifs !");}
+        // Billy Crête-Féroce: quand il attaque, toutes les autres unités ennemies perdent 100 PV
+        if(atk.id==="billycretferoce"){
+          G.ai.field.forEach((c,i)=>{
+            if(!c||i===tfi)return;
+            c.dmgTaken=(c.dmgTaken||0)+100;
+            const ch2=curHp(c,G.ai,G.fx,G.lieu);
+            if(ch2<=0){killCard("ai",i);stealPrestige("player",c.name+" détruit par Billy !");}
+            else addLog("Billy: "+c.name+" -100 PV !");
+          });
+        }
         // Nahko (Chrono-Légendaire Amérindien): après avoir attaqué, +100×coût PV à un allié Amérindien
         if(atk.faction==="Amerindiens"&&atk.isChronoLegendaire&&!atk.isAvatar){
           const healAmt=(atk.cost||0)*100;
           const ally=G.player.field.find(c=>c&&c.faction==="Amerindiens"&&c.uid!==atk.uid);
           if(ally){ally.dmgTaken=Math.max(0,ally.dmgTaken-healAmt);addLog(atk.name+": "+ally.name+" +"+healAmt+" PV !");}
+        }
+        // Thalor (Chrono-Légendaire Grec): après avoir attaqué, inflige grade×100 dégâts supplémentaires à une cible choisie
+        if(atk.faction==="Grecs"&&atk.isChronoLegendaire&&!atk.isAvatar){
+          const bonusDmg=(atk.chronoGrade||1)*100;
+          const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+          if(enemies.length)setTimeout(()=>{CHOICE={type:"thalor_target",options:enemies,bonusDmg};renderGame();},100);
         }
       }
       // Repas Suspect: après attaque l'attaquant perd 100 PV
@@ -4929,9 +4966,31 @@ const playCard=(cardUid,fi)=>{
       else addLog("Nikandros: aucun ennemi !");
     }
     // Rouage-Écran: regarde la 1ère carte du deck, choisir dessus/dessous
-    if(card.id==="rouageecran"){
+    if(card.id==="rouageecran"||card.id==="bureau07"){
       if(G.player.deck.length>0){setTimeout(()=>{CHOICE={type:"rouageecran_peek",topCard:G.player.deck[0]};renderGame();},100);}
-      else addLog("Rouage-Écran: deck vide !");
+      else addLog((card.id==="bureau07"?"Bureau-07":"Rouage-Écran")+": deck vide !");
+    }
+    // Gustave Chenille-Fumante: 100 dégâts à deux ennemis aléatoires
+    if(card.id==="gustavechenillefumante"){
+      const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      const shuffled=enemies.sort(()=>Math.random()-0.5).slice(0,2);
+      shuffled.forEach(({c:t,i})=>{
+        t.dmgTaken+=100;addLog("Gustave: "+t.name+" -100 PV !");
+        const ch2=curHp(t,G.ai,G.fx,G.lieu);
+        if(ch2<=0){killCard("ai",i);stealPrestige("player",t.name+" détruit par Gustave !");}
+      });
+      if(!enemies.length)addLog("Gustave: aucun ennemi !");
+    }
+    // Ventiloïde-6: renvoie un personnage adverse dans sa main
+    if(card.id==="ventiloide6"){
+      const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(enemies.length===1){
+        const t=enemies[0].c;const i=enemies[0].i;
+        G.ai.field[i]=null;G.ai.equips[i]=[null,null];
+        G.ai.hand.push({...t,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});
+        addLog("Ventiloïde-6: "+t.name+" renvoyé en main adverse !");
+      } else if(enemies.length>1)setTimeout(()=>{CHOICE={type:"ventiloide_bounce",options:enemies};renderGame();},100);
+      else addLog("Ventiloïde-6: aucun ennemi !");
     }
     // Yara Danse-Fjord: 100 dégâts à une unité choisie (allié ou ennemi)
     if(card.id==="yaradansefjord"){
@@ -5280,6 +5339,56 @@ const playCard=(cardUid,fi)=>{
     if(card.id==="technomasquepeste"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length){setTimeout(()=>{CHOICE={type:"technomasquepeste",options:opts};renderGame();},100);return;}}
 
   } else if(card.type==="action"){
+    if(card.id==="fusion_card"){
+      // ── Fusion : ouvre un choix, ne consomme la carte que si une fusion est confirmée ──
+      const findLoc=(cid)=>{
+        let idx=G.player.field.findIndex(c=>c&&c.id===cid);
+        if(idx!==-1)return{type:"field",idx};
+        idx=G.player.hand.findIndex(c=>c&&c.id===cid&&c.uid!==card.uid);
+        if(idx!==-1)return{type:"hand",idx};
+        return null;
+      };
+      const FUSIONS=[
+        {a:"voxaria",b:"aerionailesmecanique",result:"voxarionarchange",onFuse:()=>{
+          G.ai.field.forEach((c,i)=>{if(!c)return;const ch=curHp(c,G.ai,G.fx,G.lieu);if(300>=ch){killCard("ai",i);stealPrestige("player","Voxarion détruit "+c.name+"!");}else{G.ai.field[i]={...G.ai.field[i],dmgTaken:(G.ai.field[i].dmgTaken||0)+300};addLog("Voxarion: "+c.name+" -300 PV !");}});
+          addLog("⚗️ FUSION → Voxarion Archange invoqué ! 300 dégâts à tous les ennemis ≤600 PV !");
+        }},
+        {a:"vaelya",b:"nayra",result:"vaenyra",onFuse:()=>{
+          G.ai.field.forEach((c,i)=>{if(c&&curHp(c,G.ai,G.fx,G.lieu)<200){killCard("ai",i);stealPrestige("player","Vaenyra détruit "+c.name+"!");}});
+          addLog("⚗️ FUSION → Vaenyra, Reine Primordiale invoquée !");
+        }},
+        {a:"noracharbonnelle",b:"kurocorvacier",result:"koracharbacier",onFuse:()=>{addLog("⚗️ FUSION → Kora Charbacier invoquée !");}},
+        {a:"skarascorpion",b:"reinepoisonnoir",result:"reinescopion",onFuse:()=>{addLog("⚗️ FUSION → Reine-Scorpion du Poison invoquée !");}},
+        {a:"kuroganeclan",b:"kikivoleur",result:"wukong",onFuse:()=>{addLog("FUSION TRIPLE → Wu-Kong Roi-Singe !");}},
+        {a:"maitresseraptors",b:"motardterres",result:"motardraptors",onFuse:()=>{addLog("Fusion => Motard des Raptors !");}},
+        {a:"minotaure",b:"meduse",result:"gorgotaure",onFuse:()=>{
+          addLog("Fusion => Gorgotaure la Terreur !");
+          G.ai.field.forEach((c,i)=>{if(c&&curHp(c,G.ai,G.fx,G.lieu)<=400){killCard("ai",i);stealPrestige("player","Gorgotaure détruit "+c.name+"!");}});
+        }},
+        {a:"isis",b:"pharaon",result:"ra",onFuse:()=>{addLog("Fusion => Ra, Dieu Soleil Absolu !");}},
+        {a:"bjorn",b:"fenrir",result:"bjornfenrir",onFuse:()=>{addLog("Fusion => Bjorn Fenrirmouth !");}},
+        {a:"kraken",b:"clankbeak",result:"squawk",onFuse:()=>{
+          addLog("Fusion => Squawkbeard !");
+          ["player","ai"].forEach(w=>{G[w].field.forEach((c,i)=>{if(c&&c.id!=="squawk"&&curHp(c,G[w],G.fx,G.lieu)<200){killCard(w,i);stealPrestige("player","Squawk détruit "+c.name+"!");}});});
+        }},
+      ];
+      const available=[];
+      for(const fus of FUSIONS){
+        const locA=findLoc(fus.a),locB=findLoc(fus.b);
+        if(!locA||!locB)continue;
+        const resultCard=CARDS.find(c=>c.id===fus.result);
+        if(G.turn<resultCard.cost)continue;
+        const hasSlot=locA.type==="field"||locB.type==="field"||G.player.field.some(s=>!s);
+        if(!hasSlot)continue;
+        available.push({...fus,resultCard});
+      }
+      if(!available.length){
+        addLog("Fusion: aucune combinaison disponible pour le moment — la carte reste en main.");
+        renderGame();return;
+      }
+      setTimeout(()=>{CHOICE={type:"fusion_select",options:available,fusionCardUid:card.uid};renderGame();},100);
+      return;
+    }
     G.player.hand.splice(ci,1);G.player.discard.push(card);
     GAME_TRACK.use_actions++;progressChallenge("use_actions");// ← fix bug : comptage des actions
     const id=card.id;
@@ -5313,69 +5422,7 @@ const playCard=(cardUid,fi)=>{
     else if(id==="frappenforcee"){const opts=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length){setTimeout(()=>{CHOICE={type:"frappenforcee",options:opts};renderGame();},100);return;}}
     else if(id==="volpuissance"){const my=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c);const en=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(my.length&&en.length){setTimeout(()=>{CHOICE={type:"volpuissance_my",myOpts:my,enOpts:en};renderGame();},100);return;}else addLog("Pas assez de cibles.");}
     else if(id==="retourinattendu"){const opts=G.player.discard.filter(c=>c.type==="personnage").map((c,i)=>({c,i}));if(opts.length){setTimeout(()=>{CHOICE={type:"retourinattendu",options:opts};renderGame();},100);return;}else addLog("Aucun personnage en défausse.");}
-    else if(id==="fusion_card"){
-      // Cherche une carte par id sur le terrain OU dans la main
-      const findLoc=(cid)=>{
-        let idx=G.player.field.findIndex(c=>c&&c.id===cid);
-        if(idx!==-1)return{type:"field",idx};
-        idx=G.player.hand.findIndex(c=>c&&c.id===cid);
-        if(idx!==-1)return{type:"hand",idx};
-        return null;
-      };
-      const FUSIONS=[
-        {a:"voxaria",b:"aerionailesmecanique",result:"voxarionarchange",onFuse:()=>{
-          G.ai.field.forEach((c,i)=>{if(!c)return;const ch=curHp(c,G.ai,G.fx,G.lieu);if(300>=ch){killCard("ai",i);stealPrestige("player","Voxarion détruit "+c.name+"!");}else{G.ai.field[i]={...G.ai.field[i],dmgTaken:(G.ai.field[i].dmgTaken||0)+300};addLog("Voxarion: "+c.name+" -300 PV !");}});
-          addLog("⚗️ FUSION → Voxarion Archange invoqué ! 300 dégâts à tous les ennemis ≤600 PV !");
-        }},
-        {a:"vaelya",b:"nayra",result:"vaenyra",onFuse:()=>{
-          G.ai.field.forEach((c,i)=>{if(c&&curHp(c,G.ai,G.fx,G.lieu)<200){killCard("ai",i);stealPrestige("player","Vaenyra détruit "+c.name+"!");}});
-          addLog("⚗️ FUSION → Vaenyra, Reine Primordiale invoquée !");
-        }},
-        {a:"noracharbonnelle",b:"kurocorvacier",result:"koracharbacier",onFuse:()=>{addLog("⚗️ FUSION → Kora Charbacier invoquée !");}},
-        {a:"skarascorpion",b:"reinepoisonnoir",result:"reinescopion",onFuse:()=>{addLog("⚗️ FUSION → Reine-Scorpion du Poison invoquée !");}},
-        {a:"kuroganeclan",b:"kikivoleur",result:"wukong",onFuse:()=>{addLog("FUSION TRIPLE → Wu-Kong Roi-Singe !");}},
-        {a:"maitresseraptors",b:"motardterres",result:"motardraptors",onFuse:()=>{addLog("Fusion => Motard des Raptors !");}},
-        {a:"minotaure",b:"meduse",result:"gorgotaure",onFuse:()=>{
-          addLog("Fusion => Gorgotaure la Terreur !");
-          G.ai.field.forEach((c,i)=>{if(c&&curHp(c,G.ai,G.fx,G.lieu)<=400){killCard("ai",i);stealPrestige("player","Gorgotaure détruit "+c.name+"!");}});
-        }},
-        {a:"isis",b:"pharaon",result:"ra",onFuse:()=>{addLog("Fusion => Ra, Dieu Soleil Absolu !");}},
-        {a:"bjorn",b:"fenrir",result:"bjornfenrir",onFuse:()=>{addLog("Fusion => Bjorn Fenrirmouth !");}},
-        {a:"kraken",b:"clankbeak",result:"squawk",onFuse:()=>{
-          addLog("Fusion => Squawkbeard !");
-          ["player","ai"].forEach(w=>{G[w].field.forEach((c,i)=>{if(c&&c.id!=="squawk"&&curHp(c,G[w],G.fx,G.lieu)<200){killCard(w,i);stealPrestige("player","Squawk détruit "+c.name+"!");}});});
-        }},
-      ];
-      let fused=false,blockedByCost=null,blockedByField=null;
-      for(const fus of FUSIONS){
-        const locA=findLoc(fus.a),locB=findLoc(fus.b);
-        if(!locA||!locB)continue;
-        const resultCard=CARDS.find(c=>c.id===fus.result);
-        if(G.turn<resultCard.cost){blockedByCost=resultCard;continue;}
-        let targetSlot=locA.type==="field"?locA.idx:(locB.type==="field"?locB.idx:G.player.field.findIndex(s=>!s));
-        if(targetSlot===-1){blockedByField=resultCard;continue;}
-        // Retire le composant A (main ou terrain)
-        if(locA.type==="hand"){G.player.hand.splice(locA.idx,1);}
-        else if(locA.idx!==targetSlot){G.player.field[locA.idx]=null;G.player.equips[locA.idx]=[null,null];}
-        // Recherche B à nouveau (les index de main peuvent avoir changé après le retrait de A)
-        const locB2=findLoc(fus.b);
-        if(locB2){
-          if(locB2.type==="hand"){G.player.hand.splice(locB2.idx,1);}
-          else if(locB2.idx!==targetSlot){G.player.field[locB2.idx]=null;G.player.equips[locB2.idx]=[null,null];}
-        }
-        SFX.fusion();GAME_TRACK.fusion=true;progressChallenge("fusion");
-        const f={...resultCard,uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
-        G.player.field[targetSlot]=f;G.player.equips[targetSlot]=[null,null];
-        fus.onFuse(f);
-        fused=true;
-        break;
-      }
-      if(!fused){
-        if(blockedByCost)addLog("Fusion: "+blockedByCost.name+" nécessite d'avoir atteint le tour "+blockedByCost.cost+" !");
-        else if(blockedByField)addLog("Fusion: terrain plein, impossible d'invoquer "+blockedByField.name+" !");
-        else addLog("Fusion: conditions non remplies (cartes manquantes en main ou sur le terrain) !");
-      }
-    }    else if(id==="briseurarcanes"){G.arcaneBreaker=true;addLog("Briseur d'Arcanes actif!");}
+    else if(id==="briseurarcanes"){G.arcaneBreaker=true;addLog("Briseur d'Arcanes actif!");}
     else if(id==="cataclysme"||id==="echangerisque"){if(G.lieu){addLog(G.lieu.name+" détruit!");G.lieu=null;}else addLog("Aucun lieu.");}
     else if(id==="impactcible"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length){setTimeout(()=>{CHOICE={type:"impactcible",options:opts};renderGame();},100);return;}else addLog("Aucune cible.");}
     else if(id==="atteintehonneur"){stealPrestige("player","Atteinte à l'honneur!");}
@@ -5499,6 +5546,46 @@ window.doChoice=(action,payload)=>{
   else if(ch.type==="mains_choice"){
     if(action==="heal"){CHOICE={type:"mains_heal_target",options:G.player.field.map((c,i)=>({c,i})).filter(x=>x.c)};renderGame();return;}
     if(action==="dmg"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);CHOICE={type:"mains_dmg_target",options:opts};renderGame();return;}
+  }
+  else if(ch.type==="fusion_select"){
+    if(action==="cancel"){
+      addLog("Fusion annulée — la carte reste dans ta main.");
+    } else if(action==="select"){
+      const fus=ch.options[payload];
+      if(fus){
+        // Retire la carte Fusion de la main maintenant (consommée)
+        const fcIdx=G.player.hand.findIndex(c=>c&&c.uid===ch.fusionCardUid);
+        if(fcIdx!==-1){const fc=G.player.hand[fcIdx];G.player.hand.splice(fcIdx,1);G.player.discard.push(fc);}
+        GAME_TRACK.use_actions++;progressChallenge("use_actions");
+        // Recherche fraîche des positions (main ou terrain) au moment de la confirmation
+        const findLoc2=(cid)=>{
+          let idx=G.player.field.findIndex(c=>c&&c.id===cid);
+          if(idx!==-1)return{type:"field",idx};
+          idx=G.player.hand.findIndex(c=>c&&c.id===cid);
+          if(idx!==-1)return{type:"hand",idx};
+          return null;
+        };
+        const locA=findLoc2(fus.a),locB=findLoc2(fus.b);
+        if(!locA||!locB){addLog("Fusion: une des cartes a disparu entre-temps !");}
+        else{
+          let targetSlot=locA.type==="field"?locA.idx:(locB.type==="field"?locB.idx:G.player.field.findIndex(s=>!s));
+          if(targetSlot===-1){addLog("Fusion: terrain plein, impossible d'invoquer "+fus.resultCard.name+" !");}
+          else{
+            if(locA.type==="hand"){G.player.hand.splice(locA.idx,1);}
+            else if(locA.idx!==targetSlot){G.player.field[locA.idx]=null;G.player.equips[locA.idx]=[null,null];}
+            const locB2=findLoc2(fus.b);
+            if(locB2){
+              if(locB2.type==="hand"){G.player.hand.splice(locB2.idx,1);}
+              else if(locB2.idx!==targetSlot){G.player.field[locB2.idx]=null;G.player.equips[locB2.idx]=[null,null];}
+            }
+            SFX.fusion();GAME_TRACK.fusion=true;progressChallenge("fusion");
+            const f={...fus.resultCard,uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
+            G.player.field[targetSlot]=f;G.player.equips[targetSlot]=[null,null];
+            fus.onFuse(f);
+          }
+        }
+      }
+    }
   }
   else if(ch.type==="rouageecran_peek"){
     if(action==="bottom"&&G.player.deck.length>0){
@@ -5738,6 +5825,23 @@ window.doChoice=(action,payload)=>{
     else if(ch.type==="destructiontotale"){
       const t=G.ai.field[payload];
       if(t){killCard("ai",payload);stealPrestige("player","Destruction Totale: "+t.name+" détruit !");addLog("Destruction Totale: "+t.name+" détruit !");}
+    }
+    else if(ch.type==="thalor_target"){
+      const t=G.ai.field[payload];
+      if(t){
+        t.dmgTaken+=ch.bonusDmg;
+        addLog("⚔️ Thalor: +"+ch.bonusDmg+" dégâts supplémentaires à "+t.name+" !");
+        const ch2=curHp(t,G.ai,G.fx,G.lieu);
+        if(ch2<=0){killCard("ai",payload);stealPrestige("player",t.name+" détruit par Thalor !");}
+      }
+    }
+    else if(ch.type==="ventiloide_bounce"){
+      const t=G.ai.field[payload];
+      if(t){
+        G.ai.field[payload]=null;G.ai.equips[payload]=[null,null];
+        G.ai.hand.push({...t,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});
+        addLog("Ventiloïde-6: "+t.name+" renvoyé en main adverse !");
+      }
     }
     else if(ch.type==="fouilleobjet"){
       const opt=ch.options[payload];
@@ -6133,6 +6237,13 @@ window.doEndTurn=()=>{
         else addLog("Florabot: "+t.name+" +100 PV !");
       }
     }
+    // Mémé Nocturne: se soigne de 50 PV par allié Magie noire sur le terrain
+    G.player.field.forEach(c=>{
+      if(c&&c.id==="memenocturne"){
+        const allies=G.player.field.filter(x=>x&&x.faction==="MagesNoirs").length;
+        if(allies>0){const heal=allies*50;c.dmgTaken=Math.max(0,c.dmgTaken-heal);addLog("Mémé Nocturne: +"+heal+" PV ("+allies+" allié(s) Magie noire) !");}
+      }
+    });
     // Cathédrale Mère de l'IA: tous les Robots +100 ATK
     if(G.lieu&&G.lieu.id==="cathedralemereia"){
       G.player.field.forEach(c=>{if(c&&c.faction==="Robots"){G.fx.push({target:c.uid,bonus:100,type:"atk",endOfTurn:true});}});
