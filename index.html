@@ -573,6 +573,66 @@ const CARDS = [
   {id:"thalorcyberdivin",name:"Thalor Cyberdivin",type:"personnage",atk:550,hp:550,cost:10,faction:"Grecs",isChronoLegendaire:true,chronoGrade:10,effect:"Quand il attaque, inflige 1000 dégâts supplémentaires à une carte ennemie que tu sélectionnes.",syn:"Gloire"},
   // Thalor Avatar — carte trophée, pas jouable (débloquée auto quand tous les Grecs CL obtenus)
   {id:"thaloravatar",name:"Thalor Avatar de l'Olympe",type:"trophee",faction:"Grecs",isChronoLegendaire:true,isAvatar:true,chronoGrade:0,effect:"Thalor a porté la lance d'Olympe à travers les siècles, affrontant rois, monstres, machines et dieux oubliés. À chaque époque traversée, son corps s'est chargé d'une nouvelle puissance, jusqu'à devenir plus qu'un héros : un avatar vivant de la volonté divine."},
+  // ── CHRONO-LÉGENDAIRES — Robots Humanoïdes ──
+  {id:"eva01prototype",name:"EVA-01 Prototype",type:"personnage",atk:50,hp:50,cost:1,faction:"Robots",isChronoLegendaire:true,chronoGrade:1,effect:"À l'arrivée : choisit un Robot allié (coût ≤1) en défausse et gagne son ATQ.",syn:"Protocole"},
+  {id:"eva02automate",name:"EVA-02 Automate",type:"personnage",atk:100,hp:100,cost:2,faction:"Robots",isChronoLegendaire:true,chronoGrade:2,effect:"À l'arrivée : choisit un Robot allié (coût ≤2) en défausse et gagne son ATQ.",syn:"Protocole"},
+  {id:"eva03poupeEdacier",name:"EVA-03 Poupée d'Acier",type:"personnage",atk:150,hp:150,cost:3,faction:"Robots",isChronoLegendaire:true,chronoGrade:3,effect:"À l'arrivée : choisit un Robot allié (coût ≤3) en défausse et gagne son ATQ.",syn:"Protocole"},
+  {id:"eva04gynoidarcanique",name:"EVA-04 Gynoïde Arcanique",type:"personnage",atk:200,hp:200,cost:4,faction:"Robots",isChronoLegendaire:true,chronoGrade:4,effect:"À l'arrivée : choisit un Robot allié (coût ≤4) en défausse et gagne son ATQ.",syn:"Protocole"},
+  {id:"eva05musemecanique",name:"EVA-05 Muse Mécanique",type:"personnage",atk:250,hp:250,cost:5,faction:"Robots",isChronoLegendaire:true,chronoGrade:5,effect:"À l'arrivée : choisit un Robot allié (coût ≤5) en défausse et gagne son ATQ.",syn:"Protocole"},
+  {id:"eva06infirmierEdacier",name:"EVA-06 Infirmière d'Acier",type:"personnage",atk:300,hp:300,cost:6,faction:"Robots",isChronoLegendaire:true,chronoGrade:6,effect:"À l'arrivée : choisit un Robot allié (coût ≤6) en défausse et gagne son ATQ.",syn:"Protocole"},
+  {id:"eva07damechrome",name:"EVA-07 Dame Chrome",type:"personnage",atk:350,hp:350,cost:7,faction:"Robots",isChronoLegendaire:true,chronoGrade:7,effect:"À l'arrivée : choisit un Robot allié (coût ≤7) en défausse et gagne son ATQ.",syn:"Protocole"},
+  {id:"eva08heroinEsynthetique",name:"EVA-08 Héroïne Synthétique",type:"personnage",atk:400,hp:400,cost:8,faction:"Robots",isChronoLegendaire:true,chronoGrade:8,effect:"À l'arrivée : choisit un Robot allié (coût ≤8) en défausse et gagne son ATQ.",syn:"Protocole"},
+  {id:"eva09survivante",name:"EVA-09 Survivante",type:"personnage",atk:450,hp:450,cost:9,faction:"Robots",isChronoLegendaire:true,chronoGrade:9,effect:"À l'arrivée : choisit un Robot allié (coût ≤9) en défausse et gagne son ATQ.",syn:"Protocole"},
+  {id:"eva10reinEdesIA",name:"EVA-10 Reine des IA",type:"personnage",atk:500,hp:500,cost:10,faction:"Robots",isChronoLegendaire:true,chronoGrade:10,effect:"À l'arrivée : choisit un Robot allié (coût ≤10) en défausse et gagne son ATQ.",syn:"Protocole"},
+  {id:"evaomedéesse",name:"EVA-Ω, Déesse",type:"trophee",faction:"Robots",isChronoLegendaire:true,isAvatar:true,chronoGrade:0,effect:"Elle n'est pas née — elle a été construite, détruite, reconstruite. Et à chaque renaissance, elle a hérité de l'ATQ de celles qui l'avaient précédée. EVA-Ω n'est pas une machine. Elle est la mémoire de toutes les machines."},
+  // ── CHRONO-LÉGENDAIRES — Steampunk ──
+  {id:"mekrobricoleur",name:"Mekro Bricoleur",type:"personnage",atk:100,hp:100,cost:1,faction:"Steampunk",isChronoLegendaire:true,chronoGrade:1,effect:"À l'arrivée : copie le pouvoir d'un personnage adverse (coût ≤1) de la défausse adverse.",syn:"Engrenage"},
+  {id:"mekroartisandesrouages",name:"Mekro Artisan des Rouages",type:"personnage",atk:200,hp:200,cost:2,faction:"Steampunk",isChronoLegendaire:true,chronoGrade:2,effect:"À l'arrivée : copie le pouvoir d'un personnage adverse (coût ≤2) de la défausse adverse.",syn:"Engrenage"},
+  {id:"mekroforgerondescites",name:"Mekro Forgeron des Cités",type:"personnage",atk:300,hp:300,cost:3,faction:"Steampunk",isChronoLegendaire:true,chronoGrade:3,effect:"À l'arrivée : copie le pouvoir d'un personnage adverse (coût ≤3) de la défausse adverse.",syn:"Engrenage"},
+  {id:"mekromecamancien",name:"Mekro Mécamancien",type:"personnage",atk:400,hp:400,cost:4,faction:"Steampunk",isChronoLegendaire:true,chronoGrade:4,effect:"À l'arrivée : copie le pouvoir d'un personnage adverse (coût ≤4) de la défausse adverse.",syn:"Engrenage"},
+  {id:"mekrodeleraindustrielle",name:"Mekro de l'Ère Industrielle",type:"personnage",atk:500,hp:500,cost:5,faction:"Steampunk",isChronoLegendaire:true,chronoGrade:5,effect:"À l'arrivée : copie le pouvoir d'un personnage adverse (coût ≤5) de la défausse adverse.",syn:"Engrenage"},
+  {id:"mekroarchitecteblinde",name:"Mekro Architecte Blindé",type:"personnage",atk:600,hp:600,cost:6,faction:"Steampunk",isChronoLegendaire:true,chronoGrade:6,effect:"À l'arrivée : copie le pouvoir d'un personnage adverse (coût ≤6) de la défausse adverse.",syn:"Engrenage"},
+  {id:"mekrotrafiquant",name:"Mekro Trafiquant",type:"personnage",atk:700,hp:700,cost:7,faction:"Steampunk",isChronoLegendaire:true,chronoGrade:7,effect:"À l'arrivée : copie le pouvoir d'un personnage adverse (coût ≤7) de la défausse adverse.",syn:"Engrenage"},
+  {id:"mekrojusticierareacteur",name:"Mekro Justicier à Réacteur",type:"personnage",atk:800,hp:800,cost:8,faction:"Steampunk",isChronoLegendaire:true,chronoGrade:8,effect:"À l'arrivée : copie le pouvoir d'un personnage adverse (coût ≤8) de la défausse adverse.",syn:"Engrenage"},
+  {id:"mekrodesferrailles",name:"Mekro des Ferrailles",type:"personnage",atk:900,hp:900,cost:9,faction:"Steampunk",isChronoLegendaire:true,chronoGrade:9,effect:"À l'arrivée : copie le pouvoir d'un personnage adverse (coût ≤9) de la défausse adverse.",syn:"Engrenage"},
+  {id:"mekrocyberinventeur",name:"Mekro Cyber-Inventeur",type:"personnage",atk:1000,hp:1000,cost:10,faction:"Steampunk",isChronoLegendaire:true,chronoGrade:10,effect:"À l'arrivée : copie le pouvoir d'un personnage adverse (coût ≤10) de la défausse adverse.",syn:"Engrenage"},
+  {id:"mekroempereursteampunk",name:"Mekro Empereur Steampunk",type:"trophee",faction:"Steampunk",isChronoLegendaire:true,isAvatar:true,chronoGrade:0,effect:"Il n'a pas inventé la machine — il est devenu la machine. Chaque rouage, chaque piston, chaque pouvoir qu'il a absorbé au fil des âges ne fait plus qu'un. Il ne combat pas : il reproduit la perfection."},
+  // ── CHRONO-LÉGENDAIRES — Égyptiens ──
+  {id:"akhamdupremiersable",name:"Akham du Premier Sable",type:"personnage",atk:100,hp:100,cost:1,faction:"Egyptiens",isChronoLegendaire:true,chronoGrade:1,effect:"Quand elle meurt, revient avec 50 PV (1 fois).",syn:"Pharaon"},
+  {id:"akhamreinedounil",name:"Akham Reine du Nil",type:"personnage",atk:200,hp:200,cost:2,faction:"Egyptiens",isChronoLegendaire:true,chronoGrade:2,effect:"Quand elle meurt, revient avec 100 PV (1 fois).",syn:"Pharaon"},
+  {id:"akhamomiedesroyaumes",name:"Akham Momie des Royaumes",type:"personnage",atk:300,hp:300,cost:3,faction:"Egyptiens",isChronoLegendaire:true,chronoGrade:3,effect:"Quand elle meurt, revient avec 150 PV (1 fois).",syn:"Pharaon"},
+  {id:"akhamdusoleilnoir",name:"Akham du Soleil Noir",type:"personnage",atk:400,hp:400,cost:4,faction:"Egyptiens",isChronoLegendaire:true,chronoGrade:4,effect:"Quand elle meurt, revient avec 200 PV (1 fois).",syn:"Pharaon"},
+  {id:"akhamlabrisseuse",name:"Akham la Briseuse",type:"personnage",atk:500,hp:500,cost:5,faction:"Egyptiens",isChronoLegendaire:true,chronoGrade:5,effect:"Quand elle meurt, revient avec 250 PV (1 fois).",syn:"Pharaon"},
+  {id:"akhamlamaudite",name:"Akham la Maudite",type:"personnage",atk:600,hp:600,cost:6,faction:"Egyptiens",isChronoLegendaire:true,chronoGrade:6,effect:"Quand elle meurt, revient avec 300 PV (1 fois).",syn:"Pharaon"},
+  {id:"akhammarrainedutombeau",name:"Akham Marraine du Tombeau",type:"personnage",atk:700,hp:700,cost:7,faction:"Egyptiens",isChronoLegendaire:true,chronoGrade:7,effect:"Quand elle meurt, revient avec 350 PV (1 fois).",syn:"Pharaon"},
+  {id:"akhamavatardera",name:"Akham Avatar de Râ",type:"personnage",atk:800,hp:800,cost:8,faction:"Egyptiens",isChronoLegendaire:true,chronoGrade:8,effect:"Quand elle meurt, revient avec 400 PV (1 fois).",syn:"Pharaon"},
+  {id:"akhamdesruinessolaires",name:"Akham des Ruines Solaires",type:"personnage",atk:900,hp:900,cost:9,faction:"Egyptiens",isChronoLegendaire:true,chronoGrade:9,effect:"Quand elle meurt, revient avec 450 PV (1 fois).",syn:"Pharaon"},
+  {id:"akhamcybersolaire",name:"Akham Cyber-Solaire",type:"personnage",atk:1000,hp:1000,cost:10,faction:"Egyptiens",isChronoLegendaire:true,chronoGrade:10,effect:"Quand elle meurt, revient avec 500 PV (1 fois).",syn:"Pharaon"},
+  {id:"akhamdetousages",name:"Akham de Tous Âges",type:"trophee",faction:"Egyptiens",isChronoLegendaire:true,isAvatar:true,chronoGrade:0,effect:"Des sables du premier matin aux cendres du dernier soleil, Akham n'a jamais été vaincue — seulement ralentie. Elle est la mort qui revient toujours, l'éternité avec un visage."},
+  // ── CHRONO-LÉGENDAIRES — Empoisonneurs ──
+  {id:"leshiacueilleuse",name:"Leshia Cueilleuse",type:"personnage",atk:50,hp:50,cost:1,faction:"Empoisonneurs",isChronoLegendaire:true,chronoGrade:1,effect:"À l'arrivée : empoisonne 2 ennemis (-100 PV/tour adverse).",syn:"Venin"},
+  {id:"leshiacoupeuse",name:"Leshia Coupeuse",type:"personnage",atk:100,hp:100,cost:2,faction:"Empoisonneurs",isChronoLegendaire:true,chronoGrade:2,effect:"À l'arrivée : empoisonne 2 ennemis (-200 PV/tour adverse).",syn:"Venin"},
+  {id:"leshiaapothicaire",name:"Leshia Apothicaire",type:"personnage",atk:150,hp:150,cost:3,faction:"Empoisonneurs",isChronoLegendaire:true,chronoGrade:3,effect:"À l'arrivée : empoisonne 2 ennemis (-300 PV/tour adverse).",syn:"Venin"},
+  {id:"leshiasorciereauxtoxines",name:"Leshia Sorcière aux Toxines",type:"personnage",atk:200,hp:200,cost:4,faction:"Empoisonneurs",isChronoLegendaire:true,chronoGrade:4,effect:"À l'arrivée : empoisonne 2 ennemis (-400 PV/tour adverse).",syn:"Venin"},
+  {id:"leshiaparfumeuserevolte",name:"Leshia Parfumeuse Révolte",type:"personnage",atk:250,hp:250,cost:5,faction:"Empoisonneurs",isChronoLegendaire:true,chronoGrade:5,effect:"À l'arrivée : empoisonne 2 ennemis (-500 PV/tour adverse).",syn:"Venin"},
+  {id:"leshiachimistemortelle",name:"Leshia Chimiste Mortelle",type:"personnage",atk:300,hp:300,cost:6,faction:"Empoisonneurs",isChronoLegendaire:true,chronoGrade:6,effect:"À l'arrivée : empoisonne 2 ennemis (-600 PV/tour adverse).",syn:"Venin"},
+  {id:"leshiavedunoire",name:"Leshia Veuve Noire",type:"personnage",atk:350,hp:350,cost:7,faction:"Empoisonneurs",isChronoLegendaire:true,chronoGrade:7,effect:"À l'arrivée : empoisonne 2 ennemis (-700 PV/tour adverse).",syn:"Venin"},
+  {id:"leshiareinevenimeuse",name:"Leshia Reine Venimeuse",type:"personnage",atk:400,hp:400,cost:8,faction:"Empoisonneurs",isChronoLegendaire:true,chronoGrade:8,effect:"À l'arrivée : empoisonne 2 ennemis (-800 PV/tour adverse).",syn:"Venin"},
+  {id:"leshiatoxinesmutantes",name:"Leshia Toxines Mutantes",type:"personnage",atk:450,hp:450,cost:9,faction:"Empoisonneurs",isChronoLegendaire:true,chronoGrade:9,effect:"À l'arrivée : empoisonne 2 ennemis (-900 PV/tour adverse).",syn:"Venin"},
+  {id:"leshiacybertoxines",name:"Leshia Cybertoxines",type:"personnage",atk:500,hp:500,cost:10,faction:"Empoisonneurs",isChronoLegendaire:true,chronoGrade:10,effect:"À l'arrivée : empoisonne 2 ennemis (-1000 PV/tour adverse).",syn:"Venin"},
+  {id:"leshiaderniersouffle",name:"Leshia Dernier Souffle",type:"trophee",faction:"Empoisonneurs",isChronoLegendaire:true,isAvatar:true,chronoGrade:0,effect:"Son souffle est la dernière chose que les royaumes oublient. Elle n'a pas conquis le monde — elle l'a simplement laissé mourir à son rythme, goutte à goutte, ère après ère."},
+  // ── CHRONO-LÉGENDAIRES — Ninjas ──
+  {id:"kairanchasseur",name:"Kaïran Chasseur",type:"personnage",atk:100,hp:100,cost:1,faction:"Ninjas",isChronoLegendaire:true,chronoGrade:1,effect:"À l'arrivée : détruit un ennemi ≤100 PV, puis +50 ATQ par allié Ninja blessé.",syn:"Ombre"},
+  {id:"kairanlamedempires",name:"Kaïran Lame des Empires",type:"personnage",atk:200,hp:200,cost:2,faction:"Ninjas",isChronoLegendaire:true,chronoGrade:2,effect:"À l'arrivée : détruit un ennemi ≤200 PV, puis +100 ATQ par allié Ninja blessé.",syn:"Ombre"},
+  {id:"kairandesroyaumes",name:"Kaïran des Royaumes",type:"personnage",atk:300,hp:300,cost:3,faction:"Ninjas",isChronoLegendaire:true,chronoGrade:3,effect:"À l'arrivée : détruit un ennemi ≤300 PV, puis +150 ATQ par allié Ninja blessé.",syn:"Ombre"},
+  {id:"kairanombrerunique",name:"Kaïran Ombre Runique",type:"personnage",atk:400,hp:400,cost:4,faction:"Ninjas",isChronoLegendaire:true,chronoGrade:4,effect:"À l'arrivée : détruit un ennemi ≤400 PV, puis +200 ATQ par allié Ninja blessé.",syn:"Ombre"},
+  {id:"kairandescouronnes",name:"Kaïran des Couronnes",type:"personnage",atk:500,hp:500,cost:5,faction:"Ninjas",isChronoLegendaire:true,chronoGrade:5,effect:"À l'arrivée : détruit un ennemi ≤500 PV, puis +250 ATQ par allié Ninja blessé.",syn:"Ombre"},
+  {id:"kairandestranchees",name:"Kaïran des Tranchées",type:"personnage",atk:600,hp:600,cost:6,faction:"Ninjas",isChronoLegendaire:true,chronoGrade:6,effect:"À l'arrivée : détruit un ennemi ≤600 PV, puis +300 ATQ par allié Ninja blessé.",syn:"Ombre"},
+  {id:"kairanexecuteur",name:"Kaïran Exécuteur",type:"personnage",atk:700,hp:700,cost:7,faction:"Ninjas",isChronoLegendaire:true,chronoGrade:7,effect:"À l'arrivée : détruit un ennemi ≤700 PV, puis +350 ATQ par allié Ninja blessé.",syn:"Ombre"},
+  {id:"kairansurnaturel",name:"Kaïran Surnaturel",type:"personnage",atk:800,hp:800,cost:8,faction:"Ninjas",isChronoLegendaire:true,chronoGrade:8,effect:"À l'arrivée : détruit un ennemi ≤800 PV, puis +400 ATQ par allié Ninja blessé.",syn:"Ombre"},
+  {id:"kairanderniereombre",name:"Kaïran Dernière Ombre",type:"personnage",atk:900,hp:900,cost:9,faction:"Ninjas",isChronoLegendaire:true,chronoGrade:9,effect:"À l'arrivée : détruit un ennemi ≤900 PV, puis +450 ATQ par allié Ninja blessé.",syn:"Ombre"},
+  {id:"kairancyberfantome",name:"Kaïran Cyberfantôme",type:"personnage",atk:1000,hp:1000,cost:10,faction:"Ninjas",isChronoLegendaire:true,chronoGrade:10,effect:"À l'arrivée : détruit un ennemi ≤1000 PV, puis +500 ATQ par allié Ninja blessé.",syn:"Ombre"},
+  {id:"kairanombreternelle",name:"Kaïran Ombre Éternelle",type:"trophee",faction:"Ninjas",isChronoLegendaire:true,isAvatar:true,chronoGrade:0,effect:"Dans chaque ombre, dans chaque ère, Kaïran est passé sans qu'on le voie. Il n'est plus un assassin — il est l'ombre elle-même, celle qui précède toute lumière et survive à tout crépuscule."},
   // ── CHRONO-LÉGENDAIRES — Vikings ──
   {id:"kjelltresgelees",name:"Kjell des Terres Gelées",type:"personnage",atk:50,hp:50,cost:1,faction:"Vikings",isChronoLegendaire:true,chronoGrade:1,effect:"Quand il subit des dégâts, gagne +100 ATQ.",syn:"Clan"},
   {id:"kjellhachesmers",name:"Kjell Hache des Mers",type:"personnage",atk:100,hp:100,cost:2,faction:"Vikings",isChronoLegendaire:true,chronoGrade:2,effect:"Quand il subit des dégâts, gagne +200 ATQ.",syn:"Clan"},
@@ -1074,8 +1134,68 @@ const CHRONO_LEGENDAIRES={
     {id:"kjellreineterres",grade:9},
     {id:"kjellcyberjarl",grade:10},
   ],
+  Empoisonneurs:[
+    {id:"leshiacueilleuse",grade:1},
+    {id:"leshiacoupeuse",grade:2},
+    {id:"leshiaapothicaire",grade:3},
+    {id:"leshiasorciereauxtoxines",grade:4},
+    {id:"leshiaparfumeuserevolte",grade:5},
+    {id:"leshiachimistemortelle",grade:6},
+    {id:"leshiavedunoire",grade:7},
+    {id:"leshiareinevenimeuse",grade:8},
+    {id:"leshiatoxinesmutantes",grade:9},
+    {id:"leshiacybertoxines",grade:10},
+  ],
+  Robots:[
+    {id:"eva01prototype",grade:1},
+    {id:"eva02automate",grade:2},
+    {id:"eva03poupeEdacier",grade:3},
+    {id:"eva04gynoidarcanique",grade:4},
+    {id:"eva05musemecanique",grade:5},
+    {id:"eva06infirmierEdacier",grade:6},
+    {id:"eva07damechrome",grade:7},
+    {id:"eva08heroinEsynthetique",grade:8},
+    {id:"eva09survivante",grade:9},
+    {id:"eva10reinEdesIA",grade:10},
+  ],
+  Steampunk:[
+    {id:"mekrobricoleur",grade:1},
+    {id:"mekroartisandesrouages",grade:2},
+    {id:"mekroforgerondescites",grade:3},
+    {id:"mekromecamancien",grade:4},
+    {id:"mekrodeleraindustrielle",grade:5},
+    {id:"mekroarchitecteblinde",grade:6},
+    {id:"mekrotrafiquant",grade:7},
+    {id:"mekrojusticierareacteur",grade:8},
+    {id:"mekrodesferrailles",grade:9},
+    {id:"mekrocyberinventeur",grade:10},
+  ],
+  Egyptiens:[
+    {id:"akhamdupremiersable",grade:1},
+    {id:"akhamreinedounil",grade:2},
+    {id:"akhamomiedesroyaumes",grade:3},
+    {id:"akhamdusoleilnoir",grade:4},
+    {id:"akhamlabrisseuse",grade:5},
+    {id:"akhamlamaudite",grade:6},
+    {id:"akhammarrainedutombeau",grade:7},
+    {id:"akhamavatardera",grade:8},
+    {id:"akhamdesruinessolaires",grade:9},
+    {id:"akhamcybersolaire",grade:10},
+  ],
+  Ninjas:[
+    {id:"kairanchasseur",grade:1},
+    {id:"kairanlamedempires",grade:2},
+    {id:"kairandesroyaumes",grade:3},
+    {id:"kairanombrerunique",grade:4},
+    {id:"kairandescouronnes",grade:5},
+    {id:"kairandestranchees",grade:6},
+    {id:"kairanexecuteur",grade:7},
+    {id:"kairansurnaturel",grade:8},
+    {id:"kairanderniereombre",grade:9},
+    {id:"kairancyberfantome",grade:10},
+  ],
 };
-const CHRONO_AVATAR={Grecs:"thaloravatar",Amazones:"kalaradeesse",Amerindiens:"nahkograndesprit",Pirates:"rakkoravatar",Vikings:"kjellavatar"};
+const CHRONO_AVATAR={Grecs:"thaloravatar",Amazones:"kalaradeesse",Amerindiens:"nahkograndesprit",Pirates:"rakkoravatar",Vikings:"kjellavatar",Ninjas:"kairanombreternelle",Empoisonneurs:"leshiaderniersouffle",Egyptiens:"akhamdetousages",Steampunk:"mekroempereursteampunk",Robots:"evaomedéesse"};
 
 // Grades state: {faction: currentGrade (0–10)}
 let GRADES={};
@@ -3176,6 +3296,21 @@ const killCard=(who,fi)=>{
     }
   }
   // ── NOUVELLES CARTES — effets à la destruction ──
+  // Akham (Chrono-Légendaire Égyptien): revient sur le terrain avec cost×50 PV (1 fois)
+  if(who==="player"&&card.faction==="Egyptiens"&&card.isChronoLegendaire&&!card.isAvatar&&!card._akhamRevived){
+    const returnPV=(card.cost||1)*50;
+    G.player.field[fi]=null;G.player.equips[fi]=[null,null];
+    const slot=G.player.field.findIndex(s=>!s);
+    if(slot!==-1){
+      G.player.field[slot]={...card,uid:mkuid(),dmgTaken:Math.max(0,(card.hp+(card.bonusHp||0))-returnPV),bonusAtk:0,bonusHp:0,hasAttacked:true,justPlayed:false,_akhamRevived:true};
+      G.player.equips[slot]=[null,null];
+      addLog("⚱️ "+card.name+" revient avec "+returnPV+" PV !");
+    } else {
+      G.player.discard.push({...card,_akhamRevived:true});
+      addLog("⚱️ "+card.name+" voudrait revenir, mais le terrain est plein — elle reste en défausse.");
+    }
+    return;
+  }
   if(who==="player"){
     // Kiara Coupe-Mangue: soigne une Amazone alliée 200 PV
     if(card.id==="kiaracoupemangue"){const am=G.player.field.find(c=>c&&c.faction==="Amazones");if(am){am.dmgTaken=Math.max(0,am.dmgTaken-200);addLog("Kiara: "+am.name+" +200 PV !");}}
@@ -4247,6 +4382,38 @@ const renderChoiceModal=()=>{
     const sel=ch.selected||[];
     const grid=(ch.options||[]).map(({c,i})=>{const isSel=sel.includes(i);return`<div onclick="doChoice('toggle',${i})" style="cursor:pointer;text-align:center;opacity:${isSel?1:0.7}"><div style="border:2px solid ${isSel?'#55bb22':'#333'};border-radius:6px">${cardHTML(c,"mini",{cHp:curHp(c,G.ai,G.fx,G.lieu),mHp:maxHp(c,G.ai,G.fx,G.lieu)})}</div><div style="font-size:8px;color:${isSel?'#55bb22':'#aac'};margin-top:2px">${c.name}</div></div>`;}).join("");
     content=`<div style="display:flex;flex-direction:column;gap:10px;align-items:center"><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div><button onclick="doChoice('confirm',-1)" style="background:#55bb22;border:none;border-radius:8px;color:#000;padding:8px 24px;font-weight:bold;cursor:pointer">Confirmer (${sel.length}/${maxSel})</button></div>`;
+  } else if(ch.type==="mekro_copy_pick"){
+    const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;width:70px;text-align:center">
+      <div style="width:70px;height:98px;border-radius:6px;border:2px solid #886644;overflow:hidden;background:#1a0e00">
+        <img src="cards/${c.id}.png" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='<div style=font-size:26px;padding:22px 8px>⚙️</div>'">
+      </div>
+      <div style="font-size:7px;color:#aa8855;margin-top:2px;line-height:1.2">${c.name}</div>
+      <div style="font-size:7px;color:#665533">★${c.cost}</div>
+    </div>`).join("");
+    content=`<div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+      <div style="font-size:10px;color:#aa8855">Défausse adverse — Choisir un pouvoir à copier</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>
+    </div>`;
+  } else if(ch.type==="eva_absorb"){
+    const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;width:70px;text-align:center">
+      <div style="width:70px;height:98px;border-radius:6px;border:2px solid #00ccff;overflow:hidden;background:#001a22">
+        <img src="cards/${c.id}.png" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='<div style=font-size:26px;padding:22px 8px>🤖</div>'">
+      </div>
+      <div style="font-size:7px;color:#00ccff;margin-top:2px;line-height:1.2">${c.name}</div>
+      <div style="font-size:8px;color:#44aacc">+${c.atk||0} ATQ</div>
+    </div>`).join("");
+    content=`<div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+      <div style="font-size:10px;color:#00ccff">Ta défausse — Choisir un Robot allié à absorber</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>
+    </div>`;
+  } else if(ch.type==="leshia_poison"){
+    const sel=ch.selected||[];
+    const grid=(ch.options||[]).map(({c,i})=>{const isSel=sel.includes(i);return`<div onclick="doChoice('toggle',${i})" style="cursor:pointer;text-align:center;opacity:${isSel?1:0.7}"><div style="border:2px solid ${isSel?'#aa44cc':'#333'};border-radius:6px">${cardHTML(c,"mini",{cHp:curHp(c,G.ai,G.fx,G.lieu),mHp:maxHp(c,G.ai,G.fx,G.lieu)})}</div><div style="font-size:8px;color:${isSel?'#cc88ff':'#aac'};margin-top:2px">${c.name}</div></div>`;}).join("");
+    content=`<div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+      <div style="font-size:10px;color:#cc88ff">Choisis 2 cibles à empoisonner (-${ch.poisonDmg||100} PV/tour)</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>
+      <button onclick="doChoice('confirm',-1)" ${sel.length<2?"disabled style='opacity:0.5;cursor:not-allowed'":""} style="background:#aa44cc;border:none;border-radius:8px;color:#fff;padding:8px 24px;font-weight:bold;cursor:pointer">☠ Empoisonner (${sel.length}/2)</button>
+    </div>`;
   } else if(ch.type==="rouageecran_peek"){
     const tc=ch.topCard;
     content=`<div style="text-align:center">
@@ -4270,7 +4437,7 @@ const renderChoiceModal=()=>{
       <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">${allyGrid||'<div style="color:#445;font-size:11px">Aucun</div>'}</div>
     </div>`;
   } else {
-    const isEnemy2=["freyja","entravesygg","kaya","impactcible","planche","prisongivre","corliss","hurgan","lyra","silence","selka","fosseauxpiques","marquetribale","prisonracines","gardiennil","cowboy","embuscadecobra","colerara_tgt","enfantrongeurs","etoileciel","harlementnloup","piegeplaines","totementrave","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","kuro_target","garruk_target","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","spectrebarillet","rictus","meteioide4","elina_target","velocis_destroy","virusinformatique","explosionbatterie","reprogrammationforcee","calcultraj_enemy","autodestruct_enemy","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_destroy1","morgane_destroy2","nikandros_target","destructiontotale","aliblaze_target1","aliblaze_target2","thalor_target","ventiloide_bounce","rakkor_steal","missvoltibri_destroy","samira_target","bobi_bounce"].includes(ch.type);
+    const isEnemy2=["freyja","entravesygg","kaya","impactcible","planche","prisongivre","corliss","hurgan","lyra","silence","selka","fosseauxpiques","marquetribale","prisonracines","gardiennil","cowboy","embuscadecobra","colerara_tgt","enfantrongeurs","etoileciel","harlementnloup","piegeplaines","totementrave","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","kuro_target","garruk_target","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","spectrebarillet","rictus","meteioide4","elina_target","velocis_destroy","virusinformatique","explosionbatterie","reprogrammationforcee","calcultraj_enemy","autodestruct_enemy","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_destroy1","morgane_destroy2","nikandros_target","destructiontotale","aliblaze_target1","aliblaze_target2","thalor_target","ventiloide_bounce","rakkor_steal","missvoltibri_destroy","samira_target","bobi_bounce","kairan_execute"].includes(ch.type);
     const grid=isEnemy2?enCardGrid(ch.options||[]):myCardGrid(ch.options||[]);
     content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
   }
@@ -4289,6 +4456,10 @@ const renderChoiceModal=()=>{
     samira_target:"🐉 Samira — 100 dégâts à un ennemi",
     bobi_bounce:"👽 Bobi — Renvoyer un ennemi coût ≤2 en main",
     joailliere_buff:"💎 Joaillière — Choisir un allié Dresseur de dragon (+100 PV +100 ATK)",
+    kairan_execute:"🥷 Kaïran — Choisir l'ennemi à éliminer",
+    leshia_poison:"☠️ Leshia — Choisir 2 cibles à empoisonner",
+    mekro_copy_pick:"⚙️ Mekro — Choisir un pouvoir à copier",
+    eva_absorb:"🤖 EVA — Absorber l'ATQ d'un Robot allié (défausse)",
     rakkor_steal:"⚓ Rakkor — Choisir la cible du vol de PV",
     fusion_select:"⚗️ Fusion — Choisir une combinaison",
     fouilleobjet:"🔍 Fouille d'Objet — Choisir un équipement",
@@ -4391,7 +4562,7 @@ const renderChoiceModal=()=>{
     marchenoir:"🏪 Marché Noir — Choisir une carte",
   };
 
-  const mandatoryTypes=["clankbeak","ile","dragon_venin","sylvara","ninja_trio_recall","olympe_choice","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","hurgan","lyra","malgor","crocsr","iskra","kaya","freyja","astrid","haldor","ylvabaies","petittorvald","corliss","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","meteioide4","spectrebarillet","rictus","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","garruk_target","kuro_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","danseuseesprits","passeurnil","pretressenil","hopliteargos","dionysos","meduse","eluzeus","sireneegeenne","colerara_sacr","colerara_tgt","auxportolympe","isis","reveilpharaon","regenerationnil","elina_target","velocis_destroy","calcultraj_ally","calcultraj_enemy","modeberserk","bouclierholo","virusinformatique","explosionbatterie","reprogrammationforcee","autodestruct_ally","autodestruct_enemy","transfertconscience","mains_choice","mains_heal_target","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_sacrif","morgane_destroy1","alpix_heal","croqueplanete_heal","nikandros_target","rouageecran_peek","yara_target","volpuissance_my","volpuissance_en","duelheros_my","duelheros_en","destructiontotale","fouilleobjet","asclepios_heal","aliblaze_target1","aliblaze_target2","thalor_target","ventiloide_bounce","rakkor_steal","missvoltibri_destroy","samira_target","bobi_bounce","joailliere_buff"];
+  const mandatoryTypes=["clankbeak","ile","dragon_venin","sylvara","ninja_trio_recall","olympe_choice","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","hurgan","lyra","malgor","crocsr","iskra","kaya","freyja","astrid","haldor","ylvabaies","petittorvald","corliss","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","meteioide4","spectrebarillet","rictus","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","garruk_target","kuro_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","danseuseesprits","passeurnil","pretressenil","hopliteargos","dionysos","meduse","eluzeus","sireneegeenne","colerara_sacr","colerara_tgt","auxportolympe","isis","reveilpharaon","regenerationnil","elina_target","velocis_destroy","calcultraj_ally","calcultraj_enemy","modeberserk","bouclierholo","virusinformatique","explosionbatterie","reprogrammationforcee","autodestruct_ally","autodestruct_enemy","transfertconscience","mains_choice","mains_heal_target","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_sacrif","morgane_destroy1","alpix_heal","croqueplanete_heal","nikandros_target","rouageecran_peek","yara_target","volpuissance_my","volpuissance_en","duelheros_my","duelheros_en","destructiontotale","fouilleobjet","asclepios_heal","aliblaze_target1","aliblaze_target2","thalor_target","ventiloide_bounce","rakkor_steal","missvoltibri_destroy","samira_target","bobi_bounce","joailliere_buff","kairan_execute","leshia_poison","mekro_copy_pick","eva_absorb"];
   const hasClose=!mandatoryTypes.includes(ch.type);
   return `<div class="modal-bg" onclick="${hasClose?"closeChoice()":""}"><div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-title">${titles[ch.type]||ch.type}</div>
@@ -4939,6 +5110,41 @@ const doPlayerAttack=(afi,ttype,tfi)=>{
 };
 
 // ── PLAY CARD ──
+// Mekro: déclenche l'effet d'entrée d'une carte copiée (best-effort sur les effets connus)
+const fireMekroCopiedEffect=(copiedId,casterUid)=>{
+  const template=CARDS.find(c=>c.id===copiedId);
+  if(!template)return;
+  const mfi=G.player.field.findIndex(c=>c&&c.uid===casterUid);
+  const placed=mfi!==-1?G.player.field[mfi]:null;
+  if(!placed)return;
+  addLog("⚙️ Mekro active le pouvoir copié de "+template.name+" !");
+  // Effets sur les ennemis
+  if(template.type==="personnage"){
+    const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+    // Cartes à dégâts multiples sur tous les ennemis (ex: Elythra, Sélène…)
+    const allEnemyDmg={"selenemidiable":0,"elythraolympe":400};
+    if(allEnemyDmg[copiedId]!==undefined){
+      enemies.forEach(({c:t,i})=>{if(allEnemyDmg[copiedId]>0){t.dmgTaken+=allEnemyDmg[copiedId];const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",i);stealPrestige("player",t.name+" détruit !");}else addLog(template.name+": "+t.name+" -"+allEnemyDmg[copiedId]+" PV (copié)!");}});
+      return;
+    }
+    // Gèle tous les ennemis
+    if(copiedId==="selenemidiable"){G.ai.field.forEach(c=>{if(c)c._frozen=true;});addLog("Mekro → Sélène: tous gelés (copié) !");return;}
+    // Effets qui nécessitent un choix (single target dmg, bounce, etc.)
+    const needsEnemyTarget=["destructiontotale","missvoltibri","nikandros_target","bjirg_target","bjang_target","nyxara_target","aliblaze_target1","samira_target","bobi_bounce","ventiloide_bounce","virusinformatique","explosionbatterie","reprogrammationforcee"];
+    if(needsEnemyTarget.includes(copiedId)&&enemies.length){
+      setTimeout(()=>{CHOICE={type:"destructiontotale",options:enemies};renderGame();},100);return;
+    }
+    // Pioche de cartes
+    const drawCards={"meliadardruche":()=>{const n=enemies.length;for(let i2=0;i2<n&&G.player.deck.length>0;i2++)G.player.hand.push(G.player.deck.shift());addLog("Mekro → Mélia: pioche "+n+" (copié)!");}};
+    if(drawCards[copiedId]){drawCards[copiedId]();return;}
+    // Soins d'alliés
+    const healAll={"docrustine":()=>{G.player.field.forEach(c=>{if(c&&c.faction==="Punk")c.dmgTaken=Math.max(0,c.dmgTaken-200);});addLog("Mekro → Doc Rustine: Punk +200 PV (copié)!");}};
+    if(healAll[copiedId]){healAll[copiedId]();return;}
+  }
+  // Fallback: juste le texte est copié, pas d'effet mécanique supplémentaire
+  addLog("(Effet de "+template.name+" : "+template.effect+")");
+};
+
 const playCard=(cardUid,fi)=>{
   const ci=G.player.hand.findIndex(c=>c.uid===cardUid);if(ci===-1)return;
   const card=G.player.hand[ci];
@@ -5131,21 +5337,70 @@ const playCard=(cardUid,fi)=>{
       if(allTargets.length)setTimeout(()=>{CHOICE={type:"yara_target",casterUid:placed.uid};renderGame();},100);
       else addLog("Yara: aucune cible !");
     }
-    // Rakkor (Chrono-Légendaire Pirate): à l'arrivée, vole grade×100 PV à un ennemi choisi
-    if(card.faction==="Pirates"&&card.isChronoLegendaire&&!card.isAvatar){
-      const stealAmt=(card.cost||1)*100;
-      const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
-      if(enemies.length===1){
-        const t=enemies[0].c;const i=enemies[0].i;
-        t.dmgTaken+=stealAmt;
-        const rfi=G.player.field.findIndex(c=>c&&c.uid===placed.uid);
-        if(rfi!==-1)G.player.field[rfi]={...G.player.field[rfi],dmgTaken:Math.max(0,G.player.field[rfi].dmgTaken-stealAmt)};
-        addLog(card.name+": vole "+stealAmt+" PV à "+t.name+" !");
-        const ch2=curHp(t,G.ai,G.fx,G.lieu);
-        if(ch2<=0){killCard("ai",i);stealPrestige("player",t.name+" détruit par "+card.name+" !");}
-      } else if(enemies.length>1){
-        setTimeout(()=>{CHOICE={type:"rakkor_steal",options:enemies,stealAmt,casterUid:placed.uid};renderGame();},100);
-      } else addLog(card.name+": aucun ennemi !");
+    // EVA (Chrono-Légendaire Robot): à l'arrivée, choisit un Robot allié (coût ≤ grade) en défausse → +ATQ
+    if(card.faction==="Robots"&&card.isChronoLegendaire&&!card.isAvatar){
+      const costLimit=card.cost||1;
+      const opts=G.player.discard
+        .map((c,i)=>({c,i}))
+        .filter(x=>x.c.type==="personnage"&&x.c.faction==="Robots"&&(x.c.cost||0)<=costLimit);
+      if(opts.length===0){addLog(card.name+": aucun Robot allié (coût ≤"+costLimit+") dans ta défausse !");}
+      else if(opts.length===1){
+        const t=opts[0].c;
+        const efi=G.player.field.findIndex(c=>c&&c.uid===placed.uid);
+        if(efi!==-1){const gain=t.atk||0;G.player.field[efi].bonusAtk=(G.player.field[efi].bonusAtk||0)+gain;addLog("⚙️ "+card.name+" absorbe "+gain+" ATQ de "+t.name+" !");}
+      } else {
+        setTimeout(()=>{CHOICE={type:"eva_absorb",options:opts,casterUid:placed.uid};renderGame();},100);
+      }
+    }
+    // Mekro (Chrono-Légendaire Steampunk): copie le pouvoir d'un personnage adverse de la défausse
+    if(card.faction==="Steampunk"&&card.isChronoLegendaire&&!card.isAvatar){
+      const costLimit=card.cost||1;
+      const opts=G.ai.discard
+        .map((c,i)=>({c,i}))
+        .filter(x=>x.c.type==="personnage"&&(x.c.cost||0)<=costLimit);
+      if(opts.length===0){addLog(card.name+": aucun personnage adverse (coût ≤"+costLimit+") dans la défausse !");}
+      else if(opts.length===1){
+        const t=opts[0].c;
+        const mfi=G.player.field.findIndex(c=>c&&c.uid===placed.uid);
+        if(mfi!==-1){G.player.field[mfi]={...G.player.field[mfi],effect:t.effect,_copiedCardId:t.id};addLog("⚙️ Mekro copie le pouvoir de "+t.name+" !");}
+        setTimeout(()=>fireMekroCopiedEffect(t.id,placed.uid),150);
+      } else {
+        setTimeout(()=>{CHOICE={type:"mekro_copy_pick",options:opts,casterUid:placed.uid};renderGame();},100);
+      }
+    }
+    // Leshia (Chrono-Légendaire Empoisonneuse): à l'arrivée, empoisonne 2 ennemis (cost×100 dégâts/tour)
+    if(card.faction==="Empoisonneurs"&&card.isChronoLegendaire&&!card.isAvatar){
+      const poisonDmg=(card.cost||1)*100;
+      const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&!x.c._poisoned);
+      if(enemies.length===0){addLog(card.name+": aucun ennemi à empoisonner !");}
+      else if(enemies.length<=2){
+        enemies.forEach(({c:t})=>{poisonChar("ai",t.uid,poisonDmg,-1);addLog(card.name+": "+t.name+" empoisonné(e) (-"+poisonDmg+" PV/tour) !");});
+      } else {
+        // 3+ ennemis : toggle pour choisir 2
+        setTimeout(()=>{CHOICE={type:"leshia_poison",selected:[],poisonDmg,options:enemies};renderGame();},100);
+      }
+    }
+    // Kaïran (Chrono-Légendaire Ninja): détruit ennemi ≤cost×100 PV puis gagne ATQ par Ninja blessé
+    if(card.faction==="Ninjas"&&card.isChronoLegendaire&&!card.isAvatar){
+      const hpThreshold=(card.cost||1)*100;
+      const atqBonus=(card.cost||1)*50;
+      const validTargets=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&curHp(x.c,G.ai,G.fx,G.lieu)<=hpThreshold);
+      const applyKairanBonus=()=>{
+        const wounded=G.player.field.filter(c=>c&&c.faction==="Ninjas"&&c.dmgTaken>0&&c.uid!==placed.uid).length;
+        const bonus=wounded*atqBonus;
+        const kfi=G.player.field.findIndex(c=>c&&c.uid===placed.uid);
+        if(kfi!==-1&&bonus>0){G.player.field[kfi].bonusAtk=(G.player.field[kfi].bonusAtk||0)+bonus;addLog(card.name+": +"+bonus+" ATQ ("+wounded+" Ninja(s) blessé(s)) !");}
+      };
+      if(validTargets.length===1){
+        const {c:t,i}=validTargets[0];
+        killCard("ai",i);stealPrestige("player","Kaïran détruit "+t.name+" !");
+        applyKairanBonus();
+      } else if(validTargets.length>1){
+        setTimeout(()=>{CHOICE={type:"kairan_execute",options:validTargets,atqBonus,casterUid:placed.uid};renderGame();},100);
+      } else {
+        addLog(card.name+": aucun ennemi éliminable (≤"+hpThreshold+" PV).");
+        applyKairanBonus();
+      }
     }
     // Asclépios Porte-Bâton: soigne un allié Grec 200 PV (+100 ATK si déjà blessé)
     if(card.id==="asclepiosportebaton"){
@@ -5699,6 +5954,43 @@ window.doChoice=(action,payload)=>{
     if(action==="toggle"){const sel=ch.selected||[];const idx=sel.indexOf(payload);if(idx!==-1)ch.selected=sel.filter(x=>x!==payload);else if(sel.length<2)ch.selected=[...sel,payload];CHOICE=ch;renderGame();return;}
     else if(action==="confirm"){const dmg=ch.type==="dragon_venin"?150:100;const turns=ch.type==="dragon_venin"?-1:3;(ch.selected||[]).forEach(i=>{const t=G.ai.field[i];if(t){poisonChar("ai",t.uid,dmg,turns);addLog("☠ "+(ch.type==="dragon_venin"?"Dragon":"Sylvara")+": "+t.name+" empoisonné(e) !");}});}
   }
+  else if(ch.type==="mekro_copy_pick"){
+    const opt=ch.options[payload];
+    if(opt){
+      const t=opt.c;
+      const mfi=G.player.field.findIndex(c=>c&&c.uid===ch.casterUid);
+      if(mfi!==-1){
+        G.player.field[mfi]={...G.player.field[mfi],effect:t.effect,_copiedCardId:t.id};
+        addLog("⚙️ Mekro copie le pouvoir de "+t.name+" !");
+        setTimeout(()=>fireMekroCopiedEffect(t.id,ch.casterUid),150);
+      }
+    }
+  }
+  else if(ch.type==="eva_absorb"){
+    const opt=ch.options[payload];
+    if(opt){
+      const t=opt.c;
+      const efi=G.player.field.findIndex(c=>c&&c.uid===ch.casterUid);
+      if(efi!==-1){
+        const gain=t.atk||0;
+        G.player.field[efi].bonusAtk=(G.player.field[efi].bonusAtk||0)+gain;
+        addLog("⚙️ "+G.player.field[efi].name+" absorbe "+gain+" ATQ de "+t.name+" !");
+      }
+    }
+  }
+  else if(ch.type==="leshia_poison"){
+    if(action==="toggle"){
+      const sel=ch.selected||[];const idx=sel.indexOf(payload);
+      if(idx!==-1)ch.selected=sel.filter(x=>x!==payload);
+      else if(sel.length<2)ch.selected=[...sel,payload];
+      CHOICE=ch;renderGame();return;
+    }
+    else if(action==="confirm"){
+      if((ch.selected||[]).length<2){addLog("Leshia: sélectionne 2 cibles !");CHOICE=ch;renderGame();return;}
+      const poisonDmg=ch.poisonDmg||100;
+      (ch.selected||[]).forEach(i=>{const t=G.ai.field[i];if(t){poisonChar("ai",t.uid,poisonDmg,-1);addLog("☠ Leshia: "+t.name+" empoisonné(e) (-"+poisonDmg+" PV/tour) !");}});
+    }
+  }
   else if(ch.type==="mains_choice"){
     if(action==="heal"){CHOICE={type:"mains_heal_target",options:G.player.field.map((c,i)=>({c,i})).filter(x=>x.c)};renderGame();return;}
     if(action==="dmg"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);CHOICE={type:"mains_dmg_target",options:opts};renderGame();return;}
@@ -6025,6 +6317,17 @@ window.doChoice=(action,payload)=>{
     else if(ch.type==="joailliere_buff"){
       const t=G.player.field[payload];
       if(t&&t.faction==="DresseursDragons"){t.dmgTaken=Math.max(0,t.dmgTaken-100);t.bonusAtk=(t.bonusAtk||0)+100;addLog("Joaillière: "+t.name+" +100 PV +100 ATK !");}
+    }
+    else if(ch.type==="kairan_execute"){
+      const opt=ch.options[payload];
+      if(opt){
+        const {c:t,i}=opt;
+        killCard("ai",i);stealPrestige("player","Kaïran détruit "+t.name+" !");
+        const wounded=G.player.field.filter(c=>c&&c.faction==="Ninjas"&&c.dmgTaken>0&&c.uid!==ch.casterUid).length;
+        const bonus=wounded*(ch.atqBonus||50);
+        const kfi=G.player.field.findIndex(c=>c&&c.uid===ch.casterUid);
+        if(kfi!==-1&&bonus>0){G.player.field[kfi].bonusAtk=(G.player.field[kfi].bonusAtk||0)+bonus;addLog("Kaïran: +"+bonus+" ATQ ("+wounded+" Ninja(s) blessé(s)) !");}
+      }
     }
     else if(ch.type==="fouilleobjet"){
       const opt=ch.options[payload];
