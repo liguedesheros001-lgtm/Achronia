@@ -113,7 +113,7 @@ const DECK_REQ_FACTIONS={
   amazones:["Amazones"],amerindiens:["Amerindiens"],primitifs:["Amazones","Amerindiens"],
   egyptiens:["Egyptiens"],grecs:["Grecs"],empire:["Egyptiens","Grecs"],
   ninjas:["Ninjas"],empoisonneurs:["Empoisonneurs"],corrompus:["Ninjas","Empoisonneurs"],
-  steampunk:["Steampunk"],robots:["Robots"],
+  steampunk:["Steampunk"],robots:["Robots"],punk:["Punk"],
   industriels:["Robots","Steampunk"],
 };
 
@@ -804,6 +804,62 @@ const CARDS = [
   {id:"bobilamidesbetes",name:"Bobi l'Ami des Bêtes",type:"personnage",atk:550,hp:250,cost:4,faction:"Extraterrestres",effect:"Le tour où il arrive en jeu, renvoie un personnage adverse de coût ≤2 dans la main adverse.",syn:"Envahisseur"},
   {id:"gluverminedacide",name:"Gluvermine d'Acide",type:"personnage",atk:200,hp:150,cost:2,faction:"Empoisonneurs",effect:"Quand elle est attaquée, inflige 50 dégâts à l'attaquant.",syn:"Venin"},
   {id:"joaillieredragonrubis",name:"Joaillière du Dragon-Rubis",type:"personnage",atk:200,hp:300,cost:3,faction:"DresseursDragons",effect:"À l'arrivée : donne +100 PV et +100 ATK à un Dresseur de dragon allié.",syn:"Dragon"},
+  // ── NOUVELLES CARTES (lot 7) ──
+  {id:"miyufleurdombre",name:"Miyu Fleur-d'Ombre",type:"personnage",atk:450,hp:600,cost:5,faction:"Ninjas",effect:"À l'arrivée : tous les ennemis perdent -100 ATK pendant 3 tours.",syn:"Ombre"},
+  {id:"roxiepincerage",name:"Roxie Pince-Rage",type:"personnage",atk:400,hp:400,cost:4,faction:"Punk",effect:"Passif : tant qu'elle est sur le terrain, les ennemis ne peuvent pas être soignés.",syn:"Chaos"},
+  {id:"k9securibot",name:"K-9 Sécuribot",type:"personnage",atk:200,hp:150,cost:2,faction:"Robots",effect:"À l'arrivée : un Robot allié au choix peut attaquer 2 fois au tour suivant.",syn:"Protocole"},
+  {id:"astrobrigadierorbital",name:"Astro-Brigadier Orbital",type:"personnage",atk:50,hp:300,cost:2,faction:"EntitesAstrales",effect:"À l'arrivée : renvoie un ennemi de coût ≤2 dans la main adverse.",syn:"Cosmos"},
+  {id:"cassiacanon",name:"Cassia Canon",type:"personnage",atk:100,hp:300,cost:2,faction:"Grecs",effect:"Passif : tant qu'elle est sur le terrain, tous les Grecs alliés gagnent +50 ATK au début de chaque tour.",syn:"Gloire"},
+  // ── NOUVELLES CARTES FUSION ──
+  {id:"hukramtitanvoleur",name:"Hukram Titan Voleur",type:"personnage",atk:1000,hp:1000,cost:10,faction:"Pirates",isFusion:true,effect:"À l'arrivée : détruit tous les personnages avec moins de 200 ATK.",syn:"Flibuste"},
+  {id:"kaelyagriffedecume",name:"Kaelya Griffe d'Écume",type:"personnage",atk:950,hp:1100,cost:10,faction:"Amazones",isFusion:true,effect:"Fusion triple : Nalya + Kaela + une carte Fusion.",syn:"Jungle"},
+  {id:"sumoursgarou",name:"Sumours-Garou",type:"personnage",atk:1000,hp:1100,cost:10,faction:"Amerindiens",isFusion:true,effect:"Fusion : Aiyana Peau-d'Ours + Cavalier du Bison Sacré.",syn:"Terre"},
+  {id:"yarardanserune",name:"Yarar Danse Rune",type:"personnage",atk:1000,hp:1200,cost:10,faction:"Vikings",isFusion:true,effect:"Fusion : Haldor + Yara Danse-Fjord.",syn:"Clan"},
+  {id:"voltarainherovolant",name:"Voltarain Héros Volant",type:"personnage",atk:1100,hp:900,cost:10,faction:"Steampunk",isFusion:true,effect:"Fusion triple : Airain Héros à Vapeur + Miss Voltibri + une carte Fusion.",syn:"Engrenage"},
+  {id:"jobkarcavalier",name:"Jobkar Cavalier",type:"personnage",atk:1100,hp:1200,cost:10,faction:"Egyptiens",isFusion:true,effect:"Fusion : Cowboy du Désert Sacré + Neb-Khar Cavalier.",syn:"Pharaon"},
+  {id:"khanplxv2",name:"Khanpl-X V2",type:"personnage",atk:900,hp:1050,cost:10,faction:"Robots",isFusion:true,effect:"Fusion triple : Khan-Tor + Alpi-X Secouriste + une carte Fusion.",syn:"Protocole"},
+  {id:"docteursenteur",name:"Docteur Senteur",type:"personnage",atk:900,hp:950,cost:10,faction:"Ninjas",isFusion:true,effect:"Fusion triple : Docteur Akiko + Miyu Fleur-d'Ombre + une carte Fusion.",syn:"Ombre"},
+  {id:"venaklauspicdebrume",name:"Vénaklaus Pic de Brume",type:"personnage",atk:900,hp:950,cost:10,faction:"Empoisonneurs",isFusion:true,effect:"Fusion triple : Klaus Brume-Gaz + Vénéra Pic-de-Toxine + une carte Fusion.",syn:"Venin"},
+  {id:"cyclopionledoree",name:"Cyclopion le Doré",type:"personnage",atk:1000,hp:1200,cost:10,faction:"Grecs",isFusion:true,effect:"Fusion : Cyclope Brise-Temple + Théon Sac d'Or.",syn:"Gloire"},
+  {id:"princesseanarchie",name:"Princesse Anarchie",type:"personnage",atk:250,hp:250,cost:3,faction:"Punk",effect:"À l'arrivée : un allié Punk gagne +100 ATQ ce tour.",syn:"Chaos"},
+  {id:"gorillazlemassacreur",name:"Gorillaz le Massacreur",type:"personnage",atk:650,hp:650,cost:6,faction:"Punk",effect:"Quand il attaque, renvoie un ennemi de coût ≤3 en main adverse.",syn:"Chaos"},
+  {id:"sharkrashlamachoire",name:"Sharkrash la Mâchoire",type:"personnage",atk:750,hp:600,cost:7,faction:"Punk",effect:"À l'arrivée : renvoie un ennemi en main adverse. Si coût ≥8, l'adversaire perd 1 prestige.",syn:"Chaos"},
+  {id:"picpunklefakir",name:"Pic-Punk le Fakir",type:"personnage",atk:150,hp:250,cost:2,faction:"Punk",effect:"Riposte : quand il subit des dégâts, inflige 50 dégâts à l'attaquant.",syn:"Chaos"},
+  {id:"tronkracinerebelle",name:"Tronk Racine Rebelle",type:"personnage",atk:100,hp:150,cost:1,faction:"Punk",effect:"À la mort : +100 PV à un allié Punk.",syn:"Chaos"},
+  {id:"tessondoubletranchant",name:"Tesson Double Tranchant",type:"personnage",atk:300,hp:100,cost:2,faction:"Punk",effect:"À l'arrivée : 100 dégâts à 2 personnages adverses.",syn:"Chaos"},
+  {id:"sumoriot",name:"Sumo Riot",type:"personnage",atk:650,hp:800,cost:7,faction:"Punk",effect:"À l'arrivée : renvoie l'ennemi au plus faible coût en main adverse.",syn:"Chaos"},
+  {id:"vibraguitaresismique",name:"Vibra Guitare Sismique",type:"personnage",atk:400,hp:450,cost:5,faction:"Punk",effect:"Quand elle attaque, 100 dégâts à tous les autres ennemis.",syn:"Chaos"},
+  {id:"pigeonsdelazone",name:"Pigeons de la Zone",type:"personnage",atk:100,hp:100,cost:1,faction:"Punk",effect:"À l'arrivée : 50 dégâts à un ennemi.",syn:"Chaos"},
+  {id:"punkauxmillevoix",name:"Punk aux Mille Voix",type:"personnage",atk:450,hp:400,cost:5,faction:"Punk",effect:"Début de ton tour : renvoie un ennemi coût ≤4 en main, ou 150 dégâts à un ennemi.",syn:"Chaos"},
+  {id:"anarsharkmachoireroyale",name:"Anarshark Mâchoire Royale",type:"personnage",atk:1000,hp:1100,cost:10,faction:"Punk",isFusion:true,effect:"Fusion Sharkrash + Princesse Anarchie. À l'arrivée : 300 dégâts à tous les ennemis. Les ennemis survivants ne peuvent pas attaquer ce tour.",syn:"Chaos"},
+  {id:"riffcogneur",name:"Riff Cogneur",type:"personnage",atk:400,hp:350,cost:4,faction:"Punk",effect:"À l'arrivée : renvoie un ennemi coût ≤3 en main adverse.",syn:"Chaos"},
+  {id:"molosseetmegere",name:"Molosse & Mégère",type:"personnage",atk:250,hp:300,cost:3,faction:"Punk",effect:"À l'arrivée : renvoie un ennemi coût ≤2 en main adverse.",syn:"Chaos"},
+  {id:"majorcarnage",name:"Major Carnage",type:"personnage",atk:550,hp:450,cost:5,faction:"Punk",effect:"Quand il détruit un ennemi, inflige 150 dégâts à un autre ennemi.",syn:"Chaos"},
+  {id:"kronolestoppeur",name:"Krono le Stoppeur",type:"personnage",atk:500,hp:550,cost:6,faction:"Punk",effect:"À l'arrivée : gèle un ennemi. Si coût ≤4 : le renvoie aussi en main adverse.",syn:"Chaos"},
+  {id:"cavaliernofuture",name:"Cavalière No Future",type:"personnage",atk:200,hp:150,cost:2,faction:"Punk",effect:"Quand elle attaque, 50 dégâts à un ennemi aléatoire.",syn:"Chaos"},
+  {id:"radialblinde",name:"Radial Blindé",type:"personnage",atk:350,hp:500,cost:4,faction:"Punk",effect:"La première fois qu'il devrait subir des dégâts, les réduit de 200.",syn:"Chaos"},
+  {id:"voltarkroideshyenes",name:"Voltark Roi des Hyènes",type:"personnage",atk:850,hp:750,cost:8,faction:"Punk",effect:"Passif : les ennemis de coût ≤3 ne peuvent être invoqués. À l'arrivée : 200 dégâts à un ennemi.",syn:"Chaos"},
+  // ── PUNK — Équipements ──
+  {id:"bombedetag",name:"Bombe de Tag",type:"equipement",cost:0,faction:"Punk",effect:"+50 ATQ. Sur attaque : choisir et défausser une carte de la main adverse."},
+  {id:"hachedestop",name:"Hache du Stop",type:"equipement",cost:0,faction:"Punk",effect:"+150 ATQ. Sur kill : renvoie un autre ennemi coût ≤2 en main adverse."},
+  {id:"casquedubelierpunk",name:"Casque du Bélier Punk",type:"equipement",cost:0,faction:"Punk",effect:"+100 ATQ +100 PV. À l'entrée en jeu : 100 dégâts à un ennemi."},
+  {id:"guitarduchaos",name:"Guitare du Chaos",type:"equipement",cost:0,faction:"Punk",effect:"+100 ATQ. Sur attaque : renvoie un ennemi coût ≤2 en main adverse."},
+  {id:"batteherissee",name:"Batte Hérissée",type:"equipement",cost:0,faction:"Punk",effect:"+250 ATQ. Quand le porteur inflige des dégâts, un allié subit aussi 50 dégâts."},
+  {id:"poingsono",name:"Poing Sono",type:"equipement",cost:0,faction:"Punk",effect:"+100 ATQ. Sur attaque : l'ennemi ciblé perd -100 ATQ pendant 2 tours."},
+  {id:"microdepropagande",name:"Micro de Propagande",type:"equipement",cost:0,faction:"Punk",effect:"+50 ATQ +100 PV. À l'entrée : gèle un ennemi."},
+  {id:"cretedacier",name:"Crête d'Acier",type:"equipement",cost:0,faction:"Punk",effect:"+150 PV. Première destruction évitée : survit avec 50 PV."},
+  // ── PUNK — Lieux ──
+  {id:"lascenedusacrifice",name:"La Scène du Sacrifice",type:"lieu",cost:0,faction:"Punk",effect:"1x/tour : quand un Punk allié renvoie un ennemi en main, un allié Punk gagne +100 ATQ."},
+  {id:"bouchemetrotaguee",name:"Bouche de Métro Taguée",type:"lieu",cost:0,faction:"Punk",effect:"1x/tour : quand un ennemi est renvoyé en main, inflige 100 dégâts à un autre ennemi."},
+  // ── PUNK — Actions ──
+  {id:"ondedechoc",name:"Onde de Choc",type:"action",cost:0,faction:"Punk",effect:"Renvoie un personnage adverse dans la main de son propriétaire."},
+  {id:"symboledanarchie",name:"Symbole d'Anarchie",type:"action",cost:0,faction:"Punk",effect:"Un ennemi choisi ne peut pas attaquer pendant 5 tours."},
+  {id:"emeutetotale",name:"Émeute Totale",type:"action",cost:0,faction:"Punk",effect:"Tous les Punk alliés +100 ATQ ce tour, puis 100 dégâts à tous les ennemis."},
+  {id:"pogosauvage",name:"Pogo Sauvage",type:"action",cost:0,faction:"Punk",effect:"Un Punk allié +150 ATQ ce tour, puis 50 dégâts à tous les autres personnages."},
+  {id:"jetdebouteille",name:"Jet de Bouteille",type:"action",cost:0,faction:"Punk",effect:"Un ennemi subit 100 dégâts et ne peut pas attaquer au prochain tour."},
+  {id:"discoursderevolte",name:"Discours de Révolte",type:"action",cost:0,faction:"Punk",effect:"Pioche 1 carte, puis un Punk allié gagne +ATQ selon le type pioché (+100 perso, +200 équip, +250 action/lieu)."},
+  {id:"accordparfait",name:"Accord Parfait",type:"action",cost:0,faction:"Punk",effect:"Un Punk allié copie l'ATQ du Punk allié le plus fort sur le terrain."},
+  {id:"coupenofuture",name:"Coupe No Future",type:"action",cost:0,faction:"Punk",effect:"Choisissez une carte dans la main adverse : elle rejoint votre main."},
   // ── STEAMPUNK — Équipements ──
   {id:"lanceflammecharbon",name:"Lance-Flamme au Charbon",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 ATK. L'ennemi touche perd 100 PV au debut de son tour."},
   {id:"lunettesing",name:"Lunettes d'Ingénieur",type:"equipement",cost:0,faction:"Steampunk",effect:"+100 PV."},
@@ -895,6 +951,13 @@ const DECKS = {
     factions:["Robots"],
     collectionBased:true,
     lockFaction:"Robots",
+    slots:{personnage:20,lieu:2,action:10,equipement:8}},
+  punk:{id:"punk",name:"Les Rebelles",icon:"🎸",color:"#ff2244",image:"adversaires/punk.png",
+    desc:"Deck Punk — débloqué à 85% des cartes Punk. Joue uniquement avec tes cartes.",
+    keys:["princesseanarchie","gorillazlemassacreur","sharkrashlamachoire","sumoriot","vibraguitaresismique"],
+    factions:["Punk"],
+    collectionBased:true,
+    lockFaction:"Punk",
     slots:{personnage:20,lieu:2,action:10,equipement:8}},
   roitemps:{id:"roitemps",name:"Le Roi du Temps",icon:"⌛",color:"#cc8800",image:"adversaires/roi_du_temps.png",
     desc:"Boss légendaire. Récompense : 🪙+350 ⭐+350 XP. Défaite : 🪙-100.",
@@ -1321,7 +1384,8 @@ const NE_CARD_IDS=["astrelyadesconfins","akaiondefenseur","rokkhard","bicheceryn
   "saryamuseauecume","nikandroslecaille","aiyanapeaudours","morvanfletriracine","nebkharcavalier","rouageecran","yaradansefjord",
   "destructiontotale","fouilleobjet","calystapeaubronze","asclepiosportebaton","selenemidiable","aliblaze",
   "memenocturne","gustavechenillefumante","ventiloide6","piquemort","bureau07","billycretferoce",
-  "dameedriane","odrikecaillemorte","bjornoudou","sorenbriquetenoir","missvoltibri","samiramarchesable","bobilamidesbetes","gluverminedacide","joaillieredragonrubis"];
+  "dameedriane","odrikecaillemorte","bjornoudou","sorenbriquetenoir","missvoltibri","samiramarchesable","bobilamidesbetes","gluverminedacide","joaillieredragonrubis",
+  "miyufleurdombre","roxiepincerage","k9securibot","astrobrigadierorbital","cassiacanon"];
 
 const openBoosterNE=()=>{
   const pack=SHOP_PACK_DEFS.find(p=>p.id==="booster");
@@ -2927,6 +2991,7 @@ const SHOP_PACK_DEFS=[
   {id:"corrompus",name:"Pack Corrompus",icon:"🥷",desc:"Ninjas & Empoisonneurs",price:600,factions:["Ninjas","Empoisonneurs"],locked:false,color:"#9933cc"},
   {id:"cosmiques",name:"Pack Cosmiques",icon:"🌌",desc:"Entités Astrales + Extraterrestres",price:600,factions:[],locked:true,color:"#4466ff"},
   {id:"industriels",name:"Pack Industriel",icon:"⚙️",desc:"Robots Humanoïdes + Steampunk",price:600,factions:["Robots","Steampunk"],locked:false,color:"#cc8800"},
+  {id:"rebelles",name:"Pack Les Rebelles",icon:"🎸",desc:"Cartes Punk — bientôt disponible !",price:500,factions:["Punk"],locked:true,color:"#ff2244"},
   {id:"booster",name:"Pack Nouvelle Ère",icon:"✨",desc:"4 cartes exclusives NE + slot Chrono-Légendaire si grade atteint",price:1000,factions:[],locked:false,color:"#cc88ff"},
 ];
 
@@ -3170,6 +3235,15 @@ const calcAtk=(card,side,fx,lieu,isP)=>{
     if(eq.find(e=>e.id==="fusilvapeur"))a+=200;
     if(eq.find(e=>e.id==="grenadecharbon"))a+=300;
   }
+  if(card.faction==="Punk"){
+    if(eq.find(e=>e.id==="bombedetag"))a+=50;
+    if(eq.find(e=>e.id==="hachedestop"))a+=150;
+    if(eq.find(e=>e.id==="casquedubelierpunk"))a+=100;
+    if(eq.find(e=>e.id==="guitarduchaos"))a+=100;
+    if(eq.find(e=>e.id==="batteherissee"))a+=250;
+    if(eq.find(e=>e.id==="poingsono"))a+=100;
+    if(eq.find(e=>e.id==="microdepropagande"))a+=50;
+  }
   // Totem d'Entrave Mystique: l'ennemi ne reçoit plus de bonus d'ATK
   if(card.totalLock){return card.atk+(card.bonusAtk||0);}
   fx.filter(e=>e.target===card.uid&&e.type==="atk").forEach(e=>a+=e.bonus);
@@ -3240,6 +3314,12 @@ const maxHp=(card,side,fx,lieu)=>{
     if(eq.find(e=>e.id==="dronelibellule"))b+=100;
     if(eq.find(e=>e.id==="montrerouages"))b+=100;
     if(eq.find(e=>e.id==="cleuniverselle"))b+=100;
+  }
+  // ── Punk équipements PV ──
+  if(card.faction==="Punk"){
+    if(eq.find(e=>e.id==="casquedubelierpunk"))b+=100;
+    if(eq.find(e=>e.id==="cretedacier"))b+=150;
+    if(eq.find(e=>e.id==="microdepropagande"))b+=100;
   }
   return b;
 };
@@ -3314,6 +3394,11 @@ const killCard=(who,fi)=>{
   if(who==="player"){
     // Kiara Coupe-Mangue: soigne une Amazone alliée 200 PV
     if(card.id==="kiaracoupemangue"){const am=G.player.field.find(c=>c&&c.faction==="Amazones");if(am){am.dmgTaken=Math.max(0,am.dmgTaken-200);addLog("Kiara: "+am.name+" +200 PV !");}}
+    // Tronk Racine Rebelle: à la mort, +100 PV à un allié Punk
+    if(card.id==="tronkracinerebelle"){
+      const ally=G.player.field.find(c=>c&&c.faction==="Punk");
+      if(ally){ally.dmgTaken=Math.max(0,ally.dmgTaken-100);addLog("Tronk: "+ally.name+" +100 PV !");}
+    }
     // Odrik Écaille Morte: retourne un DresseursDragons de coût ≤2 depuis la défausse vers la main
     if(card.id==="odrikecaillemorte"){
       const opts=G.player.discard.filter(c=>c.faction==="DresseursDragons"&&(c.cost||0)<=2);
@@ -3366,6 +3451,14 @@ const killCard=(who,fi)=>{
   G[who].field[fi]=null;G[who].equips[fi]=[null,null];G[who].discard.push(card);
   if(G.tayraTargets)G.tayraTargets=G.tayraTargets.filter(u=>u!==card.uid);
 };
+// Roxie Pince-Rage: empêche les soins des ennemis tant qu'elle est sur le terrain joueur
+const roxieActive=()=>G?.player?.field?.some(c=>c&&c.id==="roxiepincerage");
+// Helper sécurisé: soigne la cible, sauf si Roxie est active et cible = côté IA
+const healSafe=(side,card,amount)=>{
+  if(side==="ai"&&roxieActive()){addLog("🎸 Roxie: soin bloqué pour "+card.name+" !");return 0;}
+  card.dmgTaken=Math.max(0,(card.dmgTaken||0)-amount);return amount;
+};
+
 const stealPrestige=(who,msg)=>{
   const en=who==="player"?"ai":"player";
   G[who].prestige++;G[en].prestige--;
@@ -4356,6 +4449,11 @@ const renderChoiceModal=()=>{
   } else if(ch.type==="poison_single"||ch.type==="tayra_target"||ch.type==="klausbrume"){
     const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;text-align:center">${cardHTML(c,"mini",{cHp:curHp(c,G.ai,G.fx,G.lieu),mHp:maxHp(c,G.ai,G.fx,G.lieu)})}<div style="font-size:8px;color:#aac;margin-top:2px">${c.name}</div></div>`).join("");
     content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
+  } else if(ch.type==="punkmillevoix_choice"){
+    content=`<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button onclick="doChoice('bounce',-1)" style="background:linear-gradient(90deg,#cc4400,#aa2200);border:none;border-radius:10px;color:#fff;padding:10px 18px;font-weight:bold;cursor:pointer">↩️ Renvoyer ennemi coût ≤4</button>
+      <button onclick="doChoice('dmg',-1)" style="background:linear-gradient(90deg,#ff2244,#cc0022);border:none;border-radius:10px;color:#fff;padding:10px 18px;font-weight:bold;cursor:pointer">💥 150 dégâts à un ennemi</button>
+    </div>`;
   } else if(ch.type==="mains_choice"){
     content=`<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
       <button onclick="doChoice('heal',-1)" style="background:linear-gradient(90deg,#22aa44,#118833);border:none;border-radius:10px;color:#fff;padding:10px 18px;font-weight:bold;cursor:pointer">💚 Soigner un allié +100 PV</button>
@@ -4365,8 +4463,8 @@ const renderChoiceModal=()=>{
     const nameOf=(id)=>{const c=CARDS.find(x=>x.id===id);return c?c.name:id;};
     content=`<div style="display:flex;flex-direction:column;gap:10px;align-items:center">
       ${(ch.options||[]).map((fus,i)=>`<button onclick="doChoice('select',${i})" style="width:100%;max-width:380px;background:linear-gradient(90deg,#5a2d8c,#3a1d6c);border:1px solid #cc88ff66;border-radius:12px;color:#fff;padding:12px 16px;cursor:pointer;text-align:left">
-        <div style="font-size:12px;color:#dcb8ff">${nameOf(fus.a)} + ${nameOf(fus.b)}</div>
-        <div style="font-size:15px;font-weight:bold;margin-top:3px">⚗️ → ${fus.resultCard.name}</div>
+        <div style="font-size:12px;color:#dcb8ff">${nameOf(fus.a)} + ${nameOf(fus.b)}${fus.requiresFusion?" + <span style='color:#ffcc44'>une Fusion</span>":""}</div>
+        <div style="font-size:15px;font-weight:bold;margin-top:3px">⚗️ → ${fus.resultCard.name}${fus.requiresFusion?" <span style='font-size:10px;color:#ffcc44'>✦ Tripartite</span>":""}</div>
       </button>`).join("")}
       <button onclick="doChoice('cancel',-1)" style="width:100%;max-width:380px;background:rgba(255,255,255,0.06);border:1px solid #667;border-radius:12px;color:#aab;padding:10px 16px;cursor:pointer;margin-top:6px">✋ Ne pas faire de fusion</button>
     </div>`;
@@ -4394,6 +4492,17 @@ const renderChoiceModal=()=>{
       <div style="font-size:10px;color:#aa8855">Défausse adverse — Choisir un pouvoir à copier</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>
     </div>`;
+  } else if(ch.type==="coupe_steal"||ch.type==="bombedetag_discard"){
+    const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;width:70px;text-align:center">
+      <div style="width:70px;height:98px;border-radius:6px;border:2px solid ${ch.type==="coupe_steal"?"#22cc66":"#ff4444"};overflow:hidden;background:#0a1020">
+        <img src="cards/${c.id}.png" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='<div style=font-size:22px;padding:28px 8px>🃏</div>'">
+      </div>
+      <div style="font-size:7px;color:#aab;margin-top:2px">${c.name}</div>
+    </div>`).join("");
+    content=`<div style="display:flex;flex-direction:column;gap:8px;align-items:center">
+      <div style="font-size:10px;color:#aab">Main adverse (${ch.options?.length} carte(s))</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>
+    </div>`;
   } else if(ch.type==="eva_absorb"){
     const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;width:70px;text-align:center">
       <div style="width:70px;height:98px;border-radius:6px;border:2px solid #00ccff;overflow:hidden;background:#001a22">
@@ -4404,6 +4513,17 @@ const renderChoiceModal=()=>{
     </div>`).join("");
     content=`<div style="display:flex;flex-direction:column;gap:10px;align-items:center">
       <div style="font-size:10px;color:#00ccff">Ta défausse — Choisir un Robot allié à absorber</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>
+    </div>`;
+  } else if(ch.type==="k9_doubletarget"){
+    const grid=(ch.options||[]).map(({c,i})=>`<div onclick="doChoice('pick',${i})" style="cursor:pointer;width:70px;text-align:center">
+      <div style="width:70px;height:98px;border-radius:6px;border:2px solid #00ccff;overflow:hidden;background:#001a22">
+        <img src="cards/${c.id}.png" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='<div style=font-size:26px;padding:22px 8px>🤖</div>'">
+      </div>
+      <div style="font-size:7px;color:#00ccff;margin-top:2px">${c.name}</div>
+    </div>`).join("");
+    content=`<div style="display:flex;flex-direction:column;gap:8px;align-items:center">
+      <div style="font-size:10px;color:#00ccff">Choisir le Robot allié qui pourra attaquer 2 fois</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>
     </div>`;
   } else if(ch.type==="leshia_poison"){
@@ -4437,7 +4557,7 @@ const renderChoiceModal=()=>{
       <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">${allyGrid||'<div style="color:#445;font-size:11px">Aucun</div>'}</div>
     </div>`;
   } else {
-    const isEnemy2=["freyja","entravesygg","kaya","impactcible","planche","prisongivre","corliss","hurgan","lyra","silence","selka","fosseauxpiques","marquetribale","prisonracines","gardiennil","cowboy","embuscadecobra","colerara_tgt","enfantrongeurs","etoileciel","harlementnloup","piegeplaines","totementrave","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","kuro_target","garruk_target","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","spectrebarillet","rictus","meteioide4","elina_target","velocis_destroy","virusinformatique","explosionbatterie","reprogrammationforcee","calcultraj_enemy","autodestruct_enemy","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_destroy1","morgane_destroy2","nikandros_target","destructiontotale","aliblaze_target1","aliblaze_target2","thalor_target","ventiloide_bounce","rakkor_steal","missvoltibri_destroy","samira_target","bobi_bounce","kairan_execute"].includes(ch.type);
+    const isEnemy2=["freyja","entravesygg","kaya","impactcible","planche","prisongivre","corliss","hurgan","lyra","silence","selka","fosseauxpiques","marquetribale","prisonracines","gardiennil","cowboy","embuscadecobra","colerara_tgt","enfantrongeurs","etoileciel","harlementnloup","piegeplaines","totementrave","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","kuro_target","garruk_target","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","spectrebarillet","rictus","meteioide4","elina_target","velocis_destroy","virusinformatique","explosionbatterie","reprogrammationforcee","calcultraj_enemy","autodestruct_enemy","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_destroy1","morgane_destroy2","nikandros_target","destructiontotale","aliblaze_target1","aliblaze_target2","thalor_target","ventiloide_bounce","rakkor_steal","missvoltibri_destroy","samira_target","bobi_bounce","kairan_execute","astro_bounce","tesson_target1","tesson_target2","sharkrash_bounce","pigeon_target","punk_bounce2","punk_bounce3","krono_target","voltark_dmg","gorillaz_bounce","major_carnage_bonus","punkmillevoix_dmg","casque_target","micro_freeze","guitare_bounce","hachedestop_bounce","ondedechoc_target","symbole_target","jetbouteille_target"].includes(ch.type);
     const grid=isEnemy2?enCardGrid(ch.options||[]):myCardGrid(ch.options||[]);
     content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
   }
@@ -4460,6 +4580,36 @@ const renderChoiceModal=()=>{
     leshia_poison:"☠️ Leshia — Choisir 2 cibles à empoisonner",
     mekro_copy_pick:"⚙️ Mekro — Choisir un pouvoir à copier",
     eva_absorb:"🤖 EVA — Absorber l'ATQ d'un Robot allié (défausse)",
+    k9_doubletarget:"🤖 K-9 Sécuribot — Choisir un Robot allié (double attaque)",
+    astro_bounce:"🚀 Astro-Brigadier — Renvoyer un ennemi coût ≤2 en main",
+    punk_anarchie_ally:"🎸 Princesse Anarchie — Choisir un allié Punk (+100 ATQ)",
+    casque_target:"⚔️ Casque Bélier — 100 dégâts à un ennemi",
+    micro_freeze:"🎤 Micro — Geler un ennemi",
+    guitare_bounce:"🎸 Guitare du Chaos — Renvoyer ennemi coût ≤2",
+    hachedestop_bounce:"🪓 Hache du Stop — Renvoyer ennemi coût ≤2",
+    ondedechoc_target:"💥 Onde de Choc — Renvoyer un ennemi en main",
+    symbole_target:"☢️ Symbole d'Anarchie — Geler un ennemi 5 tours",
+    jetbouteille_target:"🍾 Jet de Bouteille — 100 dégâts + geler",
+    pogo_target:"🎸 Pogo Sauvage — Punk allié +150 ATQ",
+    pogo_dmg_all:"🎸 Pogo Sauvage — 50 dégâts à tous les autres",
+    discours_target:"🎙️ Discours de Révolte — Punk allié +ATQ",
+    accord_receiver:"🎸 Accord Parfait — Choisir le Punk qui copie",
+    accord_donor:"🎸 Accord Parfait — Choisir le Punk copié",
+    coupe_steal:"✂️ Coupe No Future — Choisir la carte à voler",
+    bombedetag_discard:"💣 Bombe de Tag — Choisir la carte à défausser",
+    tesson_target1:"⚔️ Tesson — 1ère cible (100 dégâts)",
+    tesson_target2:"⚔️ Tesson — 2ème cible (100 dégâts)",
+    sharkrash_bounce:"🦈 Sharkrash — Renvoyer un ennemi en main",
+    pigeon_target:"🐦 Pigeons — 50 dégâts à un ennemi",
+    punk_bounce2:"🎸 Renvoyer un ennemi coût ≤2 en main",
+    punk_bounce3:"🎸 Renvoyer un ennemi coût ≤3 en main",
+    krono_target:"⏱️ Krono — Geler un ennemi",
+    voltark_dmg:"🐺 Voltark — 200 dégâts à un ennemi",
+    gorillaz_bounce:"🦍 Gorillaz — Renvoyer un ennemi coût ≤3 en main",
+    major_carnage_bonus:"💥 Major Carnage — 150 dégâts bonus à un autre ennemi",
+    punkmillevoix_choice:"🎙️ Punk aux Mille Voix — Choisir un effet",
+    punkmillevoix_bounce:"🎙️ Punk — Renvoyer un ennemi coût ≤4 en main",
+    punkmillevoix_dmg:"🎙️ Punk — 150 dégâts à un ennemi",
     rakkor_steal:"⚓ Rakkor — Choisir la cible du vol de PV",
     fusion_select:"⚗️ Fusion — Choisir une combinaison",
     fouilleobjet:"🔍 Fouille d'Objet — Choisir un équipement",
@@ -4562,7 +4712,7 @@ const renderChoiceModal=()=>{
     marchenoir:"🏪 Marché Noir — Choisir une carte",
   };
 
-  const mandatoryTypes=["clankbeak","ile","dragon_venin","sylvara","ninja_trio_recall","olympe_choice","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","hurgan","lyra","malgor","crocsr","iskra","kaya","freyja","astrid","haldor","ylvabaies","petittorvald","corliss","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","meteioide4","spectrebarillet","rictus","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","garruk_target","kuro_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","danseuseesprits","passeurnil","pretressenil","hopliteargos","dionysos","meduse","eluzeus","sireneegeenne","colerara_sacr","colerara_tgt","auxportolympe","isis","reveilpharaon","regenerationnil","elina_target","velocis_destroy","calcultraj_ally","calcultraj_enemy","modeberserk","bouclierholo","virusinformatique","explosionbatterie","reprogrammationforcee","autodestruct_ally","autodestruct_enemy","transfertconscience","mains_choice","mains_heal_target","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_sacrif","morgane_destroy1","alpix_heal","croqueplanete_heal","nikandros_target","rouageecran_peek","yara_target","volpuissance_my","volpuissance_en","duelheros_my","duelheros_en","destructiontotale","fouilleobjet","asclepios_heal","aliblaze_target1","aliblaze_target2","thalor_target","ventiloide_bounce","rakkor_steal","missvoltibri_destroy","samira_target","bobi_bounce","joailliere_buff","kairan_execute","leshia_poison","mekro_copy_pick","eva_absorb"];
+  const mandatoryTypes=["clankbeak","ile","dragon_venin","sylvara","ninja_trio_recall","olympe_choice","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","hurgan","lyra","malgor","crocsr","iskra","kaya","freyja","astrid","haldor","ylvabaies","petittorvald","corliss","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","meteioide4","spectrebarillet","rictus","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","garruk_target","kuro_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","danseuseesprits","passeurnil","pretressenil","hopliteargos","dionysos","meduse","eluzeus","sireneegeenne","colerara_sacr","colerara_tgt","auxportolympe","isis","reveilpharaon","regenerationnil","elina_target","velocis_destroy","calcultraj_ally","calcultraj_enemy","modeberserk","bouclierholo","virusinformatique","explosionbatterie","reprogrammationforcee","autodestruct_ally","autodestruct_enemy","transfertconscience","mains_choice","mains_heal_target","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_sacrif","morgane_destroy1","alpix_heal","croqueplanete_heal","nikandros_target","rouageecran_peek","yara_target","volpuissance_my","volpuissance_en","duelheros_my","duelheros_en","destructiontotale","fouilleobjet","asclepios_heal","aliblaze_target1","aliblaze_target2","thalor_target","ventiloide_bounce","rakkor_steal","missvoltibri_destroy","samira_target","bobi_bounce","joailliere_buff","kairan_execute","leshia_poison","mekro_copy_pick","eva_absorb","k9_doubletarget","astro_bounce","punk_anarchie_ally","tesson_target1","tesson_target2","sharkrash_bounce","pigeon_target","punk_bounce2","punk_bounce3","krono_target","voltark_dmg","gorillaz_bounce","major_carnage_bonus","punkmillevoix_choice","punkmillevoix_bounce","punkmillevoix_dmg","casque_target","micro_freeze","guitare_bounce","hachedestop_bounce","ondedechoc_target","symbole_target","jetbouteille_target","pogo_target","pogo_dmg_all","discours_target","accord_receiver","accord_donor","coupe_steal","bombedetag_discard"];
   const hasClose=!mandatoryTypes.includes(ch.type);
   return `<div class="modal-bg" onclick="${hasClose?"closeChoice()":""}"><div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-title">${titles[ch.type]||ch.type}</div>
@@ -4790,6 +4940,20 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
         const mx=maxHp(def,G[en],G.fx,G.lieu);
         G[en].field[tfi]={...def,dmgTaken:mx-100,lastStandUsed:true};
         addLog("Sarya Museau-d'Écume survit à la première attaque (100 PV) !");
+      } else if(def.id==="radialblinde"&&!def.lastStandUsed){
+        // Réduit les dégâts de 200 (peut ne pas être létaux après réduction)
+        const reduced=Math.max(0,a-200);
+        const mx=maxHp(def,G[en],G.fx,G.lieu);
+        const newDmg=(def.dmgTaken||0)+reduced;
+        G[en].field[tfi]={...def,dmgTaken:newDmg,lastStandUsed:true};
+        addLog("Radial Blindé: -200 dégâts (blinde actif) !");
+        const afterHp=mx-newDmg;
+        if(afterHp>0){return;}// survit
+      } else if(!def.lastStandUsed&&eqs(G[en].equips,def.uid).find(e=>e&&e.id==="cretedacier")){
+        // Crête d'Acier: survit avec 50 PV la première fois
+        const mx=maxHp(def,G[en],G.fx,G.lieu);
+        G[en].field[tfi]={...def,dmgTaken:mx-50,lastStandUsed:true};
+        addLog("⚔️ Crête d'Acier: "+def.name+" survit avec 50 PV !");
       } else {
         // Armure Amazone last stand
         if(def.faction==="Amazones"&&!def.lastStandUsed){
@@ -4993,6 +5157,13 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
         const atkHpAfter4=curHp(G[who].field[afi],G[who],G.fx,G.lieu);
         if(atkHpAfter4<=0){killCard(who,afi);stealPrestige(en,atk.name+" détruit par l'acide de Gluvermine !");}
       }
+      // Pic-Punk le Fakir: riposte 50 dégâts à l'attaquant quand il est attaqué
+      if(def&&def.id==="picpunklefakir"){
+        G[who].field[afi]={...G[who].field[afi],dmgTaken:(G[who].field[afi].dmgTaken||0)+50};
+        addLog("Pic-Punk: riposte, "+atk.name+" -50 PV !");
+        const atkHpAfter5=curHp(G[who].field[afi],G[who],G.fx,G.lieu);
+        if(atkHpAfter5<=0){killCard(who,afi);stealPrestige(en,atk.name+" détruit par la riposte du Fakir !");}
+      }
       if(who==="player"){
         if(atk.id==="braxboxeur"){const others=G.ai.field.filter(c=>c&&c.uid!==def.uid);if(others.length){others[0].dmgTaken+=100;addLog("Brax: 100 dégâts à "+others[0].name+" !");}}
         if(atk.id==="khantor"){const eq=G.player.field.filter(c=>c&&c.type==="equipement").length;if(eq>0){G.fx.push({target:atk.uid,bonus:100*eq,type:"atk",endOfTurn:true});addLog("Khan-Tor: +"+100*eq+" ATK ("+eq+" équipement(s)) !");}}
@@ -5004,6 +5175,12 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
         if(atk.id==="mollymeurage"){const mfi2=G.player.field.findIndex(c=>c&&c.uid===atk.uid);if(mfi2!==-1){G.player.field[mfi2]={...G.player.field[mfi2],dmgTaken:(G.player.field[mfi2].dmgTaken||0)+50};addLog("Molly: -50 PV !");}}
         // Kaora Brise-Ring: si blesse (ennemi survit), gel
         if(atk.id==="kaorabrisering"&&G.ai.field[tfi]){const kch=curHp(G.ai.field[tfi],G.ai,G.fx,G.lieu);if(kch>0){G.ai.field[tfi]={...G.ai.field[tfi],_frozen:true};addLog("Kaora: "+G.ai.field[tfi].name+" gelé !");}}
+        // Hache du Stop: après kill, renvoie un autre ennemi coût ≤2 en main adverse
+        if(eqs(G.player.equips,atk.uid).find(e=>e&&e.id==="hachedestop")&&!G.ai.field[tfi]){
+          const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&(x.c.cost||0)<=2);
+          if(opts.length===1){const t=opts[0];G.ai.field[t.i]=null;G.ai.equips[t.i]=[null,null];G.ai.hand.push({...t.c,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("Hache du Stop: "+t.c.name+" renvoyé en main !");}
+          else if(opts.length>1)setTimeout(()=>{CHOICE={type:"hachedestop_bounce",options:opts};renderGame();},300);
+        }
         // Spider-Punk Pochtron: kill ennemi coût ≥4 → pioche 1
         if(atk.id==="spiderpunkpochtron"&&G.ai.field[tfi]){const spch=curHp(G.ai.field[tfi],G.ai,G.fx,G.lieu);if(spch<=0&&(def.cost||0)>=4&&G.player.deck.length>0){G.player.hand.push(G.player.deck.shift());addLog("Spider-Punk: ennemi ≥4 tué → pioche 1 !");}}
         // Vénéra Pic-de-Toxine: empoisonne l'ennemi attaqué (20 PV/tour)
@@ -5019,6 +5196,49 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
             if(ch2<=0){killCard("ai",i);stealPrestige("player",c.name+" détruit par Billy !");}
             else addLog("Billy: "+c.name+" -100 PV !");
           });
+        }
+        // Vibra Guitare Sismique: 100 dégâts à tous les AUTRES ennemis quand elle attaque
+        if(atk.id==="vibraguitaresismique"){
+          G.ai.field.forEach((c,i)=>{if(!c||i===tfi)return;c.dmgTaken=(c.dmgTaken||0)+100;const ch2=curHp(c,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",i);stealPrestige("player",c.name+" détruit !");}else addLog("Vibra: "+c.name+" -100 PV !");});
+        }
+        // Bombedetag: choisit une carte de la main adverse à défausser
+        if(eqs(G.player.equips,atk.uid).find(e=>e&&e.id==="bombedetag")&&G.ai.hand.length){
+          const handOpts=G.ai.hand.map((c,i)=>({c,i}));
+          setTimeout(()=>{CHOICE={type:"bombedetag_discard",options:handOpts};renderGame();},250);
+        }
+        // Guitare du Chaos: renvoie un ennemi coût ≤2 en main adverse
+        if(eqs(G.player.equips,atk.uid).find(e=>e&&e.id==="guitarduchaos")){
+          const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.i!==tfi&&(x.c.cost||0)<=2);
+          if(opts.length===1){const t=opts[0];G.ai.field[t.i]=null;G.ai.equips[t.i]=[null,null];G.ai.hand.push({...t.c,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("Guitare: "+t.c.name+" renvoyé en main !");}
+          else if(opts.length>1)setTimeout(()=>{CHOICE={type:"guitare_bounce",options:opts};renderGame();},250);
+        }
+        // Poing Sono: -100 ATQ à l'ennemi ciblé pendant 2 tours
+        if(eqs(G.player.equips,atk.uid).find(e=>e&&e.id==="poingsono")&&G.ai.field[tfi]){
+          G.fx.push({target:G.ai.field[tfi].uid,bonus:-100,type:"atk",endOfTurn:false,expiresAtTurn:G.turn+2});
+          addLog("Poing Sono: "+def.name+" -100 ATQ pendant 2 tours !");
+        }
+        // Batte Hérissée: un allié subit 50 dégâts
+        if(eqs(G.player.equips,atk.uid).find(e=>e&&e.id==="batteherissee")){
+          const ally=G.player.field.find(c=>c&&c.uid!==atk.uid);
+          if(ally){ally.dmgTaken=(ally.dmgTaken||0)+50;addLog("Batte Hérissée: "+ally.name+" -50 PV (effet de recul) !");}
+        }
+        // Cavalière No Future: 50 dégâts à un ennemi aléatoire quand elle attaque
+        if(atk.id==="cavaliernofuture"){
+          const others=G.ai.field.filter(c=>c&&c.uid!==def.uid);
+          if(others.length){const rnd=others[Math.floor(Math.random()*others.length)];rnd.dmgTaken=(rnd.dmgTaken||0)+50;addLog("Cavalière: "+rnd.name+" -50 PV (aléatoire) !");}
+        }
+        // Gorillaz le Massacreur: peut renvoyer un ennemi coût ≤3 en main adverse après attaque
+        if(atk.id==="gorillazlemassacreur"){
+          const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&(x.c.cost||0)<=3);
+          if(opts.length)setTimeout(()=>{CHOICE={type:"gorillaz_bounce",options:opts};renderGame();},200);
+        }
+        // Major Carnage: après kill, 150 dégâts à un autre ennemi
+        if(atk.id==="majorcarnage"&&G.ai.field[tfi]){
+          const defHp=curHp(G.ai.field[tfi],G.ai,G.fx,G.lieu);
+          if(defHp<=0){
+            const others=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.i!==tfi);
+            if(others.length)setTimeout(()=>{CHOICE={type:"major_carnage_bonus",options:others};renderGame();},300);
+          }
         }
         // Nahko (Chrono-Légendaire Amérindien): après avoir attaqué, +100×coût PV à un allié Amérindien
         if(atk.faction==="Amerindiens"&&atk.isChronoLegendaire&&!atk.isAvatar){
@@ -5273,6 +5493,86 @@ const playCard=(cardUid,fi)=>{
       else addLog("Nikandros: aucun ennemi !");
     }
     // Rouage-Écran: regarde la 1ère carte du deck, choisir dessus/dessous
+    // Miyu Fleur-d'Ombre: tous les ennemis -100 ATK pour 3 tours
+    if(card.id==="miyufleurdombre"){
+      const expires=G.turn+3;
+      G.ai.field.forEach(c=>{if(c)G.fx.push({target:c.uid,bonus:-100,type:"atk",endOfTurn:false,expiresAtTurn:expires});});
+      addLog("🌸 Miyu: tous les ennemis -100 ATK pour 3 tours !");
+    }
+    // K-9 Sécuribot: un Robot allié peut attaquer 2 fois au tour suivant
+    if(card.id==="k9securibot"){
+      const allies=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Robots"&&x.c.uid!==placed.uid);
+      if(allies.length===1){G.player.field[allies[0].i]._pendingDoubleAttack=true;addLog("K-9: "+allies[0].c.name+" attaquera 2 fois au prochain tour !");}
+      else if(allies.length>1)setTimeout(()=>{CHOICE={type:"k9_doubletarget",options:allies};renderGame();},100);
+      else addLog("K-9: aucun Robot allié à booster !");
+    }
+    // ── CARTES PUNK — effets d'entrée ──
+    // Princesse Anarchie: un allié Punk +100 ATQ ce tour
+    if(card.id==="princesseanarchie"){
+      const allies=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Punk"&&x.c.uid!==placed.uid);
+      if(allies.length===1){G.fx.push({target:allies[0].c.uid,bonus:100,type:"atk",endOfTurn:true});addLog("Princesse Anarchie: "+allies[0].c.name+" +100 ATQ !");}
+      else if(allies.length>1)setTimeout(()=>{CHOICE={type:"punk_anarchie_ally",options:allies};renderGame();},100);
+      else addLog("Princesse Anarchie: aucun allié Punk !");
+    }
+    // Tesson Double Tranchant: 100 dégâts à 2 ennemis
+    if(card.id==="tessondoubletranchant"){
+      const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(enemies.length>=2)setTimeout(()=>{CHOICE={type:"tesson_target1",options:enemies};renderGame();},100);
+      else if(enemies.length===1){enemies[0].c.dmgTaken+=100;addLog("Tesson: "+enemies[0].c.name+" -100 PV !");const ch2=curHp(enemies[0].c,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",enemies[0].i);stealPrestige("player",enemies[0].c.name+" détruit !");}}
+      else addLog("Tesson: aucun ennemi !");
+    }
+    // Sumo Riot: renvoie l'ennemi au plus faible coût
+    if(card.id==="sumoriot"){
+      const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(enemies.length){const cheapest=enemies.reduce((a,b)=>(a.c.cost||0)<=(b.c.cost||0)?a:b);G.ai.field[cheapest.i]=null;G.ai.equips[cheapest.i]=[null,null];G.ai.hand.push({...cheapest.c,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("Sumo Riot: "+cheapest.c.name+" (coût "+cheapest.c.cost+") renvoyé en main !");}
+      else addLog("Sumo Riot: aucun ennemi !");
+    }
+    // Sharkrash la Mâchoire: renvoie un ennemi; si coût ≥8, adversaire perd 1 prestige
+    if(card.id==="sharkrashlamachoire"){
+      const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(enemies.length===1){const t=enemies[0];G.ai.field[t.i]=null;G.ai.equips[t.i]=[null,null];G.ai.hand.push({...t.c,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("Sharkrash: "+t.c.name+" renvoyé en main !");if((t.c.cost||0)>=8){G.ai.prestige--;addLog("Sharkrash: ennemi coût ≥8 → adversaire -1 prestige !");}}
+      else if(enemies.length>1)setTimeout(()=>{CHOICE={type:"sharkrash_bounce",options:enemies};renderGame();},100);
+      else addLog("Sharkrash: aucun ennemi !");
+    }
+    // Pigeons de la Zone: 50 dégâts à un ennemi
+    if(card.id==="pigeonsdelazone"){
+      const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(enemies.length)setTimeout(()=>{CHOICE={type:"pigeon_target",options:enemies};renderGame();},100);
+      else addLog("Pigeons: aucun ennemi !");
+    }
+    // Riff Cogneur: renvoie ennemi coût ≤3
+    if(card.id==="riffcogneur"){
+      const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&(x.c.cost||0)<=3);
+      if(opts.length===1){const t=opts[0];G.ai.field[t.i]=null;G.ai.equips[t.i]=[null,null];G.ai.hand.push({...t.c,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("Riff Cogneur: "+t.c.name+" renvoyé en main !");}
+      else if(opts.length>1)setTimeout(()=>{CHOICE={type:"punk_bounce3",options:opts};renderGame();},100);
+      else addLog("Riff Cogneur: aucun ennemi de coût ≤3 !");
+    }
+    // Molosse & Mégère: renvoie ennemi coût ≤2
+    if(card.id==="molosseetmegere"){
+      const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&(x.c.cost||0)<=2);
+      if(opts.length===1){const t=opts[0];G.ai.field[t.i]=null;G.ai.equips[t.i]=[null,null];G.ai.hand.push({...t.c,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("Molosse & Mégère: "+t.c.name+" renvoyé en main !");}
+      else if(opts.length>1)setTimeout(()=>{CHOICE={type:"punk_bounce2",options:opts};renderGame();},100);
+      else addLog("Molosse & Mégère: aucun ennemi de coût ≤2 !");
+    }
+    // Krono le Stoppeur: gèle un ennemi; si coût ≤4 le renvoie aussi
+    if(card.id==="kronolestoppeur"){
+      const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(enemies.length)setTimeout(()=>{CHOICE={type:"krono_target",options:enemies};renderGame();},100);
+      else addLog("Krono: aucun ennemi !");
+    }
+    // Voltark Roi des Hyènes: 200 dégâts à un ennemi (passif géré à début tour adverse)
+    if(card.id==="voltarkroideshyenes"){
+      const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(enemies.length)setTimeout(()=>{CHOICE={type:"voltark_dmg",options:enemies};renderGame();},100);
+      else addLog("Voltark: aucun ennemi !");
+    }
+    // Astro-Brigadier Orbital: renvoie un ennemi de coût ≤2 en main adverse
+    if(card.id==="astrobrigadierorbital"){
+      const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&(x.c.cost||0)<=2);
+      if(opts.length===1){const t=opts[0];G.ai.field[t.i]=null;G.ai.equips[t.i]=[null,null];G.ai.hand.push({...t.c,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("🚀 Astro-Brigadier: "+t.c.name+" renvoyé en main adverse !");}
+      else if(opts.length>1)setTimeout(()=>{CHOICE={type:"astro_bounce",options:opts};renderGame();},100);
+      else addLog("Astro-Brigadier: aucun ennemi de coût ≤2 !");
+    }
     if(card.id==="rouageecran"||card.id==="bureau07"){
       if(G.player.deck.length>0){setTimeout(()=>{CHOICE={type:"rouageecran_peek",topCard:G.player.deck[0]};renderGame();},100);}
       else addLog((card.id==="bureau07"?"Bureau-07":"Rouage-Écran")+": deck vide !");
@@ -5737,6 +6037,20 @@ const playCard=(cardUid,fi)=>{
         if(hasAl||hasEn){setTimeout(()=>{CHOICE={type:"mains_choice",tgtUid:tgt.uid};renderGame();},100);return;}
         addLog("⚙️ Mains Multi: +100 ATK +100 PV !");
       }
+      // Casque du Bélier Punk: 100 dégâts à un ennemi à l'équipement
+      if(card.id==="casquedubelierpunk"){
+        const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+        if(enemies.length===1){const t=enemies[0];t.c.dmgTaken+=100;addLog("Casque Bélier: "+t.c.name+" -100 PV !");const ch2=curHp(t.c,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",t.i);stealPrestige("player",t.c.name+" détruit !");}}
+        else if(enemies.length>1)setTimeout(()=>{CHOICE={type:"casque_target",options:enemies};renderGame();},100);
+        else addLog("Casque Bélier: aucun ennemi !");
+      }
+      // Micro de Propagande: gèle un ennemi à l'équipement
+      if(card.id==="microdepropagande"){
+        const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+        if(enemies.length===1){enemies[0].c._frozen=true;addLog("Micro: "+enemies[0].c.name+" gelé !");}
+        else if(enemies.length>1)setTimeout(()=>{CHOICE={type:"micro_freeze",options:enemies};renderGame();},100);
+        else addLog("Micro: aucun ennemi !");
+      }
     }
     // Clé Universelle: soigne 100 PV à un allié équipé à l'équipement
     if(card.id==="cleuniverselle"){const healed=G.player.field.find((c,j)=>c&&c.faction==="Steampunk"&&c.uid!==tgt.uid&&eqs(G.player.equips,c.uid).find(e=>e));if(healed){healed.dmgTaken=Math.max(0,(healed.dmgTaken||0)-100);addLog("🔧 Clé Universelle: "+healed.name+" +100 PV !");}}
@@ -5782,16 +6096,50 @@ const playCard=(cardUid,fi)=>{
           addLog("Fusion => Squawkbeard !");
           ["player","ai"].forEach(w=>{G[w].field.forEach((c,i)=>{if(c&&c.id!=="squawk"&&curHp(c,G[w],G.fx,G.lieu)<200){killCard(w,i);stealPrestige("player","Squawk détruit "+c.name+"!");}});});
         }},
+        {a:"sharkrashlamachoire",b:"princesseanarchie",result:"anarsharkmachoireroyale",onFuse:()=>{
+          addLog("⚗️ FUSION → Anarshark Mâchoire Royale invoqué !");
+          G.ai.field.forEach((c,i)=>{if(!c)return;const ch=curHp(c,G.ai,G.fx,G.lieu);if(300>=ch){killCard("ai",i);stealPrestige("player","Anarshark détruit "+c.name+"!");}else{G.ai.field[i]={...G.ai.field[i],dmgTaken:(G.ai.field[i].dmgTaken||0)+300};addLog("Anarshark: "+c.name+" -300 PV !");}});
+          G.ai.field.forEach(c=>{if(c)c._frozen=true;});
+          addLog("Anarshark: tous les survivants sont gelés !");
+        }},
+        // ── Fusions standards (A + B) ──
+        {a:"hurgan",b:"mackhramcoffrerouge",result:"hukramtitanvoleur",requiresFusion:true,onFuse:()=>{
+          addLog("⚗️ FUSION TRIPLE → Hukram Titan Voleur ! Tous les personnages avec < 200 ATK détruits !");
+          ["player","ai"].forEach(w=>{G[w].field.forEach((c,i)=>{if(c&&calcAtk(c,G[w],G.fx,G.lieu)<200){killCard(w,i);stealPrestige(w==="player"?"ai":"player","Hukram détruit "+c.name+" (< 200 ATK) !");}});});
+        }},
+        {a:"aiyanapeaudours",b:"cavalierbison",result:"sumoursgarou",requiresFusion:true,onFuse:()=>addLog("⚗️ FUSION TRIPLE → Sumours-Garou !")},
+        {a:"haldor",b:"yaradansefjord",result:"yarardanserune",requiresFusion:true,onFuse:()=>addLog("⚗️ FUSION TRIPLE → Yarar Danse Rune !")},
+        {a:"cowboy",b:"nebkharcavalier",result:"jobkarcavalier",requiresFusion:true,onFuse:()=>addLog("⚗️ FUSION TRIPLE → Jobkar Cavalier !")},
+        {a:"cyclopebrise",b:"theonsacdor",result:"cyclopionledoree",requiresFusion:true,onFuse:()=>addLog("⚗️ FUSION TRIPLE → Cyclopion le Doré !")},
+        // ── Fusions tripartites (A + B + toute carte Fusion) ──
+        {a:"nalyaecume",b:"kaela",result:"kaelyagriffedecume",requiresFusion:true,onFuse:()=>addLog("⚗️ FUSION TRIPLE → Kaelya Griffe d'Écume !")},
+        {a:"airainherovapeur",b:"missvoltibri",result:"voltarainherovolant",requiresFusion:true,onFuse:()=>addLog("⚗️ FUSION TRIPLE → Voltarain Héros Volant !")},
+        {a:"khantor",b:"alpixsecouriste",result:"khanplxv2",requiresFusion:true,onFuse:()=>addLog("⚗️ FUSION TRIPLE → Khanpl-X V2 !")},
+        {a:"docteurakiko",b:"miyufleurdombre",result:"docteursenteur",requiresFusion:true,onFuse:()=>addLog("⚗️ FUSION TRIPLE → Docteur Senteur !")},
+        {a:"klausbrume",b:"veneapictoxine",result:"venaklauspicdebrume",requiresFusion:true,onFuse:()=>addLog("⚗️ FUSION TRIPLE → Vénaklaus Pic de Brume !")},
       ];
+
+      // Cherche une carte Fusion (isFusion:true) dans la main ou le terrain joueur (hors résultat)
+      const findFusionLoc=(excludeResult)=>{
+        let idx=G.player.field.findIndex(c=>c&&c.isFusion&&c.id!==excludeResult);
+        if(idx!==-1)return{type:"field",idx};
+        idx=G.player.hand.findIndex(c=>c&&c.isFusion&&c.id!==excludeResult&&c.uid!==card.uid);
+        if(idx!==-1)return{type:"hand",idx};
+        return null;
+      };
+
       const available=[];
       for(const fus of FUSIONS){
         const locA=findLoc(fus.a),locB=findLoc(fus.b);
         if(!locA||!locB)continue;
+        // Fusion tripartite : vérifier qu'une carte Fusion existe
+        const locFus=fus.requiresFusion?findFusionLoc(fus.result):null;
+        if(fus.requiresFusion&&!locFus)continue;
         const resultCard=CARDS.find(c=>c.id===fus.result);
         if(G.turn<resultCard.cost)continue;
-        const hasSlot=locA.type==="field"||locB.type==="field"||G.player.field.some(s=>!s);
+        const hasSlot=locA.type==="field"||locB.type==="field"||(locFus&&locFus.type==="field")||G.player.field.some(s=>!s);
         if(!hasSlot)continue;
-        available.push({...fus,resultCard});
+        available.push({...fus,resultCard,locFus});
       }
       if(!available.length){
         addLog("Fusion: aucune combinaison disponible pour le moment — la carte reste en main.");
@@ -5834,6 +6182,53 @@ const playCard=(cardUid,fi)=>{
     else if(id==="volpuissance"){const my=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c);const en=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(my.length&&en.length){setTimeout(()=>{CHOICE={type:"volpuissance_my",myOpts:my,enOpts:en};renderGame();},100);return;}else addLog("Pas assez de cibles.");}
     else if(id==="retourinattendu"){const opts=G.player.discard.filter(c=>c.type==="personnage").map((c,i)=>({c,i}));if(opts.length){setTimeout(()=>{CHOICE={type:"retourinattendu",options:opts};renderGame();},100);return;}else addLog("Aucun personnage en défausse.");}
     else if(id==="briseurarcanes"){G.arcaneBreaker=true;addLog("Briseur d'Arcanes actif!");}
+    // ── ACTIONS PUNK ──
+    else if(id==="ondedechoc"){
+      const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(opts.length===1){const t=opts[0];G.ai.field[t.i]=null;G.ai.equips[t.i]=[null,null];G.ai.hand.push({...t.c,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("Onde de Choc: "+t.c.name+" renvoyé !");}
+      else if(opts.length>1)setTimeout(()=>{CHOICE={type:"ondedechoc_target",options:opts};renderGame();},100);
+      else addLog("Onde de Choc: aucun ennemi !");
+    }
+    else if(id==="symboledanarchie"){
+      const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(opts.length)setTimeout(()=>{CHOICE={type:"symbole_target",options:opts};renderGame();},100);
+      else addLog("Symbole d'Anarchie: aucun ennemi !");
+    }
+    else if(id==="emeutetotale"){
+      G.player.field.forEach(c=>{if(c&&c.faction==="Punk")G.fx.push({target:c.uid,bonus:100,type:"atk",endOfTurn:true});});
+      addLog("🎸 Émeute Totale: tous les Punk +100 ATQ !");
+      G.ai.field.forEach((c,i)=>{if(!c)return;c.dmgTaken=(c.dmgTaken||0)+100;const ch2=curHp(c,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",i);stealPrestige("player",c.name+" détruit !");}else addLog("Émeute: "+c.name+" -100 PV !");});
+    }
+    else if(id==="pogosauvage"){
+      const punkAllies=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Punk");
+      if(punkAllies.length===1){const t=punkAllies[0];G.fx.push({target:t.c.uid,bonus:150,type:"atk",endOfTurn:true});addLog("Pogo: "+t.c.name+" +150 ATQ !");setTimeout(()=>{CHOICE={type:"pogo_dmg_all"};renderGame();},100);}
+      else if(punkAllies.length>1)setTimeout(()=>{CHOICE={type:"pogo_target",options:punkAllies};renderGame();},100);
+      else addLog("Pogo Sauvage: aucun Punk allié !");
+    }
+    else if(id==="jetdebouteille"){
+      const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(opts.length)setTimeout(()=>{CHOICE={type:"jetbouteille_target",options:opts};renderGame();},100);
+      else addLog("Jet de Bouteille: aucun ennemi !");
+    }
+    else if(id==="discoursderevolte"){
+      if(G.player.deck.length>0){
+        const drawn=G.player.deck.shift();G.player.hand.push({...drawn,uid:mkuid()});
+        const bonus=drawn.type==="personnage"?100:drawn.type==="equipement"?200:250;
+        addLog("Discours: pioche "+drawn.name+" (+"+bonus+" ATQ potentiel si Punk allié) !");
+        const punkAllies=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Punk");
+        if(punkAllies.length===1){G.fx.push({target:punkAllies[0].c.uid,bonus,type:"atk",endOfTurn:true});addLog("Discours: "+punkAllies[0].c.name+" +"+bonus+" ATQ !");}
+        else if(punkAllies.length>1)setTimeout(()=>{CHOICE={type:"discours_target",options:punkAllies,bonus};renderGame();},100);
+      } else addLog("Discours: deck vide !");
+    }
+    else if(id==="accordparfait"){
+      const punkAllies=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Punk");
+      if(punkAllies.length>=2)setTimeout(()=>{CHOICE={type:"accord_receiver",options:punkAllies};renderGame();},100);
+      else addLog("Accord Parfait: il faut au moins 2 Punk alliés sur le terrain !");
+    }
+    else if(id==="coupenofuture"){
+      if(G.ai.hand.length){const opts=G.ai.hand.map((c,i)=>({c,i}));setTimeout(()=>{CHOICE={type:"coupe_steal",options:opts};renderGame();},100);}
+      else addLog("Coupe No Future: main adverse vide !");
+    }
     else if(id==="cataclysme"||id==="echangerisque"){if(G.lieu){addLog(G.lieu.name+" détruit!");G.lieu=null;}else addLog("Aucun lieu.");}
     else if(id==="impactcible"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length){setTimeout(()=>{CHOICE={type:"impactcible",options:opts};renderGame();},100);return;}else addLog("Aucune cible.");}
     else if(id==="atteintehonneur"){stealPrestige("player","Atteinte à l'honneur!");}
@@ -5978,6 +6373,94 @@ window.doChoice=(action,payload)=>{
       }
     }
   }
+  else if(ch.type==="k9_doubletarget"){
+    const t=G.player.field[payload];
+    if(t&&t.faction==="Robots"){t._pendingDoubleAttack=true;addLog("K-9: "+t.name+" attaquera 2 fois au prochain tour !");}
+  }
+  else if(ch.type==="punk_anarchie_ally"){
+    const t=G.player.field[payload];if(t&&t.faction==="Punk"){G.fx.push({target:t.uid,bonus:100,type:"atk",endOfTurn:true});addLog("Princesse Anarchie: "+t.name+" +100 ATQ !");}
+  }
+  else if(ch.type==="tesson_target1"){
+    const t=G.ai.field[payload];if(t){t.dmgTaken+=100;addLog("Tesson: "+t.name+" -100 PV (1/2)!");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0)killCard("ai",payload);}
+    const remaining=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.i!==payload);
+    if(remaining.length){CHOICE={type:"tesson_target2",options:remaining};renderGame();return;}
+  }
+  else if(ch.type==="tesson_target2"){
+    const t=G.ai.field[payload];if(t){t.dmgTaken+=100;addLog("Tesson: "+t.name+" -100 PV (2/2)!");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0)killCard("ai",payload);}
+  }
+  else if(ch.type==="sharkrash_bounce"){
+    const t=G.ai.field[payload];if(t){G.ai.field[payload]=null;G.ai.equips[payload]=[null,null];G.ai.hand.push({...t,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("Sharkrash: "+t.name+" renvoyé !");if((t.cost||0)>=8){G.ai.prestige--;addLog("Sharkrash: coût ≥8 → adversaire -1 prestige !"); }}
+  }
+  else if(ch.type==="pigeon_target"){
+    const t=G.ai.field[payload];if(t){t.dmgTaken+=50;addLog("Pigeons: "+t.name+" -50 PV !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",payload);stealPrestige("player",t.name+" détruit !");}}
+  }
+  else if(ch.type==="punk_bounce2"||ch.type==="punk_bounce3"){
+    const t=G.ai.field[payload];
+    if(t){G.ai.field[payload]=null;G.ai.equips[payload]=[null,null];G.ai.hand.push({...t,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("🎸 Renvoyé en main: "+t.name+" !");}
+  }
+  else if(ch.type==="krono_target"){
+    const t=G.ai.field[payload];
+    if(t){t._frozen=true;addLog("Krono: "+t.name+" gelé !");
+      if((t.cost||0)<=4){G.ai.field[payload]=null;G.ai.equips[payload]=[null,null];G.ai.hand.push({...t,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("Krono: "+t.name+" coût ≤4 → renvoyé en main !");}}
+  }
+  else if(ch.type==="voltark_dmg"){
+    const t=G.ai.field[payload];if(t){t.dmgTaken+=200;addLog("Voltark: "+t.name+" -200 PV !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",payload);stealPrestige("player",t.name+" détruit par Voltark !");}}
+  }
+  else if(ch.type==="gorillaz_bounce"){
+    const t=G.ai.field[payload];if(t&&(t.cost||0)<=3){G.ai.field[payload]=null;G.ai.equips[payload]=[null,null];G.ai.hand.push({...t,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("Gorillaz: "+t.name+" renvoyé !");}
+  }
+  else if(ch.type==="casque_target"){const t=G.ai.field[payload];if(t){t.dmgTaken+=100;addLog("Casque Bélier: "+t.name+" -100 PV !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",payload);stealPrestige("player",t.name+" détruit par Casque !");}}}
+  else if(ch.type==="micro_freeze"){const t=G.ai.field[payload];if(t){t._frozen=true;addLog("Micro: "+t.name+" gelé (prochain tour) !");}}
+  else if(ch.type==="guitare_bounce"||ch.type==="hachedestop_bounce"){
+    const t=G.ai.field[payload];if(t){G.ai.field[payload]=null;G.ai.equips[payload]=[null,null];G.ai.hand.push({...t,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("🎸 Renvoyé en main: "+t.name+" !");}
+  }
+  else if(ch.type==="ondedechoc_target"){const t=G.ai.field[payload];if(t){G.ai.field[payload]=null;G.ai.equips[payload]=[null,null];G.ai.hand.push({...t,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("Onde de Choc: "+t.name+" renvoyé !");}}
+  else if(ch.type==="symbole_target"){const t=G.ai.field[payload];if(t){t._frozen=true;G.fx.push({target:t.uid,bonus:-9999,type:"atk",endOfTurn:false,expiresAtTurn:G.turn+5});addLog("Symbole d'Anarchie: "+t.name+" silencieux 5 tours !");}}
+  else if(ch.type==="jetbouteille_target"){const t=G.ai.field[payload];if(t){t.dmgTaken+=100;t._frozen=true;addLog("Jet de Bouteille: "+t.name+" -100 PV + gelé !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",payload);stealPrestige("player",t.name+" détruit !");}}}
+  else if(ch.type==="pogo_target"){
+    const t=G.player.field[payload];if(t){G.fx.push({target:t.uid,bonus:150,type:"atk",endOfTurn:true});addLog("Pogo: "+t.name+" +150 ATQ !");}
+    setTimeout(()=>{CHOICE={type:"pogo_dmg_all",casterUid:t?.uid};renderGame();},100);
+  }
+  else if(ch.type==="pogo_dmg_all"){
+    G.ai.field.forEach((c,i)=>{if(c){c.dmgTaken+=50;const ch2=curHp(c,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",i);stealPrestige("player",c.name+" détruit !");}else addLog("Pogo: "+c.name+" -50 PV !");}});
+    G.player.field.forEach((c,i)=>{if(c&&c.uid!==ch.casterUid){c.dmgTaken+=50;addLog("Pogo: "+c.name+" (allié) -50 PV !");}});
+  }
+  else if(ch.type==="discours_target"){
+    const t=G.player.field[payload];if(t&&t.faction==="Punk"){G.fx.push({target:t.uid,bonus:ch.bonus,type:"atk",endOfTurn:true});addLog("Discours: "+t.name+" +"+ch.bonus+" ATQ !");}
+  }
+  else if(ch.type==="accord_receiver"){
+    const t=G.player.field[payload];
+    const donors=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Punk"&&x.i!==payload);
+    if(donors.length===1){const bestAtk=calcAtk(donors[0].c,G.player,G.fx,G.lieu);G.fx.push({target:t.uid,bonus:bestAtk,type:"atk",endOfTurn:true});addLog("Accord Parfait: "+t.name+" +"+bestAtk+" ATQ (copie de "+donors[0].c.name+") !");}
+    else if(donors.length>1)setTimeout(()=>{CHOICE={type:"accord_donor",options:donors,receiverUid:t.uid};renderGame();},100);
+  }
+  else if(ch.type==="accord_donor"){
+    const donor=G.player.field[payload];const receiver=G.player.field.find(c=>c&&c.uid===ch.receiverUid);
+    if(donor&&receiver){const gain=calcAtk(donor,G.player,G.fx,G.lieu);G.fx.push({target:receiver.uid,bonus:gain,type:"atk",endOfTurn:true});addLog("Accord Parfait: "+receiver.name+" +"+gain+" ATQ (copie de "+donor.name+") !");}
+  }
+  else if(ch.type==="coupe_steal"){
+    const opt=ch.options[payload];if(opt){const c=G.ai.hand[opt.i];if(c){G.ai.hand.splice(opt.i,1);G.player.hand.push({...c,uid:mkuid()});addLog("Coupe No Future: "+c.name+" volé en main !");}}
+  }
+  else if(ch.type==="bombedetag_discard"){
+    const opt=ch.options[payload];if(opt){const c=G.ai.hand[opt.i];if(c){G.ai.hand.splice(opt.i,1);G.ai.discard.push(c);addLog("Bombe de Tag: "+c.name+" défaussée !");}}
+  }
+  else if(ch.type==="major_carnage_bonus"){
+    const t=G.ai.field[payload];if(t){t.dmgTaken+=150;addLog("Major Carnage: "+t.name+" -150 PV (bonus) !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",payload);stealPrestige("player",t.name+" détruit par Major Carnage !");}}
+  }
+  else if(ch.type==="punkmillevoix_choice"){
+    if(action==="bounce"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c&&(x.c.cost||0)<=4);if(opts.length){CHOICE={type:"punkmillevoix_bounce",options:opts};renderGame();return;}else addLog("Punk: aucun ennemi coût ≤4 !");}
+    if(action==="dmg"){const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);if(opts.length){CHOICE={type:"punkmillevoix_dmg",options:opts};renderGame();return;}else addLog("Punk: aucun ennemi !");}
+  }
+  else if(ch.type==="punkmillevoix_bounce"){
+    const t=G.ai.field[payload];if(t){G.ai.field[payload]=null;G.ai.equips[payload]=[null,null];G.ai.hand.push({...t,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("Punk: "+t.name+" renvoyé !");}
+  }
+  else if(ch.type==="punkmillevoix_dmg"){
+    const t=G.ai.field[payload];if(t){t.dmgTaken+=150;addLog("Punk: "+t.name+" -150 PV !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",payload);stealPrestige("player",t.name+" détruit !");}}
+  }
+  else if(ch.type==="astro_bounce"){
+    const t=G.ai.field[payload];
+    if(t&&(t.cost||0)<=2){G.ai.field[payload]=null;G.ai.equips[payload]=[null,null];G.ai.hand.push({...t,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("🚀 Astro-Brigadier: "+t.name+" renvoyé en main adverse !");}
+  }
   else if(ch.type==="leshia_poison"){
     if(action==="toggle"){
       const sel=ch.selected||[];const idx=sel.indexOf(payload);
@@ -6013,6 +6496,13 @@ window.doChoice=(action,payload)=>{
           if(idx!==-1)return{type:"hand",idx};
           return null;
         };
+        const findFusionLoc2=(excludeResult)=>{
+          let idx=G.player.field.findIndex(c=>c&&c.isFusion&&c.id!==excludeResult);
+          if(idx!==-1)return{type:"field",idx};
+          idx=G.player.hand.findIndex(c=>c&&c.isFusion&&c.id!==excludeResult);
+          if(idx!==-1)return{type:"hand",idx};
+          return null;
+        };
         const locA=findLoc2(fus.a),locB=findLoc2(fus.b);
         if(!locA||!locB){addLog("Fusion: une des cartes a disparu entre-temps !");}
         else{
@@ -6025,6 +6515,15 @@ window.doChoice=(action,payload)=>{
             if(locB2){
               if(locB2.type==="hand"){G.player.hand.splice(locB2.idx,1);}
               else if(locB2.idx!==targetSlot){G.player.field[locB2.idx]=null;G.player.equips[locB2.idx]=[null,null];}
+            }
+            // Fusion tripartite: consomme aussi la carte Fusion tierce
+            if(fus.requiresFusion){
+              const locF=findFusionLoc2(fus.result);
+              if(locF){
+                if(locF.type==="hand"){G.player.hand.splice(locF.idx,1);}
+                else{G.player.field[locF.idx]=null;G.player.equips[locF.idx]=[null,null];}
+                addLog("⚗️ Carte Fusion tierce consommée !");
+              }
             }
             SFX.fusion();GAME_TRACK.fusion=true;progressChallenge("fusion");
             const f={...fus.resultCard,uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
@@ -6514,6 +7013,10 @@ window.doEndTurn=()=>{
   for(let hi=0;hi<handToPlay.length;hi++){
     const c=handToPlay[hi];if(!c||c.type!=="personnage"||c.cost>G.turn)continue;
     if(c.isFusion)continue;
+    // Voltark Roi des Hyènes: bloque l'invocation des ennemis de coût ≤3
+    if((c.cost||0)<=3&&G.player.field.some(f=>f&&f.id==="voltarkroideshyenes")){
+      addLog("🎸 Voltark bloque l'invocation de "+c.name+" (coût ≤3) !");continue;
+    }
     const slot=G.ai.field.findIndex(f=>!f);if(slot===-1)break;
     const placed={...c,dmgTaken:0,hasAttacked:false,justPlayed:true,bonusAtk:0,bonusHp:0,uid:mkuid()};
     G.ai.field[slot]=placed;
@@ -6723,6 +7226,19 @@ window.doEndTurn=()=>{
         else addLog("Florabot: "+t.name+" +100 PV !");
       }
     }
+    // Cassia Canon: tous les Grecs alliés +50 ATK ce tour
+    G.player.field.forEach(c=>{if(c&&c.id==="cassiacanon"){
+      G.player.field.forEach(ally=>{if(ally&&ally.faction==="Grecs")G.fx.push({target:ally.uid,bonus:50,type:"atk",endOfTurn:true});});
+      addLog("🏛️ Cassia Canon: tous les Grecs +50 ATK !");
+    }});
+    // K-9 Sécuribot: active le double-attaque si le tour correspond
+    G.player.field.forEach(c=>{if(c&&c._pendingDoubleAttack){c._pendingDoubleAttack=false;c._doubleAttack=true;addLog("K-9: "+c.name+" peut attaquer 2 fois !");}});
+    // Punk aux Mille Voix: déclenche un choix au début du tour
+    if(G.player.field.some(f=>f&&f.id==="punkauxmillevoix")&&G.ai.field.some(c=>c)){
+      setTimeout(()=>{CHOICE={type:"punkmillevoix_choice"};renderGame();},200);
+    };
+    // Miyu: expire les debuffs ATK périmés
+    G.fx=G.fx.filter(f=>!f.expiresAtTurn||G.turn<=f.expiresAtTurn);
     // Mémé Nocturne: se soigne de 50 PV par allié Magie noire sur le terrain
     G.player.field.forEach(c=>{
       if(c&&c.id==="memenocturne"){
