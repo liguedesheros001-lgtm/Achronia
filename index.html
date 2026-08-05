@@ -3622,9 +3622,9 @@ const initGame=(pId,aId)=>{
   if(bossDk?.bossOnly&&bossDk.playerPrestige){ps.prestige=bossDk.playerPrestige;as.prestige=bossDk.aiPrestige||10;}
   // Reset game tracking for challenges
   GAME_TRACK={kills:0,kills_game:0,play_chars:0,use_actions:0,prestige_reached:0,trio:0,fusion:false,fusion_on_field:false,equip:0,decks_won:GAME_TRACK?.decks_won||new Set()};
-  // Charger les sorts du deck
+  // Charger les sorts du deck joueur
   const savedSorts=JSON.parse(safeStorage.get("tcg_deck_sorts_v1")||"{}");
-  const deckSorts=savedSorts[deckId]||[];
+  const deckSorts=savedSorts[pId]||[];
 
   G={turn:1,phase:"player",firstTurn:true,gameResult:null,arcaneBreaker:false,
     player:ps,ai:as,lieu:null,log:["Combat ! Atteignez "+(bossDk?.aiPrestige||PW)+" prestige ou réduisez l'adversaire à 0 !"],
