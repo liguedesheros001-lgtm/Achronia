@@ -125,7 +125,7 @@ const isDeckStarterUnlocked=(deckId)=>{
 const getDeckCollectionPct=(deckId)=>{
   const factions=DECK_REQ_FACTIONS[deckId]||[];
   if(!factions.length)return 0;
-  const allCards=CARDS.filter(c=>factions.includes(c.faction)&&!c.isFusion&&!c.isChronoLegendaire&&c.type!=="trophee");
+  const allCards=CARDS.filter(c=>factions.includes(c.faction)&&!c.isFusion&&!c.isChronoLegendaire&&!c.isSortEvolution&&c.type!=="trophee");
   if(!allCards.length)return 0;
   const owned=allCards.filter(c=>(COLLECTION[c.id]||0)>0).length;
   return owned/allCards.length;
@@ -2600,7 +2600,7 @@ const renderDeckBuilder=()=>{
   const pool=CARDS.filter(c=>
     c.type===tab&&
     (builderFactions.includes(c.faction)||(deckId==="deckperso"&&c.persoAllowed))&&
-    !c.isFusion&&!c.isChronoLegendaire&&c.type!=="trophee"&&
+    !c.isFusion&&!c.isChronoLegendaire&&!c.isSortEvolution&&c.type!=="trophee"&&
     (COLLECTION[c.id]||0)>0
   ).sort((a,b)=>(a.cost||0)-(b.cost||0));
 
@@ -3111,7 +3111,7 @@ const SHOP_PACK_DEFS=[
 ];
 
 const getRarityPool=(factions)=>{
-  const pool=CARDS.filter(c=>factions.includes(c.faction)&&!c.isFusion&&!c.isChronoLegendaire&&c.type!=="trophee");
+  const pool=CARDS.filter(c=>factions.includes(c.faction)&&!c.isFusion&&!c.isChronoLegendaire&&!c.isSortEvolution&&c.type!=="trophee");
   const common=pool.filter(c=>c.type==="action"||(c.type==="personnage"&&(c.cost||0)<=3));
   const rare=pool.filter(c=>c.type==="equipement"||(c.type==="personnage"&&(c.cost||0)>=4&&(c.cost||0)<=6));
   const prestige=pool.filter(c=>c.type==="lieu"||(c.type==="personnage"&&(c.cost||0)>=7&&(c.cost||0)<=9));
@@ -3219,7 +3219,7 @@ const buildDraftDeck=deckId=>{
         // Cartes disponibles avec doublons
         const candidates=CARDS.filter(c=>
           c.type===type&&(allFactions.includes(c.faction)||(deckId==="deckperso"&&c.persoAllowed))&&
-          !c.isFusion&&!c.isChronoLegendaire&&c.type!=="trophee"&&
+          !c.isFusion&&!c.isChronoLegendaire&&!c.isSortEvolution&&c.type!=="trophee"&&
           (COLLECTION[c.id]||0)>0
         );
         // Construire un pool avec copies selon collection
@@ -3239,7 +3239,7 @@ const buildDraftDeck=deckId=>{
   if(isCollBased){
     const deck=[];
     for(const[type,count] of Object.entries(dk.slots)){
-      const pool=CARDS.filter(c=>c.type===type&&factions.includes(c.faction)&&!c.isFusion&&!c.isChronoLegendaire&&c.type!=="trophee"&&(COLLECTION[c.id]||0)>0);
+      const pool=CARDS.filter(c=>c.type===type&&factions.includes(c.faction)&&!c.isFusion&&!c.isChronoLegendaire&&!c.isSortEvolution&&c.type!=="trophee"&&(COLLECTION[c.id]||0)>0);
       deck.push(...draftSlot(pool,count));
     }
     return shuffle(deck);
@@ -3247,7 +3247,7 @@ const buildDraftDeck=deckId=>{
   // Starter deck: toutes les cartes de la faction sont disponibles (hors CL, hors trophées)
   const deck=[];
   for(const[type,count] of Object.entries(dk.slots)){
-    const pool=CARDS.filter(c=>c.type===type&&factions.includes(c.faction)&&!c.isFusion&&!c.isChronoLegendaire&&c.type!=="trophee"&&!LOCKED_FROM_POOL.has(c.id));
+    const pool=CARDS.filter(c=>c.type===type&&factions.includes(c.faction)&&!c.isFusion&&!c.isChronoLegendaire&&!c.isSortEvolution&&c.type!=="trophee"&&!LOCKED_FROM_POOL.has(c.id));
     deck.push(...draftSlot(pool,count));
   }
   return shuffle(deck);
@@ -5035,6 +5035,18 @@ window.attackPrestige=()=>{
 const resolveCombat=(who,afi,ttype,tfi)=>{
   const isP=who==="player";const en=isP?"ai":"player";
   const atk=G[who].field[afi];if(!atk)return;
+  // Carapax-9: redirige les dégâts vers lui-même AVANT tout calcul
+  if(ttype==="field"&&who==="ai"){
+    const def=G[en].field[tfi];
+    if(def&&def.faction==="Robots"&&def.id!=="carapax9"){
+      const carapaxIdx=G.player.field.findIndex(c=>c&&c.id==="carapax9");
+      if(carapaxIdx!==-1&&carapaxIdx!==tfi){
+        addLog("🛡️ Carapax-9 intercepte l'attaque sur "+def.name+" !");
+        resolveCombat(who,afi,ttype,carapaxIdx);
+        return;
+      }
+    }
+  }
   if(isP)SFX.attack();
   let a=calcAtk(atk,G[who],G.fx,G.lieu,isP);
   if(ttype==="field"){
@@ -5363,15 +5375,6 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
         addLog("Thalassa: riposte, "+atk.name+" -100 PV !");
         const atkHpT=curHp(G[who].field[afi],G[who],G.fx,G.lieu);
         if(atkHpT<=0){killCard(who,afi);stealPrestige(en,atk.name+" détruit par Thalassa !");}
-      }
-      // Carapax-9: redirige les dégâts vers lui-même quand un Robot allié est attaqué
-      if(who==="ai"&&def&&def.faction==="Robots"&&def.id!=="carapax9"){
-        const carapaxIdx=G.player.field.findIndex(c=>c&&c.id==="carapax9");
-        if(carapaxIdx!==-1&&carapaxIdx!==tfi){
-          addLog("Carapax-9 intercepte l'attaque sur "+def.name+" !");
-          resolveCombat(who,afi,"field",carapaxIdx);
-          return;
-        }
       }
       // Calysta Peau Bronze: riposte 50 dégâts à l'attaquant quand elle est attaquée
       if(def&&def.id==="calystapeaubronze"){
