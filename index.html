@@ -2507,7 +2507,7 @@ let DB_STATE={deckId:null,selected:{personnage:[],lieu:[],action:[],equipement:[
 
 window.openDeckBuilder=(deckId)=>{
   const existing=CUSTOM_DECKS[deckId];
-  const savedSorts=JSON.parse(safeStorage.getItem("tcg_deck_sorts_v1")||"{}");
+  const savedSorts=JSON.parse(safeStorage.get("tcg_deck_sorts_v1")||"{}");
   DB_STATE={
     deckId,
     selected:existing?JSON.parse(JSON.stringify(existing)):{personnage:[],lieu:[],action:[],equipement:[]},
@@ -2572,9 +2572,9 @@ window.dbSave=()=>{
   CUSTOM_DECKS[DB_STATE.deckId]=JSON.parse(JSON.stringify(DB_STATE.selected));
   saveCustomDecks();
   // Sauvegarde des sorts
-  const savedSorts=JSON.parse(safeStorage.getItem("tcg_deck_sorts_v1")||"{}");
+  const savedSorts=JSON.parse(safeStorage.get("tcg_deck_sorts_v1")||"{}");
   savedSorts[DB_STATE.deckId]=DB_STATE.sorts||[];
-  safeStorage.setItem("tcg_deck_sorts_v1",JSON.stringify(savedSorts));
+  safeStorage.set("tcg_deck_sorts_v1",JSON.stringify(savedSorts));
   showNotif("✅ Deck sauvegardé !","#44cc88","🛠");
   SCREEN="deckselect";render();
 };
@@ -3623,7 +3623,7 @@ const initGame=(pId,aId)=>{
   // Reset game tracking for challenges
   GAME_TRACK={kills:0,kills_game:0,play_chars:0,use_actions:0,prestige_reached:0,trio:0,fusion:false,fusion_on_field:false,equip:0,decks_won:GAME_TRACK?.decks_won||new Set()};
   // Charger les sorts du deck
-  const savedSorts=JSON.parse(safeStorage.getItem("tcg_deck_sorts_v1")||"{}");
+  const savedSorts=JSON.parse(safeStorage.get("tcg_deck_sorts_v1")||"{}");
   const deckSorts=savedSorts[deckId]||[];
 
   G={turn:1,phase:"player",firstTurn:true,gameResult:null,arcaneBreaker:false,
