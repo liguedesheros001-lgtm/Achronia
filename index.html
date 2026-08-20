@@ -811,6 +811,14 @@ const CARDS = [
   {id:"k9securibot",name:"K-9 Sécuribot",type:"personnage",atk:200,hp:150,cost:2,faction:"Robots",effect:"À l'arrivée : un Robot allié au choix peut attaquer 2 fois au tour suivant.",syn:"Protocole"},
   {id:"astrobrigadierorbital",name:"Astro-Brigadier Orbital",type:"personnage",atk:50,hp:300,cost:2,faction:"EntitesAstrales",effect:"À l'arrivée : renvoie un ennemi de coût ≤2 dans la main adverse.",syn:"Cosmos"},
   {id:"cassiacanon",name:"Cassia Canon",type:"personnage",atk:100,hp:300,cost:2,faction:"Grecs",effect:"Passif : tant qu'elle est sur le terrain, tous les Grecs alliés gagnent +50 ATK au début de chaque tour.",syn:"Gloire"},
+  // ── NOUVELLES CARTES (lot 15) ──
+  {id:"armureduguidesolaire",name:"Armure du Guide Solaire",type:"personnage",atk:1200,hp:1000,cost:10,faction:"Egyptiens",isFusion:true,effect:"Fusion : Armure Solaire d'Égypte + Guide des Pyramides. À l'arrivée : pioche toutes les cartes de coût ≤3 parmi les 3 prochaines du deck.",syn:"Pharaon"},
+  {id:"lumniterrax",name:"Lumni-Terrax",type:"personnage",atk:600,hp:800,cost:6,faction:"Robots",isSortEvolution:true,effect:"À l'arrivée : si aucun Lieu sur le terrain, gagne +400 PV.",syn:"Protocole"},
+  {id:"solimoth",name:"Solimoth",type:"personnage",atk:400,hp:300,cost:4,faction:"HommesInsectes",persoAllowed:true,effect:"À l'arrivée : 200 dégâts à un ennemi + il ne peut plus attaquer.",syn:"Essaim"},
+  {id:"barnabefourchevapeur",name:"Barnabé Fourche-Vapeur",type:"personnage",atk:200,hp:400,cost:3,faction:"Steampunk",persoAllowed:true,effect:"Passif : les Steampunk alliés sur le terrain gagnent +100 PV max.",syn:"Engrenage"},
+  {id:"hachebrume",name:"Hache-Brume",type:"personnage",atk:50,hp:400,cost:3,faction:"Fantomes",persoAllowed:true,effect:"Passif : les ennemis blessés ne peuvent pas attaquer tant qu'elle est sur le terrain.",syn:"Spectre"},
+  {id:"thaleafillesdesmares",name:"Thaléa Fille des Marées",type:"personnage",atk:250,hp:200,cost:2,faction:"Grecs",persoAllowed:true,effect:"À l'arrivée : soigne 200 PV à un Grec allié.",syn:"Gloire"},
+  {id:"yrsamorsecroc",name:"Yrsa Morsecroc",type:"personnage",atk:400,hp:500,cost:5,faction:"Vikings",persoAllowed:true,effect:"À l'arrivée : tous les ennemis perdent -100 ATQ définitivement.",syn:"Clan"},
   // ── NOUVELLES CARTES (lot 13 — Deck Perso autorisé) ──
   {id:"batshinobi",name:"Batshinobi",type:"personnage",atk:500,hp:300,cost:4,faction:"Ninjas",persoAllowed:true,effect:"À l'arrivée : regarde les 2 premières cartes du deck adverse. Tu peux en prendre une.",syn:"Ombre"},
   {id:"sablecroc",name:"Sablécroc",type:"personnage",atk:50,hp:150,cost:2,faction:"Egyptiens",persoAllowed:true,effect:"Passif : inflige 200 dégâts à chaque nouvelle unité ennemie invoquée.",syn:"Pharaon"},
@@ -1448,7 +1456,8 @@ const NE_CARD_IDS=["astrelyadesconfins","akaiondefenseur","rokkhard","bicheceryn
   "moanacarpace","carapax9","hoteppiegepas","jesterclash","solarakhdesdunes","turbocrete","arachnodrake",
   "koumbamasquemaudit","bobraxv","quadrox","harponyx","alasamillereflies",
   "noxiabrumedespores","lyriamurmuremort","molenecafenoir","nayeliplombdesprit","cloptraxfouisseur",
-  "batshinobi","sablecroc","protectricedelalune"];
+  "batshinobi","sablecroc","protectricedelalune",
+  "solimoth","barnabefourchevapeur","hachebrume","thaleafillesdesmares","yrsamorsecroc"];
 
 const openBoosterNE=()=>{
   const pack=SHOP_PACK_DEFS.find(p=>p.id==="booster");
@@ -2272,6 +2281,7 @@ const SORT_EVOLUTIONS={
   "marumuraille_lumiere":"marulumierronde",
   "selka_lumiere":"selkablanchedivinite",
   "passeurnil_eau":"glisseurdunil",
+  "terrax9_lumiere":"lumniterrax",
 };
 
 // ── ÉVOLUTIONS NATURELLES (sans sort) ──────────────────────────
@@ -3109,6 +3119,8 @@ const BASE_FACTIONS=["Pirates","Vikings","Amazones","Egyptiens","Amerindiens","G
 
 let COLLECTION={};
 try{const s=safeStorage.get("tcg_collection_v1");if(s)COLLECTION=JSON.parse(s);}catch(e){}
+// Appliquer les déblocages automatiques après chargement
+setTimeout(()=>{if(typeof applyAutoUnlocks==="function")applyAutoUnlocks();},0);
 
 // ── COLLECTION GUARD ────────────────────────────────────
 // Si aucune collection n'existe ET qu'un starter a été choisi → reconstruire proprement
@@ -3130,6 +3142,14 @@ const initCollectionIfEmpty=()=>{
 
 const saveCollection=()=>{
   try{safeStorage.set("tcg_collection_v1",JSON.stringify(COLLECTION));}catch(e){}
+};
+
+// Cartes disponibles automatiquement (données gratuitement à tous les joueurs)
+const AUTO_UNLOCK_CARDS=["armureduguidesolaire"];
+const applyAutoUnlocks=()=>{
+  let changed=false;
+  AUTO_UNLOCK_CARDS.forEach(id=>{if(!(COLLECTION[id]>0)){COLLECTION[id]=1;changed=true;}});
+  if(changed)saveCollection();
 };
 
 // Packs definition
@@ -3470,6 +3490,10 @@ const maxHp=(card,side,fx,lieu)=>{
     if(eq.find(e=>e.id==="cretedacier"))b+=150;
     if(eq.find(e=>e.id==="microdepropagande"))b+=100;
   }
+  // Barnabé Fourche-Vapeur: Steampunk alliés +100 PV max
+  if(card.faction==="Steampunk"&&card.id!=="barnabefourchevapeur"){
+    if((side.field||[]).some(c=>c&&c.id==="barnabefourchevapeur"))b+=100;
+  }
   return b;
 };
 const curHp=(card,side,fx,lieu)=>maxHp(card,side,fx,lieu)-(card.dmgTaken||0);
@@ -3698,8 +3722,8 @@ const cardHTML=(card,size,opts={})=>{
   // Build the image element with fallback chain
   const imgEl=`<img src="${imgSrc}" class="card-img" draggable="false" 
     onerror="${localImg
-      ? `this.onerror=function(){this.style.display='none';this.nextElementSibling.style.display='flex';};this.src='${localImg}';`
-      : `this.style.display='none';this.nextElementSibling.style.display='flex';`}"
+      ? `this.onerror=function(){this.style.display='none';var n2=this.nextElementSibling;if(n2)n2.style.display='flex';};this.src='${localImg}';`
+      : `this.style.display='none';var n=this.nextElementSibling;if(n)n.style.display='flex';`}"
     style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover">
     <div style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;align-items:center;justify-content:center">
       <div class="card-header" style="position:absolute;top:0;left:0;right:0;border-bottom:1px solid ${borderCol}44"><span style="font-size:6px;color:${FACTION_COLOR[card.faction]||'#aaa'}">◆</span><span class="card-name">${card.name}</span><span style="font-size:6px;color:${FACTION_COLOR[card.faction]||'#aaa'}">◆</span></div>
@@ -3951,7 +3975,7 @@ const renderOpponentSelect=()=>{
       return`<div onclick="selectOpponent('${id}')" onmouseover="this.style.borderColor='${dk.color}';this.style.transform='scale(1.04)'" onmouseout="this.style.borderColor='${sel?dk.color:'#334'}';this.style.transform=''" id="opp-${id}"
         style="cursor:pointer;width:130px;background:linear-gradient(160deg,#0d1f3c,#050e1a);border:2px solid ${sel?dk.color:'#334'};border-radius:14px;overflow:hidden;text-align:center;transition:all 0.2s">
         <div style="width:100%;height:80px;background:${dk.color}22;position:relative;overflow:hidden">
-          <img src="${dk.image||'adversaires/'+id+'.png'}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="${dk.image||'adversaires/'+id+'.png'}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';var n=this.nextElementSibling;if(n)n.style.display='flex'">
           <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;font-size:36px">${dk.icon}</div>
         </div>
         <div style="padding:8px">
@@ -4824,7 +4848,7 @@ const renderChoiceModal=()=>{
       <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">${allyGrid||'<div style="color:#445;font-size:11px">Aucun</div>'}</div>
     </div>`;
   } else {
-    const isEnemy2=["freyja","entravesygg","kaya","impactcible","planche","prisongivre","corliss","hurgan","lyra","silence","selka","fosseauxpiques","marquetribale","prisonracines","gardiennil","cowboy","embuscadecobra","colerara_tgt","enfantrongeurs","etoileciel","harlementnloup","piegeplaines","totementrave","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","kuro_target","garruk_target","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","spectrebarillet","rictus","meteioide4","elina_target","velocis_destroy","virusinformatique","explosionbatterie","reprogrammationforcee","calcultraj_enemy","autodestruct_enemy","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_destroy1","morgane_destroy2","nikandros_target","destructiontotale","aliblaze_target1","aliblaze_target2","thalor_target","ventiloide_bounce","rakkor_steal","missvoltibri_destroy","samira_target","bobi_bounce","kairan_execute","astro_bounce","tesson_target1","tesson_target2","sharkrash_bounce","pigeon_target","punk_bounce2","punk_bounce3","krono_target","voltark_dmg","gorillaz_bounce","major_carnage_bonus","punkmillevoix_dmg","casque_target","micro_freeze","guitare_bounce","hachedestop_bounce","ondedechoc_target","symbole_target","jetbouteille_target","medica_dmg","akylos_target","plume_target","jester_main_target","solarakh_target","arachnodrake_poison","tessoglace_target1","tessoglace_target2","selka_debuff","harponyx_target","etoile_debuff","molene_target"].includes(ch.type);
+    const isEnemy2=["freyja","entravesygg","kaya","impactcible","planche","prisongivre","corliss","hurgan","lyra","silence","selka","fosseauxpiques","marquetribale","prisonracines","gardiennil","cowboy","embuscadecobra","colerara_tgt","enfantrongeurs","etoileciel","harlementnloup","piegeplaines","totementrave","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","kuro_target","garruk_target","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","spectrebarillet","rictus","meteioide4","elina_target","velocis_destroy","virusinformatique","explosionbatterie","reprogrammationforcee","calcultraj_enemy","autodestruct_enemy","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_destroy1","morgane_destroy2","nikandros_target","destructiontotale","aliblaze_target1","aliblaze_target2","thalor_target","ventiloide_bounce","rakkor_steal","missvoltibri_destroy","samira_target","bobi_bounce","kairan_execute","astro_bounce","tesson_target1","tesson_target2","sharkrash_bounce","pigeon_target","punk_bounce2","punk_bounce3","krono_target","voltark_dmg","gorillaz_bounce","major_carnage_bonus","punkmillevoix_dmg","casque_target","micro_freeze","guitare_bounce","hachedestop_bounce","ondedechoc_target","symbole_target","jetbouteille_target","medica_dmg","akylos_target","plume_target","jester_main_target","solarakh_target","arachnodrake_poison","tessoglace_target1","tessoglace_target2","selka_debuff","harponyx_target","etoile_debuff","molene_target","solimoth_target"].includes(ch.type);
     const grid=isEnemy2?enCardGrid(ch.options||[]):myCardGrid(ch.options||[]);
     content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
   }
@@ -4890,6 +4914,8 @@ const renderChoiceModal=()=>{
     glisseur_heal:"🌊 Glisseur du Nil — Égyptien allié +400 PV",
     molene_target:"☕ Molène — Ennemi ciblé -100 ATQ/tour",
     batshinobi_pick:"🥷 Batshinobi — Choisir une carte adverse à voler",
+    solimoth_target:"🦟 Solimoth — 200 dégâts + geler un ennemi",
+    thalea_heal:"🌊 Thaléa — Grec allié +200 PV",
     tesson_target1:"⚔️ Tesson — 1ère cible (100 dégâts)",
     tesson_target2:"⚔️ Tesson — 2ème cible (100 dégâts)",
     sharkrash_bounce:"🦈 Sharkrash — Renvoyer un ennemi en main",
@@ -5005,7 +5031,7 @@ const renderChoiceModal=()=>{
     marchenoir:"🏪 Marché Noir — Choisir une carte",
   };
 
-  const mandatoryTypes=["clankbeak","ile","dragon_venin","sylvara","ninja_trio_recall","olympe_choice","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","hurgan","lyra","malgor","crocsr","iskra","kaya","freyja","astrid","haldor","ylvabaies","petittorvald","corliss","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","meteioide4","spectrebarillet","rictus","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","garruk_target","kuro_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","danseuseesprits","passeurnil","pretressenil","hopliteargos","dionysos","meduse","eluzeus","sireneegeenne","colerara_sacr","colerara_tgt","auxportolympe","isis","reveilpharaon","regenerationnil","elina_target","velocis_destroy","calcultraj_ally","calcultraj_enemy","modeberserk","bouclierholo","virusinformatique","explosionbatterie","reprogrammationforcee","autodestruct_ally","autodestruct_enemy","transfertconscience","mains_choice","mains_heal_target","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_sacrif","morgane_destroy1","alpix_heal","croqueplanete_heal","nikandros_target","rouageecran_peek","yara_target","volpuissance_my","volpuissance_en","duelheros_my","duelheros_en","destructiontotale","fouilleobjet","asclepios_heal","aliblaze_target1","aliblaze_target2","thalor_target","ventiloide_bounce","rakkor_steal","missvoltibri_destroy","samira_target","bobi_bounce","joailliere_buff","kairan_execute","leshia_poison","mekro_copy_pick","eva_absorb","k9_doubletarget","astro_bounce","punk_anarchie_ally","tesson_target1","tesson_target2","sharkrash_bounce","pigeon_target","punk_bounce2","punk_bounce3","krono_target","voltark_dmg","gorillaz_bounce","major_carnage_bonus","punkmillevoix_choice","punkmillevoix_bounce","punkmillevoix_dmg","casque_target","micro_freeze","guitare_bounce","hachedestop_bounce","ondedechoc_target","symbole_target","jetbouteille_target","pogo_target","pogo_dmg_all","discours_target","accord_receiver","accord_donor","coupe_steal","bombedetag_discard","mamina_heal","medica_heal","medica_dmg","akylos_target","plume_target","mordred_recall","jester_main_target","solarakh_target","arachnodrake_poison","sort_pick_target","sort_pick_sort","sort_evolve_pick","natural_evolve_pick","selyra_buff","tessoglace_target1","tessoglace_target2","nautica_peek","ylvagivre_heal","cobrasclepios_heal","selka_debuff","harponyx_target","bobraxv_heal","etoile_debuff","glisseur_heal","molene_target","batshinobi_pick"];
+  const mandatoryTypes=["clankbeak","ile","dragon_venin","sylvara","ninja_trio_recall","olympe_choice","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","hurgan","lyra","malgor","crocsr","iskra","kaya","freyja","astrid","haldor","ylvabaies","petittorvald","corliss","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","meteioide4","spectrebarillet","rictus","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","garruk_target","kuro_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","danseuseesprits","passeurnil","pretressenil","hopliteargos","dionysos","meduse","eluzeus","sireneegeenne","colerara_sacr","colerara_tgt","auxportolympe","isis","reveilpharaon","regenerationnil","elina_target","velocis_destroy","calcultraj_ally","calcultraj_enemy","modeberserk","bouclierholo","virusinformatique","explosionbatterie","reprogrammationforcee","autodestruct_ally","autodestruct_enemy","transfertconscience","mains_choice","mains_heal_target","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_sacrif","morgane_destroy1","alpix_heal","croqueplanete_heal","nikandros_target","rouageecran_peek","yara_target","volpuissance_my","volpuissance_en","duelheros_my","duelheros_en","destructiontotale","fouilleobjet","asclepios_heal","aliblaze_target1","aliblaze_target2","thalor_target","ventiloide_bounce","rakkor_steal","missvoltibri_destroy","samira_target","bobi_bounce","joailliere_buff","kairan_execute","leshia_poison","mekro_copy_pick","eva_absorb","k9_doubletarget","astro_bounce","punk_anarchie_ally","tesson_target1","tesson_target2","sharkrash_bounce","pigeon_target","punk_bounce2","punk_bounce3","krono_target","voltark_dmg","gorillaz_bounce","major_carnage_bonus","punkmillevoix_choice","punkmillevoix_bounce","punkmillevoix_dmg","casque_target","micro_freeze","guitare_bounce","hachedestop_bounce","ondedechoc_target","symbole_target","jetbouteille_target","pogo_target","pogo_dmg_all","discours_target","accord_receiver","accord_donor","coupe_steal","bombedetag_discard","mamina_heal","medica_heal","medica_dmg","akylos_target","plume_target","mordred_recall","jester_main_target","solarakh_target","arachnodrake_poison","sort_pick_target","sort_pick_sort","sort_evolve_pick","natural_evolve_pick","selyra_buff","tessoglace_target1","tessoglace_target2","nautica_peek","ylvagivre_heal","cobrasclepios_heal","selka_debuff","harponyx_target","bobraxv_heal","etoile_debuff","glisseur_heal","molene_target","batshinobi_pick","solimoth_target","thalea_heal"];
   const hasClose=!mandatoryTypes.includes(ch.type);
   return `<div class="modal-bg" onclick="${hasClose?"closeChoice()":""}"><div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-title">${titles[ch.type]||ch.type}</div>
@@ -5954,6 +5980,13 @@ const playCard=(cardUid,fi)=>{
       const afi=G.player.field.findIndex(c=>c&&c.uid===placed.uid);
       if(afi!==-1){G.player.field[afi]._taunt=true;G.player.field[afi]._invincibleUntilTurn=3;addLog("Maru Lumière: taunt actif + invincible jusqu'au tour 3 !");}
     }
+    // Lumni-Terrax: +400 PV si aucun Lieu sur le terrain
+    if(card.id==="lumniterrax"){
+      if(!G.lieu){
+        const lfi=G.player.field.findIndex(c=>c&&c.uid===placed.uid);
+        if(lfi!==-1){G.player.field[lfi].dmgTaken=Math.max(0,(G.player.field[lfi].dmgTaken||0)-400);addLog("Lumni-Terrax: +400 PV (aucun Lieu) !");}
+      } else addLog("Lumni-Terrax: Lieu présent → pas de bonus PV.");
+    }
     // Étoile de l'Univers: un ennemi perd -300 ATQ
     if(card.id==="etoiledelunivers"){
       const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
@@ -6122,6 +6155,25 @@ const playCard=(cardUid,fi)=>{
     // Nayeli Plomb-d'Esprit: 50 dégâts à tous les ennemis
     if(card.id==="nayeliplombdesprit"){
       G.ai.field.forEach((c,i)=>{if(!c)return;c.dmgTaken+=50;addLog("Nayeli: "+c.name+" -50 PV !");const ch2=curHp(c,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",i);stealPrestige("player",c.name+" détruit !");}});
+    }
+    // Solimoth: 200 dégâts à un ennemi + gelé (ne peut plus attaquer)
+    if(card.id==="solimoth"){
+      const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(opts.length===1){const t=opts[0];t.c.dmgTaken+=200;t.c._frozen=true;addLog("Solimoth: "+t.c.name+" -200 PV + gelé !");const ch2=curHp(t.c,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",t.i);stealPrestige("player",t.c.name+" détruit !");}}
+      else if(opts.length>1)setTimeout(()=>{CHOICE={type:"solimoth_target",options:opts};renderGame();},100);
+      else addLog("Solimoth: aucun ennemi !");
+    }
+    // Thaléa Fille des Marées: soigne 200 PV à un Grec allié
+    if(card.id==="thaleafillesdesmares"){
+      const allies=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.faction==="Grecs"&&x.c.uid!==placed.uid);
+      if(allies.length===1){const t=allies[0].c;t.dmgTaken=Math.max(0,t.dmgTaken-200);addLog("Thaléa: "+t.name+" +200 PV !");}
+      else if(allies.length>1)setTimeout(()=>{CHOICE={type:"thalea_heal",options:allies};renderGame();},100);
+      else addLog("Thaléa: aucun Grec allié !");
+    }
+    // Yrsa Morsecroc: tous les ennemis -100 ATQ permanent
+    if(card.id==="yrsamorsecroc"){
+      G.ai.field.forEach(c=>{if(c)G.fx.push({target:c.uid,bonus:-100,type:"atk",endOfTurn:false});});
+      addLog("Yrsa Morsecroc: tous les ennemis -100 ATQ !");
     }
     // Batshinobi: regarde les 2 premières cartes du deck adverse, prend en 1
     if(card.id==="batshinobi"){
@@ -6685,6 +6737,13 @@ const playCard=(cardUid,fi)=>{
           G.ai.field.forEach((c,i)=>{if(!c)return;c.dmgTaken+=200;addLog("Protectrice: "+c.name+" -200 PV !");const ch2=curHp(c,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",i);stealPrestige("player",c.name+" détruit !");}});
           G.player.field.forEach(c=>{if(c&&c.faction==="Amerindiens"){c.dmgTaken=0;addLog("Protectrice: "+c.name+" soigné(e) complètement !");}});
         }},
+        {a:"armuregypte",b:"guidepyramides",result:"armureduguidesolaire",onFuse:()=>{
+          addLog("⚗️ FUSION → Armure du Guide Solaire !");
+          const top3=G.player.deck.slice(0,Math.min(3,G.player.deck.length));
+          const picks=top3.filter(c=>(c.cost||0)<=3);
+          picks.forEach(c=>{G.player.deck=G.player.deck.filter(x=>x.uid!==c.uid);G.player.hand.push({...c,uid:mkuid()});addLog("Armure: "+c.name+" (coût "+c.cost+") piochée !");});
+          if(!picks.length)addLog("Armure: aucune carte de coût ≤3 parmi les 3 premières.");
+        }},
         {a:"aiyanapeaudours",b:"cavalierbison",result:"sumoursgarou",requiresFusion:true,onFuse:()=>addLog("⚗️ FUSION TRIPLE → Sumours-Garou !")},
         {a:"braxboxeur",b:"terrax9",result:"bobraxv",requiresFusion:true,onFuse:()=>addLog("⚗️ FUSION TRIPLE → Bobrax-V !")},
         {a:"haldor",b:"yaradansefjord",result:"yarardanserune",requiresFusion:true,onFuse:()=>addLog("⚗️ FUSION TRIPLE → Yarar Danse Rune !")},
@@ -7125,6 +7184,12 @@ window.doChoice=(action,payload)=>{
       G.player.hand.push({...c,uid:mkuid()});
       addLog("🥷 Batshinobi: "+c.name+" volée du deck adverse !");
     }
+  }
+  else if(ch.type==="solimoth_target"){
+    const t=G.ai.field[payload];if(t){t.dmgTaken+=200;t._frozen=true;addLog("Solimoth: "+t.name+" -200 PV + gelé !");const ch2=curHp(t,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",payload);stealPrestige("player",t.name+" détruit par Solimoth !");}}
+  }
+  else if(ch.type==="thalea_heal"){
+    const t=G.player.field[payload];if(t&&t.faction==="Grecs"){t.dmgTaken=Math.max(0,t.dmgTaken-200);addLog("Thaléa: "+t.name+" +200 PV !");}
   }
   // ── Sorts handlers ──
   else if(ch.type==="sort_pick_target"){
@@ -7912,6 +7977,10 @@ window.doEndTurn=()=>{
   // difficile: attacks weakest player first to get kills, moyen: normal, facile: random target
   G.ai.field.forEach((atk,i)=>{
     if(!atk||G.frozenAI||atk.hasAttacked||prevFrozen.includes(atk.uid)||G.phase==="end")return;
+    // Hache-Brume: les ennemis blessés ne peuvent pas attaquer
+    if(atk.dmgTaken>0&&G.player.field.some(f=>f&&f.id==="hachebrume")){
+      addLog("👻 Hache-Brume: "+atk.name+" blessé → ne peut pas attaquer !");return;
+    }
     // Grève des Ouvriers: paralysie temporaire
     if(atk._greve&&atk._greve>0){atk._greve--;addLog("🪧 Grève: "+atk.name+" paralysé ce tour.");return;}
     const ptgts=G.player.field.map((c,pi)=>({c,i:pi})).filter(x=>x.c&&!(x.c._nikoProtectExpires&&G.turn<=x.c._nikoProtectExpires&&(atk.cost||0)>4));
