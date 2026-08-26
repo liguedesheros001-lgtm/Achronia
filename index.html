@@ -811,7 +811,17 @@ const CARDS = [
   {id:"k9securibot",name:"K-9 Sécuribot",type:"personnage",atk:200,hp:150,cost:2,faction:"Robots",effect:"À l'arrivée : un Robot allié au choix peut attaquer 2 fois au tour suivant.",syn:"Protocole"},
   {id:"astrobrigadierorbital",name:"Astro-Brigadier Orbital",type:"personnage",atk:50,hp:300,cost:2,faction:"EntitesAstrales",effect:"À l'arrivée : renvoie un ennemi de coût ≤2 dans la main adverse.",syn:"Cosmos"},
   {id:"cassiacanon",name:"Cassia Canon",type:"personnage",atk:100,hp:300,cost:2,faction:"Grecs",effect:"Passif : tant qu'elle est sur le terrain, tous les Grecs alliés gagnent +50 ATK au début de chaque tour.",syn:"Gloire"},
-  // ── NOUVELLES CARTES (lot 15) ──
+  // ── NOUVELLES CARTES (lot 17) ──
+  {id:"hinaflammetotem",name:"Hina Flamme-Totem",type:"personnage",atk:300,hp:700,cost:6,faction:"Pyromanes",effect:"Passif : tes unités blessées gagnent +100 ATK tant que Hina est sur le terrain.",syn:"Flamme"},
+  {id:"maestromortissimo",name:"Maëstro Mortissimo",type:"personnage",atk:400,hp:150,cost:3,faction:"Fantomes",effect:"À l'arrivée : un ennemi choisi ne peut plus attaquer ton Prestige tant que Maëstro est en jeu.",syn:"Spectre"},
+  {id:"gromphaxlacide",name:"Gromphax l'Acide",type:"personnage",atk:500,hp:250,cost:4,faction:"Extraterrestres",effect:"À l'arrivée : empoisonne un ennemi (-100 PV/tour adverse).",syn:"Envahisseur"},
+  {id:"aelyradusouffle",name:"Aëlyra du Souffle",type:"personnage",atk:500,hp:300,cost:4,faction:"DresseursDragons",effect:"À l'arrivée : renvoie un allié blessé de votre choix dans votre main.",syn:"Dragon"},
+  {id:"neferavoiledesdunes",name:"Néfera, Voile des Dunes",type:"personnage",atk:400,hp:150,cost:3,faction:"Egyptiens",effect:"À l'arrivée : la prochaine attaque d'un ennemi choisi frappe une cible aléatoire.",syn:"Pharaon"},
+  {id:"osricdankhacier",name:"Osric d'Ankhacier",type:"personnage",atk:700,hp:100,cost:5,faction:"Egyptiens",effect:"À l'arrivée : détruit tous les équipements d'un ennemi. +100 PV par équipement détruit.",syn:"Pharaon"},
+  {id:"corvaxleprestidigitateur",name:"Corvax le Prestidigitateur",type:"personnage",atk:500,hp:300,cost:4,faction:"MagesNoirs",effect:"À l'arrivée : un personnage de la main adverse coûte +1 de plus.",syn:"Arcane"},
+  // ── NOUVELLES CARTES (lot 16) ──
+  {id:"freyghcoeurblanc",name:"Freygh Cœur-Blanc",type:"personnage",atk:1100,hp:1100,cost:10,faction:"Vikings",isFusion:true,effect:"Fusion : Freyja + Borgh. Première destruction évitée : reste avec 500 PV.",syn:"Clan"},
+  {id:"sharkrashelecroc",name:"Sharkrash Elecroc",type:"personnage",atk:950,hp:800,cost:9,faction:"Punk",isSortEvolution:true,effect:"À l'arrivée : renvoie un ennemi en main adverse. Si coût ≥8, adversaire perd 2 prestige.",syn:"Chaos"},
   {id:"armureduguidesolaire",name:"Armure du Guide Solaire",type:"personnage",atk:1200,hp:1000,cost:10,faction:"Egyptiens",isFusion:true,effect:"Fusion : Armure Solaire d'Égypte + Guide des Pyramides. À l'arrivée : pioche toutes les cartes de coût ≤3 parmi les 3 prochaines du deck.",syn:"Pharaon"},
   {id:"lumniterrax",name:"Lumni-Terrax",type:"personnage",atk:600,hp:800,cost:6,faction:"Robots",isSortEvolution:true,effect:"À l'arrivée : si aucun Lieu sur le terrain, gagne +400 PV.",syn:"Protocole"},
   {id:"solimoth",name:"Solimoth",type:"personnage",atk:400,hp:300,cost:4,faction:"HommesInsectes",persoAllowed:true,effect:"À l'arrivée : 200 dégâts à un ennemi + il ne peut plus attaquer.",syn:"Essaim"},
@@ -1457,7 +1467,8 @@ const NE_CARD_IDS=["astrelyadesconfins","akaiondefenseur","rokkhard","bicheceryn
   "koumbamasquemaudit","bobraxv","quadrox","harponyx","alasamillereflies",
   "noxiabrumedespores","lyriamurmuremort","molenecafenoir","nayeliplombdesprit","cloptraxfouisseur",
   "batshinobi","sablecroc","protectricedelalune",
-  "solimoth","barnabefourchevapeur","hachebrume","thaleafillesdesmares","yrsamorsecroc"];
+  "solimoth","barnabefourchevapeur","hachebrume","thaleafillesdesmares","yrsamorsecroc",
+  "hinaflammetotem","maestromortissimo","gromphaxlacide","aelyradusouffle","neferavoiledesdunes","osricdankhacier","corvaxleprestidigitateur"];
 
 const openBoosterNE=()=>{
   const pack=SHOP_PACK_DEFS.find(p=>p.id==="booster");
@@ -2282,6 +2293,7 @@ const SORT_EVOLUTIONS={
   "selka_lumiere":"selkablanchedivinite",
   "passeurnil_eau":"glisseurdunil",
   "terrax9_lumiere":"lumniterrax",
+  "sharkrashlamachoire_electricite":"sharkrashelecroc",
 };
 
 // ── ÉVOLUTIONS NATURELLES (sans sort) ──────────────────────────
@@ -3413,6 +3425,8 @@ const calcAtk=(card,side,fx,lieu,isP)=>{
     if(eq.find(e=>e.id==="poingsono"))a+=100;
     if(eq.find(e=>e.id==="microdepropagande"))a+=50;
   }
+  // Hina Flamme-Totem: unités alliées blessées +100 ATK
+  if(card.dmgTaken>0&&(side?.field||[]).some(c=>c&&c.id==="hinaflammetotem"&&c.uid!==card.uid))a+=100;
   // Totem d'Entrave Mystique: l'ennemi ne reçoit plus de bonus d'ATK
   if(card.totalLock){return card.atk+(card.bonusAtk||0);}
   fx.filter(e=>e.target===card.uid&&e.type==="atk").forEach(e=>a+=e.bonus);
@@ -3571,6 +3585,11 @@ const killCard=(who,fi)=>{
     if(card.id==="tronkracinerebelle"){
       const ally=G.player.field.find(c=>c&&c.faction==="Punk");
       if(ally){ally.dmgTaken=Math.max(0,ally.dmgTaken-100);addLog("Tronk: "+ally.name+" +100 PV !");}
+    }
+    // Maëstro Mortissimo: à sa mort, libère l'ennemi bloqué
+    if(who==="player"&&card.id==="maestromortissimo"){
+      G.ai.field.forEach(c=>{if(c)delete c._cantAttackHero;});
+      addLog("Maëstro détruit : les ennemis peuvent à nouveau attaquer le Prestige.");
     }
     // Moana Carapace: +50 ATK quand une Amazone alliée est détruite
     if(who==="player"&&card.faction==="Amazones"&&card.id!=="moanacarpace"){
@@ -4848,7 +4867,7 @@ const renderChoiceModal=()=>{
       <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">${allyGrid||'<div style="color:#445;font-size:11px">Aucun</div>'}</div>
     </div>`;
   } else {
-    const isEnemy2=["freyja","entravesygg","kaya","impactcible","planche","prisongivre","corliss","hurgan","lyra","silence","selka","fosseauxpiques","marquetribale","prisonracines","gardiennil","cowboy","embuscadecobra","colerara_tgt","enfantrongeurs","etoileciel","harlementnloup","piegeplaines","totementrave","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","kuro_target","garruk_target","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","spectrebarillet","rictus","meteioide4","elina_target","velocis_destroy","virusinformatique","explosionbatterie","reprogrammationforcee","calcultraj_enemy","autodestruct_enemy","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_destroy1","morgane_destroy2","nikandros_target","destructiontotale","aliblaze_target1","aliblaze_target2","thalor_target","ventiloide_bounce","rakkor_steal","missvoltibri_destroy","samira_target","bobi_bounce","kairan_execute","astro_bounce","tesson_target1","tesson_target2","sharkrash_bounce","pigeon_target","punk_bounce2","punk_bounce3","krono_target","voltark_dmg","gorillaz_bounce","major_carnage_bonus","punkmillevoix_dmg","casque_target","micro_freeze","guitare_bounce","hachedestop_bounce","ondedechoc_target","symbole_target","jetbouteille_target","medica_dmg","akylos_target","plume_target","jester_main_target","solarakh_target","arachnodrake_poison","tessoglace_target1","tessoglace_target2","selka_debuff","harponyx_target","etoile_debuff","molene_target","solimoth_target"].includes(ch.type);
+    const isEnemy2=["freyja","entravesygg","kaya","impactcible","planche","prisongivre","corliss","hurgan","lyra","silence","selka","fosseauxpiques","marquetribale","prisonracines","gardiennil","cowboy","embuscadecobra","colerara_tgt","enfantrongeurs","etoileciel","harlementnloup","piegeplaines","totementrave","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","kuro_target","garruk_target","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","spectrebarillet","rictus","meteioide4","elina_target","velocis_destroy","virusinformatique","explosionbatterie","reprogrammationforcee","calcultraj_enemy","autodestruct_enemy","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_destroy1","morgane_destroy2","nikandros_target","destructiontotale","aliblaze_target1","aliblaze_target2","thalor_target","ventiloide_bounce","rakkor_steal","missvoltibri_destroy","samira_target","bobi_bounce","kairan_execute","astro_bounce","tesson_target1","tesson_target2","sharkrash_bounce","pigeon_target","punk_bounce2","punk_bounce3","krono_target","voltark_dmg","gorillaz_bounce","major_carnage_bonus","punkmillevoix_dmg","casque_target","micro_freeze","guitare_bounce","hachedestop_bounce","ondedechoc_target","symbole_target","jetbouteille_target","medica_dmg","akylos_target","plume_target","jester_main_target","solarakh_target","arachnodrake_poison","tessoglace_target1","tessoglace_target2","selka_debuff","harponyx_target","etoile_debuff","molene_target","solimoth_target","elecroc_bounce","maestro_target","gromphax_poison","nefera_target","osric_strip"].includes(ch.type);
     const grid=isEnemy2?enCardGrid(ch.options||[]):myCardGrid(ch.options||[]);
     content=`<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${grid}</div>`;
   }
@@ -4916,6 +4935,13 @@ const renderChoiceModal=()=>{
     batshinobi_pick:"🥷 Batshinobi — Choisir une carte adverse à voler",
     solimoth_target:"🦟 Solimoth — 200 dégâts + geler un ennemi",
     thalea_heal:"🌊 Thaléa — Grec allié +200 PV",
+    elecroc_bounce:"⚡ Sharkrash Elecroc — Renvoyer un ennemi en main",
+    maestro_target:"👻 Maëstro — Ennemi ne peut plus attaquer le Prestige",
+    gromphax_poison:"👽 Gromphax — Empoisonner un ennemi",
+    nefera_target:"🌀 Néfera — Prochain attaque redirigée",
+    osric_strip:"⚔️ Osric — Détruire les équipements d'un ennemi",
+    aelyra_recall:"🐉 Aëlyra — Allié blessé retourne en main",
+    corvax_pick:"🎩 Corvax — Main adverse : +1 coût à un personnage",
     tesson_target1:"⚔️ Tesson — 1ère cible (100 dégâts)",
     tesson_target2:"⚔️ Tesson — 2ème cible (100 dégâts)",
     sharkrash_bounce:"🦈 Sharkrash — Renvoyer un ennemi en main",
@@ -5031,7 +5057,7 @@ const renderChoiceModal=()=>{
     marchenoir:"🏪 Marché Noir — Choisir une carte",
   };
 
-  const mandatoryTypes=["clankbeak","ile","dragon_venin","sylvara","ninja_trio_recall","olympe_choice","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","hurgan","lyra","malgor","crocsr","iskra","kaya","freyja","astrid","haldor","ylvabaies","petittorvald","corliss","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","meteioide4","spectrebarillet","rictus","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","garruk_target","kuro_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","danseuseesprits","passeurnil","pretressenil","hopliteargos","dionysos","meduse","eluzeus","sireneegeenne","colerara_sacr","colerara_tgt","auxportolympe","isis","reveilpharaon","regenerationnil","elina_target","velocis_destroy","calcultraj_ally","calcultraj_enemy","modeberserk","bouclierholo","virusinformatique","explosionbatterie","reprogrammationforcee","autodestruct_ally","autodestruct_enemy","transfertconscience","mains_choice","mains_heal_target","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_sacrif","morgane_destroy1","alpix_heal","croqueplanete_heal","nikandros_target","rouageecran_peek","yara_target","volpuissance_my","volpuissance_en","duelheros_my","duelheros_en","destructiontotale","fouilleobjet","asclepios_heal","aliblaze_target1","aliblaze_target2","thalor_target","ventiloide_bounce","rakkor_steal","missvoltibri_destroy","samira_target","bobi_bounce","joailliere_buff","kairan_execute","leshia_poison","mekro_copy_pick","eva_absorb","k9_doubletarget","astro_bounce","punk_anarchie_ally","tesson_target1","tesson_target2","sharkrash_bounce","pigeon_target","punk_bounce2","punk_bounce3","krono_target","voltark_dmg","gorillaz_bounce","major_carnage_bonus","punkmillevoix_choice","punkmillevoix_bounce","punkmillevoix_dmg","casque_target","micro_freeze","guitare_bounce","hachedestop_bounce","ondedechoc_target","symbole_target","jetbouteille_target","pogo_target","pogo_dmg_all","discours_target","accord_receiver","accord_donor","coupe_steal","bombedetag_discard","mamina_heal","medica_heal","medica_dmg","akylos_target","plume_target","mordred_recall","jester_main_target","solarakh_target","arachnodrake_poison","sort_pick_target","sort_pick_sort","sort_evolve_pick","natural_evolve_pick","selyra_buff","tessoglace_target1","tessoglace_target2","nautica_peek","ylvagivre_heal","cobrasclepios_heal","selka_debuff","harponyx_target","bobraxv_heal","etoile_debuff","glisseur_heal","molene_target","batshinobi_pick","solimoth_target","thalea_heal"];
+  const mandatoryTypes=["clankbeak","ile","dragon_venin","sylvara","ninja_trio_recall","olympe_choice","minotaure","pegasefeu","sireneegeenne","harpiefalaises","eluzeus","trio_grecs","hurgan","lyra","malgor","crocsr","iskra","kaya","freyja","astrid","haldor","ylvabaies","petittorvald","corliss","kaenlame","ayame1","shiromort","raitoprof","sayuriloeil","midorironces","kikivoleur","akaion_target","meteioide4","spectrebarillet","rictus","brulureacide","poisonparalysant","sporestouffe","recetteinterdite","decomposition","repassuspec","technomasquepeste","equip_curse","garruk_target","kuro_target","jetvapeurbrulante","sabotage_dmg","greveouvriers","danseuseesprits","passeurnil","pretressenil","hopliteargos","dionysos","meduse","eluzeus","sireneegeenne","colerara_sacr","colerara_tgt","auxportolympe","isis","reveilpharaon","regenerationnil","elina_target","velocis_destroy","calcultraj_ally","calcultraj_enemy","modeberserk","bouclierholo","virusinformatique","explosionbatterie","reprogrammationforcee","autodestruct_ally","autodestruct_enemy","transfertconscience","mains_choice","mains_heal_target","mains_dmg_target","nyxara_target","bjirg_target","bjang_target","meiling_target1","meiling_target2","morgane_sacrif","morgane_destroy1","alpix_heal","croqueplanete_heal","nikandros_target","rouageecran_peek","yara_target","volpuissance_my","volpuissance_en","duelheros_my","duelheros_en","destructiontotale","fouilleobjet","asclepios_heal","aliblaze_target1","aliblaze_target2","thalor_target","ventiloide_bounce","rakkor_steal","missvoltibri_destroy","samira_target","bobi_bounce","joailliere_buff","kairan_execute","leshia_poison","mekro_copy_pick","eva_absorb","k9_doubletarget","astro_bounce","punk_anarchie_ally","tesson_target1","tesson_target2","sharkrash_bounce","pigeon_target","punk_bounce2","punk_bounce3","krono_target","voltark_dmg","gorillaz_bounce","major_carnage_bonus","punkmillevoix_choice","punkmillevoix_bounce","punkmillevoix_dmg","casque_target","micro_freeze","guitare_bounce","hachedestop_bounce","ondedechoc_target","symbole_target","jetbouteille_target","pogo_target","pogo_dmg_all","discours_target","accord_receiver","accord_donor","coupe_steal","bombedetag_discard","mamina_heal","medica_heal","medica_dmg","akylos_target","plume_target","mordred_recall","jester_main_target","solarakh_target","arachnodrake_poison","sort_pick_target","sort_pick_sort","sort_evolve_pick","natural_evolve_pick","selyra_buff","tessoglace_target1","tessoglace_target2","nautica_peek","ylvagivre_heal","cobrasclepios_heal","selka_debuff","harponyx_target","bobraxv_heal","etoile_debuff","glisseur_heal","molene_target","batshinobi_pick","solimoth_target","thalea_heal","elecroc_bounce","maestro_target","gromphax_poison","nefera_target","osric_strip","aelyra_recall","corvax_pick"];
   const hasClose=!mandatoryTypes.includes(ch.type);
   return `<div class="modal-bg" onclick="${hasClose?"closeChoice()":""}"><div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-title">${titles[ch.type]||ch.type}</div>
@@ -5141,6 +5167,18 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
         resolveCombat(who,afi,ttype,carapaxIdx);
         return;
       }
+    }
+  }
+  // Néfera, Voile des Dunes: prochaine attaque redirigée aléatoirement
+  if(who==="ai"&&atk._neferaRedirect){
+    const aIdx=G.ai.field.findIndex(c=>c&&c.uid===atk.uid);
+    if(aIdx!==-1)G.ai.field[aIdx]={...G.ai.field[aIdx],_neferaRedirect:false};
+    const allT=[...G.player.field.map((c,i)=>({side:"player",i,c})).filter(x=>x.c),...G.ai.field.map((c,i)=>({side:"ai",i,c})).filter(x=>x.c&&x.c.uid!==atk.uid)];
+    if(allT.length>0){
+      const rnd=allT[Math.floor(Math.random()*allT.length)];
+      addLog("🌀 Néfera: attaque de "+atk.name+" redirigée vers "+rnd.c.name+" !");
+      if(rnd.side==="player"){resolveCombat(who,afi,"field",rnd.i);return;}
+      else{const dmg=calcAtk(atk,G.ai,G.fx,G.lieu);rnd.c.dmgTaken=(rnd.c.dmgTaken||0)+dmg;addLog(rnd.c.name+" (allié IA) -"+dmg+" PV !");return;}
     }
   }
   if(isP)SFX.attack();
@@ -5293,6 +5331,11 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
         const mx=maxHp(def,G[en],G.fx,G.lieu);
         G[en].field[tfi]={...def,dmgTaken:mx-50,lastStandUsed:true};
         addLog("⚔️ Crête d'Acier: "+def.name+" survit avec 50 PV !");
+      } else if(def.id==="freyghcoeurblanc"&&!def.lastStandUsed){
+        // Freygh Cœur-Blanc: survit avec 500 PV la première fois
+        const mx=maxHp(def,G[en],G.fx,G.lieu);
+        G[en].field[tfi]={...def,dmgTaken:Math.max(0,mx-500),lastStandUsed:true};
+        addLog("❄️ Freygh Cœur-Blanc survit avec 500 PV !");
       } else {
         // Armure Amazone last stand
         if(def.faction==="Amazones"&&!def.lastStandUsed){
@@ -5895,6 +5938,13 @@ const playCard=(cardUid,fi)=>{
       if(enemies.length){const cheapest=enemies.reduce((a,b)=>(a.c.cost||0)<=(b.c.cost||0)?a:b);G.ai.field[cheapest.i]=null;G.ai.equips[cheapest.i]=[null,null];G.ai.hand.push({...cheapest.c,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("Sumo Riot: "+cheapest.c.name+" (coût "+cheapest.c.cost+") renvoyé en main !");}
       else addLog("Sumo Riot: aucun ennemi !");
     }
+    // Sharkrash Elecroc: renvoie un ennemi en main; si coût ≥8 → adversaire -2 prestige
+    if(card.id==="sharkrashelecroc"){
+      const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(enemies.length===1){const t=enemies[0];G.ai.field[t.i]=null;G.ai.equips[t.i]=[null,null];G.ai.hand.push({...t.c,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("Sharkrash Elecroc: "+t.c.name+" renvoyé !");if((t.c.cost||0)>=8){G.ai.prestige-=2;addLog("Sharkrash Elecroc: coût ≥8 → adversaire -2 prestige !");}}
+      else if(enemies.length>1)setTimeout(()=>{CHOICE={type:"elecroc_bounce",options:enemies};renderGame();},100);
+      else addLog("Sharkrash Elecroc: aucun ennemi !");
+    }
     // Sharkrash la Mâchoire: renvoie un ennemi; si coût ≥8, adversaire perd 1 prestige
     if(card.id==="sharkrashlamachoire"){
       const enemies=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
@@ -6181,6 +6231,47 @@ const playCard=(cardUid,fi)=>{
         const top2=G.ai.deck.slice(0,Math.min(2,G.ai.deck.length));
         setTimeout(()=>{CHOICE={type:"batshinobi_pick",options:top2.map((c,i)=>({c,i}))};renderGame();},100);
       } else addLog("Batshinobi: deck adverse vide !");
+    }
+    // Maëstro Mortissimo: un ennemi ne peut plus attaquer le Prestige
+    if(card.id==="maestromortissimo"){
+      const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(opts.length===1){opts[0].c._cantAttackHero=true;addLog("Maëstro: "+opts[0].c.name+" ne peut plus attaquer ton Prestige !");}
+      else if(opts.length>1)setTimeout(()=>{CHOICE={type:"maestro_target",options:opts};renderGame();},100);
+      else addLog("Maëstro: aucun ennemi !");
+    }
+    // Gromphax l'Acide: empoisonne un ennemi
+    if(card.id==="gromphaxlacide"){
+      const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(opts.length===1){poisonChar("ai",opts[0].c.uid,100,-1);addLog("Gromphax: "+opts[0].c.name+" empoisonné !");}
+      else if(opts.length>1)setTimeout(()=>{CHOICE={type:"gromphax_poison",options:opts};renderGame();},100);
+      else addLog("Gromphax: aucun ennemi !");
+    }
+    // Aëlyra du Souffle: renvoie un allié blessé en main
+    if(card.id==="aelyradusouffle"){
+      const allies=G.player.field.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.dmgTaken>0&&x.c.uid!==placed.uid);
+      if(allies.length===1){const t=allies[0];G.player.field[t.i]=null;G.player.equips[t.i]=[null,null];G.player.hand.push({...t.c,uid:mkuid()});addLog("Aëlyra: "+t.c.name+" retourne en main !");}
+      else if(allies.length>1)setTimeout(()=>{CHOICE={type:"aelyra_recall",options:allies};renderGame();},100);
+      else addLog("Aëlyra: aucun allié blessé !");
+    }
+    // Néfera, Voile des Dunes: prochain attaque d'un ennemi = cible aléatoire
+    if(card.id==="neferavoiledesdunes"){
+      const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(opts.length===1){opts[0].c._neferaRedirect=true;addLog("Néfera: "+opts[0].c.name+" prochaine attaque redirigée !");}
+      else if(opts.length>1)setTimeout(()=>{CHOICE={type:"nefera_target",options:opts};renderGame();},100);
+      else addLog("Néfera: aucun ennemi !");
+    }
+    // Osric d'Ankhacier: détruit équipements d'un ennemi + gagne PV
+    if(card.id==="osricdankhacier"){
+      const opts=G.ai.field.map((c,i)=>({c,i})).filter(x=>x.c);
+      if(opts.length===1){const t=opts[0];const eqList=G.ai.equips[t.i].filter(e=>e);const count=eqList.length;G.ai.equips[t.i]=[null,null];const osfi=G.player.field.findIndex(c=>c&&c.uid===placed.uid);if(osfi!==-1&&count>0){G.player.field[osfi].dmgTaken=Math.max(0,G.player.field[osfi].dmgTaken-count*100);addLog("Osric: "+count+" équipement(s) détruit(s) → +"+count*100+" PV !");}else addLog("Osric: "+t.c.name+" n'avait aucun équipement !");}
+      else if(opts.length>1)setTimeout(()=>{CHOICE={type:"osric_strip",options:opts,casterUid:placed.uid};renderGame();},100);
+      else addLog("Osric: aucun ennemi !");
+    }
+    // Corvax le Prestidigitateur: main adverse, une carte perso coûte +1
+    if(card.id==="corvaxleprestidigitateur"){
+      const persos=G.ai.hand.map((c,i)=>({c,i})).filter(x=>x.c.type==="personnage");
+      if(persos.length)setTimeout(()=>{CHOICE={type:"corvax_pick",options:persos};renderGame();},100);
+      else addLog("Corvax: main adverse sans personnage !");
     }
     // Cloptrax Fouisseur: prochain tour AI, chaque attaque réduite de 100
     if(card.id==="cloptraxfouisseur"){G.cloptraxActive=true;addLog("Cloptrax: prochain tour adverse -100 à chaque attaque !");}
@@ -6732,6 +6823,7 @@ const playCard=(cardUid,fi)=>{
           addLog("⚗️ FUSION TRIPLE → Hukram Titan Voleur ! Tous les personnages avec < 200 ATK détruits !");
           ["player","ai"].forEach(w=>{G[w].field.forEach((c,i)=>{if(c&&calcAtk(c,G[w],G.fx,G.lieu)<200){killCard(w,i);stealPrestige(w==="player"?"ai":"player","Hukram détruit "+c.name+" (< 200 ATK) !");}});});
         }},
+        {a:"freyja",b:"borgh",result:"freyghcoeurblanc",onFuse:()=>addLog("⚗️ FUSION → Freygh Cœur-Blanc !")},
         {a:"pretresselune",b:"protecteurcites",result:"protectricedelalune",onFuse:()=>{
           addLog("⚗️ FUSION → Protectrice de la Lune !");
           G.ai.field.forEach((c,i)=>{if(!c)return;c.dmgTaken+=200;addLog("Protectrice: "+c.name+" -200 PV !");const ch2=curHp(c,G.ai,G.fx,G.lieu);if(ch2<=0){killCard("ai",i);stealPrestige("player",c.name+" détruit !");}});
@@ -7190,6 +7282,27 @@ window.doChoice=(action,payload)=>{
   }
   else if(ch.type==="thalea_heal"){
     const t=G.player.field[payload];if(t&&t.faction==="Grecs"){t.dmgTaken=Math.max(0,t.dmgTaken-200);addLog("Thaléa: "+t.name+" +200 PV !");}
+  }
+  else if(ch.type==="maestro_target"){
+    const t=G.ai.field[payload];if(t){t._cantAttackHero=true;addLog("Maëstro: "+t.name+" ne peut plus attaquer ton Prestige !");}
+  }
+  else if(ch.type==="gromphax_poison"){
+    const t=G.ai.field[payload];if(t){poisonChar("ai",t.uid,100,-1);addLog("Gromphax: "+t.name+" empoisonné (-100 PV/tour) !");}
+  }
+  else if(ch.type==="nefera_target"){
+    const t=G.ai.field[payload];if(t){t._neferaRedirect=true;addLog("Néfera: "+t.name+" prochaine attaque redirigée !");}
+  }
+  else if(ch.type==="osric_strip"){
+    const t=G.ai.field[payload];if(t){const eqList=G.ai.equips[payload].filter(e=>e);const count=eqList.length;G.ai.equips[payload]=[null,null];const osfi=G.player.field.findIndex(c=>c&&c.uid===ch.casterUid);if(osfi!==-1&&count>0){G.player.field[osfi].dmgTaken=Math.max(0,G.player.field[osfi].dmgTaken-count*100);addLog("Osric: "+count+" équipement(s) détruit(s) sur "+t.name+" → +"+count*100+" PV !");}else addLog("Osric: "+t.name+" n\'avait aucun équipement !");}
+  }
+  else if(ch.type==="aelyra_recall"){
+    const t=G.player.field[payload];if(t&&t.dmgTaken>0){G.player.field[payload]=null;G.player.equips[payload]=[null,null];G.player.hand.push({...t,uid:mkuid()});addLog("Aëlyra: "+t.name+" retourne en main !");}
+  }
+  else if(ch.type==="corvax_pick"){
+    const opt=ch.options[payload];if(opt){const c=G.ai.hand[opt.i];if(c){G.ai.hand[opt.i]={...c,_costBonus:(c._costBonus||0)+1};addLog("Corvax: "+c.name+" coûtera +1 de plus !");}}
+  }
+  else if(ch.type==="elecroc_bounce"){
+    const t=G.ai.field[payload];if(t){G.ai.field[payload]=null;G.ai.equips[payload]=[null,null];G.ai.hand.push({...t,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0,hasAttacked:false,justPlayed:false});addLog("Sharkrash Elecroc: "+t.name+" renvoyé !");if((t.cost||0)>=8){G.ai.prestige-=2;addLog("Elecroc: coût ≥8 → adversaire -2 prestige !");}}
   }
   // ── Sorts handlers ──
   else if(ch.type==="sort_pick_target"){
@@ -7980,6 +8093,10 @@ window.doEndTurn=()=>{
     // Hache-Brume: les ennemis blessés ne peuvent pas attaquer
     if(atk.dmgTaken>0&&G.player.field.some(f=>f&&f.id==="hachebrume")){
       addLog("👻 Hache-Brume: "+atk.name+" blessé → ne peut pas attaquer !");return;
+    }
+    // Maëstro Mortissimo: cet ennemi ne peut pas attaquer le Prestige
+    if(atk._cantAttackHero&&G.player.field.some(f=>f&&f.id==="maestromortissimo")&&!G.player.field.some(c=>c)){
+      addLog("Maëstro: "+atk.name+" ne peut pas attaquer le Prestige !");return;
     }
     // Grève des Ouvriers: paralysie temporaire
     if(atk._greve&&atk._greve>0){atk._greve--;addLog("🪧 Grève: "+atk.name+" paralysé ce tour.");return;}
