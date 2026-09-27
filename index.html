@@ -640,6 +640,27 @@ const STARTER_CHOICES=[
 // DONNÉES
 // ═══════════════════════════════════════════════════════
 const CARDS = [
+{"id": "milareinehyenes", "name": "Mila Reine des Hyènes", "faction": "MaîtresBêtes", "atk": 250, "hp": 300, "cost": 3, "type": "personnage", "effect": "À son arrivée, cherchez dans votre deck un autre Dompteur de coût 3 et ajoutez-le à votre main."},
+{"id": "eiriktraceglace", "name": "Eirik Trace Glace", "faction": "Vikings", "atk": 650, "hp": 700, "cost": 7, "type": "personnage", "effect": "Eirik Trace-de-Givre + sort de glace. Arrivée : regardez les 4 premières cartes de votre deck, remettez-en 2 au-dessus et les autres en dessous.", "isSortEvolution": true},
+{"id": "metalicehook", "name": "Metal Icehook", "faction": "Pirates", "atk": 750, "hp": 900, "cost": 8, "type": "personnage", "effect": "Ironhook + sort de glace. Arrivée : les personnages adverses ne peuvent pas attaquer pendant leurs 3 prochains tours.", "isSortEvolution": true},
+{"id": "ypsasommetrune", "name": "Ypsa Sommet-Rune", "faction": "Vikings", "atk": 300, "hp": 300, "cost": 3, "type": "personnage", "effect": "Durant son tour d’invocation, vous pouvez la renvoyer en main. Une seule fois par partie."},
+{"id": "lagridlancerune", "name": "Lagrid Lance-Rune", "faction": "Vikings", "atk": 600, "hp": 50, "cost": 4, "type": "personnage", "effect": "Arrivée : inflige 100 dégâts à une unité ennemie."},
+{"id": "hrolfcercle", "name": "Hrolf du Cercle Rouge", "faction": "Vikings", "atk": 50, "hp": 150, "cost": 1, "type": "personnage", "effect": "Vos Vikings alliés de coût 1 gagnent +50 ATK tant qu’il est sur le terrain."},
+{"id": "bastetnefra", "name": "Bastet-Nefra", "faction": "Egyptiens", "atk": 50, "hp": 200, "cost": 1, "type": "personnage", "effect": "La première attaque qu’elle subit ne lui retire aucun PV."},
+{"id": "mambonox", "name": "Mambo Nox", "faction": "MagesNoirs", "atk": 250, "hp": 100, "cost": 2, "type": "personnage", "effect": "Arrivée : choisissez un ennemi. Chaque fois qu’il attaque, il subit 100 dégâts."},
+{"id": "nereissource", "name": "Néréis Source-Monstre", "faction": "Grecs", "atk": 250, "hp": 150, "cost": 2, "type": "personnage", "effect": "Arrivée : créez une copie avec 100 ATK et 100 PV sur un emplacement libre."},
+{"id": "lumorouage", "name": "Lumo-Rouage", "faction": "Steampunk", "atk": 150, "hp": 300, "cost": 2, "type": "personnage", "effect": "Révélez le dessus du deck. Si c’est un personnage Steampunk, son coût d’invocation diminue de 1 ce tour-ci."},
+{"id": "crz13rempart", "name": "CRZ-13, Rempart", "faction": "Zombies", "atk": 50, "hp": 400, "cost": 2, "type": "personnage", "effect": "Lorsqu’un Zombie allié est attaqué, redirigez l’attaque vers CRZ-13."},
+{"id": "mllecuivraphine", "name": "Mlle Cuivraphine", "faction": "Steampunk", "atk": 200, "hp": 100, "cost": 2, "type": "personnage", "effect": "Arrivée : piochez 1 carte, puis placez 1 carte de votre main sous votre deck."},
+{"id": "aponipeausage", "name": "Aponi Peau-Sage", "faction": "Amerindiens", "atk": 50, "hp": 100, "cost": 1, "type": "personnage", "effect": "Arrivée : un allié gagne +100 PV pendant 2 tours."},
+{"id": "capitainepoulpraie", "name": "Capitaine Poulpraie", "faction": "Pirates", "atk": 50, "hp": 350, "cost": 3, "type": "personnage", "effect": "Arrivée : choisissez un ennemi ; il ne peut plus attaquer."},
+{"id": "fauchemotte", "name": "Fauche-Motte", "faction": "Zombies", "atk": 200, "hp": 150, "cost": 2, "type": "personnage", "effect": "Arrivée : un ennemi perd 100 ATK pour le reste du combat."},
+{"id": "lordfairway", "name": "Lord Fairway", "faction": "Pyromanes", "atk": 100, "hp": 300, "cost": 2, "type": "personnage", "effect": "Arrivée : inflige 100 dégâts à un ennemi, puis 100 dégâts à un ennemi voisin."},
+{"id": "donfumigaro", "name": "Don Fumigaro", "faction": "Fantomes", "atk": 250, "hp": 400, "cost": 4, "type": "personnage", "effect": "Chaque fois que l’adversaire joue un personnage, il défausse le dessus de son deck."},
+{"id": "brigitteinferno", "name": "Brigitte Repass’Inferno", "faction": "Pyromanes", "atk": 100, "hp": 300, "cost": 2, "type": "personnage", "effect": "Arrivée : un ennemi perd tous ses bonus d’ATK provenant de pouvoirs ou d’équipements."},
+{"id": "machoiredunes", "name": "Mâchoire des Dunes", "faction": "Amazones", "atk": 150, "hp": 400, "cost": 3, "type": "personnage", "effect": "Si une Amazone alliée est blessée sur votre terrain, gagne +200 ATK."},
+{"id": "tasrpatrol", "name": "TASR-Patrol", "faction": "Robots", "atk": 350, "hp": 100, "cost": 2, "type": "personnage", "effect": "Arrivée : choisissez un personnage adverse ; il ne peut plus attaquer."},
+{"id": "forgex2", "name": "Forge-X2", "faction": "Robots", "atk": 300, "hp": 100, "cost": 2, "type": "personnage", "effect": "Arrivée : un Robot humanoïde allié gagne +100 ATK et +100 PV."},
   {"id": "monetbrumes", "name": "Monet, Guerrier des Brumes", "type": "personnage", "atk": 150, "hp": 200, "cost": 2, "clan": "Artistes", "faction": "Peintres", "syn": "Peinture", "effect": "À son arrivée, Monet ne peut pas être attaqué jusqu’au début de votre prochain tour."},
   {"id": "picassofragmente", "name": "Picasso, Guerrier Fragmenté", "type": "personnage", "atk": 500, "hp": 450, "cost": 5, "clan": "Artistes", "faction": "Peintres", "syn": "Peinture", "effect": "1 fois par tour : échangez l’ATK et les PV actuels d’un personnage jusqu’à la fin du tour."},
   {"id": "vangoghtournesol", "name": "Van Gogh, Chevalier Tournesol", "type": "personnage", "atk": 450, "hp": 350, "cost": 4, "clan": "Artistes", "faction": "Peintres", "syn": "Peinture", "effect": "Chaque fois qu’un autre personnage Peinture arrive sur votre terrain, Van Gogh gagne +100 PV."},
@@ -1934,7 +1955,7 @@ const checkChronoAvatarUnlock=(faction)=>{
 let CHRONO_AVATARS_CHECKED={};
 
 // NE cards for booster (18 cartes Nouvelle Ère)
-const NE_CARD_IDS=["astrelyadesconfins","akaiondefenseur","rokkhard","bichecerynie","theonsacdor","nalyaecume","diva09","meteioide4","omegacuirasse","glorb","nikocapuche","mordrak","spectrebarillet","gluardent","rictus","gardienspectral","papybraise","pistacheturbo",
+const NE_CARD_IDS=["milareinehyenes","ypsasommetrune","lagridlancerune","hrolfcercle","bastetnefra","mambonox","nereissource","lumorouage","crz13rempart","mllecuivraphine","aponipeausage","capitainepoulpraie","fauchemotte","lordfairway","donfumigaro","brigitteinferno","machoiredunes","tasrpatrol","forgex2","astrelyadesconfins","akaiondefenseur","rokkhard","bichecerynie","theonsacdor","nalyaecume","diva09","meteioide4","omegacuirasse","glorb","nikocapuche","mordrak","spectrebarillet","gluardent","rictus","gardienspectral","papybraise","pistacheturbo",
   // Nouvelles cartes NE
   "zetipedalelune","nyxaragladiatrice","morganemajorpromo","mackhramcoffrerouge","bartonunchakoups","rackhamrivetnoir","meilinombrelle","kromurgraffeur","bjirggrivrehaches","bjangpiedgrue","astradcyberfjord","doroslexile","alpixsecouriste","docrustine","spiderpunkpochtron","mollymeurage","maitrephyllobate","kaorabrisering","kiaracoupemangue","lumacueilleuse","meliadardruche","zombalooroidisco",
   "croqueplanete","veneapictoxine","elythraolympe",
@@ -2837,6 +2858,7 @@ const SORT_ICONS={Glace:"❄️",Feu:"🔥",Électricité:"⚡",Eau:"💧",Besti
 const SORT_COLORS={Glace:"#55ccff",Feu:"#ff6622",Électricité:"#ffe800",Eau:"#2255ff",Bestial:"#66aa22",Mécanique:"#999999",Lumière:"#ffffcc",Ténèbres:"#8833cc"};
 // Map: "cardId_sort" → evolutionCardId. Rempli quand des cartes évolutions sont ajoutées.
 const SORT_EVOLUTIONS={
+ "eirik_glace":"eiriktraceglace", "ironhook_glace":"metalicehook",
   // key = baseCardId + "_" + sortName (lowercase, no accents)
   "selyracobra_bestial":"selyrareptilepoison",
   "tessondoubletranchant_glace":"tessondoubleglace",
@@ -3593,6 +3615,11 @@ const applyAutoUnlocks=()=>{
 
 // Packs definition
 const SHOP_PACK_DEFS=[
+{"id": "dompteurs", "name": "Pack Dompteurs", "icon": "◈", "desc": "Cartes Dompteurs", "price": 600, "factions": ["MaîtresBêtes"], "locked": false, "color": "#b690c6"},
+{"id": "magesnoirs", "name": "Pack Mages noirs", "icon": "◈", "desc": "Cartes Mages noirs", "price": 600, "factions": ["MagesNoirs"], "locked": false, "color": "#b690c6"},
+{"id": "zombies", "name": "Pack Zombies", "icon": "◈", "desc": "Cartes Zombies", "price": 600, "factions": ["Zombies"], "locked": false, "color": "#b690c6"},
+{"id": "pyromanes", "name": "Pack Pyromanes", "icon": "◈", "desc": "Cartes Pyromanes", "price": 600, "factions": ["Pyromanes"], "locked": false, "color": "#b690c6"},
+{"id": "fantomes", "name": "Pack Fantômes", "icon": "◈", "desc": "Cartes Fantômes", "price": 600, "factions": ["Fantomes"], "locked": false, "color": "#b690c6"},
   {id:"multiclan",name:"Pack Multiclan",icon:"🎨",desc:"2 cartes · coût ≤3 : 65% · coût 4–6 : 25% · coût >6 : 10%. Tirages indépendants, doublons possibles.",price:750,currency:"timePowder",factions:[...new Set(CARDS.map(c=>c.faction))],locked:false,color:"#d8ab69"},
   {id:"primitifs",name:"Pack Primitifs",icon:"🌿",desc:"Cartes Amérindiens + Amazones",price:350,factions:["Amerindiens","Amazones"],locked:false,color:"#66bb44"},
   {id:"navigateurs",name:"Pack Navigateurs",icon:"⚓",desc:"Cartes Vikings + Pirates",price:350,factions:["Vikings","Pirates"],locked:false,color:"#4ab8ff"},
@@ -3601,7 +3628,7 @@ const SHOP_PACK_DEFS=[
   {id:"cosmiques",name:"Pack Cosmiques",icon:"🌌",desc:"Entités Astrales + Extraterrestres",price:600,factions:[],locked:true,color:"#4466ff"},
   {id:"industriels",name:"Pack Industriel",icon:"⚙️",desc:"Robots Humanoïdes + Steampunk",price:600,factions:["Robots","Steampunk"],locked:false,color:"#cc8800"},
   {id:"rebelles",name:"Pack Les Rebelles",icon:"🎸",desc:"Cartes Punk — bientôt disponible !",price:500,factions:["Punk"],locked:true,color:"#ff2244"},
-  {id:"booster",name:"Pack Nouvelle Ère",icon:"✨",desc:"4 cartes exclusives NE + slot Chrono-Légendaire si grade atteint",price:1000,factions:[],locked:false,color:"#cc88ff"},
+  {id:"booster",name:"Pack Nouvelle Ère",icon:"✨",desc:"4 cartes Nouvelle Ère + slot Chrono-Légendaire si grade atteint",price:1000,factions:[],locked:false,color:"#cc88ff"},
 ];
 
 const getRarityPool=(factions)=>{
@@ -3783,6 +3810,89 @@ const buildDraftDeckWithDiff=(deckId,diff)=>{
 const eqs=(eq2d,cuid)=>(eq2d||[]).flat().filter(e=>e&&e.attachedTo===cuid);
 
 
+
+// September expansion: targeted choices and turn-scoped effects.
+const ncBlocked=c=>!!c&&(c._ncNoAttack||(c._ncIceTurns||0)>0);
+const ncCost=c=>Math.max(0,(c.cost||0)-(c._ncDiscount||0));
+const ncDamage=(who,i,n)=>{const c=G[who].field[i];if(!c)return;c.dmgTaken=(c.dmgTaken||0)+n;if(curHp(c,G[who],G.fx,G.lieu)<=0&&killCard(who,i)!==false)stealPrestige(who==='player'?'ai':'player',c.name+' détruit !');};
+const ncChoose=(who,kind,options,extra={})=>{
+ if(!options.length)return;
+ if(who==='ai'){ncApply({kind,options,who,...extra},0);return;}
+ CHOICE={type:'nc',kind,options,who,...extra};
+};
+const ncApply=(ch,n)=>{
+ const o=ch.options[n];if(!o)return;
+ const side=G[o.who],c=o.zone?side[o.zone].find(x=>x.uid===o.uid):side.field[o.i];
+ if(!c)return;
+ if(ch.kind==='mila'){const i=side.deck.findIndex(x=>x.uid===c.uid);side.hand.push(...side.deck.splice(i,1));}
+ if(ch.kind==='bottom'){const i=side.hand.findIndex(x=>x.uid===c.uid);side.deck.push(...side.hand.splice(i,1));}
+ if(ch.kind==='damage')ncDamage(o.who,o.i,100);
+ if(ch.kind==='fairway'){
+  const neighbors=[o.i-1,o.i+1].filter(i=>side.field[i]).map(i=>({who:o.who,i,uid:side.field[i].uid}));
+  ncDamage(o.who,o.i,100);if(neighbors.length)ncChoose(ch.who,'damage',neighbors);
+ }
+ if(ch.kind==='curse')c._ncMambo=true;
+ if(ch.kind==='stop')c._ncNoAttack=true;
+ if(ch.kind==='weaken')G.fx.push({target:c.uid,type:'atk',bonus:-100,endOfTurn:false});
+ if(ch.kind==='strip'){
+  c.bonusAtk=Math.min(0,c.bonusAtk||0);G.fx=G.fx.filter(f=>!(f.target===c.uid&&f.type==='atk'&&f.bonus>0));c._ncStripAtk=true;
+ }
+ if(ch.kind==='forge'){c.bonusAtk=(c.bonusAtk||0)+100;c.bonusHp=(c.bonusHp||0)+100;}
+ if(ch.kind==='aponi')G.fx.push({target:c.uid,type:'hp',bonus:100,endOfTurn:false,ncOwner:o.who,ncTurns:2});
+};
+const ncEnter=(who,c)=>{
+ const en=who==='player'?'ai':'player';
+ G[en].field.filter(x=>x&&x.id==='donfumigaro'&&artistEnabled(x)).forEach(()=>{const top=G[who].deck.shift();if(top)G[who].discard.push(top);});
+ if(!artistEnabled(c))return;
+ c._ncSummonTurn=G.turn;c._ncSummonPhase=G.phase;
+ const enemies=()=>artistOptions(en),allies=()=>artistOptions(who);
+ if(c.id==='milareinehyenes')ncChoose(who,'mila',G[who].deck.filter(x=>x.type==='personnage'&&x.faction==='MaîtresBêtes'&&x.cost===3&&x.id!==c.id).map(x=>({who,zone:'deck',uid:x.uid})));
+ const targetKinds={lagridlancerune:'damage',mambonox:'curse',capitainepoulpraie:'stop',tasrpatrol:'stop',fauchemotte:'weaken',lordfairway:'fairway',brigitteinferno:'strip'};
+ if(targetKinds[c.id])ncChoose(who,targetKinds[c.id],enemies());
+ if(c.id==='forgex2')ncChoose(who,'forge',allies().filter(o=>G[who].field[o.i].faction==='Robots'));
+ if(c.id==='aponipeausage')ncChoose(who,'aponi',allies());
+ if(c.id==='nereissource'&&!c._ncToken){const i=G[who].field.findIndex(x=>!x);if(i!==-1)G[who].field[i]={...c,uid:mkuid(),atk:100,hp:100,dmgTaken:0,bonusAtk:0,bonusHp:0,_ncToken:true};}
+ if(c.id==='mllecuivraphine'){drawCard(who);ncChoose(who,'bottom',G[who].hand.map(x=>({who,zone:'hand',uid:x.uid})));}
+ if(c.id==='lumorouage'){
+  const top=G[who].deck[0];if(top){if(top.type==='personnage'&&top.faction==='Steampunk')top._ncDiscount=(top._ncDiscount||0)+1;
+   addLog('Lumo-Rouage révèle : '+top.name);if(who==='player')CHOICE={type:'nc',kind:'reveal',who,options:[{who,zone:'deck',uid:top.uid}]};}
+ }
+ if(c.id==='metalicehook')G[en].field.forEach(x=>{if(x)x._ncIceTurns=Math.max(3,x._ncIceTurns||0);});
+ if(c.id==='eiriktraceglace'){
+  const top=G[who].deck.slice(0,4);if(who==='player'&&top.length)CHOICE={type:'nc',kind:'reorder',who,options:top.map(x=>({who,zone:'deck',uid:x.uid})),selected:[]};
+ }
+};
+window.ncRecall=uid=>{
+ if(!G||G.phase!=='player'||CHOICE||ANIM_BUSY)return;
+ const i=G.player.field.findIndex(c=>c&&c.uid===uid),c=G.player.field[i];
+ if(!c||c.id!=='ypsasommetrune'||!artistEnabled(c)||G.player._ncYpsaUsed||c._ncSummonTurn!==G.turn||c._ncSummonPhase!==G.phase)return;
+ G.player._ncYpsaUsed=true;G.player.field[i]=null;G.player.equips[i].forEach(e=>{if(e)G.player.discard.push(e);});G.player.equips[i]=[null,null];
+ G.player.hand.push({...c,dmgTaken:0,bonusAtk:0,bonusHp:0});ATTACK_MODE=false;ATTACK_FROM=null;renderGame();
+};
+const ncModal=ch=>{
+ const labels={mila:'Mila — Choisissez un Dompteur de coût 3',bottom:'Cuivraphine — Une carte sous votre deck',damage:'Choisissez une cible : 100 dégâts',fairway:'Lord Fairway — Choisissez la première cible',curse:'Mambo Nox — Maudire un ennemi',stop:'Empêcher un ennemi d’attaquer',weaken:'Fauche-Motte — Retirer 100 ATK',strip:'Brigitte — Retirer les bonus d’ATK',forge:'Forge-X2 — Renforcer un Robot',aponi:'Aponi — Donner +100 PV pendant 2 tours',reveal:'Lumo-Rouage — Carte révélée',reorder:'Eirik — Choisissez les 2 cartes du dessus, dans leur ordre'};
+ return `<div role="dialog" aria-modal="true" style="position:fixed;inset:0;background:#030712ed;z-index:10001;display:grid;place-items:center;padding:12px"><section style="width:min(540px,100%);max-height:88dvh;overflow:auto;background:#15202d;color:#eee;border:1px solid #c9a563;padding:18px;border-radius:14px"><h2 style="font-size:18px">${labels[ch.kind]}</h2>${ch.kind==='reorder'?'<p>Les cartes restantes iront sous le deck, dans leur ordre actuel.</p>':''}<div style="display:grid;gap:10px">${ch.options.map((o,n)=>{const c=o.zone?G[o.who][o.zone].find(x=>x.uid===o.uid):G[o.who].field[o.i];return c?`<button style="min-height:52px;background:#25384b;color:white;border:1px solid #8fa1ad;border-radius:8px;padding:10px" onclick="ncPick(${n})" ${ch.selected?.includes(n)?'disabled':''}>${ch.selected?.includes(n)?(ch.selected.indexOf(n)+1)+'. ':''}${c.name} · ★${c.cost}</button>`:'';}).join('')}</div>${ch.kind==='reveal'?'<button style="min-height:44px;margin-top:15px" onclick="ncPick(-1)">Continuer</button>':''}</section></div>`;
+};
+window.ncPick=n=>{
+ const ch=CHOICE;if(ch?.type!=='nc')return;
+ if(ch.kind==='reveal'){CHOICE=null;renderGame();return;}
+ if(!ch.options[n])return;
+ if(ch.kind==='reorder'){
+  if(ch.selected.includes(n))return;ch.selected.push(n);
+  if(ch.selected.length<Math.min(2,ch.options.length)){renderGame();return;}
+  const deck=G[ch.who].deck,top=deck.splice(0,ch.options.length);
+  const selected=ch.selected.map(i=>top[i]);deck.unshift(...selected);deck.push(...top.filter((_,i)=>!ch.selected.includes(i)));CHOICE=null;
+ }else{CHOICE=null;ncApply(ch,n);}
+ renderGame();
+};
+const ncTurnEnd=who=>{
+ for(const z of ['field','hand','deck','discard'])G[who][z].forEach(c=>{if(c)delete c._ncDiscount;});
+ G[who].field.forEach(c=>{if(c&&c._ncIceTurns>0)c._ncIceTurns--;});
+};
+const ncTurnStart=who=>{
+ G.fx.forEach(f=>{if(f.ncOwner===who)f.ncTurns--;});G.fx=G.fx.filter(f=>f.ncTurns===undefined||f.ncTurns>0);
+};
+
 // Les Artistes / Les Peintres: effects share the existing field, choice and combat systems.
 const artistEnabled=c=>!!c&&!c.silenced&&!c._artistLocked;
 const artistAura=(card,side)=>{
@@ -3811,6 +3921,7 @@ const artistApply=(kind,opt,source)=>{
   return true;
 };
 const artistEnter=(who,c)=>{
+ ncEnter(who,c);
   const other=who==='player'?'ai':'player';
   if(c.faction==='Peintres')G[who].field.forEach(a=>{if(a&&a.uid!==c.uid&&a.id==='vangoghtournesol'&&artistEnabled(a))a.bonusHp=(a.bonusHp||0)+100;});
   if(!artistEnabled(c))return;
@@ -3823,11 +3934,13 @@ const artistEnter=(who,c)=>{
   }
 };
 const artistTurnStart=who=>{
+ ncTurnStart(who);
   G[who].field.forEach(c=>{if(!c)return;delete c._artistMist;
     if(c._artistDaliPending){delete c._artistDaliPending;c._artistLocked=true;c._artistOriginalId=c.id;c._artistPreviousSilence=c.silenced;c.id='artist_time_locked';c.silenced=true;}
   });
 };
 const artistTurnEnd=who=>{
+ ncTurnEnd(who);
   G.fx=G.fx.filter(f=>!f.artistSwap);
   for(const zone of ['field','hand','deck','discard'])G[who][zone].forEach(c=>{if(c?._artistOriginalId){c.id=c._artistOriginalId;c.silenced=c._artistPreviousSilence;delete c._artistOriginalId;delete c._artistPreviousSilence;delete c._artistLocked;}});
 };
@@ -3863,7 +3976,10 @@ const artistRedirect=target=>{
 
 const calcAtk=(card,side,fx,lieu,isP)=>{
   if(!card)return 0;
+  if(card._ncStripAtk)return Math.max(0,card.atk+Math.min(0,card.bonusAtk||0)+fx.filter(f=>f.target===card.uid&&f.type==='atk'&&f.bonus<0).reduce((v,f)=>v+f.bonus,0));
   let a=card.atk+(card.bonusAtk||0)+artistAura(card,side);
+  if(card.faction==='Vikings'&&card.cost===1)a+=(side.field||[]).filter(c=>c&&c.uid!==card.uid&&c.id==='hrolfcercle'&&artistEnabled(c)).length*50;
+  if(card.id==='machoiredunes'&&artistEnabled(card)&&(side.field||[]).some(c=>c&&c.uid!==card.uid&&c.faction==='Amazones'&&(c.dmgTaken||0)>0))a+=200;
   const eq=eqs(side.equips,card.uid);
   eq.forEach(e=>{if(e.id==="pistolet"||e.id==="dagueor")a+=100;if(e.id==="lance")a+=200;if(e.id==="bombe")a+=300;if(e.id==="daguepr"&&eq.length>1)a+=100;});
   if(card.id==="rumbletail"&&eq.length>0)a+=50;
@@ -5014,7 +5130,7 @@ const renderGame=()=>{
       const fx=G.fx;const ch=curHp(c,G.player,fx,G.lieu);const mh=maxHp(c,G.player,fx,G.lieu);const ea=calcAtk(c,G.player,fx,G.lieu,true);
       const sel=SELECTED_HAND===null&&ATTACK_FROM===i&&ATTACK_MODE;
       const glw=SELECTED_HAND!==null;
-      const canA=!c._artistLocked&&!c.hasAttacked&&!c.justPlayed&&!G.firstTurn;
+      const canA=!ncBlocked(c)&&!c._artistLocked&&!c.hasAttacked&&!c.justPlayed&&!G.firstTurn;
       slot=`<div data-motion-uid="${c.uid}" data-motion-zone="player-field" ondblclick="showDetail(${i},'player')" onclick="clickPlayerField(${i})" style="position:relative;cursor:pointer">${cardHTML(c,"field",{cHp:ch,mHp:mh,effAtk:ea,selected:sel,glow:glw,canAttack:canA,hasAttacked:c.hasAttacked,justPlayed:c.justPlayed,lastStand:c.lastStandUsed})}</div>`;
     }else{
       slot=`<div class="field-slot" onclick="clickPlayerField(${i})" style="${SELECTED_HAND!==null?"border-color:#4a9eff55":""}">${SELECTED_HAND!==null?"Poser":"vide"}</div>`;
@@ -5073,7 +5189,7 @@ const renderGame=()=>{
   const handZone=`<div class="battle-hand" style="background:rgba(10,15,30,0.7);border-radius:10px;border:1px solid #223;padding:7px 10px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;flex-wrap:wrap;gap:6px">
       <span class="battle-board-label">${board.clan} · ${board.name}</span><span class="battle-hand-label">Main <b>${G.player.hand.length}</b></span><span class="battle-hand-help">Sélectionner une carte · Inspecter pour lire</span>
-      <div class="battle-actions">${G.phase==='player'?G.player.field.filter(c=>c&&c.id==='picassofragmente'&&artistEnabled(c)).map(c=>`<button class="battle-inspect" onclick="artistPicasso('${c.uid}')" ${c._artistPicassoTurn===G.turn?'disabled':''}>Picasso · Échanger ATK / PV</button>`).join(''):''}${prestigeAttackBtn}${selectedCard?`<button class="battle-inspect" onclick="showDetailCard('${selectedCard.uid}')">Inspecter la carte</button>`:""}${playActionBtn}${sortBtn}${naturalEvoBtn}${endTurnBtn}${G.phase==="ai"?`<span role="status">L’adversaire joue…</span>`:""}</div>
+      <div class="battle-actions">${G.phase==='player'?G.player.field.filter(c=>c&&c.id==='picassofragmente'&&artistEnabled(c)).map(c=>`<button class="battle-inspect" onclick="artistPicasso('${c.uid}')" ${c._artistPicassoTurn===G.turn?'disabled':''}>Picasso · Échanger ATK / PV</button>`).join(''):''}${G.phase==='player'&&!G.player._ncYpsaUsed?G.player.field.filter(c=>c&&c.id==='ypsasommetrune'&&artistEnabled(c)&&c._ncSummonTurn===G.turn&&c._ncSummonPhase===G.phase).map(c=>`<button class="battle-inspect" onclick="ncRecall('${c.uid}')">Ypsa · Renvoyer en main</button>`).join(''):''}${prestigeAttackBtn}${selectedCard?`<button class="battle-inspect" onclick="showDetailCard('${selectedCard.uid}')">Inspecter la carte</button>`:""}${playActionBtn}${sortBtn}${naturalEvoBtn}${endTurnBtn}${G.phase==="ai"?`<span role="status">L’adversaire joue…</span>`:""}</div>
     </div>
     <div class="battle-hand-scroll" aria-label="Main du joueur, défilement horizontal"><div class="battle-hand-fan">${hand}</div></div>
   </div>`;
@@ -5330,6 +5446,7 @@ const renderGame=()=>{
 
 const renderChoiceModal=()=>{
   if(!CHOICE)return"";
+  if(CHOICE.type==='nc')return ncModal(CHOICE);
   if(CHOICE.type==='artist')return artistChoiceHTML(CHOICE);
   const ch=CHOICE;
   let content="";
@@ -5899,7 +6016,14 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
   try {
   /* FX4 end */
   const isP=who==="player";const en=isP?"ai":"player";
-  const atk=G[who].field[afi];if(!atk||atk._artistLocked)return;
+  const atk=G[who].field[afi];if(!atk||ncBlocked(atk)||atk._artistLocked)return;
+  if(ttype==='field'){
+   const def=G[en].field[tfi];
+   if(def&&def.faction==='Zombies'&&def.id!=='crz13rempart'){
+    const guard=G[en].field.findIndex(c=>c&&c.id==='crz13rempart'&&artistEnabled(c));
+    if(guard!==-1){resolveCombat(who,afi,ttype,guard);return;}
+   }
+  }
   if(ttype==='field'&&G[en].field[tfi]?._artistMist)return;
   if(ttype==='prestige'&&G[en].field.some(c=>c)&&!atk._canBypassField)return;
 
@@ -6018,9 +6142,15 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
       addLog("Nayra: attaquant -100 ATK !");
     }
   }
+  // Bastet-Nefra absorbs her first attack's damage.
+  if(ttype==='field'){
+   const def=G[en].field[tfi];
+   if(def&&def.id==='bastetnefra'&&artistEnabled(def)&&!def._ncBastetUsed){def._ncBastetUsed=true;a=0;}
+  }
   // Marquer l'attaquant comme ayant attaqué — utiliser l'état courant, pas le snapshot
   if(G[who].field[afi])G[who].field[afi]={...G[who].field[afi],hasAttacked:true};
-  if(atk.id==="moustique")G[who].field[afi].bonusHp=(G[who].field[afi].bonusHp||0)+100;
+  if(atk._ncMambo){ncDamage(who,afi,100);if(!G[who].field[afi])return;}
+  if(atk.id==="moustique"&&G[who].field[afi])G[who].field[afi].bonusHp=(G[who].field[afi].bonusHp||0)+100;
   // Naya / Brakka: quand elles attaquent, une Amazone alliée gagne ATK
   if(ttype==="field"&&(atk.id==="naya"||atk.id==="brakka")){
     const bonus=atk.id==="brakka"?150:100;
@@ -6470,7 +6600,7 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
 
 const doPlayerAttack=(afi,ttype,tfi)=>{
   const atk=G.player.field[afi];
-  if(!atk||atk._artistLocked||atk.justPlayed){addLog("Ce personnage ne peut pas attaquer.");renderGame();return;}
+  if(!atk||ncBlocked(atk)||atk._artistLocked||atk.justPlayed){addLog("Ce personnage ne peut pas attaquer.");renderGame();return;}
   if(G.firstTurn){addLog("Impossible au 1er tour!");renderGame();return;}
   // Poison Paralysant: empoisonné + paralysé = ne peut pas attaquer
   if(atk._poisonParalysant&&atk._poisoned){addLog(atk.name+" est paralysé par le poison !");renderGame();return;}
@@ -6532,15 +6662,16 @@ const playCard=(cardUid,fi)=>{
   SELECTED_HAND=null;
 
   if(card.type==="personnage"){
-    if(card.cost>G.turn){addLog("Dispo au tour "+card.cost+".");renderGame();return;}
+    if(card.isSortEvolution){addLog("Cette carte nécessite son personnage de base et un sort.");renderGame();return;}
+    if(ncCost(card)>G.turn){addLog("Dispo au tour "+card.cost+".");renderGame();return;}
     // Koumba: les cartes volées coûtent +1
-    const effectiveCost=(card.cost||0)+(card._stolenCostBonus||0);
+    const effectiveCost=ncCost(card)+(card._stolenCostBonus||0);
     if(effectiveCost>G.turn){addLog(card.name+" (volée) : dispo au tour "+effectiveCost+".");renderGame();return;}
     if(G.player.field[fi]){addLog("Emplacement occupé!");renderGame();return;}
     const placed={...card,dmgTaken:0,hasAttacked:false,silenced:false,justPlayed:G.firstTurn,bonusAtk:0,bonusHp:0};
     G.player.field[fi]=placed;
-    artistEnter("player",placed);
     G.player.hand.splice(ci,1);
+    artistEnter("player",placed);
     SFX.playCard();
     GAME_TRACK.play_chars++;progressChallenge("play_chars");
     addLog(card.name+" posé.");
@@ -8086,6 +8217,7 @@ window.doChoice=(action,payload)=>{
       const {c,i,sort,evo}=opt;
       const evolved={...evo,uid:mkuid(),dmgTaken:0,hasAttacked:false,justPlayed:false,bonusAtk:0,bonusHp:0};
       G.player.field[i]=evolved;
+      ncEnter("player",evolved);
       if(!G.sortActivations)G.sortActivations=[null,null,null];
       G.sortActivations[i]=null;
       SFX.fusion&&SFX.fusion();
@@ -8715,8 +8847,8 @@ window.doEndTurn=async()=>{
   else if(diff==="facile")handToPlay.sort((a,b)=>(a.cost||0)-(b.cost||0));
 
   for(let hi=0;hi<handToPlay.length;hi++){
-    const c=handToPlay[hi];if(!c||c.type!=="personnage"||c.cost>G.turn)continue;
-    if(c.isFusion)continue;
+    const c=handToPlay[hi];if(!c||c.type!=="personnage"||ncCost(c)>G.turn)continue;
+    if(c.isFusion||c.isSortEvolution)continue;
     // Voltark Roi des Hyènes: bloque l'invocation des ennemis de coût ≤3
     if((c.cost||0)<=3&&G.player.field.some(f=>f&&f.id==="voltarkroideshyenes")){
       addLog("🎸 Voltark bloque l'invocation de "+c.name+" (coût ≤3) !");continue;
@@ -8724,6 +8856,7 @@ window.doEndTurn=async()=>{
     const slot=G.ai.field.findIndex(f=>!f);if(slot===-1)break;
     const placed={...c,dmgTaken:0,hasAttacked:false,justPlayed:true,bonusAtk:0,bonusHp:0,uid:mkuid()};
     G.ai.field[slot]=placed;
+    G.ai.hand=G.ai.hand.filter(x=>x.uid!==c.uid);
     artistEnter("ai",placed);
     // Hotep Piège-Pas: chaque ennemi invoqué arrive avec 50 PV en moins
     if(G.player.field.some(f=>f&&f.id==="hoteppiegepas")){
@@ -8845,7 +8978,7 @@ window.doEndTurn=async()=>{
   // ── AI ATTACKS ────────────────────────────────────────
   // difficile: attacks weakest player first to get kills, moyen: normal, facile: random target
   for(const [i,atk] of G.ai.field.entries()){
-    if(!atk||atk._artistLocked||G.frozenAI||atk.hasAttacked||prevFrozen.includes(atk.uid)||G.phase==="end")continue;
+    if(!atk||ncBlocked(atk)||atk._artistLocked||G.frozenAI||atk.hasAttacked||prevFrozen.includes(atk.uid)||G.phase==="end")continue;
     // Hache-Brume: les ennemis blessés ne peuvent pas attaquer
     if(atk.dmgTaken>0&&G.player.field.some(f=>f&&f.id==="hachebrume")){
       addLog("👻 Hache-Brume: "+atk.name+" blessé → ne peut pas attaquer !");continue;
