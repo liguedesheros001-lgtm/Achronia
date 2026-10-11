@@ -533,6 +533,81 @@ body{background:#090e12;font-family:Georgia,serif}
 .tempo-deck .tempo-clock{font:600 18px/1.5 Arial;color:#edd49b;letter-spacing:.04em;margin:16px 0;font-variant-numeric:tabular-nums}
 .tempo-deck p{font:13px/1.7 Arial;color:#c5cdd2;margin:8px 0}.tempo-deck button{margin-top:auto}
 .powder-panel{margin:12px 0 20px;padding:18px;border:1px solid #977d52;border-radius:14px;background:linear-gradient(135deg,#231d31,#101b25);color:#f0e6d3}.powder-panel>div:first-child{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.powder-panel h2{margin:0;font-size:20px}.powder-panel p{font:13px/1.6 Arial;color:#c3bdcc}.powder-checks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.powder-checks label{display:flex;align-items:center;gap:8px;min-height:58px;padding:8px;background:#ffffff08;border:1px solid #76638b;border-radius:10px;cursor:pointer}.powder-checks input{width:22px;height:22px;flex-shrink:0;accent-color:#d5b478}.powder-checks small{display:block;font:11px/1.5 Arial;margin-top:3px}.powder-checks label:has(input:checked){opacity:.7;border-color:#638c7c}@media(max-width:380px){.powder-checks label{gap:4px;padding:6px}.powder-checks span{font-size:12px}}
+
+.card-filters{margin:12px 0 18px;padding:16px;background:#14212bd9;border:1px solid #a38a5555;border-radius:12px;color:#e2e8ed}
+.card-filter-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.card-filters label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:#c9d4dd}
+.card-filters input,.card-filters select{width:100%;min-width:0;min-height:42px;box-sizing:border-box;padding:9px 10px;border:1px solid #657888;border-radius:7px;background:#091723;color:#f3f5f7;font:inherit}
+.card-filter-search{grid-column:1/-1}.card-filter-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;font-size:12px;color:#b5c6d2}.card-filter-footer button{padding:9px 12px;border-radius:7px;border:1px solid #aa9364;background:#27323a;color:#f2dec0;cursor:pointer}
+.card-filter-empty{padding:30px 12px;text-align:center;color:#c5d3dd}
+@media(max-width:580px){.card-filter-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.card-filters{padding:12px}.card-filter-footer{align-items:flex-start}}
+
+
+/* Achronia — bronze gravé, lumière froide et gestes de cartes. */
+:root{--ach-gold:#d1b576;--ach-ivory:#f4e7c9;--ach-ink:#09121c;--ach-line:#c6a56b55;--ach-ease:cubic-bezier(.22,1,.36,1)}
+body{color:var(--ach-ivory);background:#070d15}button,input,select{font-family:Arial,sans-serif}button{cursor:pointer}button:disabled{cursor:default}
+:where(button,input,select,[tabindex]):focus-visible{outline:2px solid #f3d28e!important;outline-offset:4px}
+::selection{background:#ae8a4e;color:#fff}*{scrollbar-width:thin;scrollbar-color:#8a7955 #0b1520}
+.achronia-menu{position:relative;isolation:isolate;padding:clamp(18px,3vw,46px)!important}
+.achronia-menu:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at 15% 12%,#c6a15e16,transparent 48%),linear-gradient(180deg,#03091115,#030911c9)}
+.menu-header{position:relative;border-bottom:1px solid var(--ach-line);gap:16px!important}
+.menu-header:after{content:'◆';position:absolute;bottom:-8px;left:50%;color:#c3a26b;background:#0b1520;padding:0 12px;font-size:12px}
+.menu-title{font-weight:400!important;letter-spacing:.065em;text-shadow:0 4px 24px #0009}
+.home-heading:before{content:'';position:absolute;width:100px;height:1px;top:24px;background:linear-gradient(90deg,#e2c78f,transparent)}
+.home-brand{background:linear-gradient(175deg,#fff3cc 8%,#e4c181 45%,#ab8247 72%,#ead3a0);background-clip:text;-webkit-background-clip:text;color:transparent!important;filter:drop-shadow(0 6px 18px #0009);text-shadow:none!important}
+.menu-eyebrow{font-family:Arial,sans-serif;letter-spacing:.22em!important;color:#cdb584!important}
+.achronia-menu .deck-card{border:1px solid #b99b655e!important;box-shadow:0 18px 36px #0007,inset 0 0 0 4px #060d1755!important;transition:transform .45s var(--ach-ease),border-color .3s,box-shadow .4s!important}
+.achronia-menu .deck-card:after{content:'';position:absolute;inset:8px;border:1px solid #ceb57824;border-radius:2px 15px 2px 15px;pointer-events:none}
+.achronia-menu .deck-card .deck-title{font-size:clamp(22px,2vw,29px)!important;line-height:1.25!important}
+.achronia-menu .deck-card button{position:relative;z-index:1;margin-top:auto;min-height:44px}
+.achronia-menu button,.menu-deckbuilder button{transition:transform .18s var(--ach-ease),box-shadow .25s,border-color .25s,filter .25s!important}
+.achronia-menu button:active:not(:disabled),.achronia-battle button:active:not(:disabled){translate:0 1px;filter:brightness(.9)}
+.menu-stats{border:1px solid #b6986055!important;background:linear-gradient(135deg,#1b2832ee,#0a1520ed)!important;box-shadow:inset 0 1px #fff1,0 8px 25px #0004}
+.pack-tile{position:relative;padding-bottom:10px;border-radius:12px!important;background:linear-gradient(180deg,#19263250,#0a1420d9)!important}
+.pack-art{box-shadow:7px 8px 0 #02080dbb,12px 18px 28px #0009,0 0 36px #cba95d0b,inset 0 0 0 4px #131b23!important}
+.pack-info{font-family:Arial,sans-serif}.pack-info>div:first-child{font-family:Georgia,serif!important;color:#ecd8ad!important}
+.collection-section{position:relative;border:1px solid #b89c6833!important;border-radius:4px 18px 4px 18px!important;box-shadow:0 10px 24px #0004,inset 0 1px #fff1}
+.collection-section>div:first-child>span:first-child{font-family:Georgia,serif;font-size:17px!important;color:#e8d4aa!important}
+.collection-section [title]>div:first-child{transition:transform .32s var(--ach-ease),box-shadow .32s,border-color .32s!important}
+.collection-section [title="???"]>div:first-child{filter:saturate(.55);opacity:.7}
+.card-filters{background:linear-gradient(125deg,#21313be8,#0b1723f2);border:1px solid #c4a46b55;border-radius:4px 16px 4px 16px;box-shadow:0 10px 24px #0004,inset 0 1px #fff1}
+.card-filters label{font:11px/1.5 Arial,sans-serif;color:#d2c8b2;letter-spacing:.025em}
+.card-filters input,.card-filters select{font:13px Arial,sans-serif;border-color:#6d7e8566;background:#08131fcc;transition:border-color .2s,box-shadow .2s}
+.card-filters input:focus,.card-filters select:focus{border-color:#d1b576;box-shadow:0 0 0 3px #d1b57615}
+.menu-deckbuilder{max-width:1000px!important}.deck-builder-grid{align-content:start!important;gap:18px 14px!important;padding:10px 4px 100px!important}
+.deck-builder-tile{width:104px!important;transition:translate .25s var(--ach-ease);font-family:Arial,sans-serif}
+.deck-builder-tile>div:first-child{width:104px!important;height:150px!important;border-width:1px!important;border-radius:4px 12px 4px 12px!important;box-shadow:0 8px 18px #0008,inset 0 0 0 3px #b99b6522!important;overflow:hidden}
+.deck-builder-tile>div:nth-child(2){font-size:11px!important;color:#e3ddce!important;line-height:1.4!important;max-height:32px!important;margin-top:8px!important}
+.deck-builder-tile>div:nth-child(3){font-size:11px!important;color:#c3ad80!important}
+.deck-builder-tile .card{width:100%!important;height:100%!important;transform:none!important;border:0!important}
+.deck-builder-tile .card-text{display:none!important}.deck-builder-tile .card-live-stats{font-size:10px}
+.achronia-battle .battle-header{box-shadow:0 5px 28px #0008,inset 0 1px #ceb57622}
+.battle-station:has(.card){filter:drop-shadow(0 7px 12px #0008)}
+.achronia-battle .battle-station:has(.card){background:linear-gradient(130deg,#c6ac6c66,#111e29aa 35%,#10233088 68%,#b7a26b55)!important}
+.achronia-battle[data-phase="player"] .battle-player .battle-station:has(.card){border-color:#97c4cd88!important}
+.achronia-battle[data-phase="ai"] .battle-enemy .battle-station:has(.card){border-color:#cc947b99!important}
+.card-live-stats{border-top:1px solid #ccaf7180!important;box-shadow:0 -3px 10px #0005}.card-live-stats .live-atk{color:#efd2a5}.card-live-stats .live-cost{color:#ead58e}
+.achronia-battle .battle-prestige{background:radial-gradient(ellipse at 50% 0,#c8ac6850,transparent 80%),linear-gradient(#263640,#0a1420)!important;border:1px solid #c4a76e80!important}
+.turn-cinematic{font-family:Georgia,serif!important;letter-spacing:.18em;border-block:1px solid #d7bb7570;background:linear-gradient(90deg,transparent,#07121ff2 25%,#07121ff2 75%,transparent)!important;box-shadow:none!important;text-shadow:0 0 25px var(--turn-color)}
+.battle-journal{background:#08131edb!important;border:1px solid #ad945844!important;border-radius:4px 12px 4px 12px;padding:8px!important;backdrop-filter:blur(12px)}
+.journal-entry{font:11px/1.55 Arial,sans-serif!important;color:#b9c5ca}.journal-entry.new{background:#c8a76e14;color:#efdfb8}
+#notif{background:linear-gradient(130deg,#29323af5,#0c1723f5)!important;border:1px solid #d0b276!important;border-radius:3px 18px 3px 18px!important;box-shadow:0 15px 50px #0009,inset 0 0 0 4px #d0b27612;backdrop-filter:blur(12px)}
+#notif.show{animation:achNotice .35s var(--ach-ease)}
+@keyframes achNotice{from{opacity:0;translate:0 10px}to{opacity:1;translate:0 0}}
+.combat-impact{border-radius:8px;border-color:#f4dc9f;background:radial-gradient(ellipse,#fff1c899,#eeba5440 40%,transparent 72%);box-shadow:0 0 32px #ffbb6670,inset 0 0 24px #ffdea344}
+.combat-number{font-family:Georgia,serif;font-size:clamp(25px,4vw,44px);text-shadow:0 3px 2px #000,0 0 9px #351a10,0 0 18px #b96b3a}
+.ach-spark{position:fixed;width:4px;height:4px;border-radius:50%;background:#ffe4ad;box-shadow:0 0 8px #e6b56c;pointer-events:none;z-index:3}
+.ach-slash{position:fixed;height:3px;background:linear-gradient(90deg,transparent,#ffe7b0,white,transparent);box-shadow:0 0 10px #e7bb64;transform-origin:0 50%;pointer-events:none;z-index:3}
+.ach-summon{position:absolute;inset:0;border:1px solid #cce6e7aa;background:radial-gradient(ellipse at 50% 85%,#b1d8e555,transparent 65%);pointer-events:none;z-index:4}
+@media(hover:hover) and (pointer:fine){
+ .achronia-menu .deck-card:hover{transform:translateY(-7px)!important;border-color:#dec38a99!important;box-shadow:0 25px 42px #000a,0 0 28px #bca16a15!important}
+ .achronia-menu button:hover:not(:disabled){filter:brightness(1.13);box-shadow:inset 0 1px #fff3,0 5px 18px #0007!important}
+ .collection-section [title]:not([title="???"]):hover>div:first-child{border-color:#e6cd95!important;box-shadow:0 16px 25px #000a,0 0 20px #c7a75d22!important}
+ .deck-builder-tile:hover{translate:0 -5px}
+}
+@media(max-width:600px){.menu-title{font-size:32px!important}.achronia-menu{padding:18px 12px!important}.deck-builder-grid{gap:15px 10px!important}.deck-builder-tile{width:92px!important}.deck-builder-tile>div:first-child{width:92px!important;height:134px!important}.card-filter-grid{gap:8px}.collection-section>div:first-child{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition:none!important}.ach-spark,.ach-slash,.ach-summon{display:none!important}.deck-builder-tile:hover{translate:none}}
+
 </style>
 </head>
 <body>
@@ -640,6 +715,20 @@ const STARTER_CHOICES=[
 // DONNÉES
 // ═══════════════════════════════════════════════════════
 const CARDS = [
+{"id": "hachelizzieborden", "name": "Hache de Lizzie Borden", "type": "equipement", "cost": 0, "faction": "Serial Killer", "clan": "Serial Killer", "category": "Horreur", "isChronoSpeciale": true, "effect": "Le personnage Serial Killer équipé gagne +150 ATK."},
+{"id": "lizziehacheverdict", "name": "Lizzie, Hache du Verdict", "type": "personnage", "cost": 4, "atk": 550, "hp": 250, "faction": "Serial Killer", "clan": "Serial Killer", "category": "Horreur", "isChronoSpeciale": true, "effect": "Si elle détruit un personnage, elle peut attaquer une seconde fois ce tour. Cette deuxième attaque s’effectue avec −250 ATK."},
+{"id": "makalongaqueuefouet", "name": "Makalonga à Queue-Fouet", "faction": "Zoocrypto", "clan": "Zoocrypto", "category": "Mutant", "type": "personnage", "cost": 4, "effect": "Après avoir attaqué, peut retourner dans votre main. Une fois par partie.", "isChronoSpeciale": true, "atk": 350, "hp": 400},
+{"id": "appareilphototemporelle", "name": "Appareil Photo Temporelle", "faction": "Photographie", "clan": "Photographie", "category": "Artistes", "type": "equipement", "cost": 0, "effect": "Le personnage Photographie équipé gagne +150 ATK.", "isChronoSpeciale": true},
+{"id": "flashcore", "name": "Flashcore, Robot Éblouissant", "faction": "Photographie", "clan": "Photographie", "category": "Artistes", "type": "personnage", "cost": 3, "effect": "À son arrivée, choisissez un personnage adverse : il ne peut pas attaquer pendant son prochain tour.", "isChronoSpeciale": true, "atk": 300, "hp": 200},
+{"id": "ferox", "name": "Ferox, Griffe Régénérante", "faction": "XMutant", "clan": "XMutant", "category": "Super héros", "type": "personnage", "cost": 7, "effect": "Au début de votre tour, récupère 100 PV sans dépasser ses PV initiaux.", "isChronoSpeciale": true, "atk": 650, "hp": 700},
+{"id": "explorateurcryptides", "name": "Explorateur des Cryptides", "faction": "Photographie", "clan": "Photographie", "category": "Artistes", "type": "personnage", "cost": 2, "effect": "À son arrivée, regardez les 3 premières cartes de votre deck. Vous pouvez prendre un personnage de coût 3 ou moins ; les autres vont sous le deck.", "isChronoSpeciale": true, "atk": 150, "hp": 250},
+{"id": "incendiairecampus", "name": "L’Incendiaire du Campus", "faction": "Pyromanes", "clan": "Pyromanes", "category": "Pyromane", "type": "personnage", "cost": 2, "effect": "À son arrivée, inflige 100 dégâts à un personnage adverse.", "isChronoSpeciale": true, "atk": 250, "hp": 100},
+{"id": "batarang", "name": "Batarang", "faction": "AComics", "clan": "AComics", "category": "Super héros", "type": "equipement", "cost": 0, "effect": "Le personnage AComics équipé gagne +150 ATK.", "isChronoSpeciale": true},
+{"id": "batmobile", "name": "Batmobile", "faction": "AComics", "clan": "AComics", "category": "Super héros", "type": "equipement", "cost": 0, "effect": "Le personnage AComics équipé gagne +150 PV.", "isChronoSpeciale": true},
+{"id": "chauvesourismutante", "name": "Chauve-Souris Mutante", "faction": "AComics", "clan": "AComics", "category": "Super héros", "type": "personnage", "cost": 3, "effect": "Une fois par tour, lorsqu’elle est attaquée, gagne +150 PV pendant ce combat.", "isChronoSpeciale": true, "atk": 300, "hp": 250},
+{"id": "damenocturne", "name": "Dame Nocturne", "faction": "AComics", "clan": "AComics", "category": "Super héros", "type": "personnage", "cost": 4, "effect": "Lorsqu’elle combat un personnage de coût supérieur au sien, gagne +200 ATK pendant ce combat.", "isChronoSpeciale": true, "atk": 400, "hp": 350},
+{"id": "veilleurminuit", "name": "Le Veilleur de Minuit", "faction": "AComics", "clan": "AComics", "category": "Super héros", "type": "personnage", "cost": 5, "effect": "Une fois par tour, choisissez un personnage adverse : il perd 150 ATK jusqu’à la fin du tour.", "isChronoSpeciale": true, "atk": 500, "hp": 500},
+{"id": "leonxiv", "name": "Léon XIV, Pontife de Lumière", "faction": "Catholique", "clan": "Catholique", "category": "Religion", "type": "personnage", "cost": 6, "effect": "À son arrivée, vos autres personnages ne peuvent pas être détruits jusqu’au début de votre prochain tour.", "isChronoSpeciale": true, "atk": 400, "hp": 750},
 {"id": "milareinehyenes", "name": "Mila Reine des Hyènes", "faction": "MaîtresBêtes", "atk": 250, "hp": 300, "cost": 3, "type": "personnage", "effect": "À son arrivée, cherchez dans votre deck un autre Dompteur de coût 3 et ajoutez-le à votre main."},
 {"id": "eiriktraceglace", "name": "Eirik Trace Glace", "faction": "Vikings", "atk": 650, "hp": 700, "cost": 7, "type": "personnage", "effect": "Eirik Trace-de-Givre + sort de glace. Arrivée : regardez les 4 premières cartes de votre deck, remettez-en 2 au-dessus et les autres en dessous.", "isSortEvolution": true},
 {"id": "metalicehook", "name": "Metal Icehook", "faction": "Pirates", "atk": 750, "hp": 900, "cost": 8, "type": "personnage", "effect": "Ironhook + sort de glace. Arrivée : les personnages adverses ne peuvent pas attaquer pendant leurs 3 prochains tours.", "isSortEvolution": true},
@@ -661,16 +750,16 @@ const CARDS = [
 {"id": "machoiredunes", "name": "Mâchoire des Dunes", "faction": "Amazones", "atk": 150, "hp": 400, "cost": 3, "type": "personnage", "effect": "Si une Amazone alliée est blessée sur votre terrain, gagne +200 ATK."},
 {"id": "tasrpatrol", "name": "TASR-Patrol", "faction": "Robots", "atk": 350, "hp": 100, "cost": 2, "type": "personnage", "effect": "Arrivée : choisissez un personnage adverse ; il ne peut plus attaquer."},
 {"id": "forgex2", "name": "Forge-X2", "faction": "Robots", "atk": 300, "hp": 100, "cost": 2, "type": "personnage", "effect": "Arrivée : un Robot humanoïde allié gagne +100 ATK et +100 PV."},
-  {"id": "monetbrumes", "name": "Monet, Guerrier des Brumes", "type": "personnage", "atk": 150, "hp": 200, "cost": 2, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": true, "syn": "Peinture", "effect": "À son arrivée, Monet ne peut pas être attaqué jusqu’au début de votre prochain tour."},
-  {"id": "picassofragmente", "name": "Picasso, Guerrier Fragmenté", "type": "personnage", "atk": 500, "hp": 450, "cost": 5, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": true, "syn": "Peinture", "effect": "1 fois par tour : échangez l’ATK et les PV actuels d’un personnage jusqu’à la fin du tour."},
-  {"id": "vangoghtournesol", "name": "Van Gogh, Chevalier Tournesol", "type": "personnage", "atk": 450, "hp": 350, "cost": 4, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": true, "syn": "Peinture", "effect": "Chaque fois qu’un autre personnage Peinture arrive sur votre terrain, Van Gogh gagne +100 PV."},
-  {"id": "laitiereazur", "name": "La Laitière, Protectrice d’Azur", "type": "personnage", "atk": 50, "hp": 150, "cost": 1, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": true, "syn": "Peinture", "effect": "À son arrivée, un autre personnage allié gagne +100 PV."},
-  {"id": "cenetreize", "name": "La Cène, Ligue des Treize", "type": "personnage", "atk": 700, "hp": 800, "cost": 8, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": true, "syn": "Peinture", "effect": "Tous vos autres personnages Peinture gagnent +100 ATK et +100 PV."},
-  {"id": "crisonique", "name": "Le Cri, Mutant Sonique", "type": "personnage", "atk": 750, "hp": 550, "cost": 7, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": true, "syn": "Peinture", "effect": "Chaque fois qu’il attaque, tous les autres personnages adverses subissent 100 dégâts."},
-  {"id": "rousseaujungle", "name": "Le Douanier Rousseau, Gardien de la Jungle", "type": "personnage", "atk": 300, "hp": 250, "cost": 3, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": true, "syn": "Peinture", "effect": "Tant qu’un autre personnage Peinture partage son terrain, Rousseau gagne +100 ATK et +100 PV."},
-  {"id": "fridaindomptable", "name": "Frida Kahlo, l’Indomptable", "type": "personnage", "atk": 400, "hp": 600, "cost": 5, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": true, "syn": "Peinture", "effect": "1 fois par partie : lorsqu’elle devrait être détruite, elle reste en jeu avec 100 PV."},
-  {"id": "dalitempsfondu", "name": "Dalí, Maître du Temps Fondu", "type": "personnage", "atk": 550, "hp": 650, "cost": 6, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": true, "syn": "Peinture", "effect": "À son arrivée, choisissez un personnage adverse : il ne peut ni attaquer ni utiliser son pouvoir pendant son prochain tour."},
-  {"id": "jocondesourire", "name": "La Joconde, Gardienne du Sourire", "type": "personnage", "atk": 250, "hp": 350, "cost": 3, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": true, "syn": "Peinture", "effect": "1 fois par tour : lorsqu’elle est ciblée par une attaque, vous pouvez rediriger cette attaque vers un autre personnage allié présent sur son terrain."},
+  {"id": "monetbrumes", "name": "Monet, Guerrier des Brumes", "type": "personnage", "atk": 150, "hp": 200, "cost": 2, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": false, "syn": "Peinture", "effect": "À son arrivée, Monet ne peut pas être attaqué jusqu’au début de votre prochain tour."},
+  {"id": "picassofragmente", "name": "Picasso, Guerrier Fragmenté", "type": "personnage", "atk": 500, "hp": 450, "cost": 5, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": false, "syn": "Peinture", "effect": "1 fois par tour : échangez l’ATK et les PV actuels d’un personnage jusqu’à la fin du tour."},
+  {"id": "vangoghtournesol", "name": "Van Gogh, Chevalier Tournesol", "type": "personnage", "atk": 450, "hp": 350, "cost": 4, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": false, "syn": "Peinture", "effect": "Chaque fois qu’un autre personnage Peinture arrive sur votre terrain, Van Gogh gagne +100 PV."},
+  {"id": "laitiereazur", "name": "La Laitière, Protectrice d’Azur", "type": "personnage", "atk": 50, "hp": 150, "cost": 1, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": false, "syn": "Peinture", "effect": "À son arrivée, un autre personnage allié gagne +100 PV."},
+  {"id": "cenetreize", "name": "La Cène, Ligue des Treize", "type": "personnage", "atk": 700, "hp": 800, "cost": 8, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": false, "syn": "Peinture", "effect": "Tous vos autres personnages Peinture gagnent +100 ATK et +100 PV."},
+  {"id": "crisonique", "name": "Le Cri, Mutant Sonique", "type": "personnage", "atk": 750, "hp": 550, "cost": 7, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": false, "syn": "Peinture", "effect": "Chaque fois qu’il attaque, tous les autres personnages adverses subissent 100 dégâts."},
+  {"id": "rousseaujungle", "name": "Le Douanier Rousseau, Gardien de la Jungle", "type": "personnage", "atk": 300, "hp": 250, "cost": 3, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": false, "syn": "Peinture", "effect": "Tant qu’un autre personnage Peinture partage son terrain, Rousseau gagne +100 ATK et +100 PV."},
+  {"id": "fridaindomptable", "name": "Frida Kahlo, l’Indomptable", "type": "personnage", "atk": 400, "hp": 600, "cost": 5, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": false, "syn": "Peinture", "effect": "1 fois par partie : lorsqu’elle devrait être détruite, elle reste en jeu avec 100 PV."},
+  {"id": "dalitempsfondu", "name": "Dalí, Maître du Temps Fondu", "type": "personnage", "atk": 550, "hp": 650, "cost": 6, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": false, "syn": "Peinture", "effect": "À son arrivée, choisissez un personnage adverse : il ne peut ni attaquer ni utiliser son pouvoir pendant son prochain tour."},
+  {"id": "jocondesourire", "name": "La Joconde, Gardienne du Sourire", "type": "personnage", "atk": 250, "hp": 350, "cost": 3, "clan": "Artistes", "faction": "Peintres", "isChronoSpeciale": false, "syn": "Peinture", "effect": "1 fois par tour : lorsqu’elle est ciblée par une attaque, vous pouvez rediriger cette attaque vers un autre personnage allié présent sur son terrain."},
   {id:"clankbeak",name:"Clankbeak",type:"personnage",atk:100,hp:50,cost:1,faction:"Pirates",effect:"Entree: regarde dessus du deck, laisse ou mets dessous.",syn:"Pillage"},
   {id:"grog",name:"Grog le Chancelant",type:"personnage",atk:100,hp:100,cost:1,faction:"Pirates",effect:"Sans equipement: +50 PV.",syn:"Pillage"},
   {id:"tim",name:"Tim Trois Pommes",type:"personnage",atk:200,hp:200,cost:2,faction:"Pirates",effect:"Destruction: un allie +100 PV ce tour.",syn:"Pillage"},
@@ -1580,7 +1669,7 @@ const DECKS = {
 
 const TYPE_COLOR={personnage:"#4a9eff",equipement:"#f0a500",action:"#ff4444",lieu:"#44cc88",trophee:"#f0c060"};
 const TYPE_BG={personnage:"linear-gradient(175deg,#1e3a5f,#0a0f1e)",equipement:"linear-gradient(175deg,#4a3000,#0a0f1e)",action:"linear-gradient(175deg,#3d0a0a,#0a0f1e)",lieu:"linear-gradient(175deg,#0a3d1a,#0a0f1e)"};
-const FACTION_COLOR={Peintres:"#d8ab69",Pirates:"#f0a500",Vikings:"#4ab8ff",Neutre:"#aabbcc",Amazones:"#44bb66",Egyptiens:"#d4a800",Amerindiens:"#c87820",Grecs:"#c8a020",Ninjas:"#9933cc",Robots:"#00ccff",Extraterrestres:"#cc44ff",MagesNoirs:"#7700aa",Fantomes:"#88aacc",Pyromanes:"#ff5500","MaîtresBêtes":"#228833",DresseursDragons:"#cc6600",Steampunk:"#886644",Empoisonneurs:"#55bb22",EntitesAstrales:"#6644ff",Punk:"#ff2244",HommesInsectes:"#88dd22",Zombies:"#77aa44"};
+const FACTION_COLOR={"Serial Killer":"#bd5260",Zoocrypto:"#79bd6a",Photographie:"#66c9e0",XMutant:"#e8bd45",AComics:"#8e9cde",Catholique:"#e6d197",Peintres:"#d8ab69",Pirates:"#f0a500",Vikings:"#4ab8ff",Neutre:"#aabbcc",Amazones:"#44bb66",Egyptiens:"#d4a800",Amerindiens:"#c87820",Grecs:"#c8a020",Ninjas:"#9933cc",Robots:"#00ccff",Extraterrestres:"#cc44ff",MagesNoirs:"#7700aa",Fantomes:"#88aacc",Pyromanes:"#ff5500","MaîtresBêtes":"#228833",DresseursDragons:"#cc6600",Steampunk:"#886644",Empoisonneurs:"#55bb22",EntitesAstrales:"#6644ff",Punk:"#ff2244",HommesInsectes:"#88dd22",Zombies:"#77aa44"};
 const PW=20;
 
 // ═══════════════════════════════════════════════════════
@@ -2680,7 +2769,7 @@ setInterval(()=>{
 },1000);
 const multiclanDropPools=()=>{
   const eligible=CARDS.filter(c=>c.isChronoSpeciale===true&&Number.isFinite(c.cost)&&!c.isFusion&&!c.isChronoLegendaire&&!c.isSortEvolution&&c.type!=='trophee');
-  return [eligible.filter(c=>c.cost<=3),eligible.filter(c=>c.cost>=4&&c.cost<=6),eligible.filter(c=>c.cost>6)];
+  return [eligible.filter(c=>c.type==='personnage'&&c.cost<=3),eligible.filter(c=>c.type==='equipement'||(c.type==='personnage'&&c.cost>=4&&c.cost<=6)),eligible.filter(c=>c.type==='personnage'&&c.cost>6)];
 };
 const openMulticlanPack=()=>{
   TIME_POWDER=loadPowder();
@@ -2834,7 +2923,7 @@ const renderShop=()=>{
       <div style="max-width:600px;margin:0 auto 12px">${statsBarHTML()}</div>
       ${powderPanelHTML()}
       <div class="pack-rules" style="background:#0a1010;border:1px solid #1a3020;border-radius:8px;padding:6px 12px;font-size:9px;color:#445;text-align:center;margin-bottom:14px">
-        🎨 Multiclan : 2 cartes Chronospéciales uniquement (les Peintres), 750 poudres · coût ≤3 : 65% / 4–6 : 25% / >6 : 10% par carte<br>📦 Packs classiques : 2 Communes · 2 Rares · 1 Prestige · 5% Ultra Gold &nbsp;|&nbsp; ✨ Pack Nouvelle Ère : 4 cartes NE + slot Chrono-Légendaire (si grade atteint)
+        🎨 Multiclan : 2 cartes parmi les 14 Chronospéciales, 750 poudres · personnages coût ≤3 : 65% / équipements et personnages 4–6 : 25% / >6 : 10% par carte<br>📦 Packs classiques : 2 Communes · 2 Rares · 1 Prestige · 5% Ultra Gold &nbsp;|&nbsp; ✨ Pack Nouvelle Ère : 4 cartes NE + slot Chrono-Légendaire (si grade atteint)
       </div>
       <div class="pack-grid" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">${packs}</div>
     </div>
@@ -2850,7 +2939,7 @@ window.doBuyPack=id=>{
 };
 
 // ── COLLECTION SCREEN ──────────────────────────────────
-const FACTION_ORDER=["Peintres","Pirates","Vikings","Amazones","Egyptiens","Amerindiens","Grecs","Ninjas","Neutre","Robots","Extraterrestres","MagesNoirs","Fantomes","Pyromanes","MaîtresBêtes","DresseursDragons","Steampunk","Empoisonneurs","EntitesAstrales","Punk","HommesInsectes","Zombies"];
+const FACTION_ORDER=["Serial Killer","Zoocrypto","Photographie","XMutant","AComics","Catholique","Peintres","Pirates","Vikings","Amazones","Egyptiens","Amerindiens","Grecs","Ninjas","Neutre","Robots","Extraterrestres","MagesNoirs","Fantomes","Pyromanes","MaîtresBêtes","DresseursDragons","Steampunk","Empoisonneurs","EntitesAstrales","Punk","HommesInsectes","Zombies"];
 
 // ── SYSTÈME DE SORTS ──────────────────────────────────────────
 const SORTS_LIST=["Glace","Feu","Électricité","Eau","Bestial","Mécanique","Lumière","Ténèbres"];
@@ -2894,16 +2983,89 @@ const getEvolution=(cardId,sort)=>{
   if(!evoId)return null;
   return CARDS.find(c=>c.id===evoId)||null;
 };
-const FACTION_NAMES={Peintres:"🎨 Les Artistes · Les Peintres",Pirates:"⚓ Pirates",Vikings:"⚡ Vikings",Amazones:"🌿 Amazones",Egyptiens:"🏺 Égyptiens",Amerindiens:"🪶 Amérindiens",Grecs:"🏛️ Grecs",Ninjas:"🥷 Ninjas",Neutre:"⚪ Neutre",Robots:"🤖 Robots Humanoïdes",Extraterrestres:"👽 Extraterrestres",MagesNoirs:"🔮 Mages Noirs",Fantomes:"👻 Fantômes",Pyromanes:"🔥 Pyromanes","MaîtresBêtes":"🐾 Maîtres des Bêtes",DresseursDragons:"🐉 Dresseurs de Dragons",Steampunk:"⚙️ Steampunk",Empoisonneurs:"☠️ Empoisonneurs",EntitesAstrales:"✨ Entités Astrales",Punk:"🎸 Punk",HommesInsectes:"🦟 Hommes-Insectes",Zombies:"🧟 Zombies"};
+const FACTION_NAMES={"Serial Killer":"🪓 Horreur · Serial Killer",Zoocrypto:"🐾 Mutants · Zoocrypto",Photographie:"📷 Artistes · Photographie",XMutant:"🧬 Super héros · XMutant",AComics:"🦇 Super héros · AComics",Catholique:"✨ Religion · Catholique",Peintres:"🎨 Les Artistes · Les Peintres",Pirates:"⚓ Pirates",Vikings:"⚡ Vikings",Amazones:"🌿 Amazones",Egyptiens:"🏺 Égyptiens",Amerindiens:"🪶 Amérindiens",Grecs:"🏛️ Grecs",Ninjas:"🥷 Ninjas",Neutre:"⚪ Neutre",Robots:"🤖 Robots Humanoïdes",Extraterrestres:"👽 Extraterrestres",MagesNoirs:"🔮 Mages Noirs",Fantomes:"👻 Fantômes",Pyromanes:"🔥 Pyromanes","MaîtresBêtes":"🐾 Maîtres des Bêtes",DresseursDragons:"🐉 Dresseurs de Dragons",Steampunk:"⚙️ Steampunk",Empoisonneurs:"☠️ Empoisonneurs",EntitesAstrales:"✨ Entités Astrales",Punk:"🎸 Punk",HommesInsectes:"🦟 Hommes-Insectes",Zombies:"🧟 Zombies"};
+
+
+// Independent filters for the collection and deck builder. Selection is preserved.
+const newCardFilters=()=>({query:'',clan:'',category:'',cost:'',type:'',status:'',special:'',sort:'costAsc'});
+const CARD_FILTERS={collection:newCardFilters(),builder:newCardFilters()};
+const cardFilterEscape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const cardFilterNormalize=value=>String(value??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('fr');
+const cardCategory=c=>c.category||(c.faction==='Peintres'?'Artistes':'');
+const cardFilterMatches=(c,scope)=>{
+ const f=CARD_FILTERS[scope],owned=COLLECTION[c.id]||0;
+ if(f.query&&!cardFilterNormalize([c.name,c.effect,c.faction,cardCategory(c)].join(' ')).includes(cardFilterNormalize(f.query.trim())))return false;
+ if(f.clan&&c.faction!==f.clan)return false;
+ if(f.category&&(f.category==='none'?!!cardCategory(c):cardCategory(c)!==f.category))return false;
+ if(f.type&&c.type!==f.type)return false;
+ const cost=c.cost||0;
+ if(f.cost==='low'&&(c.type!=='personnage'||cost>3))return false;
+ if(f.cost==='mid'&&(c.type!=='personnage'||cost<4||cost>6))return false;
+ if(f.cost==='high'&&(c.type!=='personnage'||cost<7))return false;
+ if(f.cost&&!['low','mid','high'].includes(f.cost)&&cost!==Number(f.cost))return false;
+ if(f.special==='special'&&!c.isChronoSpeciale)return false;
+ if(f.special==='legendary'&&!c.isChronoLegendaire)return false;
+ if(f.special==='evolution'&&!c.isSortEvolution)return false;
+ if(f.special==='standard'&&(c.isChronoSpeciale||c.isChronoLegendaire||c.isSortEvolution))return false;
+ if(scope==='collection'){
+  if(f.status==='owned'&&!owned)return false;
+  if(f.status==='missing'&&owned)return false;
+  if(f.status==='duplicates'&&owned<2)return false;
+ }else{
+  const selected=(DB_STATE.selected[c.type]||[]).filter(id=>id===c.id).length;
+  if(f.status==='selected'&&!selected)return false;
+  if(f.status==='unselected'&&selected)return false;
+  if(f.status==='available'&&selected>=owned)return false;
+  if(f.status==='duplicates'&&owned<2)return false;
+ }
+ return true;
+};
+const cardFilterSort=(cards,scope)=>[...cards].sort((a,b)=>{
+ const key=CARD_FILTERS[scope].sort,name=()=>a.name.localeCompare(b.name,'fr');
+ if(key==='name')return name();
+ if(key==='atk')return (b.atk||0)-(a.atk||0)||name();
+ if(key==='hp')return (b.hp||0)-(a.hp||0)||name();
+ if(key==='copies')return (COLLECTION[b.id]||0)-(COLLECTION[a.id]||0)||name();
+ return (key==='costDesc'?-1:1)*((a.cost||0)-(b.cost||0))||name();
+});
+const filteredCards=(cards,scope)=>cardFilterSort(cards.filter(c=>cardFilterMatches(c,scope)),scope);
+const cardFilterPanel=(scope,base,count)=>{
+ const f=CARD_FILTERS[scope],esc=cardFilterEscape;
+ const select=(key,label,options)=>`<label>${label}<select id="cf-${scope}-${key}" onchange="setCardFilter('${scope}','${key}',this.value)">${options.map(([value,title])=>`<option value="${esc(value)}" ${f[key]===value?'selected':''}>${esc(title)}</option>`).join('')}</select></label>`;
+ const clans=[...new Set(base.map(c=>c.faction))].sort((a,b)=>a.localeCompare(b,'fr'));
+ const categories=[...new Set(base.map(cardCategory).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr'));
+ const costs=[...new Set(base.map(c=>c.cost||0))].sort((a,b)=>a-b);
+ return `<section class="card-filters" aria-label="Filtres des cartes"><div class="card-filter-grid"><label class="card-filter-search">Rechercher un nom ou un pouvoir<input id="cf-${scope}-query" type="search" placeholder="Ex. Lizzie, pioche, dégâts…" value="${esc(f.query)}" oninput="setCardFilter('${scope}','query',this.value)"></label>
+ ${select('clan','Clan',[['','Tous les clans'],...clans.map(x=>[x,x])])}
+ ${select('category','Catégorie',[['','Toutes les catégories'],...categories.map(x=>[x,x]),...(base.some(c=>!cardCategory(c))?[['none','Sans catégorie']]:[])])}
+ ${select('cost','Coût / niveau d’invocation',[['','Tous les coûts'],['low','Personnages : 1 à 3'],['mid','Personnages : 4 à 6'],['high','Personnages : 7 et plus'],...costs.map(x=>[String(x),x===0?'Coût 0 · sans coût d’invocation':'Coût '+x])])}
+ ${scope==='collection'?select('type','Type',[['','Tous les types'],['personnage','Personnages'],['equipement','Équipements'],['action','Actions'],['lieu','Lieux'],['trophee','Trophées']]):''}
+ ${select('status',scope==='collection'?'Possession':'Dans mon deck',scope==='collection'?[['','Toutes les cartes'],['owned','Possédées'],['missing','Manquantes'],['duplicates','En plusieurs exemplaires']]:[['','Toutes mes cartes'],['available','Exemplaires encore disponibles'],['selected','Déjà sélectionnées'],['unselected','Non sélectionnées'],['duplicates','En plusieurs exemplaires']])}
+ ${select('special','Famille de cartes',[['','Toutes les familles'],['standard','Cartes classiques'],['special','Chronospéciales'],['legendary','Chrono-Légendaires'],['evolution','Évolutions par sort']])}
+ ${select('sort','Trier par',[['costAsc','Coût croissant'],['costDesc','Coût décroissant'],['name','Nom A → Z'],['atk','ATK décroissante'],['hp','PV décroissants'],['copies','Nombre d’exemplaires']])}
+ </div><div class="card-filter-footer"><span role="status" aria-live="polite">${count} carte${count>1?'s':''} affichée${count>1?'s':''} sur ${base.length}${scope==='collection'?' · regroupées par clan':''}</span><button onclick="resetCardFilters('${scope}')">Réinitialiser les filtres</button></div></section>`;
+};
+window.setCardFilter=(scope,key,value)=>{
+ if(!CARD_FILTERS[scope]||!Object.hasOwn(CARD_FILTERS[scope],key))return;
+ const active=document.activeElement,id=active?.id,cursor=key==='query'?active?.selectionStart:null,scroll=window.scrollY;
+ CARD_FILTERS[scope][key]=value;
+ if(scope==='collection')renderCollection();else renderDeckBuilder();
+ const input=id?document.getElementById(id):null;if(input){input.focus({preventScroll:true});if(cursor!==null&&key==='query')try{input.setSelectionRange(cursor,cursor);}catch(e){}}
+ window.scrollTo(0,scroll);
+};
+window.resetCardFilters=scope=>{if(!CARD_FILTERS[scope])return;CARD_FILTERS[scope]=newCardFilters();if(scope==='collection')renderCollection();else renderDeckBuilder();};
 
 const renderCollection=()=>{
+  const filterBase=CARDS.filter(c=>!c.isFusion);
+  const shown=filteredCards(filterBase,"collection");
   const allFactions=FACTION_ORDER.filter(f=>CARDS.some(c=>c.faction===f&&!c.isFusion&&c.type!=="trophee"));
   let totalOwned=0,totalAll=0;
   CARDS.forEach(c=>{if(!c.isFusion&&c.type!=="trophee"&&!c.isChronoLegendaire){totalAll++;if(COLLECTION[c.id])totalOwned++;}});
 
   const sections=allFactions.map(faction=>{
-    const fCards=CARDS.filter(c=>c.faction===faction&&!c.isFusion&&c.type!=="trophee"&&!c.isChronoLegendaire);
-    const ownedCount=fCards.filter(c=>COLLECTION[c.id]).length;
+    const factionBase=filterBase.filter(c=>c.faction===faction&&c.type!=="trophee"&&!c.isChronoLegendaire);
+    const fCards=shown.filter(c=>c.faction===faction&&c.type!=="trophee"&&!c.isChronoLegendaire);
+    const ownedCount=factionBase.filter(c=>COLLECTION[c.id]).length;
     const col=FACTION_COLOR[faction]||"#aaa";
     const cardGrid=fCards.map(c=>{
       const owned=COLLECTION[c.id]||0;
@@ -2941,7 +3103,8 @@ const renderCollection=()=>{
       </div>`;
     }).join("");
     // Chrono-Légendaires pour cette faction
-    const clCards=CARDS.filter(c=>c.faction===faction&&c.isChronoLegendaire&&c.type!=="trophee");
+    const clCards=shown.filter(c=>c.faction===faction&&c.isChronoLegendaire&&c.type!=="trophee");
+    if(!fCards.length&&!clCards.length)return "";
     let clSection="";
     if(clCards.length){
       const clOwned=clCards.filter(c=>(COLLECTION[c.id]||0)>0).length;
@@ -2980,9 +3143,9 @@ const renderCollection=()=>{
     return`<div class="collection-section" style="margin-bottom:18px">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid ${col}33">
         <span style="font-size:13px;font-weight:bold;color:${col}">${FACTION_NAMES[faction]||faction}</span>
-        <span style="font-size:9px;color:#445">${ownedCount}/${fCards.length}</span>
-        <div style="flex:1;height:3px;background:#111;border-radius:2px;overflow:hidden"><div style="width:${Math.round(ownedCount/fCards.length*100)}%;height:100%;background:${col};transition:width 0.4s"></div></div>
-        <span style="font-size:9px;color:#445">${Math.round(ownedCount/fCards.length*100)}%</span>
+        <span style="font-size:9px;color:#445">${ownedCount}/${factionBase.length} au total</span>
+        <div style="flex:1;height:3px;background:#111;border-radius:2px;overflow:hidden"><div style="width:${(factionBase.length?Math.round(ownedCount/factionBase.length*100):0)}%;height:100%;background:${col};transition:width 0.4s"></div></div>
+        <span style="font-size:9px;color:#445">${(factionBase.length?Math.round(ownedCount/factionBase.length*100):0)}%</span>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:5px">${cardGrid}</div>
       ${clSection}
@@ -2990,7 +3153,7 @@ const renderCollection=()=>{
   }).join("");
 
   // ── Trophées (Avatars Chrono-Légendaires) ──
-  const tropheeCards=CARDS.filter(c=>c.type==="trophee");
+  const tropheeCards=shown.filter(c=>c.type==="trophee");
   let tropheeSection="";
   if(tropheeCards.length){
     const tGrid=tropheeCards.map(c=>{
@@ -3024,6 +3187,8 @@ const renderCollection=()=>{
     </div>
     <div style="max-width:600px;margin:0 auto 14px">${statsBarHTML()}</div>
     <div id="coll-detail" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:500;align-items:center;justify-content:center" onclick="this.style.display='none'"></div>
+    ${cardFilterPanel("collection",filterBase,shown.length)}
+    ${!shown.length?'<div class="card-filter-empty">Aucune carte ne correspond à ces filtres.</div>':''}
     ${tropheeSection}
     ${sections}
   </div>`;
@@ -3238,12 +3403,13 @@ const renderDeckBuilder=()=>{
   const builderFactions=[...factions,"Neutre"];// Toujours proposer les cartes Neutres
 
   // Pool: faction + Neutre + persoAllowed si c'est le deck perso
-  const pool=CARDS.filter(c=>
+  const basePool=CARDS.filter(c=>
     c.type===tab&&
     (builderFactions.includes(c.faction)||(deckId==="deckperso"&&c.persoAllowed))&&
     !c.isFusion&&!c.isChronoLegendaire&&!c.isSortEvolution&&c.type!=="trophee"&&
     (COLLECTION[c.id]||0)>0
-  ).sort((a,b)=>(a.cost||0)-(b.cost||0));
+  );
+  const pool=filteredCards(basePool,"builder");
 
   const selArr=selected[tab]||[];
   const maxSlot=SLOT_MAX[tab];
@@ -3254,9 +3420,9 @@ const renderDeckBuilder=()=>{
     const selCount=selArr.filter(id=>id===c.id).length;
     const col=tabColors[tab];
     const allUsed=selCount>=owned;
-    return`<div onclick="dbToggleCard('${c.id}')" style="cursor:pointer;width:80px;text-align:center;position:relative">
+    return`<div class="deck-builder-tile" onclick="dbToggleCard('${c.id}')" style="cursor:pointer;width:80px;text-align:center;position:relative">
       <div style="width:80px;height:112px;border-radius:7px;border:3px solid ${isSelected?col:'#1a3a2a'};overflow:hidden;background:#0a1020;transition:all 0.15s;transform:${isSelected?'scale(1.05)':'scale(1)'};box-shadow:${isSelected?`0 0 12px ${col}88`:'none'}">
-        <img src="cards/${c.id}.png" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='<div style=font-size:28px;padding:32px 22px;color:#334>${c.type==="personnage"?"⚔":"✨"}</div>'">
+        ${cardHTML(c,"mini")}
         ${selCount>0?`<div style="position:absolute;top:3px;right:3px;background:${col};color:#000;font-size:10px;font-weight:bold;border-radius:10px;padding:1px 5px;min-width:18px;text-align:center">×${selCount}</div>`:""}
         ${owned>1?`<div style="position:absolute;bottom:3px;right:3px;background:#1a2030cc;color:#888;font-size:8px;border-radius:4px;padding:1px 4px">×${owned}</div>`:""}
         ${allUsed?`<div style="position:absolute;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;font-size:20px">✅</div>`:""}
@@ -3311,9 +3477,10 @@ const renderDeckBuilder=()=>{
   </div>`;
 
   // ── Chrono-Légendaires disponibles pour ce deck ──
-  const clPool=tab==="personnage"?CARDS.filter(c=>
+  const clBase=tab==="personnage"?CARDS.filter(c=>
     c.isChronoLegendaire&&factions.includes(c.faction)&&(COLLECTION[c.id]||0)>0
-  ).sort((a,b)=>(a.chronoGrade||0)-(b.chronoGrade||0)):[];
+  ):[];
+  const clPool=filteredCards(clBase,"builder");
   const clSelectedCount=(selected.personnage||[]).filter(id=>{const c=CARDS.find(x=>x.id===id);return c&&c.isChronoLegendaire;}).length;
   const clSection=clPool.length?`<div style="width:100%;margin-top:16px;border-top:1px solid #cc88ff33;padding-top:12px">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:0 4px">
@@ -3325,7 +3492,7 @@ const renderDeckBuilder=()=>{
     </div>
   </div>`:"";
 
-  $("app").innerHTML=`<div style="min-height:100vh;background:linear-gradient(160deg,#050e1a,#0a1628);display:flex;flex-direction:column;max-width:700px;margin:0 auto;padding:16px">
+  $("app").innerHTML=`<div class="achronia-menu menu-deckbuilder" style="min-height:100vh;background:linear-gradient(160deg,#050e1a,#0a1628);display:flex;flex-direction:column;max-width:700px;margin:0 auto;padding:16px">
     <!-- Header -->
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
       <button onclick="SCREEN='deckselect';render()" style="background:#1a2a3a;border:1px solid #445;border-radius:10px;color:#aac;padding:8px 14px;cursor:pointer;font-size:13px">← Retour</button>
@@ -3340,9 +3507,10 @@ const renderDeckBuilder=()=>{
       ${{personnage:"Max 20 personnages",lieu:"Max 2 lieux",action:"Max 10 actions",equipement:"Max 8 équipements"}[tab]}
       · ${DB_SLOT_MAX[tab]-(selected[tab]?.length||0)} restants · Clique pour sélectionner/désélectionner
     </div>
+    ${cardFilterPanel("builder",[...basePool,...clBase],pool.length+clPool.length)}
     <!-- Card grid -->
-    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;flex:1;overflow-y:auto;padding-bottom:80px">
-      ${pool.length?cardGrid:`<div style="color:#334;font-size:13px;padding:40px;text-align:center">Aucune carte ${tab} dans ce deck</div>`}
+    <div class="deck-builder-grid" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;flex:1;overflow-y:auto;padding-bottom:80px">
+      ${pool.length?cardGrid:`<div style="color:#334;font-size:13px;padding:40px;text-align:center">Aucune carte ne correspond à ces filtres dans cet onglet.</div>`}
       ${tab==="personnage"?clSection:""}
       ${sortsSection}
     </div>
@@ -3620,7 +3788,7 @@ const SHOP_PACK_DEFS=[
 {"id": "zombies", "name": "Pack Zombies", "icon": "◈", "desc": "Cartes Zombies", "price": 600, "factions": ["Zombies"], "locked": false, "color": "#b690c6"},
 {"id": "pyromanes", "name": "Pack Pyromanes", "icon": "◈", "desc": "Cartes Pyromanes", "price": 600, "factions": ["Pyromanes"], "locked": false, "color": "#b690c6"},
 {"id": "fantomes", "name": "Pack Fantômes", "icon": "◈", "desc": "Cartes Fantômes", "price": 600, "factions": ["Fantomes"], "locked": false, "color": "#b690c6"},
-  {id:"multiclan",name:"Pack Multiclan",icon:"🎨",desc:"2 cartes Chronospéciales uniquement · Les Peintres · coût ≤3 : 65% · coût 4–6 : 25% · coût >6 : 10%. Tirages indépendants, doublons possibles.",price:750,currency:"timePowder",factions:[...new Set(CARDS.filter(c=>c.isChronoSpeciale===true).map(c=>c.faction))],locked:false,color:"#d8ab69"},
+  {id:"multiclan",name:"Pack Multiclan",icon:"🎨",desc:"2 cartes Chronospéciales · personnages coût ≤3 : 65% · équipements et personnages coût 4–6 : 25% · personnages coût >6 : 10%. Tirages indépendants, doublons possibles.",price:750,currency:"timePowder",factions:[...new Set(CARDS.filter(c=>c.isChronoSpeciale===true).map(c=>c.faction))],locked:false,color:"#d8ab69"},
   {id:"primitifs",name:"Pack Primitifs",icon:"🌿",desc:"Cartes Amérindiens + Amazones",price:350,factions:["Amerindiens","Amazones"],locked:false,color:"#66bb44"},
   {id:"navigateurs",name:"Pack Navigateurs",icon:"⚓",desc:"Cartes Vikings + Pirates",price:350,factions:["Vikings","Pirates"],locked:false,color:"#4ab8ff"},
   {id:"empire",name:"Pack Empire",icon:"👑",desc:"Cartes Grecs + Égyptiens",price:350,factions:["Grecs","Egyptiens"],locked:false,color:"#d4a800"},
@@ -3632,7 +3800,7 @@ const SHOP_PACK_DEFS=[
 ];
 
 const getRarityPool=(factions)=>{
-  const pool=CARDS.filter(c=>factions.includes(c.faction)&&!c.isFusion&&!c.isChronoLegendaire&&!c.isSortEvolution&&c.type!=="trophee");
+  const pool=CARDS.filter(c=>factions.includes(c.faction)&&!c.isChronoSpeciale&&!c.isFusion&&!c.isChronoLegendaire&&!c.isSortEvolution&&c.type!=="trophee");
   const common=pool.filter(c=>c.type==="action"||(c.type==="personnage"&&(c.cost||0)<=3));
   const rare=pool.filter(c=>c.type==="equipement"||(c.type==="personnage"&&(c.cost||0)>=4&&(c.cost||0)<=6));
   const prestige=pool.filter(c=>c.type==="lieu"||(c.type==="personnage"&&(c.cost||0)>=7&&(c.cost||0)<=9));
@@ -3812,7 +3980,95 @@ const eqs=(eq2d,cuid)=>(eq2d||[]).flat().filter(e=>e&&e.attachedTo===cuid);
 
 
 // September expansion: targeted choices and turn-scoped effects.
-const ncBlocked=c=>!!c&&(c._ncNoAttack||(c._ncIceTurns||0)>0);
+
+// Multiclan Chronospéciales — clans, powers and combat durations.
+const multiOptions=who=>artistOptions(who);
+const multiEnter=(who,c)=>{
+ if(!artistEnabled(c))return;
+ const en=who==='player'?'ai':'player';
+ if(c.id==='flashcore'||c.id==='incendiairecampus'){
+  const kind=c.id==='flashcore'?'multiFlash':'multiFire',options=multiOptions(en);
+  if(options.length){const ch={type:'nc',kind,who,options};if(who==='ai')multiApply(ch,0);else CHOICE=ch;}
+ }
+ if(c.id==='explorateurcryptides'){
+  const top=G[who].deck.splice(0,3),options=top.filter(x=>x.type==='personnage'&&ncCost(x)<=3);
+  const ch={type:'nc',kind:'multiExplore',who,top,options};
+  if(who==='ai')multiApply(ch,options.length?0:-1);else if(top.length)CHOICE=ch;
+ }
+ if(c.id==='leonxiv')G[who].field.forEach(x=>{if(x&&x.uid!==c.uid)x._multiProtectedBy=who;});
+};
+const multiApply=(ch,n)=>{
+ if(ch.kind==='multiExplore'){
+  const chosen=ch.options[n];if(chosen)G[ch.who].hand.push(chosen);
+  G[ch.who].deck.push(...ch.top.filter(c=>!chosen||c.uid!==chosen.uid));return;
+ }
+ if(ch.kind==='multiRecall'){
+  if(n!==0||G[ch.who]._multiMakalongaUsed)return;
+  const i=G[ch.who].field.findIndex(c=>c&&c.uid===ch.source),c=G[ch.who].field[i];if(!c)return;
+  G[ch.who]._multiMakalongaUsed=true;
+  G[ch.who].equips[i].filter(Boolean).forEach(e=>G[ch.who].discard.push(e));G[ch.who].equips[i]=[null,null];G[ch.who].field[i]=null;
+  removeDotsByUid(c.uid);G.fx=G.fx.filter(f=>f.target!==c.uid);
+  const base=CARDS.find(x=>x.id===c.id);G[ch.who].hand.push({...base,uid:mkuid(),dmgTaken:0,bonusAtk:0,bonusHp:0});return;
+ }
+ const o=ch.options[n],c=o&&G[o.who].field[o.i];if(!c||c.uid!==o.uid)return;
+ if(ch.kind==='multiFlash')c._multiFlashBlocked=true;
+ if(ch.kind==='multiFire')ncDamage(o.who,o.i,100);
+ if(ch.kind==='multiWeaken'){
+  const source=G[ch.who].field.find(x=>x&&x.uid===ch.source);if(!source||!artistEnabled(source)||source._multiWeakenTurn===G.turn)return;
+  source._multiWeakenTurn=G.turn;G.fx.push({target:c.uid,type:'atk',bonus:-150,endOfTurn:true,multiOwner:ch.who});
+ }
+};
+const multiPick=(ch,n)=>{
+ if(!ch.options[n]&&n!==-1)return;
+ CHOICE=null;multiApply(ch,n);renderGame();
+};
+const multiModal=ch=>{
+ const titles={multiFlash:'Flashcore — Bloquer une attaque au prochain tour',multiFire:'Campus — Infliger 100 dégâts',multiExplore:'Explorateur — Les 3 cartes du dessus',multiWeaken:'Veilleur — Retirer 150 ATK',multiRecall:'Makalonga — Retourner en main ?'};
+ const display=ch.kind==='multiExplore'?ch.top:ch.options;
+ return `<div role="dialog" aria-modal="true" style="position:fixed;inset:0;z-index:10002;background:#02070eee;display:grid;place-items:center;padding:16px"><section style="max-width:540px;width:100%;max-height:85vh;overflow:auto;background:#15202d;border:1px solid #c9a563;padding:22px;border-radius:16px;color:white"><h2>${titles[ch.kind]}</h2>${display.map(o=>{const c=ch.kind==='multiExplore'?o:ch.kind==='multiRecall'?CARDS.find(x=>x.id==='makalongaqueuefouet'):G[o.who].field[o.i];const n=ch.options.indexOf(o);return c?`<button style="display:block;width:100%;min-height:50px;margin:8px 0;background:#25384b;color:white;border:1px solid #8fa1ad;border-radius:8px" onclick="ncPick(${n})" ${n<0?'disabled':''}>${c.name} · ★${c.cost}${n<0?' — sous le deck':''}</button>`:'';}).join('')}${['multiExplore','multiRecall','multiWeaken'].includes(ch.kind)?'<button style="min-height:44px" onclick="ncPick(-1)">'+(ch.kind==='multiExplore'?'Tout placer sous le deck':'Annuler')+'</button>':''}</section></div>`;
+};
+const multiTurnStart=who=>{
+ G[who].field.forEach(c=>{if(!c)return;delete c._multiProtectedBy;delete c._lizzieSecondPending;delete c._lizzieExtraUsed;
+  if(c.id==='ferox'&&artistEnabled(c)){const current=curHp(c,G[who],G.fx,G.lieu),heal=Math.max(0,Math.min(100,c.hp-current,c.dmgTaken||0));c.dmgTaken=Math.max(0,(c.dmgTaken||0)-heal);if(heal)addLog('Ferox récupère '+heal+' PV.');}
+ });
+ if(who==='ai')G.ai.field.filter(c=>c&&c.id==='veilleurminuit'&&artistEnabled(c)).forEach(c=>{const options=multiOptions('player');if(options.length)multiApply({who,kind:'multiWeaken',source:c.uid,options},0);});
+};
+const multiTurnEnd=who=>{
+ G[who].field.forEach(c=>{if(c)delete c._multiFlashBlocked;});
+ G.fx=G.fx.filter(f=>f.multiOwner!==who);
+};
+const multiButtons=()=>G.phase==='player'?G.player.field.filter(c=>c&&c.id==='veilleurminuit'&&artistEnabled(c)).map(c=>`<button class="battle-inspect" onclick="multiVeilleur('${c.uid}')" ${c._multiWeakenTurn===G.turn?'disabled':''}>Veilleur · −150 ATK</button>`).join(''):'';
+window.multiVeilleur=uid=>{
+ if(!G||G.phase!=='player'||CHOICE||ANIM_BUSY)return;
+ const c=G.player.field.find(x=>x&&x.uid===uid);if(!c||!artistEnabled(c)||c._multiWeakenTurn===G.turn)return;
+ const options=multiOptions('ai');if(options.length){CHOICE={type:'nc',kind:'multiWeaken',who:'player',source:uid,options};renderGame();}
+};
+const multiCombatBegin=(who,i,type,j)=>{
+ const en=who==='player'?'ai':'player',atk=G[who].field[i],def=type==='field'?G[en].field[j]:null;
+ const state={who,uid:atk.uid,hpUid:null,hpBefore:0,lizzieSecond:atk.id==='lizziehacheverdict'&&!!atk._lizzieSecondPending,lizzieKilled:false};
+ if(def){
+  if(atk.id==='damenocturne'&&artistEnabled(atk)&&def.cost>atk.cost)atk._multiCombatAtk=200;
+  if(def.id==='chauvesourismutante'&&artistEnabled(def)&&def._multiBatTurn!==G.turn){def._multiBatTurn=G.turn;def._multiCombatHp=150;state.hpUid=def.uid;state.hpBefore=def.dmgTaken||0;}
+ }
+ return state;
+};
+const multiCombatEnd=state=>{
+ const en=state.who==='player'?'ai':'player';
+ G[state.who].field.forEach(c=>{if(c&&c.uid===state.uid)delete c._multiCombatAtk;});
+ const bat=G[en].field.find(c=>c&&c.uid===state.hpUid);
+ if(bat){const received=Math.max(0,(bat.dmgTaken||0)-state.hpBefore);bat.dmgTaken=Math.max(0,(bat.dmgTaken||0)-Math.min(150,received));delete bat._multiCombatHp;}
+ const c=G[state.who].field.find(x=>x&&x.uid===state.uid);
+ if(c?.id==='lizziehacheverdict'){
+  if(state.lizzieSecond){delete c._lizzieSecondPending;c._lizzieExtraUsed=true;}
+  else if(state.lizzieKilled&&artistEnabled(c)&&!c._lizzieExtraUsed&&G.phase!=='end'){c._lizzieSecondPending=true;c.hasAttacked=false;addLog('Lizzie peut attaquer une seconde fois avec −250 ATK !');}
+ }
+ if(c?.id==='makalongaqueuefouet'&&c.hasAttacked&&artistEnabled(c)&&!G[state.who]._multiMakalongaUsed&&G.phase!=='end'){
+  const ch={type:'nc',kind:'multiRecall',who:state.who,source:c.uid,options:[{uid:c.uid}]};
+  if(state.who==='ai')multiApply(ch,0);else if(!CHOICE)CHOICE=ch;
+ }
+};
+
+const ncBlocked=c=>!!c&&(c._multiFlashBlocked||c._ncNoAttack||(c._ncIceTurns||0)>0);
 const ncCost=c=>Math.max(0,(c.cost||0)-(c._ncDiscount||0));
 const ncDamage=(who,i,n)=>{const c=G[who].field[i];if(!c)return;c.dmgTaken=(c.dmgTaken||0)+n;if(curHp(c,G[who],G.fx,G.lieu)<=0&&killCard(who,i)!==false)stealPrestige(who==='player'?'ai':'player',c.name+' détruit !');};
 const ncChoose=(who,kind,options,extra={})=>{
@@ -3870,11 +4126,13 @@ window.ncRecall=uid=>{
  G.player.hand.push({...c,dmgTaken:0,bonusAtk:0,bonusHp:0});ATTACK_MODE=false;ATTACK_FROM=null;renderGame();
 };
 const ncModal=ch=>{
+ if(ch.kind?.startsWith('multi'))return multiModal(ch);
  const labels={mila:'Mila — Choisissez un Dompteur de coût 3',bottom:'Cuivraphine — Une carte sous votre deck',damage:'Choisissez une cible : 100 dégâts',fairway:'Lord Fairway — Choisissez la première cible',curse:'Mambo Nox — Maudire un ennemi',stop:'Empêcher un ennemi d’attaquer',weaken:'Fauche-Motte — Retirer 100 ATK',strip:'Brigitte — Retirer les bonus d’ATK',forge:'Forge-X2 — Renforcer un Robot',aponi:'Aponi — Donner +100 PV pendant 2 tours',reveal:'Lumo-Rouage — Carte révélée',reorder:'Eirik — Choisissez les 2 cartes du dessus, dans leur ordre'};
  return `<div role="dialog" aria-modal="true" style="position:fixed;inset:0;background:#030712ed;z-index:10001;display:grid;place-items:center;padding:12px"><section style="width:min(540px,100%);max-height:88dvh;overflow:auto;background:#15202d;color:#eee;border:1px solid #c9a563;padding:18px;border-radius:14px"><h2 style="font-size:18px">${labels[ch.kind]}</h2>${ch.kind==='reorder'?'<p>Les cartes restantes iront sous le deck, dans leur ordre actuel.</p>':''}<div style="display:grid;gap:10px">${ch.options.map((o,n)=>{const c=o.zone?G[o.who][o.zone].find(x=>x.uid===o.uid):G[o.who].field[o.i];return c?`<button style="min-height:52px;background:#25384b;color:white;border:1px solid #8fa1ad;border-radius:8px;padding:10px" onclick="ncPick(${n})" ${ch.selected?.includes(n)?'disabled':''}>${ch.selected?.includes(n)?(ch.selected.indexOf(n)+1)+'. ':''}${c.name} · ★${c.cost}</button>`:'';}).join('')}</div>${ch.kind==='reveal'?'<button style="min-height:44px;margin-top:15px" onclick="ncPick(-1)">Continuer</button>':''}</section></div>`;
 };
 window.ncPick=n=>{
  const ch=CHOICE;if(ch?.type!=='nc')return;
+ if(ch.kind?.startsWith('multi')){multiPick(ch,n);return;}
  if(ch.kind==='reveal'){CHOICE=null;renderGame();return;}
  if(!ch.options[n])return;
  if(ch.kind==='reorder'){
@@ -3921,7 +4179,7 @@ const artistApply=(kind,opt,source)=>{
   return true;
 };
 const artistEnter=(who,c)=>{
- ncEnter(who,c);
+ ncEnter(who,c);multiEnter(who,c);
   const other=who==='player'?'ai':'player';
   if(c.faction==='Peintres')G[who].field.forEach(a=>{if(a&&a.uid!==c.uid&&a.id==='vangoghtournesol'&&artistEnabled(a))a.bonusHp=(a.bonusHp||0)+100;});
   if(!artistEnabled(c))return;
@@ -3934,13 +4192,13 @@ const artistEnter=(who,c)=>{
   }
 };
 const artistTurnStart=who=>{
- ncTurnStart(who);
+ ncTurnStart(who);multiTurnStart(who);
   G[who].field.forEach(c=>{if(!c)return;delete c._artistMist;
     if(c._artistDaliPending){delete c._artistDaliPending;c._artistLocked=true;c._artistOriginalId=c.id;c._artistPreviousSilence=c.silenced;c.id='artist_time_locked';c.silenced=true;}
   });
 };
 const artistTurnEnd=who=>{
- ncTurnEnd(who);
+ ncTurnEnd(who);multiTurnEnd(who);
   G.fx=G.fx.filter(f=>!f.artistSwap);
   for(const zone of ['field','hand','deck','discard'])G[who][zone].forEach(c=>{if(c?._artistOriginalId){c.id=c._artistOriginalId;c.silenced=c._artistPreviousSilence;delete c._artistOriginalId;delete c._artistPreviousSilence;delete c._artistLocked;}});
 };
@@ -3978,9 +4236,12 @@ const calcAtk=(card,side,fx,lieu,isP)=>{
   if(!card)return 0;
   if(card._ncStripAtk)return Math.max(0,card.atk+Math.min(0,card.bonusAtk||0)+fx.filter(f=>f.target===card.uid&&f.type==='atk'&&f.bonus<0).reduce((v,f)=>v+f.bonus,0));
   let a=card.atk+(card.bonusAtk||0)+artistAura(card,side);
+  if(card._multiCombatAtk&&artistEnabled(card))a+=card._multiCombatAtk;
+  if(card.id==='lizziehacheverdict'&&card._lizzieSecondPending)a-=250;
   if(card.faction==='Vikings'&&card.cost===1)a+=(side.field||[]).filter(c=>c&&c.uid!==card.uid&&c.id==='hrolfcercle'&&artistEnabled(c)).length*50;
   if(card.id==='machoiredunes'&&artistEnabled(card)&&(side.field||[]).some(c=>c&&c.uid!==card.uid&&c.faction==='Amazones'&&(c.dmgTaken||0)>0))a+=200;
   const eq=eqs(side.equips,card.uid);
+  eq.forEach(e=>{if((e.id==='appareilphototemporelle'&&card.faction==='Photographie')||(e.id==='batarang'&&card.faction==='AComics')||(e.id==='hachelizzieborden'&&card.faction==='Serial Killer'))a+=150;});
   eq.forEach(e=>{if(e.id==="pistolet"||e.id==="dagueor")a+=100;if(e.id==="lance")a+=200;if(e.id==="bombe")a+=300;if(e.id==="daguepr"&&eq.length>1)a+=100;});
   if(card.id==="rumbletail"&&eq.length>0)a+=50;
   if((side.field||[]).find(c=>c&&c.id==="kraken"&&c.uid!==card.uid))a+=150;
@@ -4074,7 +4335,8 @@ const calcAtk=(card,side,fx,lieu,isP)=>{
 };
 const maxHp=(card,side,fx,lieu)=>{
   if(!card)return 0;
-  let b=card.hp+(card.bonusHp||0)+artistAura(card,side);
+  let b=card.hp+(card.bonusHp||0)+artistAura(card,side)+(card._multiCombatHp||0);
+  b+=eqs(side.equips,card.uid).filter(e=>e.id==='batmobile'&&card.faction==='AComics').length*150;
   const eq=eqs(side.equips,card.uid);
   if(eq.find(e=>e.id==="daguepr"))b+=150;
   if(card.id==="grog"&&eq.length===0)b+=50;
@@ -4215,7 +4477,16 @@ const COMBAT_FX=(()=>{
     for(const e of batch)if(e.type==='damage')totals.set(e.uid,(totals.get(e.uid)||0)+e.amount);
     for(const [uid,amount] of totals){
       const data=at(uid);if(!data||!visible(data.rect))continue;
-      const r=data.rect,flash=document.createElement('div');flash.className='combat-impact';flash.setAttribute('aria-hidden','true');flash.style.cssText=`left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;`;
+      const r=data.rect;
+      for(let i=0;i<7;i++){
+        const spark=document.createElement('i');spark.className='ach-spark';spark.setAttribute('aria-hidden','true');
+        spark.style.left=(r.left+r.width*.5)+'px';spark.style.top=(r.top+r.height*.45)+'px';
+        const angle=i*Math.PI*2/7,travel=24+(i%3)*12;
+        animate(spark,[{opacity:0,transform:'translate(0,0) scale(.4)'},{opacity:1,offset:.12},{opacity:0,transform:`translate(${Math.cos(angle)*travel}px,${Math.sin(angle)*travel}px) scale(.15)`}],{duration:480,delay:220,easing:'ease-out'});
+      }
+      const slash=document.createElement('div');slash.className='ach-slash';slash.setAttribute('aria-hidden','true');slash.style.cssText=`left:${r.left+r.width*.1}px;top:${r.top+r.height*.65}px;width:${r.width*.9}px;`;
+      animate(slash,[{opacity:0,transform:'rotate(-32deg) scaleX(0)'},{opacity:1,transform:'rotate(-32deg) scaleX(1)',offset:.3},{opacity:0,transform:'rotate(-32deg) scaleX(1.25)'}],{duration:280,delay:200});
+      const flash=document.createElement('div');flash.className='combat-impact';flash.setAttribute('aria-hidden','true');flash.style.cssText=`left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;`;
       animate(flash,[{opacity:0,transform:'scale(.8)'},{opacity:.9,transform:'scale(1.04)',offset:.3},{opacity:0,transform:'scale(1.13)'}],{duration:300,delay:220});
       const number=document.createElement('div');number.className='combat-number';number.textContent='−'+amount;number.setAttribute('aria-hidden','true');number.style.cssText=`left:${r.left+r.width/2}px;top:${r.top+r.height*.35}px;`;
       animate(number,[{opacity:0,transform:'translate(-50%,12px) scale(.75)'},{opacity:1,transform:'translate(-50%,0) scale(1.12)',offset:.2},{opacity:1,offset:.65},{opacity:0,transform:'translate(-50%,-48px) scale(1)'}],{duration:850,delay:220,easing:'ease-out'});
@@ -4229,6 +4500,7 @@ const COMBAT_FX=(()=>{
 const killCard=(who,fi)=>{
   /* FX4 kill begin */ COMBAT_FX.begin();try { /* FX4 end */
   const card=G[who].field[fi];if(!card)return;
+  if(card._multiProtectedBy===who){card.dmgTaken=Math.max(0,maxHp(card,G[who],G.fx,G.lieu)-1);addLog(card.name+' protégé par Léon XIV !');return false;}
   if(card.id==='fridaindomptable'&&artistEnabled(card)&&!card._artistFridaUsed){
     card._artistFridaUsed=true;card.dmgTaken=maxHp(card,G[who],G.fx,G.lieu)-100;return false;
   }
@@ -4946,6 +5218,10 @@ const CARD_MOTION=(()=>{
     if(!visible(el)||!el.animate)return;
     // Animer l'intérieur laisse intact l'éventail et les gestes de sélection.
     const face=el.querySelector('.card');
+    if(el.dataset.motionZone!=='hand'){
+      const flare=document.createElement('i');flare.className='ach-summon';flare.setAttribute('aria-hidden','true');el.appendChild(flare);
+      const glow=flare.animate([{opacity:0,scale:'.88'},{opacity:1,scale:'1.02',offset:.35},{opacity:0,scale:'1.06'}],{duration:520,easing:'ease-out'});glow.finished.then(()=>flare.remove(),()=>flare.remove());
+    }
     face?.animate([{opacity:0,filter:'brightness(1.45)',translate:'0 16px'},{opacity:1,filter:'brightness(1)',translate:'0 0'}],{duration:300,easing:'ease-out'});
   };
   const flight=(from,to)=>{
@@ -5189,7 +5465,7 @@ const renderGame=()=>{
   const handZone=`<div class="battle-hand" style="background:rgba(10,15,30,0.7);border-radius:10px;border:1px solid #223;padding:7px 10px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;flex-wrap:wrap;gap:6px">
       <span class="battle-board-label">${board.clan} · ${board.name}</span><span class="battle-hand-label">Main <b>${G.player.hand.length}</b></span><span class="battle-hand-help">Sélectionner une carte · Inspecter pour lire</span>
-      <div class="battle-actions">${G.phase==='player'?G.player.field.filter(c=>c&&c.id==='picassofragmente'&&artistEnabled(c)).map(c=>`<button class="battle-inspect" onclick="artistPicasso('${c.uid}')" ${c._artistPicassoTurn===G.turn?'disabled':''}>Picasso · Échanger ATK / PV</button>`).join(''):''}${G.phase==='player'&&!G.player._ncYpsaUsed?G.player.field.filter(c=>c&&c.id==='ypsasommetrune'&&artistEnabled(c)&&c._ncSummonTurn===G.turn&&c._ncSummonPhase===G.phase).map(c=>`<button class="battle-inspect" onclick="ncRecall('${c.uid}')">Ypsa · Renvoyer en main</button>`).join(''):''}${prestigeAttackBtn}${selectedCard?`<button class="battle-inspect" onclick="showDetailCard('${selectedCard.uid}')">Inspecter la carte</button>`:""}${playActionBtn}${sortBtn}${naturalEvoBtn}${endTurnBtn}${G.phase==="ai"?`<span role="status">L’adversaire joue…</span>`:""}</div>
+      <div class="battle-actions">${multiButtons()}${G.phase==='player'?G.player.field.filter(c=>c&&c.id==='picassofragmente'&&artistEnabled(c)).map(c=>`<button class="battle-inspect" onclick="artistPicasso('${c.uid}')" ${c._artistPicassoTurn===G.turn?'disabled':''}>Picasso · Échanger ATK / PV</button>`).join(''):''}${G.phase==='player'&&!G.player._ncYpsaUsed?G.player.field.filter(c=>c&&c.id==='ypsasommetrune'&&artistEnabled(c)&&c._ncSummonTurn===G.turn&&c._ncSummonPhase===G.phase).map(c=>`<button class="battle-inspect" onclick="ncRecall('${c.uid}')">Ypsa · Renvoyer en main</button>`).join(''):''}${prestigeAttackBtn}${selectedCard?`<button class="battle-inspect" onclick="showDetailCard('${selectedCard.uid}')">Inspecter la carte</button>`:""}${playActionBtn}${sortBtn}${naturalEvoBtn}${endTurnBtn}${G.phase==="ai"?`<span role="status">L’adversaire joue…</span>`:""}</div>
     </div>
     <div class="battle-hand-scroll" aria-label="Main du joueur, défilement horizontal"><div class="battle-hand-fan">${hand}</div></div>
   </div>`;
@@ -5936,7 +6212,7 @@ const renderDetailModal=()=>{
     <div style="background:#0a1628;border:2px solid ${TYPE_COLOR[c.type]};border-radius:10px;padding:14px;max-width:260px;font-size:12px;color:#b8d4f8;line-height:1.6">
       ${c.effect}
     </div>
-    <div style="font-size:11px;color:${FACTION_COLOR[c.faction]||'#aaa'};font-weight:bold">◆ ${c.faction}</div>
+    <div style="font-size:11px;color:${FACTION_COLOR[c.faction]||'#aaa'};font-weight:bold">◆ ${c.category?c.category+" · ":""}${c.clan||c.faction}</div>
     <div style="display:flex;gap:10px">
       ${playBtn}
       <button onclick="closeDetail()" style="background:#224488;border:none;border-radius:8px;color:#fff;padding:8px 24px;cursor:pointer;font-size:13px">Fermer</button>
@@ -6012,6 +6288,7 @@ window.attackPrestige=()=>{
 // ═══════════════════════════════════════════════════════
 const resolveCombat=(who,afi,ttype,tfi)=>{
   /* FX4 combat begin */
+  let multiCombat=null;
   const fxStamp=COMBAT_FX.begin(),fxUid=G[who].field[afi]?.uid,fxTarget=ttype==='field'?G[who==='player'?'ai':'player'].field[tfi]?.uid:null;
   try {
   /* FX4 end */
@@ -6056,6 +6333,7 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
       if(curHp(c,G[en],G.fx,G.lieu)<=0&&killCard(en,i)!==false)stealPrestige(who,c.name+' détruit par Le Cri.');
     });
   }
+  multiCombat=multiCombatBegin(who,afi,ttype,tfi);
   if(isP)SFX.attack();
   let a=calcAtk(atk,G[who],G.fx,G.lieu,isP);
   // Quadrox 2ème attaque : cap à 100 dégâts
@@ -6278,7 +6556,7 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
           const ki=G[who].field.findIndex(c=>c&&c.uid===atk.uid);
           if(ki!==-1){G[who].field[ki]={...G[who].field[ki],bonusAtk:(G[who].field[ki].bonusAtk||0)-100};addLog("☠ Scarabée Maudit ! "+atk.name+" -100 ATK permanent !");}
         }
-        if(killCard(en,tfi)!==false){/* FX4 fatal */ COMBAT_FX.fatal(def.uid,a); /* FX4 end */stealPrestige(who,def.name+" detruit !");}
+        if(killCard(en,tfi)!==false){if(multiCombat&&atk.id==='lizziehacheverdict')multiCombat.lizzieKilled=true;/* FX4 fatal */ COMBAT_FX.fatal(def.uid,a); /* FX4 end */stealPrestige(who,def.name+" detruit !");}
         // Grade kill tracking
         if(isP&&GRADES_FACTIONS.includes(atk.faction)){incFactionStat(atk.faction,"kills");}
         if(isMomie){G[en].discard=G[en].discard.filter(c=>c.uid!==def.uid);G[en].deck.push({...def,dmgTaken:0,hasAttacked:false,lastStandUsed:false,uid:mkuid()});G[en].deck=shuffle(G[en].deck);addLog("Momie retourne dans le deck !");}
@@ -6595,7 +6873,7 @@ const resolveCombat=(who,afi,ttype,tfi)=>{
     }
   }
   checkDeckOut();
-  /* FX4 combat finally */ } finally { if(fxUid)COMBAT_FX.attack(who,fxUid,fxTarget,fxStamp); } /* FX4 end */
+  /* FX4 combat finally */ } finally { if(multiCombat)multiCombatEnd(multiCombat);if(fxUid)COMBAT_FX.attack(who,fxUid,fxTarget,fxStamp); } /* FX4 end */
 };
 
 const doPlayerAttack=(afi,ttype,tfi)=>{
@@ -9161,7 +9439,7 @@ window.doEndTurn=async()=>{
 // ACHRONIA PREMIUM UI — effets DOM décoratifs, isolés de l'état de jeu.
 const PREMIUM_UI=(()=>{
   const app=document.getElementById('app');
-  let queued=false,lastBattle=null;
+  let queued=false,lastBattle=null,lastScreen=null;
   const reduced=()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const addMotes=(host,className,count)=>{
     if(!host||host.querySelector(`.${className}`))return;
@@ -9192,7 +9470,9 @@ const PREMIUM_UI=(()=>{
     queued=false;const root=app.firstElementChild;if(!root||root.dataset.premiumMounted)return;
     root.dataset.premiumMounted='true';
     // Rebuilt battle DOM must not fade or stagger after every selection.
-    if(!root.matches('.achronia-battle,.pack-theatre')){root.classList.add('premium-scene');if(!reduced())stagger(root);}
+    const screenKey=typeof SCREEN==='undefined'?'':SCREEN;
+    if(screenKey!==lastScreen&&!root.matches('.achronia-battle,.pack-theatre')){root.classList.add('premium-scene');if(!reduced())stagger(root);}
+    lastScreen=screenKey;
     const aliases={vikings:'vikings',pirates:'pirates',pyromanes:'pyromanes',punks:'punks',amazones:'amazones',amerindiens:'amerindiens',egyptiens:'egyptiens',grecs:'grecs',ninjas:'ninjas',empoisonneurs:'empoisonneurs'};
     const clanOf=t=>Object.keys(aliases).find(k=>t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(k))||'vikings';
     root.querySelectorAll('.deck-card,.pack-tile,.lobby-opponent,.card-fallback').forEach(el=>{
